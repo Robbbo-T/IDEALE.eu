@@ -101,7 +101,7 @@
       "properties": {
         "algorithm": {
           "type": "string",
-          "enum": ["Ed25519", "RSA-4096", "ECDSA-P384"]
+          "enum": ["Ed25519", "RSA-4096", "ECDSA P-384"]
         },
         "value": {
           "type": "string",
