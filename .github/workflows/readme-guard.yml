@@ -1,0 +1,140 @@
+name: README Guard
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
+
+permissions:
+  contents: read
+
+jobs:
+  guard:
+    name: Detect missing/obsolete READMEs
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Check READMEs
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ github.sha }}
+          # Customize if you like:
+          README_NAMES: README.md,Readme.md,README.MD
+          DOC_EXTS: md,rst,txt,adoc
+          ASSET_EXTS: png,jpg,jpeg,svg,gif,pdf,drawio
+          IGNORE_DIRS: .git,.github,node_modules,vendor,build,dist,target,__pycache__,.next,.venv
+          EVENT_PATH: ${{ github.event_path }}
+        run: |
+          python3 - << 'PY'
+          import os, json, subprocess, shlex, pathlib, sys
+          # Skip via label "skip-readme-guard"
+          try:
+              evt = json.load(open(os.environ["EVENT_PATH"]))
+              labels = [l["name"].lower() for l in evt.get("pull_request", {}).get("labels", [])]
+              if "skip-readme-guard" in labels:
+                  print("README Guard: skipped by label.")
+                  sys.exit(0)
+          except Exception:
+              pass
+
+          base = os.environ["BASE_SHA"]
+          head = os.environ["HEAD_SHA"]
+          readme_names = [n.strip() for n in os.environ.get("README_NAMES","README.md").split(",")]
+          doc_exts = set(os.environ.get("DOC_EXTS","md,rst,txt,adoc").split(","))
+          asset_exts = set(os.environ.get("ASSET_EXTS","png,jpg,jpeg,svg,gif,pdf,drawio").split(","))
+          ignore_dirs = set(p.strip() for p in os.environ.get("IGNORE_DIRS","").split(",") if p.strip())
+
+          def changed_files():
+              cmd = f"git diff --name-status {base}...{head}"
+              out = subprocess.check_output(shlex.split(cmd), text=True)
+              for line in out.strip().splitlines():
+                  parts = line.split("\t")
+                  if len(parts) >= 2:
+                      status, path = parts[0], parts[1]
+                      yield status, path
+
+          def is_ignored(path):
+              parts = pathlib.Path(path).parts
+              return parts and parts[0] in ignore_dirs
+
+          def is_doc_only(path):
+              ext = pathlib.Path(path).suffix.lower().lstrip(".")
+              return ext in doc_exts or ext in asset_exts
+
+          from collections import defaultdict
+          bydir = defaultdict(list)
+          for status, path in changed_files():
+              if is_ignored(path):
+                  continue
+              p = pathlib.Path(path)
+              d = "." if len(p.parts) == 1 else str(p.parent)
+              bydir[d].append((status, path))
+
+          def has_readme(d):
+              dp = pathlib.Path(d)
+              if not dp.exists():
+                  return False
+              # Exact names first
+              for rn in readme_names:
+                  if (dp / rn).exists():
+                      return True
+              # Fallback: case-insensitive match for README.md
+              for fp in dp.glob("*"):
+                  if fp.is_file() and fp.name.lower() == "readme.md":
+                      return True
+              return False
+
+          def readme_touched(files):
+              return any(pathlib.Path(p).name.lower() == "readme.md" for _, p in files)
+
+          missing, needs_update = [], []
+
+          for d, files in sorted(bydir.items()):
+              added = [p for s, p in files if s.startswith("A")]
+              non_doc_changes = [p for s, p in files if not is_doc_only(p)]
+
+              d_has_readme = has_readme(d)
+              d_readme_touched = readme_touched(files)
+
+              # New/changed content with no README present
+              if (added or non_doc_changes) and not d_has_readme:
+                  reason = "new content without README" if added else "no README present"
+                  missing.append({"dir": d, "reason": reason})
+
+              # Non-doc changes but README not updated
+              if d_has_readme and non_doc_changes and not d_readme_touched:
+                  needs_update.append({
+                      "dir": d,
+                      "reason": f"{len(non_doc_changes)} non-doc change(s) — README not updated"
+                  })
+
+          # Write a nice summary
+          summary_path = os.getenv("GITHUB_STEP_SUMMARY")
+          lines = []
+          if missing or needs_update:
+              lines.append("## README Guard Report\n")
+          if missing:
+              lines.append("### Missing README files\n")
+              lines.append("| Directory | Reason |\n|---|---|\n")
+              for item in missing:
+                  lines.append(f"| `{item['dir']}` | {item['reason']} |\n")
+          if needs_update:
+              lines.append("\n### READMEs likely need updates\n")
+              lines.append("| Directory | Reason |\n|---|---|\n")
+              for item in needs_update:
+                  lines.append(f"| `{item['dir']}` | {item['reason']} |\n")
+          if lines and summary_path:
+              with open(summary_path, "w") as f:
+                  f.write("".join(lines))
+
+          if missing or needs_update:
+              print("README Guard: issues found.")
+              sys.exit(1)
+          else:
+              print("README Guard: no issues found.")
+              sys.exit(0)
+          PY
