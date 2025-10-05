@@ -22,9 +22,9 @@ First sector profile: **TFA** (Aerospace).
 
 ```mermaid
 flowchart TB
-  A[Phase 1 — ARCHITECTURE VISION<br/>Brand & Standards] -->|proof points accumulate| B[Phase 2 — OPERATING COMPANY<br/>Services & Products]
-  B -->|revenue + ecosystem develops| C[Phase 3 — UMBRELLA BRAND<br/>Certification / Trust Mark]
-  C -->|network effects + adoption| D[Phase 4 — POLITICAL INITIATIVE<br/>EU Strategic Framework]
+  A[Phase 1 — ARCHITECTURE VISION<br/>(Brand & Standards)] -->|proof points accumulate| B[Phase 2 — OPERATING COMPANY<br/>(Services & Products)]
+  B -->|revenue + ecosystem develops| C[Phase 3 — UMBRELLA BRAND<br/>(Certification / Trust Mark)]
+  C -->|network effects + adoption| D[Phase 4 — POLITICAL INITIATIVE<br/>(EU Strategic Framework)]
 ```
 
 **Phase-1 KPIs**: IEF v0.1 released, ≥3 pilot repos with passing verification badges.
@@ -36,9 +36,9 @@ flowchart TB
 ```mermaid
 flowchart LR
   I[IDEALE.eu<br/>Umbrella Brand & Governance]
-  I --> E[IDEALE Evidence Framework IEF<br/>Public Standards + Conformance Kit]
-  E --> R[ASI-T2 internal codename<br/>Reference Implementation Repo]
-  E -->|Profiles| TFA[TFA Aerospace Profile]
+  I --> E[IDEALE Evidence Framework (IEF)<br/>Public Standards + Conformance Kit]
+  E --> R[ASI-T2 (internal codename)<br/>Reference Implementation Repo]
+  E -->|Profiles| TFA[TFA (Aerospace Profile)]
   E -->|Profiles| Other[Energy · Defense · Logistics · ESG]
   R -->|demonstrates| TFA
 ```
@@ -230,12 +230,12 @@ IDEALE.eu/
 │       │   │   │   ├── CON/  # Concept
 │       │   │   │   │   ├── concept-definition.md
 │       │   │   │   │   ├── stakeholder-requirements.yaml
-│       │   │   │   │   ├── feasibility-study.md
+│       │   │   │   │   ├── feasibility-study.pdf
 │       │   │   │   │   ├── trade-studies/
 │       │   │   │   │   ├── preliminary-design-review/
 │       │   │   │   │   └── concept-validation/
 │       │   │   │   ├── REQ/  # Requirements
-│       │   │   │   │   ├── requirements-matrix.csv
+│       │   │   │   │   ├── requirements-matrix.xlsx
 │       │   │   │   │   ├── functional-requirements.yaml
 │       │   │   │   │   ├── non-functional-requirements.yaml
 │       │   │   │   │   ├── safety-requirements/
@@ -243,7 +243,7 @@ IDEALE.eu/
 │       │   │   │   │   ├── performance-requirements/
 │       │   │   │   │   └── traceability-matrix/
 │       │   │   │   └── SYS/  # Systems
-│       │   │   │       ├── system-architecture.md
+│       │   │   │       ├── system-architecture.drawio
 │       │   │   │       ├── interfaces-definition.yaml
 │       │   │   │       ├── system-breakdown-structure.json
 │       │   │   │       ├── functional-allocation/
@@ -533,4 +533,4 @@ IDEALE.eu/
 * **v0.2** — Signatures & attestations (SLSA / in-toto), integrity bundles
 * **v0.3** — Sector trust mark pilots (Energy, Defense, Logistics, ESG)
 
----
+

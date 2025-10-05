@@ -1,0 +1,85 @@
+# Dependencies
+node_modules/
+vendor/
+.bundle/
+
+# Build outputs
+dist/
+build/
+out/
+target/
+*.egg-info/
+__pycache__/
+*.pyc
+*.pyo
+*.so
+*.dll
+*.exe
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# Environment and configuration
+.env
+.env.local
+.env.*.local
+*.key
+*.pem
+secrets/
+
+# Logs
+*.log
+logs/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+.cache/
+
+# Test coverage
+coverage/
+.nyc_output/
+htmlcov/
+.coverage
+.pytest_cache/
+
+# Package manager lock files (optionally exclude)
+# package-lock.json
+# yarn.lock
+# Pipfile.lock
+
+# Documentation build artifacts
+docs/_build/
+docs/.doctrees/
+site/
+
+# OS-specific files
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Generated graphics (if not committed)
+# Uncomment if graphics should not be version controlled
+# *.png
+# *.jpg
+# *.pdf
+# *.svg
+
+# Backup files
+*.bak
+*.backup
+*~
