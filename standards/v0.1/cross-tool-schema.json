@@ -1,0 +1,269 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://ideale.eu/schemas/cross-tool-schema/v0.1",
+  "title": "IDEALE Cross-Tool Artifact Schema",
+  "description": "JSON Schema for vendor-neutral engineering artifacts that can be exchanged between CAD/CAE/CAM/PLM tools",
+  "version": "0.1.0",
+  "type": "object",
+  "required": [
+    "artifact_id",
+    "artifact_type",
+    "version",
+    "created",
+    "creator",
+    "checksum",
+    "data"
+  ],
+  "properties": {
+    "artifact_id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Unique identifier for this artifact (UUID v4)"
+    },
+    "artifact_type": {
+      "type": "string",
+      "enum": [
+        "geometry",
+        "assembly",
+        "drawing",
+        "simulation",
+        "specification",
+        "requirement",
+        "test_report",
+        "manufacturing_plan"
+      ],
+      "description": "Type of engineering artifact"
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$",
+      "description": "Semantic version of the artifact"
+    },
+    "created": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Creation timestamp (ISO 8601)"
+    },
+    "modified": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Last modification timestamp (ISO 8601)"
+    },
+    "creator": {
+      "type": "object",
+      "required": ["id", "type", "name"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for creator (e.g., DID, email, org ID)"
+        },
+        "type": {
+          "type": "string",
+          "enum": ["Person", "Organization", "System"],
+          "description": "Type of creator entity"
+        },
+        "name": {
+          "type": "string",
+          "description": "Display name of creator"
+        },
+        "email": {
+          "type": "string",
+          "format": "email"
+        }
+      }
+    },
+    "contributors": {
+      "type": "array",
+      "items": {
+        "$ref": "#/properties/creator"
+      },
+      "description": "Additional contributors to this artifact"
+    },
+    "checksum": {
+      "type": "object",
+      "required": ["algorithm", "value"],
+      "properties": {
+        "algorithm": {
+          "type": "string",
+          "enum": ["sha256", "sha384", "sha512"],
+          "default": "sha256"
+        },
+        "value": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64,128}$",
+          "description": "Hexadecimal hash value"
+        }
+      }
+    },
+    "signature": {
+      "type": "object",
+      "required": ["algorithm", "value", "signer"],
+      "properties": {
+        "algorithm": {
+          "type": "string",
+          "enum": ["Ed25519", "RSA-4096", "ECDSA-P384"]
+        },
+        "value": {
+          "type": "string",
+          "description": "Base64-encoded signature"
+        },
+        "signer": {
+          "$ref": "#/properties/creator"
+        },
+        "timestamp": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "public_key": {
+          "type": "object",
+          "properties": {
+            "id": { "type": "string" },
+            "type": { "type": "string" },
+            "publicKeyPem": { "type": "string" }
+          }
+        }
+      }
+    },
+    "provenance": {
+      "type": "object",
+      "properties": {
+        "source_tool": {
+          "type": "object",
+          "properties": {
+            "name": { "type": "string" },
+            "version": { "type": "string" },
+            "vendor": { "type": "string" }
+          }
+        },
+        "export_timestamp": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "parent_artifacts": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "artifact_id": { "type": "string", "format": "uuid" },
+              "version": { "type": "string" },
+              "relationship": {
+                "type": "string",
+                "enum": ["derived_from", "modified_from", "includes", "references"]
+              }
+            }
+          }
+        },
+        "blockchain_anchor": {
+          "type": "object",
+          "properties": {
+            "network": { "type": "string" },
+            "transaction_id": { "type": "string" },
+            "block_number": { "type": "integer" },
+            "timestamp": { "type": "string", "format": "date-time" }
+          }
+        }
+      }
+    },
+    "metadata": {
+      "type": "object",
+      "properties": {
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "tags": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "classification": {
+          "type": "string",
+          "enum": ["public", "internal", "confidential", "secret"]
+        },
+        "license": {
+          "type": "string",
+          "description": "SPDX license identifier"
+        },
+        "project": {
+          "type": "object",
+          "properties": {
+            "id": { "type": "string" },
+            "name": { "type": "string" },
+            "phase": { "type": "string" }
+          }
+        }
+      }
+    },
+    "data": {
+      "type": "object",
+      "description": "Artifact-specific data payload",
+      "properties": {
+        "format": {
+          "type": "string",
+          "enum": ["STEP", "IGES", "JT", "STL", "3DPDF", "native"],
+          "description": "Data format specification"
+        },
+        "encoding": {
+          "type": "string",
+          "enum": ["base64", "embedded", "reference"],
+          "default": "base64"
+        },
+        "content": {
+          "description": "Actual artifact data (format-dependent)"
+        },
+        "reference": {
+          "type": "string",
+          "format": "uri",
+          "description": "External reference if not embedded"
+        },
+        "units": {
+          "type": "object",
+          "properties": {
+            "length": { "type": "string", "enum": ["mm", "m", "in", "ft"] },
+            "mass": { "type": "string", "enum": ["kg", "g", "lb"] },
+            "time": { "type": "string", "enum": ["s", "ms", "min", "hr"] }
+          }
+        },
+        "coordinate_system": {
+          "type": "object",
+          "properties": {
+            "type": { "type": "string", "enum": ["cartesian", "cylindrical"] },
+            "origin": {
+              "type": "array",
+              "items": { "type": "number" },
+              "minItems": 3,
+              "maxItems": 3
+            },
+            "orientation": { "type": "string" }
+          }
+        }
+      }
+    },
+    "validation": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": ["valid", "invalid", "pending", "unknown"]
+        },
+        "checks": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "check_name": { "type": "string" },
+              "result": { "type": "boolean" },
+              "message": { "type": "string" },
+              "timestamp": { "type": "string", "format": "date-time" }
+            }
+          }
+        },
+        "conformance": {
+          "type": "object",
+          "properties": {
+            "ief_version": { "type": "string" },
+            "passed": { "type": "boolean" },
+            "badge_url": { "type": "string", "format": "uri" }
+          }
+        }
+      }
+    }
+  }
+}
