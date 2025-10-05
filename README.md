@@ -69,6 +69,15 @@ print("✓ IEF manifest OK")
 PY
 ```
 
+**Creator Royalties**
+
+See [Royalties Quick Start Guide](docs/ROYALTIES_QUICKSTART.md) for automatic creator remuneration:
+
+```bash
+# Accrue royalties for an artifact
+python3 scripts/accrue_royalty.py examples/royalties/example-simple.artifact.json reuse 10000
+```
+
 ---
 
 ## 📂 COMPLETE REPOSITORY STRUCTURE
@@ -505,6 +514,15 @@ IDEALE.eu/
 │
 ├── [contracts/](./contracts/)
 │   └── [RevenueSplit.sol](./contracts/RevenueSplit.sol)
+│
+├── [examples/](./examples/)
+│   └── [royalties/](./examples/royalties/)
+│       ├── [README.md](./examples/royalties/README.md)
+│       ├── [example-simple.artifact.json](./examples/royalties/example-simple.artifact.json)
+│       └── [example-derivative.artifact.json](./examples/royalties/example-derivative.artifact.json)
+│
+├── [docs/](./docs/)
+│   └── [ROYALTIES_QUICKSTART.md](./docs/ROYALTIES_QUICKSTART.md)
 │
 ├── [services/](./services/)
 │   ├── [aqua-os-pro/](./services/aqua-os-pro/)
