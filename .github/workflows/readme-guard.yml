@@ -1,20 +1,20 @@
 name: README auto-instructions (PR)
 
 on:
-  pull_request:
+  pull_request_target:
     types: [opened, reopened, synchronize, ready_for_review]
 
 permissions:
-  contents: read
-  pull-requests: write
-  issues: write
+  contents: read          # read repo metadata / PR files / trees
+  pull-requests: write    # comment / request reviewers
+  issues: write           # sticky comment action uses Issues API
 
 concurrency:
   group: readme-instructor-${{ github.event.pull_request.number }}
   cancel-in-progress: true
 
 env:
-  COPILOT_HANDLE: "@copilot" # 👈 who to instruct
+  COPILOT_HANDLE: "@copilot"
   README_CANDIDATES: "README.md|README-PAGES.md|Readme.md|README"
   DOC_EXTS: "md,rst,txt,adoc"
   ASSET_EXTS: "png,jpg,jpeg,svg,gif,pdf,drawio"
@@ -24,27 +24,24 @@ jobs:
   instruct:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 1
-
-      - name: Build Copilot instruction
+      - name: Build Copilot instruction (no checkout; API only)
         id: build
         uses: actions/github-script@v7
         with:
           result-encoding: string
           script: |
             const path = require('path');
-            const fs = require('fs');
-
             const { owner, repo } = context.repo;
-            const pr = context.payload.pull_request?.number;
-            if (!pr || context.payload.pull_request?.draft) {
-              const msg = 'Not applicable (no PR or draft).';
-              core.setOutput('result', msg);
-              return msg;
+            const pr = context.payload.pull_request;
+            if (!pr) {
+              return core.setOutput('result', 'Not a PR run.');
             }
+            const prNumber = pr.number;
+            const baseRef = pr.base.ref;
+            const headRef = pr.head.ref;
+            const headSha = pr.head.sha;
+            const headRepoOwner = pr.head.repo.owner.login;
+            const headRepoName  = pr.head.repo.name;
 
             const README_CANDIDATES = (process.env.README_CANDIDATES || "README.md").split("|");
             const DOC_EXTS = new Set((process.env.DOC_EXTS || "md").split(",").map(s => s.trim().toLowerCase()).filter(Boolean));
@@ -52,138 +49,130 @@ jobs:
             const IGNORE_PREFIXES = (process.env.IGNORE_PREFIXES || "").split(",").map(s => s.trim()).filter(Boolean);
 
             const repoUrl = context.payload.repository.html_url;
-            const headSha = context.payload.pull_request.head.sha;
-            const copilot = (process.env.COPILOT_HANDLE || '').trim() || '@copilot';
+            const copilotHandle = (process.env.COPILOT_HANDLE || '@copilot').trim();
 
             const isIgnored = (dir) => IGNORE_PREFIXES.some(p => dir === p || dir.startsWith(p + '/'));
             const extOf = (f) => path.posix.extname(f).toLowerCase().replace(/^\./, '');
             const baseOf = (f) => path.posix.basename(f);
 
-            // Get list of files in PR
+            // 1) List changed files in the PR
             const files = await github.paginate(github.rest.pulls.listFiles, {
-              owner, repo, pull_number: pr, per_page: 100
+              owner, repo, pull_number: prNumber, per_page: 100
             });
 
-            // Group by directory (skip removals & ignored paths)
+            // 2) Build dir -> file map (skip removed & ignored)
             const dirs = new Map();
-            function ensureDir(d) {
+            const ensure = (d) => {
               if (!dirs.has(d)) dirs.set(d, {
-                files: [],
                 nonDocFiles: [],
-                readmeCandidatesFound: [],
                 readmeChanged: false,
               });
               return dirs.get(d);
-            }
-
+            };
             for (const f of files) {
               if (f.status === 'removed') continue;
               const dir = path.posix.dirname(f.filename) || '.';
               if (isIgnored(dir)) continue;
 
-              const info = ensureDir(dir);
-              info.files.push({ filename: f.filename, status: f.status, additions: f.additions, deletions: f.deletions });
-
+              const info = ensure(dir);
               const fname = baseOf(f.filename);
-              const isReadme = README_CANDIDATES.some(rn => rn.toLowerCase() === fname.toLowerCase());
-              if (isReadme) info.readmeChanged = true;
-
               const ext = extOf(f.filename);
+              const isReadmeCand = README_CANDIDATES.some(r => r.toLowerCase() === fname.toLowerCase());
+              if (isReadmeCand) info.readmeChanged = true;
               if (!/readme/i.test(fname) && !DOC_EXTS.has(ext) && !ASSET_EXTS.has(ext)) {
-                info.nonDocFiles.push({ filename: f.filename, status: f.status });
+                info.nonDocFiles.push(f.filename);
               }
             }
 
-            // Workspace helper
-            const ws = process.env.GITHUB_WORKSPACE;
-            const findReadme = (dir) => {
-              try {
-                const full = path.join(ws, dir === '.' ? '' : dir);
-                if (!fs.existsSync(full)) return null;
-                const entries = fs.readdirSync(full);
-                for (const e of entries) {
-                  if (README_CANDIDATES.some(rn => rn.toLowerCase() === e.toLowerCase())) return e;
-                }
-              } catch {}
-              return null;
+            // 3) Build a fast index of all paths at PR HEAD via Trees API (safe; no checkout)
+            //    Get commit -> tree -> recursive listing
+            const commit = await github.rest.git.getCommit({
+              owner: headRepoOwner,
+              repo: headRepoName,
+              commit_sha: headSha
+            });
+            const treeSha = commit.data.tree.sha;
+            const tree = await github.rest.git.getTree({
+              owner: headRepoOwner,
+              repo: headRepoName,
+              tree_sha: treeSha,
+              recursive: 'true'
+            });
+            const allPaths = new Set((tree.data.tree || []).filter(e => e.type === 'blob').map(e => e.path));
+
+            const hasReadmeInDir = (dir) => {
+              const prefix = (dir === '.' ? '' : dir + '/');
+              return README_CANDIDATES.find(c => allPaths.has(prefix + c)) || null;
             };
 
-            // Build tasks
+            // Helper to fetch small README snippet (best-effort; public forks OK)
+            async function getReadmeSnippet(dir, name) {
+              try {
+                const thePath = dir === '.' ? name : `${dir}/${name}`;
+                const resp = await github.request('GET /repos/{owner}/{repo}/contents/{path}', {
+                  owner: headRepoOwner,
+                  repo: headRepoName,
+                  path: thePath,
+                  ref: headSha
+                });
+                const b64 = resp.data.content || '';
+                const raw = Buffer.from(b64, 'base64').toString('utf8');
+                return raw.slice(0, 2000);
+              } catch (e) {
+                return '';
+              }
+            }
+
+            // 4) Build tasks
             const tasks = [];
             for (const [dir, info] of [...dirs.entries()].sort((a,b)=>a[0].localeCompare(b[0]))) {
-              // Only consider directories where code/config changed
-              if (info.nonDocFiles.length === 0) continue;
+              if (info.nonDocFiles.length === 0) continue; // only act when code/config changed
 
-              const existingReadme = findReadme(dir);
-              const needs = {
-                status: existingReadme ? (info.readmeChanged ? 'OK' : 'NEEDS_UPDATE') : 'MISSING',
-                existingReadme,
-              };
+              const existingReadme = hasReadmeInDir(dir);
+              const status = existingReadme ? (info.readmeChanged ? 'OK' : 'NEEDS_UPDATE') : 'MISSING';
+              if (status === 'OK') continue;
 
-              if (needs.status === 'OK') continue; // README updated already
-
-              // read a small snippet of existing README (if any) for Copilot context
-              let readmeSnippet = '';
-              if (existingReadme) {
-                try {
-                  const p = path.join(ws, dir === '.' ? '' : dir, existingReadme);
-                  const raw = fs.readFileSync(p, 'utf8');
-                  readmeSnippet = raw.slice(0, 2000);
-                } catch {}
-              }
-
+              const snippet = existingReadme ? await getReadmeSnippet(dir, existingReadme) : '';
               tasks.push({
-                dir,
-                existingReadme,
-                status: needs.status,
-                changed: info.nonDocFiles.map(x => x.filename),
-                snippet: readmeSnippet,
+                dir, status, existingReadme,
+                changed: info.nonDocFiles,
+                snippet
               });
             }
 
-            // If no work to do, short message
-            if (!tasks.length) {
-              const msg = `No README generation/update needed.`;
-              core.setOutput('result', msg);
-              return msg;
-            }
-
-            // Build instruction body for Copilot
-            const headRef = context.payload.pull_request.head.ref;
-            const baseRef = context.payload.pull_request.base.ref;
-
-            let body = `@${copilot.replace(/^@/, '')}\n\n`;
+            // 5) Build instruction body
+            let body = `@${copilotHandle.replace(/^@/, '')}\n\n`;
             body += `**Role:** Senior documentation engineer for this repository.\n`;
             body += `**Goal:** Generate or update folder READMEs to reflect *code/config* changes introduced by this PR.\n\n`;
             body += `**Branch:** \`${headRef}\` (base: \`${baseRef}\`)\n`;
             body += `**Commit:** \`${headSha}\`\n\n`;
-            body += `**Instructions:** For each task below, produce a reply with one or more *multi-file patch* blocks that:\n`;
+            body += `**Instructions:** For each task below, reply with one or more *multi-file patch* blocks that:\n`;
             body += `- Create \`README.md\` if missing, **or** update the existing README.\n`;
-            body += `- Accurately summarize the folder purpose and the changes from this PR.\n`;
-            body += `- Include these sections (when applicable): Title, Overview, Folder Contents, How it Fits (system/architecture), Setup/Usage, Interfaces & Contracts, Evidence (SBOM/UTCS links if present), Tests, Owners/Maintainers, Changelog (this PR).\n`;
-            body += `- Keep it concise and actionable. Use relative links to files present in the folder.\n`;
-            body += `- Use English, Markdown.\n\n`;
-            body += `**Patch format:** Use GitHub multi-file patch style so maintainers can *Apply patch* in one click, e.g.:\n`;
-            body += `\`\`\`patch\n*** Begin Patch\n*** Add File: path/to/README.md\n# Title\n...\n*** End Patch\n\`\`\`\n`;
-            body += `or:\n`;
-            body += `\`\`\`patch\n*** Begin Patch\n*** Update File: path/to/README.md\n- old line\n+ new line\n*** End Patch\n\`\`\`\n\n`;
+            body += `- Summarize the folder purpose and the changes from this PR.\n`;
+            body += `- Include sections where relevant: Title, Overview, Folder Contents, How it Fits, Setup/Usage, Interfaces & Contracts, Evidence (SBOM/UTCS links), Tests, Owners, Changelog (this PR).\n`;
+            body += `- Use Markdown, concise style, relative links.\n\n`;
+            body += `**Patch format examples:**\n`;
+            body += "```patch\n*** Begin Patch\n*** Add File: path/to/README.md\n# Title\n...\n*** End Patch\n```\n";
+            body += "```patch\n*** Begin Patch\n*** Update File: path/to/README.md\n- old line\n+ new line\n*** End Patch\n```\n\n";
 
-            // Per-folder tasks
+            if (!tasks.length) {
+              body += `✅ No README generation/update needed.\n`;
+              core.setOutput('result', body);
+              return body;
+            }
+
             for (const t of tasks) {
               const link = t.dir === '.' ? `${repoUrl}/tree/${headSha}` : `${repoUrl}/tree/${headSha}/${t.dir}`;
               body += `---\n`;
               body += `### Task: \`${t.dir}\` → ${t.status === 'MISSING' ? 'Create README.md' : 'Update existing README'}\n`;
-              body += `- Folder link: ${link}\n`;
-              if (t.existingReadme) body += `- Existing README: \`${t.existingReadme}\`\n`;
+              body += `- Folder: ${link}\n`;
+              if (t.existingReadme) body += `- Existing: \`${t.existingReadme}\`\n`;
               body += `- Changed files (non-doc):\n`;
               for (const f of t.changed) body += `  - \`${f}\`\n`;
               if (t.existingReadme && t.snippet) {
-                body += `- Existing README (snippet):\n`;
-                body += `\n\`\`\`md\n${t.snippet}\n\`\`\`\n`;
+                body += `- Existing README (snippet):\n\`\`\`md\n${t.snippet}\n\`\`\`\n`;
               }
-              // Provide a minimal skeleton Copilot can fill
-              body += `- Minimal skeleton to follow (adapt as needed):\n`;
-              body += `\n\`\`\`md\n# ${path.posix.basename(t.dir) || repo}\n\n## Overview\n<what this folder does and why it exists>\n\n## Contents\n- <list key files/folders and purpose>\n\n## How it fits\n<system/architecture context, interfaces>\n\n## Setup / Usage\n<commands or steps to run/build/test>\n\n## Evidence\n- SBOM: (if any)\n- UTCS/CXP: (if any)\n\n## Tests\n<how to run tests related to this folder>\n\n## Owners\n- <team or GitHub handles>\n\n## Changelog (this PR)\n- <summarize changes based on files above>\n\`\`\`\n\n`;
+              body += `- Skeleton to follow:\n\`\`\`md\n# ${path.posix.basename(t.dir) || repo}\n\n## Overview\n<what this folder does>\n\n## Contents\n- <key files>\n\n## How it fits\n<context & interfaces>\n\n## Setup / Usage\n<commands>\n\n## Evidence\n- SBOM: (if any)\n- UTCS/CXP: (if any)\n\n## Tests\n<how to run>\n\n## Owners\n- <team/handles>\n\n## Changelog (this PR)\n- <summary>\n\`\`\`\n\n`;
             }
 
             core.setOutput('result', body);
@@ -196,7 +185,7 @@ jobs:
           message: ${{ steps.build.outputs.result }}
 
       - name: Add label and request review from Copilot
-        if: contains(steps.build.outputs.result, 'Task: `')
+        if: contains(steps.build.outputs.result, 'Task: `') || contains(steps.build.outputs.result, 'No README generation')
         uses: actions/github-script@v7
         env:
           COPILOT_HANDLE: ${{ env.COPILOT_HANDLE }}
@@ -205,28 +194,34 @@ jobs:
             const pr = context.payload.pull_request?.number;
             if (!pr) return;
 
-            // Add label
-            const label = 'copilot:readme-update-requested';
+            // Label for visibility
             try {
-              await github.rest.issues.addLabels({ ...context.repo, issue_number: pr, labels: [label] });
+              await github.rest.issues.addLabels({
+                ...context.repo,
+                issue_number: pr,
+                labels: ['copilot:readme-update-requested']
+              });
             } catch (e) {
               core.info(`Label add failed: ${e.message}`);
             }
 
-            // Request review from @copilot (strip @)
+            // Try to request review from Copilot (ignore if not a collaborator)
             const reviewer = (process.env.COPILOT_HANDLE || '').replace(/^@/,'').trim();
-            if (!reviewer) return;
-            try {
-              await github.rest.pulls.requestReviewers({
-                ...context.repo,
-                pull_number: pr,
-                reviewers: [reviewer],
-              });
-            } catch (e) {
-              core.info(`Could not request reviewer ${reviewer}: ${e.message}`);
+            if (reviewer) {
+              try {
+                await github.rest.pulls.requestReviewers({
+                  ...context.repo,
+                  pull_number: pr,
+                  reviewers: [reviewer],
+                });
+              } catch (e) {
+                core.info(`Could not request reviewer ${reviewer}: ${e.message}`);
+              }
             }
 
-      - name: Summarize
+      - name: Debug summary
         run: |
-          echo "Posted Copilot instructions. Awaiting patch suggestions in PR comments." >> "$GITHUB_STEP_SUMMARY"
-
+          echo "Instruction size: ${#INSTR}" >> $GITHUB_STEP_SUMMARY
+          printf "%s\n" "${INSTR}" >> $GITHUB_STEP_SUMMARY
+        env:
+          INSTR: ${{ steps.build.outputs.result }}
