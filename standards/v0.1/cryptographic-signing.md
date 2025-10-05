@@ -245,5 +245,4 @@ See:
 ## Conformance Testing
 
 Implementations MUST pass:
-- `standards/v0.1/conformance-tests.md` - Signing test suite
-- Test vectors in `standards/v0.1/test-vectors/signatures/`
+_Conformance test suite and test vectors are not yet available in this repository. This section will be updated when they are provided._
