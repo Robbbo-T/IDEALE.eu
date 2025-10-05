@@ -52,6 +52,8 @@ flowchart LR
 * `standards/v0.1/verify-action.yml` — reference GitHub Action (verify + badge)
 * `standards/v0.1/conformance-tests.md` — test suite requirements
 * `standards/v0.1/implementers-guide.md` — 30-minute quickstart
+* `standards/v0.1/creator-royalties.md` — creator remuneration and royalty distribution
+* `standards/v0.1/artifact.schema.json` — artifact metadata with revshare allocations
 
 **Quickstart**
 
@@ -488,7 +490,21 @@ IDEALE.eu/
 │       ├── [sbom-baseline.md](./standards/v0.1/sbom-baseline.md)
 │       ├── [verify-action.yml](./standards/v0.1/verify-action.yml)
 │       ├── [conformance-tests.md](./standards/v0.1/conformance-tests.md)
-│       └── [implementers-guide.md](./standards/v0.1/implementers-guide.md)
+│       ├── [implementers-guide.md](./standards/v0.1/implementers-guide.md)
+│       ├── [creator-royalties.md](./standards/v0.1/creator-royalties.md)
+│       └── [artifact.schema.json](./standards/v0.1/artifact.schema.json)
+│
+├── [config/](./config/)
+│   └── [royalties.json](./config/royalties.json)
+│
+├── [scripts/](./scripts/)
+│   └── [accrue_royalty.py](./scripts/accrue_royalty.py)
+│
+├── [royalties/](./royalties/)
+│   └── [README.md](./royalties/README.md)
+│
+├── [contracts/](./contracts/)
+│   └── [RevenueSplit.sol](./contracts/RevenueSplit.sol)
 │
 ├── [services/](./services/)
 │   ├── [aqua-os-pro/](./services/aqua-os-pro/)
@@ -515,7 +531,8 @@ IDEALE.eu/
     │   ├── [ief-verify.yml](./.github/workflows/ief-verify.yml)
     │   ├── [tfa-structure-check.yml](./.github/workflows/tfa-structure-check.yml)
     │   ├── [quantum-layers-check.yml](./.github/workflows/quantum-layers-check.yml)
-    │   └── [cxp-publish.yml](./.github/workflows/cxp-publish.yml)
+    │   ├── [cxp-publish.yml](./.github/workflows/cxp-publish.yml)
+    │   └── [royalties-accrual.yml](./.github/workflows/royalties-accrual.yml)
     └── [ISSUE_TEMPLATE/](./.github/ISSUE_TEMPLATE/)
         └── [cxp_request.yml](./.github/ISSUE_TEMPLATE/cxp_request.yml)
 ```

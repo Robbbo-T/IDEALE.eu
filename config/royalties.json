@@ -1,0 +1,11 @@
+{
+  "version": "0.1",
+  "fee_bps": 10,
+  "distribution": {
+    "creators_bps_of_fee": 6000,
+    "validators_bps_of_fee": 2500,
+    "treasury_bps_of_fee": 1500
+  },
+  "min_payout_threshold_tt": 50,
+  "payout_period_days": 14
+}

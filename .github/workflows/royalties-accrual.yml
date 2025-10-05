@@ -1,0 +1,59 @@
+name: Royalties · Accrual on PR
+
+on:
+  pull_request:
+    types: [opened, reopened, synchronize, ready_for_review]
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  accrue:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 1 }
+
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.x" }
+
+      - name: Detect artifact metadata files
+        id: detect
+        uses: actions/github-script@v7
+        with:
+          result-encoding: string
+          script: |
+            const {owner, repo} = context.repo;
+            const pr = context.payload.pull_request?.number;
+            if (!pr) return JSON.stringify({files: []});
+            const files = await github.paginate(github.rest.pulls.listFiles, { owner, repo, pull_number: pr, per_page: 100 });
+            const changed = files
+              .filter(f => f.status !== 'removed')
+              .map(f => f.filename)
+              .filter(p => p.endsWith('artifact.json') || p.endsWith('.artifact.json'));
+            return JSON.stringify({ files: changed });
+
+      - name: Accrue royalties (if any)
+        id: accrue
+        if: ${{ fromJSON(steps.detect.outputs.result).files.length > 0 }}
+        run: |
+          set -e
+          for f in $(jq -r '.files[]' <<< '${{ steps.detect.outputs.result }}'); do
+            echo "::group::Accruing for $f"
+            python3 scripts/accrue_royalty.py "$f" reuse || true
+            echo "::endgroup::"
+          done
+
+      - name: Post summary comment
+        if: ${{ fromJSON(steps.detect.outputs.result).files.length > 0 }}
+        uses: marocchino/sticky-pull-request-comment@v2
+        with:
+          header: "🎨 Creator Royalties · Accrual Preview"
+          message: |
+            Detected artifact metadata files:
+            ```
+            ${{ join(fromJSON(steps.detect.outputs.result).files, '\n') }}
+            ```
+            Royalties accrued and logged to `royalties/ledger.jsonl`.
+            > *Note*: This is a preview accrual on PR; payouts follow the configured period/threshold.
