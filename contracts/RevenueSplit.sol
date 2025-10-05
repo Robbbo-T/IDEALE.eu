@@ -33,13 +33,11 @@ contract RevenueSplit {
         for (uint i=0; i<allocs.length; i++) sum += allocs[i].shareBps;
         require(sum == totalBps, "sum!=10000");
 
-        Allocation[] memory mem = new Allocation[](allocs.length);
-        for (uint i=0; i<allocs.length; i++) mem[i] = allocs[i];
 
         Artifact storage a = artifacts[contentHash];
         a.contentHash = contentHash;
         a.totalBps = totalBps;
-        for (uint i=0; i<mem.length; i++) a.allocations.push(mem[i]);
+        for (uint i=0; i<allocs.length; i++) a.allocations.push(allocs[i]);
         a.exists = true;
 
         emit Registered(contentHash, totalBps);
