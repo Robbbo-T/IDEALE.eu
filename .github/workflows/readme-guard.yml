@@ -1,140 +1,233 @@
-name: README Guard
+```yaml
+name: README auto-instructions (PR)
 
 on:
   pull_request:
-    types: [opened, synchronize, reopened, ready_for_review]
+    types: [opened, reopened, synchronize, ready_for_review]
 
 permissions:
   contents: read
+  pull-requests: write
+  issues: write
+
+concurrency:
+  group: readme-instructor-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+env:
+  COPILOT_HANDLE: "@copilot" # 👈 who to instruct
+  README_CANDIDATES: "README.md|README-PAGES.md|Readme.md|README"
+  DOC_EXTS: "md,rst,txt,adoc"
+  ASSET_EXTS: "png,jpg,jpeg,svg,gif,pdf,drawio"
+  IGNORE_PREFIXES: ".github,.git,_site,scripts,.vscode,.idea,dist,build,target,node_modules,vendor,__pycache__,.venv,.next"
 
 jobs:
-  guard:
-    name: Detect missing/obsolete READMEs
+  instruct:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0
+          fetch-depth: 1
 
-      - name: Check READMEs
+      - name: Build Copilot instruction
+        id: build
+        uses: actions/github-script@v7
+        with:
+          result-encoding: string
+          script: |
+            const path = require('path');
+            const fs = require('fs');
+
+            const { owner, repo } = context.repo;
+            const pr = context.payload.pull_request?.number;
+            if (!pr || context.payload.pull_request?.draft) {
+              const msg = 'Not applicable (no PR or draft).';
+              core.setOutput('result', msg);
+              return msg;
+            }
+
+            const README_CANDIDATES = (process.env.README_CANDIDATES || "README.md").split("|");
+            const DOC_EXTS = new Set((process.env.DOC_EXTS || "md").split(",").map(s => s.trim().toLowerCase()).filter(Boolean));
+            const ASSET_EXTS = new Set((process.env.ASSET_EXTS || "").split(",").map(s => s.trim().toLowerCase()).filter(Boolean));
+            const IGNORE_PREFIXES = (process.env.IGNORE_PREFIXES || "").split(",").map(s => s.trim()).filter(Boolean);
+
+            const repoUrl = context.payload.repository.html_url;
+            const headSha = context.payload.pull_request.head.sha;
+            const copilot = (process.env.COPILOT_HANDLE || '').trim() || '@copilot';
+
+            const isIgnored = (dir) => IGNORE_PREFIXES.some(p => dir === p || dir.startsWith(p + '/'));
+            const extOf = (f) => path.posix.extname(f).toLowerCase().replace(/^\./, '');
+            const baseOf = (f) => path.posix.basename(f);
+
+            // Get list of files in PR
+            const files = await github.paginate(github.rest.pulls.listFiles, {
+              owner, repo, pull_number: pr, per_page: 100
+            });
+
+            // Group by directory (skip removals & ignored paths)
+            const dirs = new Map();
+            function ensureDir(d) {
+              if (!dirs.has(d)) dirs.set(d, {
+                files: [],
+                nonDocFiles: [],
+                readmeCandidatesFound: [],
+                readmeChanged: false,
+              });
+              return dirs.get(d);
+            }
+
+            for (const f of files) {
+              if (f.status === 'removed') continue;
+              const dir = path.posix.dirname(f.filename) || '.';
+              if (isIgnored(dir)) continue;
+
+              const info = ensureDir(dir);
+              info.files.push({ filename: f.filename, status: f.status, additions: f.additions, deletions: f.deletions });
+
+              const fname = baseOf(f.filename);
+              const isReadme = README_CANDIDATES.some(rn => rn.toLowerCase() === fname.toLowerCase());
+              if (isReadme) info.readmeChanged = true;
+
+              const ext = extOf(f.filename);
+              if (!/readme/i.test(fname) && !DOC_EXTS.has(ext) && !ASSET_EXTS.has(ext)) {
+                info.nonDocFiles.push({ filename: f.filename, status: f.status });
+              }
+            }
+
+            // Workspace helper
+            const ws = process.env.GITHUB_WORKSPACE;
+            const findReadme = (dir) => {
+              try {
+                const full = path.join(ws, dir === '.' ? '' : dir);
+                if (!fs.existsSync(full)) return null;
+                const entries = fs.readdirSync(full);
+                for (const e of entries) {
+                  if (README_CANDIDATES.some(rn => rn.toLowerCase() === e.toLowerCase())) return e;
+                }
+              } catch {}
+              return null;
+            };
+
+            // Build tasks
+            const tasks = [];
+            for (const [dir, info] of [...dirs.entries()].sort((a,b)=>a[0].localeCompare(b[0]))) {
+              // Only consider directories where code/config changed
+              if (info.nonDocFiles.length === 0) continue;
+
+              const existingReadme = findReadme(dir);
+              const needs = {
+                status: existingReadme ? (info.readmeChanged ? 'OK' : 'NEEDS_UPDATE') : 'MISSING',
+                existingReadme,
+              };
+
+              if (needs.status === 'OK') continue; // README updated already
+
+              // read a small snippet of existing README (if any) for Copilot context
+              let readmeSnippet = '';
+              if (existingReadme) {
+                try {
+                  const p = path.join(ws, dir === '.' ? '' : dir, existingReadme);
+                  const raw = fs.readFileSync(p, 'utf8');
+                  readmeSnippet = raw.slice(0, 2000);
+                } catch {}
+              }
+
+              tasks.push({
+                dir,
+                existingReadme,
+                status: needs.status,
+                changed: info.nonDocFiles.map(x => x.filename),
+                snippet: readmeSnippet,
+              });
+            }
+
+            // If no work to do, short message
+            if (!tasks.length) {
+              const msg = `No README generation/update needed.`;
+              core.setOutput('result', msg);
+              return msg;
+            }
+
+            // Build instruction body for Copilot
+            const headRef = context.payload.pull_request.head.ref;
+            const baseRef = context.payload.pull_request.base.ref;
+
+            let body = `@${copilot.replace(/^@/, '')}\n\n`;
+            body += `**Role:** Senior documentation engineer for this repository.\n`;
+            body += `**Goal:** Generate or update folder READMEs to reflect *code/config* changes introduced by this PR.\n\n`;
+            body += `**Branch:** \`${headRef}\` (base: \`${baseRef}\`)\n`;
+            body += `**Commit:** \`${headSha}\`\n\n`;
+            body += `**Instructions:** For each task below, produce a reply with one or more *multi-file patch* blocks that:\n`;
+            body += `- Create \`README.md\` if missing, **or** update the existing README.\n`;
+            body += `- Accurately summarize the folder purpose and the changes from this PR.\n`;
+            body += `- Include these sections (when applicable): Title, Overview, Folder Contents, How it Fits (system/architecture), Setup/Usage, Interfaces & Contracts, Evidence (SBOM/UTCS links if present), Tests, Owners/Maintainers, Changelog (this PR).\n`;
+            body += `- Keep it concise and actionable. Use relative links to files present in the folder.\n`;
+            body += `- Use English, Markdown.\n\n`;
+            body += `**Patch format:** Use GitHub multi-file patch style so maintainers can *Apply patch* in one click, e.g.:\n`;
+            body += `\`\`\`patch\n*** Begin Patch\n*** Add File: path/to/README.md\n# Title\n...\n*** End Patch\n\`\`\`\n`;
+            body += `or:\n`;
+            body += `\`\`\`patch\n*** Begin Patch\n*** Update File: path/to/README.md\n- old line\n+ new line\n*** End Patch\n\`\`\`\n\n`;
+
+            // Per-folder tasks
+            for (const t of tasks) {
+              const link = t.dir === '.' ? `${repoUrl}/tree/${headSha}` : `${repoUrl}/tree/${headSha}/${t.dir}`;
+              body += `---\n`;
+              body += `### Task: \`${t.dir}\` → ${t.status === 'MISSING' ? 'Create README.md' : 'Update existing README'}\n`;
+              body += `- Folder link: ${link}\n`;
+              if (t.existingReadme) body += `- Existing README: \`${t.existingReadme}\`\n`;
+              body += `- Changed files (non-doc):\n`;
+              for (const f of t.changed) body += `  - \`${f}\`\n`;
+              if (t.existingReadme && t.snippet) {
+                body += `- Existing README (snippet):\n`;
+                body += `\n\`\`\`md\n${t.snippet}\n\`\`\`\n`;
+              }
+              // Provide a minimal skeleton Copilot can fill
+              body += `- Minimal skeleton to follow (adapt as needed):\n`;
+              body += `\n\`\`\`md\n# ${path.posix.basename(t.dir) || repo}\n\n## Overview\n<what this folder does and why it exists>\n\n## Contents\n- <list key files/folders and purpose>\n\n## How it fits\n<system/architecture context, interfaces>\n\n## Setup / Usage\n<commands or steps to run/build/test>\n\n## Evidence\n- SBOM: (if any)\n- UTCS/CXP: (if any)\n\n## Tests\n<how to run tests related to this folder>\n\n## Owners\n- <team or GitHub handles>\n\n## Changelog (this PR)\n- <summarize changes based on files above>\n\`\`\`\n\n`;
+            }
+
+            core.setOutput('result', body);
+            return body;
+
+      - name: Post instruction to Copilot (sticky)
+        uses: marocchino/sticky-pull-request-comment@v2
+        with:
+          header: "🧭 Copilot: please generate/update READMEs"
+          message: ${{ steps.build.outputs.result }}
+
+      - name: Add label and request review from Copilot
+        if: contains(steps.build.outputs.result, 'Task: `')
+        uses: actions/github-script@v7
         env:
-          BASE_SHA: ${{ github.event.pull_request.base.sha }}
-          HEAD_SHA: ${{ github.sha }}
-          # Customize if you like:
-          README_NAMES: README.md,Readme.md,README.MD
-          DOC_EXTS: md,rst,txt,adoc
-          ASSET_EXTS: png,jpg,jpeg,svg,gif,pdf,drawio
-          IGNORE_DIRS: .git,.github,node_modules,vendor,build,dist,target,__pycache__,.next,.venv
-          EVENT_PATH: ${{ github.event_path }}
+          COPILOT_HANDLE: ${{ env.COPILOT_HANDLE }}
+        with:
+          script: |
+            const pr = context.payload.pull_request?.number;
+            if (!pr) return;
+
+            // Add label
+            const label = 'copilot:readme-update-requested';
+            try {
+              await github.rest.issues.addLabels({ ...context.repo, issue_number: pr, labels: [label] });
+            } catch (e) {
+              core.info(`Label add failed: ${e.message}`);
+            }
+
+            // Request review from @copilot (strip @)
+            const reviewer = (process.env.COPILOT_HANDLE || '').replace(/^@/,'').trim();
+            if (!reviewer) return;
+            try {
+              await github.rest.pulls.requestReviewers({
+                ...context.repo,
+                pull_number: pr,
+                reviewers: [reviewer],
+              });
+            } catch (e) {
+              core.info(`Could not request reviewer ${reviewer}: ${e.message}`);
+            }
+
+      - name: Summarize
         run: |
-          python3 - << 'PY'
-          import os, json, subprocess, shlex, pathlib, sys
-          # Skip via label "skip-readme-guard"
-          try:
-              evt = json.load(open(os.environ["EVENT_PATH"]))
-              labels = [l["name"].lower() for l in evt.get("pull_request", {}).get("labels", [])]
-              if "skip-readme-guard" in labels:
-                  print("README Guard: skipped by label.")
-                  sys.exit(0)
-          except Exception:
-              pass
-
-          base = os.environ["BASE_SHA"]
-          head = os.environ["HEAD_SHA"]
-          readme_names = [n.strip() for n in os.environ.get("README_NAMES","README.md").split(",")]
-          doc_exts = set(os.environ.get("DOC_EXTS","md,rst,txt,adoc").split(","))
-          asset_exts = set(os.environ.get("ASSET_EXTS","png,jpg,jpeg,svg,gif,pdf,drawio").split(","))
-          ignore_dirs = set(p.strip() for p in os.environ.get("IGNORE_DIRS","").split(",") if p.strip())
-
-          def changed_files():
-              cmd = f"git diff --name-status {base}...{head}"
-              out = subprocess.check_output(shlex.split(cmd), text=True)
-              for line in out.strip().splitlines():
-                  parts = line.split("\t")
-                  if len(parts) >= 2:
-                      status, path = parts[0], parts[1]
-                      yield status, path
-
-          def is_ignored(path):
-              parts = pathlib.Path(path).parts
-              return parts and parts[0] in ignore_dirs
-
-          def is_doc_only(path):
-              ext = pathlib.Path(path).suffix.lower().lstrip(".")
-              return ext in doc_exts or ext in asset_exts
-
-          from collections import defaultdict
-          bydir = defaultdict(list)
-          for status, path in changed_files():
-              if is_ignored(path):
-                  continue
-              p = pathlib.Path(path)
-              d = "." if len(p.parts) == 1 else str(p.parent)
-              bydir[d].append((status, path))
-
-          def has_readme(d):
-              dp = pathlib.Path(d)
-              if not dp.exists():
-                  return False
-              # Exact names first
-              for rn in readme_names:
-                  if (dp / rn).exists():
-                      return True
-              # Fallback: case-insensitive match for README.md
-              for fp in dp.glob("*"):
-                  if fp.is_file() and fp.name.lower() == "readme.md":
-                      return True
-              return False
-
-          def readme_touched(files):
-              return any(pathlib.Path(p).name.lower() == "readme.md" for _, p in files)
-
-          missing, needs_update = [], []
-
-          for d, files in sorted(bydir.items()):
-              added = [p for s, p in files if s.startswith("A")]
-              non_doc_changes = [p for s, p in files if not is_doc_only(p)]
-
-              d_has_readme = has_readme(d)
-              d_readme_touched = readme_touched(files)
-
-              # New/changed content with no README present
-              if (added or non_doc_changes) and not d_has_readme:
-                  reason = "new content without README" if added else "no README present"
-                  missing.append({"dir": d, "reason": reason})
-
-              # Non-doc changes but README not updated
-              if d_has_readme and non_doc_changes and not d_readme_touched:
-                  needs_update.append({
-                      "dir": d,
-                      "reason": f"{len(non_doc_changes)} non-doc change(s) — README not updated"
-                  })
-
-          # Write a nice summary
-          summary_path = os.getenv("GITHUB_STEP_SUMMARY")
-          lines = []
-          if missing or needs_update:
-              lines.append("## README Guard Report\n")
-          if missing:
-              lines.append("### Missing README files\n")
-              lines.append("| Directory | Reason |\n|---|---|\n")
-              for item in missing:
-                  lines.append(f"| `{item['dir']}` | {item['reason']} |\n")
-          if needs_update:
-              lines.append("\n### READMEs likely need updates\n")
-              lines.append("| Directory | Reason |\n|---|---|\n")
-              for item in needs_update:
-                  lines.append(f"| `{item['dir']}` | {item['reason']} |\n")
-          if lines and summary_path:
-              with open(summary_path, "w") as f:
-                  f.write("".join(lines))
-
-          if missing or needs_update:
-              print("README Guard: issues found.")
-              sys.exit(1)
-          else:
-              print("README Guard: no issues found.")
-              sys.exit(0)
-          PY
+          echo "Posted Copilot instructions. Awaiting patch suggestions in PR comments." >> "$GITHUB_STEP_SUMMARY"
+```
