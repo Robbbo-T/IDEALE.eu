@@ -87,7 +87,7 @@ def accrue(artifact_meta_path, event, declared_value_eur=None):
                 return u["payoutHint"]
             asset = next((x for x in registry.get("assets", []) if x.get("id") == u.get("id")), None)
             if asset and asset.get("maintainers"):
-                # si hay múltiples maintainers, repartir a partes iguales
+                # if there are multiple maintainers, split equally
                 return {
                     "tt": asset["maintainers"][0]["payout"]["tt"],
                     "iban": asset["maintainers"][0]["payout"].get("iban")
