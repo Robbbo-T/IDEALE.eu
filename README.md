@@ -22,9 +22,9 @@ First sector profile: **TFA** (Aerospace).
 
 ```mermaid
 flowchart TD
-  A[Phase 1 — ARCHITECTURE VISION<br/>{Brand & Standards}] -->|proof points accumulate| B[Phase 2 — OPERATING COMPANY<br/>{Services & Products}]
-  B -->|revenue + ecosystem develops| C[Phase 3 — UMBRELLA BRAND<br/>{Certification / Trust Mark}]
-  C -->|network effects + adoption| D[Phase 4 — POLITICAL INITIATIVE<br/>{EU Strategic Framework}]
+  A[Phase 1 — ARCHITECTURE VISION<br/>Brand and Standards] -->|proof points accumulate| B[Phase 2 — OPERATING COMPANY<br/>Services and Products]
+  B -->|revenue + ecosystem develops| C[Phase 3 — UMBRELLA BRAND<br/>Certification / Trust Mark]
+  C -->|network effects + adoption| D[Phase 4 — POLITICAL INITIATIVE<br/>EU Strategic Framework]
 ```
 
 **Phase-1 KPIs**: IEF v0.1 released, ≥3 pilot repos with passing verification badges.
@@ -36,9 +36,9 @@ flowchart TD
 ```mermaid
 flowchart LR
   I[IDEALE.eu<br/>Umbrella Brand & Governance]
-  I --> E[IDEALE Evidence Framework (IEF)<br/>Public Standards + Conformance Kit]
-  E --> R[ASI-T2 (internal codename)<br/>Reference Implementation Repo]
-  E -->|Profiles| TFA[TFA (Aerospace Profile)]
+  I --> E[IDEALE Evidence Framework IEF<br/>Public Standards + Conformance Kit]
+  E --> R[ASI-T2 internal codename<br/>Reference Implementation Repo]
+  E -->|Profiles| TFA[TFA Aerospace Profile]
   E -->|Profiles| Other[Energy · Defense · Logistics · ESG]
   R -->|demonstrates| TFA
 ```
