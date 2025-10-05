@@ -157,9 +157,9 @@
           "type": "object",
           "properties": {
             "network": { "type": "string" },
-            "transaction_id": { "type": "string" },
+            "transaction_hash": { "type": "string" },
             "block_number": { "type": "integer" },
-            "timestamp": { "type": "string", "format": "date-time" }
+            "anchored_at": { "type": "string", "format": "date-time" }
           }
         }
       }
