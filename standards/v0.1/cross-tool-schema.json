@@ -118,9 +118,12 @@
           "type": "object",
           "properties": {
             "id": { "type": "string" },
-            "type": { "type": "string" },
-            "publicKeyPem": { "type": "string" }
-          }
+            "type": { "type": "string" }
+          },
+          "oneOf": [
+            { "required": ["publicKeyPem"], "properties": { "publicKeyPem": { "type": "string" } } },
+            { "required": ["publicKeyBase58"], "properties": { "publicKeyBase58": { "type": "string" } } }
+          ]
         }
       }
     },
