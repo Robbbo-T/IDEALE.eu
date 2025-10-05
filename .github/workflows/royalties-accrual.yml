@@ -81,7 +81,7 @@ jobs:
         if: ${{ github.event_name == 'pull_request' && fromJSON(steps.detect.outputs.result).files.length > 0 }}
         uses: marocchino/sticky-pull-request-comment@v2
         with:
-          header: "🎨 Creator Royalties · Accrual Preview"
+          header: "🎨 Creator Royalties - Accrual Preview"
           message: |
             Detected artifact metadata files:
             ```
