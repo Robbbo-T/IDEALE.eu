@@ -98,8 +98,17 @@ generative_design_pipeline:
 
 ## 🤝 Collaboration Models (optional token layer)
 
-* **Team** (single org), **Cross-org** (OEM–Tier1–Tier2), **Ad-hoc** (temporary consortia)
-* Each contribution can mint **verifiable evidence, attribution, and optional compensation**.
+- **Team** (single org), **Cross-org** (OEM–Tier1–Tier2), **Ad-hoc** (temporary consortia)
+- Each contribution can mint **verifiable evidence, attribution, and optional compensation**.
+
+**Token/standards artifacts:**
+- `standards/v0.1/context.schema.json` — UTCS/CXP manifest schema (JSON Schema draft-07)
+- `standards/v0.1/sbom-baseline.md` — SPDX 2.3 profile requirements
+- `standards/v0.1/verify-action.yml` — reference GitHub Action (verify + badge)
+- `standards/v0.1/conformance-tests.md` — test suite requirements
+- `standards/v0.1/implementers-guide.md` — 30-minute quickstart
+- `standards/v0.1/creator-royalties.md` — creator remuneration and royalty distribution
+- `standards/v0.1/artifact.schema.json` — artifact metadata with revshare allocations
 
 ---
 
@@ -133,6 +142,15 @@ generative_design_pipeline:
    python evidence-engine/provenance-tracker/blockchain-anchor.py \
      --in build/your_model.ief.json
    ```
+
+**Creator Royalties**
+
+See [Royalties Quick Start Guide](docs/ROYALTIES_QUICKSTART.md) for automatic creator remuneration:
+
+```bash
+# Accrue royalties for an artifact
+python3 scripts/accrue_royalty.py examples/royalties/example-simple.artifact.json reuse 10000
+```
 
 ---
 
@@ -555,7 +573,30 @@ IDEALE.eu/
 │       ├── [sbom-baseline.md](./standards/v0.1/sbom-baseline.md)
 │       ├── [verify-action.yml](./standards/v0.1/verify-action.yml)
 │       ├── [conformance-tests.md](./standards/v0.1/conformance-tests.md)
-│       └── [implementers-guide.md](./standards/v0.1/implementers-guide.md)
+│       ├── [implementers-guide.md](./standards/v0.1/implementers-guide.md)
+│       ├── [creator-royalties.md](./standards/v0.1/creator-royalties.md)
+│       └── [artifact.schema.json](./standards/v0.1/artifact.schema.json)
+│
+├── [config/](./config/)
+│   └── [royalties.json](./config/royalties.json)
+│
+├── [scripts/](./scripts/)
+│   └── [accrue_royalty.py](./scripts/accrue_royalty.py)
+│
+├── [royalties/](./royalties/)
+│   └── [README.md](./royalties/README.md)
+│
+├── [contracts/](./contracts/)
+│   └── [RevenueSplit.sol](./contracts/RevenueSplit.sol)
+│
+├── [examples/](./examples/)
+│   └── [royalties/](./examples/royalties/)
+│       ├── [README.md](./examples/royalties/README.md)
+│       ├── [example-simple.artifact.json](./examples/royalties/example-simple.artifact.json)
+│       └── [example-derivative.artifact.json](./examples/royalties/example-derivative.artifact.json)
+│
+├── [docs/](./docs/)
+│   └── [ROYALTIES_QUICKSTART.md](./docs/ROYALTIES_QUICKSTART.md)
 │
 ├── [services/](./services/)
 │   ├── [aqua-os-pro/](./services/aqua-os-pro/)
@@ -582,7 +623,8 @@ IDEALE.eu/
     │   ├── [ief-verify.yml](./.github/workflows/ief-verify.yml)
     │   ├── [tfa-structure-check.yml](./.github/workflows/tfa-structure-check.yml)
     │   ├── [quantum-layers-check.yml](./.github/workflows/quantum-layers-check.yml)
-    │   └── [cxp-publish.yml](./.github/workflows/cxp-publish.yml)
+    │   ├── [cxp-publish.yml](./.github/workflows/cxp-publish.yml)
+    │   └── [royalties-accrual.yml](./.github/workflows/royalties-accrual.yml)
     └── [ISSUE_TEMPLATE/](./.github/ISSUE_TEMPLATE/)
         └── [cxp_request.yml](./.github/ISSUE_TEMPLATE/cxp_request.yml)
 ```
