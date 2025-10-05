@@ -1,27 +1,27 @@
 # Meta‑Royalties (Infra & Tooling) · v0.1
 
-**Objetivo.** Remunerar automáticamente a quienes crean las herramientas y estándares
-que hacen posible la producción de artefactos (esquemas, workflows, generadores, validadores,
-asistentes), sin cambiar el reparto a autores y validadores.
+**Objective.** Automatically remunerate those who create the tools and standards
+that make the production of artifacts possible (schemas, workflows, generators, validators,
+assistants), without changing the distribution to authors and validators.
 
-## Pool Meta
-- Se define un pool `infra_bps_of_fee` dentro de la fee total (BPS sobre la fee).
-- Este pool se distribuye entre los meta‑assets **referenciados** por el artefacto:
+## Meta Pool
+- A pool `infra_bps_of_fee` is defined within the total fee (BPS over the fee).
+- This pool is distributed among the meta‑assets **referenced** by the artifact:
   - `tooling.used[] = [{ id, version, weight, payoutHint? }]`
-  - Cuantos más meta‑assets y mayor `weight`, mayor porción relativa.
+  - The more meta‑assets and the higher the `weight`, the larger the relative share.
 
-## Cómo se decide el pago
-1) **Detección**: el CI lee `artifact.json` y recoge `tooling.used`.
-2) **Resolución**: usa `standards/v0.1/meta-assets.registry.json` (o `payoutHint`) para
-   resolver la cuenta de pago.
-3) **Proporción**: suma de `weight` → distribución proporcional del pool meta.
+## How the payment is decided
+1) **Detection**: the CI reads `artifact.json` and collects `tooling.used`.
+2) **Resolution**: it uses `standards/v0.1/meta-assets.registry.json` (or `payoutHint`) to
+   resolve the payment account.
+3) **Proportion**: sum of `weight` → proportional distribution of the meta pool.
 
-## Asistentes AI
-- Se registran como `agent:<nombre>` con `payoutHint`:
-  - `tt: "sink:ai-compute"` (fondo de cómputo del repo) o
-  - `tt: "creator/<operador-humano>"` si se quiere retribuir a la persona operadora.
-- El agente se **reconoce** y se **reporta** (transparencia), el pago va a la cuenta designada.
+## AI Assistants
+- They are registered as `agent:<name>` with `payoutHint`:
+  - `tt: "sink:ai-compute"` (repo compute fund) or
+  - `tt: "creator/<human-operator>"` if you want to reward the human operator.
+- The agent is **recognized** and **reported** (transparency), the payment goes to the designated account.
 
-## Invariantes
-- No se rompe la suma de fee: `creators + validators + treasury + infra == 100% de la fee`.
-- Si `infra_bps_of_fee=0`, el sistema queda como antes (compatibilidad total).
+## Invariants
+- The sum of the fee is not broken: `creators + validators + treasury + infra == 100% of the fee`.
+- If `infra_bps_of_fee=0`, the system remains as before (full compatibility).
