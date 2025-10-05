@@ -17,7 +17,7 @@ jobs:
   accrue:
     name: Accrue Creator Royalties
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -35,7 +35,6 @@ jobs:
         with:
           script: |
             const { execSync } = require('child_process');
-            
             // Find all artifact.json files in the changeset
             let files = [];
             try {
@@ -44,7 +43,6 @@ jobs:
             } catch (e) {
               console.log('No artifact files changed');
             }
-            
             console.log(`Found ${files.length} artifact files`);
             return { files };
 
@@ -66,7 +64,6 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          
           if [ -f royalties/ledger.jsonl ]; then
             git add royalties/ledger.jsonl
             if git diff --staged --quiet; then
@@ -95,7 +92,7 @@ jobs:
 
       - name: Upload ledger artifact
         if: ${{ fromJSON(steps.detect.outputs.result).files.length > 0 }}
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: royalties-ledger
           path: royalties/ledger.jsonl
