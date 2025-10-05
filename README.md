@@ -74,11 +74,26 @@ PY
 ```bash
 IDEALE.eu/
 ├── [README.md](./README.md)
+├── [README-ROYALTIES.md](./README-ROYALTIES.md)
+├── [EXAMPLES-ROYALTIES.md](./EXAMPLES-ROYALTIES.md)
 ├── [LICENSE](./LICENSE)
 ├── [.gitignore](./.gitignore)
 ├── [Makefile](./Makefile)
 ├── [CONTRIBUTING.md](./CONTRIBUTING.md)
 ├── [GOVERNANCE.md](./GOVERNANCE.md)
+│
+├── [config/](./config/)
+│   └── [royalties.json](./config/royalties.json)
+│
+├── [scripts/](./scripts/)
+│   └── [accrue_royalty.py](./scripts/accrue_royalty.py)
+│
+├── [royalties/](./royalties/)
+│   └── [ledger.jsonl](./royalties/) (generated)
+│
+├── [artifacts/](./artifacts/)
+│   └── [sample-design/](./artifacts/sample-design/)
+│       └── [artifact.json](./artifacts/sample-design/artifact.json)
 │
 ├── [0-STRATEGY/](./0-STRATEGY/)
 │   ├── [MISSION-VISION.md](./0-STRATEGY/MISSION-VISION.md)
@@ -488,7 +503,10 @@ IDEALE.eu/
 │       ├── [sbom-baseline.md](./standards/v0.1/sbom-baseline.md)
 │       ├── [verify-action.yml](./standards/v0.1/verify-action.yml)
 │       ├── [conformance-tests.md](./standards/v0.1/conformance-tests.md)
-│       └── [implementers-guide.md](./standards/v0.1/implementers-guide.md)
+│       ├── [implementers-guide.md](./standards/v0.1/implementers-guide.md)
+│       ├── [artifact.schema.json](./standards/v0.1/artifact.schema.json)
+│       ├── [meta-assets.registry.json](./standards/v0.1/meta-assets.registry.json)
+│       └── [meta-royalties.md](./standards/v0.1/meta-royalties.md)
 │
 ├── [services/](./services/)
 │   ├── [aqua-os-pro/](./services/aqua-os-pro/)
@@ -524,6 +542,34 @@ IDEALE.eu/
 
 - `./2-PROGRAM-TEMPLATE/TFA/SYSTEMS/SI/tests/` — Directory exists as `{tests}` (with braces) but README references `tests/`
 
+
+---
+
+## Meta-Royalties System 🎨
+
+**Automated compensation for creators, validators, and infrastructure providers.**
+
+IDEALE.eu implements a transparent royalty distribution system that rewards:
+- **Artifact creators** (60% of fee) — designers and authors
+- **Validators** (23% of fee) — reviewers and quality assurance  
+- **Infra & Tooling** (15% of fee) — schema maintainers, workflow authors, AI assistants
+- **Treasury** (2% of fee) — organizational sustainability
+
+Key features:
+- ✅ Weight-based attribution for meta-assets (schemas, workflows, generators)
+- ✅ AI assistant recognition (e.g., Copilot) with configurable payout routing
+- ✅ Append-only ledger for full transparency (`royalties/ledger.jsonl`)
+- ✅ Automated accrual via GitHub Actions on artifact changes
+
+**Learn more:**
+- [README-ROYALTIES.md](./README-ROYALTIES.md) — Complete documentation
+- [EXAMPLES-ROYALTIES.md](./EXAMPLES-ROYALTIES.md) — Usage examples
+- [standards/v0.1/meta-royalties.md](./standards/v0.1/meta-royalties.md) — Policy details
+
+**Quick start:**
+```bash
+python3 scripts/accrue_royalty.py artifacts/my-design/artifact.json PR_MERGE
+```
 
 ---
 
