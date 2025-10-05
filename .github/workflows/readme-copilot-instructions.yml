@@ -13,14 +13,12 @@ env:
   COPILOT_HANDLE: "@copilot"
   README_CANDIDATES: "README.md|README-PAGES.md|Readme.md|README"
   IGNORE_PREFIXES: ".github,.git,_site,scripts,.vscode,.idea,dist,build,target,node_modules,vendor,__pycache__,.venv,.next"
-  DOC_EXTS: "md,rst,txt,adoc"
-  ASSET_EXTS: "png,jpg,jpeg,svg,gif,pdf,drawio"
 
 jobs:
   build-instructions:
     runs-on: ubuntu-latest
     steps:
-      - name: Detect missing / stale READMEs (soft)
+      - name: Detect .gitkeep folders needing READMEs
         id: detect
         uses: actions/github-script@v7
         with:
@@ -30,12 +28,11 @@ jobs:
 
             const pr = context.payload.pull_request;
             if (!pr) {
-              core.setOutput('json', JSON.stringify({ needs: false, tasks: [] }));
-              return 'no-pr';
+              core.setOutput('json', JSON.stringify({ needs:false, tasks:[], headRef:'', baseRef:'', headSha:'', baseSha:'' }));
+              return;
             }
 
-            const owner   = context.repo.owner;
-            const repo    = context.repo.repo;
+            const { owner, repo } = context.repo;
             const prNum   = pr.number;
             const headSha = pr.head.sha;
             const baseSha = pr.base.sha;
@@ -43,80 +40,74 @@ jobs:
             const baseRef = pr.base.ref;
             const repoUrl = pr.base.repo.html_url;
 
-            const README_CANDS = (process.env.README_CANDIDATES || 'README.md').split('|').map(s => s.trim());
-            const IGNORE_LIST  = (process.env.IGNORE_PREFIXES || '').split(',').map(s => s.trim()).filter(Boolean);
-            const DOCS   = new Set((process.env.DOC_EXTS   || 'md').split(',').map(s => s.trim().toLowerCase()).filter(Boolean));
-            const ASSETS = new Set((process.env.ASSET_EXTS || '').split(',').map(s => s.trim().toLowerCase()).filter(Boolean));
-
-            // Precompiled ignore regex + memo
+            const README_CANDS = (process.env.README_CANDIDATES || 'README.md').split('|').map(s=>s.trim());
+            const IGNORE = (process.env.IGNORE_PREFIXES || '').split(',').map(s=>s.trim()).filter(Boolean);
             const IGNORE_RE = new RegExp(`^(?:${
-              IGNORE_LIST.map(p => p.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|')
+              IGNORE.map(p => p.replace(/[.*+?^${}()|[\\]\\\\]/g, '\\$&')).join('|')
             })(?:/|$)`);
-            const _ignoreCache = new Map();
-            const isIgnored = (d) => {
-              if (_ignoreCache.has(d)) return _ignoreCache.get(d);
-              const res = IGNORE_RE.test(d);
-              _ignoreCache.set(d, res);
-              return res;
-            };
 
+            // list PR files
             const files = await github.paginate(github.rest.pulls.listFiles, {
               owner, repo, pull_number: prNum, per_page: 100
             });
 
-            const byDir = new Map();
-            const extOf = f => path.posix.extname(f).toLowerCase().replace(/^\./,'');
-            const baseName = f => path.posix.basename(f);
+            // gather candidate dirs where a .gitkeep is present (either added or already on base),
+            // and no README candidate is present *in head*
+            const dirs = new Map(); // dir -> { hasGitkeep, hasReadme, changed:[] }
+            const baseHas = async (p) => {
+              try { await github.rest.repos.getContent({ owner, repo, path: p, ref: baseSha }); return true; }
+              catch { return false; }
+            };
+            const headHas = async (p) => {
+              try { await github.rest.repos.getContent({ owner, repo, path: p, ref: headSha }); return true; }
+              catch { return false; }
+            };
 
+            // Prime by PR file list (fast path)
             for (const f of files) {
-              if (f.status === 'removed') continue;            // ignore deletions
-              const dir = path.posix.dirname(f.filename) || '.'; // '' → '.'
-              if (isIgnored(dir)) continue;
+              const dir = path.posix.dirname(f.filename) || '.';
+              if (IGNORE_RE.test(dir)) continue;
+              if (!dirs.has(dir)) dirs.set(dir, { hasGitkeep:false, hasReadme:false, changed:[] });
 
-              const info = byDir.get(dir) || { changed: [], readmeTouched: false };
-              const name = baseName(f.filename);
-              const ext  = extOf(f.filename);
+              const rec = dirs.get(dir);
+              rec.changed.push(f.filename);
 
-              const isReadme = README_CANDS.some(c => c.toLowerCase() === name.toLowerCase());
-              if (isReadme) {
-                info.readmeTouched = true;
-              } else {
-                // Only flag “code/config” files (not docs/assets)
-                if (!DOCS.has(ext) && !ASSETS.has(ext)) info.changed.push(f.filename);
-              }
-              byDir.set(dir, info);
+              const base = path.posix.basename(f.filename).toLowerCase();
+              if (base === '.gitkeep') rec.hasGitkeep = true;
+              if (README_CANDS.some(c => c.toLowerCase() === base)) rec.hasReadme = true;
             }
 
-            // Does the base branch already have a README-ish file in this dir?
-            async function baseHasReadme(dir) {
+            // Enrich with repo state (head/base) for dirs that mention .gitkeep or have changes
+            async function evaluateDir(dir) {
+              const info = dirs.get(dir) || { hasGitkeep:false, hasReadme:false, changed:[] };
+              // Confirm .gitkeep exists in head OR base
+              const gitkeepPath = dir === '.' ? '.gitkeep' : `${dir}/.gitkeep`;
+              const gitkeepExists = info.hasGitkeep || await headHas(gitkeepPath) || await baseHas(gitkeepPath);
+
+              // Check readme existence on head
+              let readmeHead = false;
               for (const cand of README_CANDS) {
                 const p = dir === '.' ? cand : `${dir}/${cand}`;
-                try {
-                  await github.rest.repos.getContent({ owner, repo, path: p, ref: baseSha });
-                  return cand;
-                } catch {
-                  /* 404 → try next candidate */
-                }
+                if (await headHas(p)) { readmeHead = true; break; }
               }
-              return null;
+
+              // If nothing to do, skip
+              if (!gitkeepExists || readmeHead) return null;
+
+              // Prefer a title from the dir name
+              const title = dir === '.' ? 'Project root' : dir.split('/').slice(-1)[0];
+
+              const link = dir === '.'
+                ? `${repoUrl}/tree/${headSha}`
+                : `${repoUrl}/tree/${headSha}/${dir}`;
+
+              return { dir, link, title, suggestReplace: gitkeepExists && !readmeHead };
             }
 
-            const tasks = [];
-            for (const [dir, info] of [...byDir.entries()].sort((a,b)=>a[0].localeCompare(b[0]))) {
-              if (info.changed.length === 0) continue;  // nothing but docs/assets changed
-              if (info.readmeTouched) continue;         // README already updated/created in this PR
+            const tasksRaw = await Promise.all([...dirs.keys()].filter(d=>!IGNORE_RE.test(d)).map(evaluateDir));
+            const tasks = tasksRaw.filter(Boolean);
 
-              const baseReadme = await baseHasReadme(dir);
-              const status = baseReadme ? 'NEEDS_UPDATE' : 'MISSING';
-              const link = dir === '.' ? `${repoUrl}/tree/${headSha}` : `${repoUrl}/tree/${headSha}/${dir}`;
-              tasks.push({ dir, status, baseReadme, changed: info.changed, link });
-            }
-
-            const result = {
-              needs: tasks.length > 0,
-              tasks,
-              baseSha, headSha, baseRef, headRef, repoUrl,
-            };
+            const result = { needs: tasks.length>0, tasks, headRef, baseRef, headSha, baseSha, repoUrl };
             core.setOutput('json', JSON.stringify(result));
             return JSON.stringify(result);
 
@@ -125,42 +116,82 @@ jobs:
         uses: actions/github-script@v7
         with:
           result-encoding: string
-          # 👇 pass the JSON from the previous step as a normal input (not a nested "with")
           json: ${{ steps.detect.outputs.json }}
           script: |
             const data = JSON.parse(core.getInput('json', { required: true }));
             const handle = (process.env.COPILOT_HANDLE || '@copilot').replace(/^@/, '');
-            let body = `@${handle}\n\n`;
-            body += `**Role:** Senior documentation engineer\n`;
-            body += `**Goal:** Generate or update folder READMEs to reflect code/config changes in this PR.\n\n`;
-            body += `**Branch:** \`${data.headRef}\` → base \`${data.baseRef}\`\n`;
-            body += `**Head commit:** \`${data.headSha}\`\n\n`;
-            body += `**How to reply:** Provide multi-file patches using GitHub’s “suggest changes” format. Use these patterns:\n\n`;
-            body += "```patch\n*** Begin Patch\n*** Add File: path/to/README.md\n# Title\n...\n*** End Patch\n```\n";
-            body += "```patch\n*** Begin Patch\n*** Update File: path/to/README.md\n- old\n+ new\n*** End Patch\n```\n\n";
+
+            function chunk(arr, size) {
+              const out = [];
+              for (let i=0; i<arr.length; i+=size) out.push(arr.slice(i, i+size));
+              return out;
+            }
+
+            const header =
+              `@${handle}\n\n` +
+              `**Role:** Senior documentation engineer\n` +
+              `**Goal:** For each folder listed, replace \`.gitkeep\` with a new \`README.md\` that documents the folder purpose, contents, interfaces, usage, evidence, and owners.\n\n` +
+              `**Branch:** \`${data.headRef}\` → base \`${data.baseRef}\`\n` +
+              `**Head commit:** \`${data.headSha}\`\n\n` +
+              `**How to reply:** Provide multi-file patches using GitHub's "suggest changes" format for each folder:\n\n` +
+              "```patch\n*** Begin Patch\n*** Delete File: <dir>/.gitkeep\n*** End Patch\n```\n" +
+              "```patch\n*** Begin Patch\n*** Add File: <dir>/README.md\n# <Folder Title>\n...\n*** End Patch\n```\n";
 
             if (!data.needs) {
-              body += `✅ No README creation/updates needed.\n`;
-            } else {
-              for (const t of data.tasks) {
-                body += `---\n### Task: \`${t.dir}\` → ${t.status === 'MISSING' ? 'Create README.md' : 'Update README'}\n`;
-                body += `- Folder: ${t.link}\n`;
-                if (t.baseReadme) body += `- Existing on base: \`${t.baseReadme}\`\n`;
-                body += `- Changed files (non-doc):\n`;
-                for (const f of t.changed) body += `  - \`${f}\`\n`;
-                body += `- Suggested skeleton:\n\`\`\`md\n# ${t.dir === '.' ? 'Project root' : t.dir}\n\n## Overview\n<what this folder does>\n\n## Contents\n- <key files>\n\n## Interfaces / How it fits\n<context & interfaces>\n\n## Setup / Usage\n<commands>\n\n## Evidence\n- SBOM:\n- UTCS/CXP:\n\n## Tests\n\n## Owners\n\n## Changelog (this PR)\n\`\`\`\n\n`;
-              }
+              core.setOutput('text', header + '✅ No `.gitkeep`→README conversions required.\n');
+              return header + '✅ No `.gitkeep`→README conversions required.\n';
             }
-            core.setOutput('text', body);
-            return body;
 
-      - name: Post / update sticky comment
+            const groups = chunk(data.tasks, 40); // keep comments reasonable
+            const messages = groups.map((group, idx) => {
+              let body = header + `**Batch ${idx+1} of ${groups.length}** — folders: ${group.length}\n\n`;
+              for (const t of group) {
+                body += `---\n### Task: \`${t.dir}\` — Replace \`.gitkeep\` with \`README.md\`\n`;
+                body += `- Folder: ${t.link}\n`;
+                body += "```patch\n*** Begin Patch\n*** Delete File: " + (t.dir === '.' ? '.gitkeep' : `${t.dir}/.gitkeep`) + "\n*** End Patch\n```\n";
+                body += "```patch\n*** Begin Patch\n*** Add File: " + (t.dir === '.' ? 'README.md' : `${t.dir}/README.md`) + "\n";
+                body += `# ${t.title}\n\n`;
+                body += "## Overview\n<brief description of this folder's responsibility and scope>\n\n";
+                body += "## Contents\n- <key files / subfolders>\n\n";
+                body += "## Interfaces\n- Inputs:\n- Outputs:\n- Dependencies:\n\n";
+                body += "## Setup / Usage\n<commands, how to contribute, how to run tests>\n\n";
+                body += "## Evidence & Compliance\n- SBOM: link or path if applicable\n- UTCS/CXP: link to manifest if applicable\n\n";
+                body += "## Owners\n- @owner1 @owner2\n\n";
+                body += "## Changelog (this PR)\n- <high-level summary of changes in this directory>\n";
+                body += "*** End Patch\n```\n\n";
+              }
+              return body;
+            });
+
+            core.setOutput('text', messages[0]);
+            // Also output extra batches (if any) for later steps to post
+            if (messages.length > 1) core.setOutput('extra', JSON.stringify(messages.slice(1)));
+            return messages[0];
+
+      - name: Post / update sticky comment (batch 1)
         uses: marocchino/sticky-pull-request-comment@v2
         with:
-          header: "🧭 Copilot: generate/update READMEs"
+          header: "🧭 Copilot: convert .gitkeep → README.md (batch 1)"
           message: ${{ steps.build.outputs.text }}
 
-      - name: Add label and request Copilot review (if needed)
+      - name: Post extra batches (if any)
+        if: ${{ steps.build.outputs.extra }}
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const extra = JSON.parse(core.getInput('extra'));
+            const pr = context.payload.pull_request?.number;
+            if (!pr) return;
+            for (let i = 0; i < extra.length; i++) {
+              await github.rest.issues.createComment({
+                ...context.repo,
+                issue_number: pr,
+                body: extra[i].replace('batch 1', `batch ${i+2}`)
+              });
+            }
+          extra: ${{ steps.build.outputs.extra }}
+
+      - name: Label and request Copilot review
         if: ${{ fromJSON(steps.detect.outputs.json).needs }}
         uses: actions/github-script@v7
         env:
@@ -169,18 +200,14 @@ jobs:
           script: |
             const pr = context.payload.pull_request?.number;
             if (!pr) return;
-
             try {
               await github.rest.issues.addLabels({
                 ...context.repo,
                 issue_number: pr,
-                labels: ['copilot:readme-update-requested']
+                labels: ['copilot:readme-generation-requested']
               });
-            } catch (e) {
-              core.info(`Label add failed: ${e.message}`);
-            }
-
-            const reviewer = (process.env.COPILOT_HANDLE || '').replace(/^@/, '').trim();
+            } catch (e) { core.info(`Label add failed: ${e.message}`); }
+            const reviewer = (process.env.COPILOT_HANDLE || '').replace(/^@/,'').trim();
             if (reviewer) {
               try {
                 await github.rest.pulls.requestReviewers({
@@ -188,8 +215,5 @@ jobs:
                   pull_number: pr,
                   reviewers: [reviewer],
                 });
-              } catch (e) {
-                core.info(`Request reviewers failed: ${e.message}`);
-              }
+              } catch (e) { core.info(`Request reviewers failed: ${e.message}`); }
             }
-
