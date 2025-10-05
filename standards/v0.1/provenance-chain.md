@@ -346,8 +346,6 @@ audit_trail = provenance.get_full_trail(artifact_id)
 
 See:
 - `evidence-engine/provenance-tracker/blockchain-anchor.py`
-- `evidence-engine/provenance-tracker/modification-history.py`
-- `evidence-engine/provenance-tracker/contributor-attribution.py`
 
 ## Standards Compliance
 
