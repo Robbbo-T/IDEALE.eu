@@ -124,7 +124,7 @@ jobs:
                 if (t.baseReadme) body += `- Existing on base: \`${t.baseReadme}\`\n`;
                 body += `- Changed files (non-doc):\n`;
                 for (const f of t.changed) body += `  - \`${f}\`\n`;
-                body += `- Suggested skeleton:\n\`\`\`md\n# ${t.dir === '.' ? 'Project root' : t.dir}\n\n## Overview\n<what this folder does>\n\n## Contents\n- <key files>\n\n## Interfaces / How it fits\n<context & interfaces>\n\n## Setup / Usage\n<commands>\n\n## Evidence\n- SBOM:\n- UTCS/CXP:\n\n## Tests\n\n## Owners\n\n## Changelog (this PR)\n\`\`\`\n\n`;
+                body += `- Suggested skeleton:
               }
             }
             core.setOutput('text', body);
