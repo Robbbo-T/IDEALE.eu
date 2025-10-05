@@ -1,0 +1,122 @@
+# IDEALE Evidence Framework (IEF) v0.1
+# Artifact Portability Specification
+
+version: "0.1"
+title: "IDEALE Artifact Portability Specification"
+description: |
+  Defines requirements for portable, vendor-neutral engineering artifacts
+  that can move seamlessly across CAD/CAE/CAM/ERP/PLM tools without
+  information loss or vendor lock-in.
+
+artifact_requirements:
+  portable:
+    description: "Artifact must be transferable between different tools"
+    properties:
+      - neutral_format: true
+      - lossless_conversion: true
+      - metadata_preservation: true
+      - geometry_fidelity: high
+      - semantic_integrity: preserved
+  
+  verifiable:
+    description: "Artifact must be cryptographically verifiable"
+    properties:
+      - cryptographic_hash: sha256
+      - digital_signature: required
+      - signature_algorithm: "RSA-4096 or Ed25519"
+      - timestamp: required
+      - signer_identity: verified
+  
+  traceable:
+    description: "Full change history must be immutable"
+    properties:
+      - version_control: required
+      - change_log: immutable
+      - author_attribution: required
+      - modification_timestamp: required
+      - parent_references: tracked
+  
+  vendor_neutral:
+    description: "No dependency on proprietary tool formats"
+    properties:
+      - open_standards: preferred
+      - documented_schema: required
+      - parser_availability: open_source
+      - tool_independence: true
+      - format_specification: public
+  
+  legally_defensible:
+    description: "Chain of custody suitable for IP disputes"
+    properties:
+      - provenance_chain: complete
+      - custody_records: timestamped
+      - access_log: immutable
+      - legal_compliance: gdpr_ready
+      - audit_trail: comprehensive
+
+supported_formats:
+  input:
+    - STEP (ISO 10303)
+    - IGES
+    - JT (ISO 14306)
+    - 3D PDF (ISO 24517)
+    - Proprietary (with adapters)
+  
+  neutral:
+    - IEF JSON (primary)
+    - IEF Binary (optimized)
+    - IEF XML (legacy)
+  
+  output:
+    - Any supported input format
+    - Tool-specific via adapters
+
+metadata_schema:
+  required_fields:
+    - artifact_id: "UUID v4"
+    - artifact_type: "string"
+    - creation_date: "ISO 8601 timestamp"
+    - creator: "identity object"
+    - tool_info: "source tool metadata"
+    - version: "semantic version"
+    - checksum: "SHA-256 hash"
+    - signature: "cryptographic signature"
+  
+  optional_fields:
+    - description: "text"
+    - tags: "array of strings"
+    - classification: "security level"
+    - license: "SPDX identifier"
+    - contributors: "array of identity objects"
+    - related_artifacts: "array of artifact references"
+
+interoperability:
+  tool_adapters:
+    catia:
+      import: supported
+      export: supported
+      version: "V5 R21+"
+    nx:
+      import: supported
+      export: supported
+      version: "NX 10+"
+    solidworks:
+      import: planned
+      export: planned
+      version: "2020+"
+    inventor:
+      import: planned
+      export: planned
+      version: "2020+"
+
+conformance:
+  test_suite: "TBD"
+  verification_action: "TBD"
+  certification: "Phase 2 roadmap"
+
+references:
+  - "ISO 10303 (STEP)"
+  - "ISO 14306 (JT)"
+  - "ISO 24517 (3D PDF)"
+  - "SPDX 2.3"
+  - "W3C VC Data Model"
