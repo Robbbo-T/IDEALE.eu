@@ -95,7 +95,7 @@ def accrue(artifact_meta_path, event, declared_value_eur=None):
             return {"tt": None, "iban": None}
 
         if sum_w == 0:
-            # repartir a partes iguales
+            # distribute equally
             per = infra / float(len(used))
             for u in used:
                 meta_alloc.append({
