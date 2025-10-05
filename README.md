@@ -243,7 +243,7 @@ IDEALE.eu/
 │       │   │   │   │   ├── performance-requirements/
 │       │   │   │   │   └── traceability-matrix/
 │       │   │   │   └── SYS/  # Systems
-│       │   │   │       ├── system-architecture.drawio
+│       │   │   │       ├── system-architecture.md
 │       │   │   │       ├── interfaces-definition.yaml
 │       │   │   │       ├── system-breakdown-structure.json
 │       │   │   │       ├── functional-allocation/
