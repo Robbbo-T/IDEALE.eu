@@ -41,7 +41,9 @@ jobs:
           set -e
           for f in $(jq -r '.files[]' <<< '${{ steps.detect.outputs.result }}'); do
             echo "::group::Accruing for $f"
-            python3 scripts/accrue_royalty.py "$f" reuse || true
+            if ! python3 scripts/accrue_royalty.py "$f" reuse; then
+              echo "::error file=$f::Royalty accrual failed for $f"
+            fi
             echo "::endgroup::"
           done
 
