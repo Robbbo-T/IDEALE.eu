@@ -15,7 +15,7 @@ This specification defines how IDEALE artifacts must be cryptographically signed
 - **RSA-4096** with SHA-256
 
 **Secondary (OPTIONAL):**
-- **ECDSA P-384** with SHA-384
+- **ECDSA-P384** with SHA-384
 - **RSA-2048** with SHA-256 (legacy, discouraged for new implementations)
 
 ### 2. Signature Format
