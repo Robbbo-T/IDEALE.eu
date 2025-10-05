@@ -110,8 +110,8 @@ interoperability:
       version: "2020+"
 
 conformance:
-  test_suite: "standards/v0.1/conformance-tests.md"
-  verification_action: "standards/v0.1/verify-action.yml"
+  test_suite: "TBD"
+  verification_action: "TBD"
   certification: "Phase 2 roadmap"
 
 references:
