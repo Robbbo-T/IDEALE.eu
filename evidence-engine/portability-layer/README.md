@@ -36,7 +36,8 @@ Each adapter implements:
 
 ## Usage
 
-```python
+```text
+# Pseudocode example – actual module/package names may differ
 from portability_layer import catia_adapter, nx_adapter
 
 # Convert CATIA to neutral
