@@ -21,10 +21,10 @@ First sector profile: **TFA** (Aerospace).
 ## Vision → Phases
 
 ```mermaid
-flowchart TB
-  A[Phase 1 — ARCHITECTURE VISION<br/>(Brand & Standards)] -->|proof points accumulate| B[Phase 2 — OPERATING COMPANY<br/>(Services & Products)]
-  B -->|revenue + ecosystem develops| C[Phase 3 — UMBRELLA BRAND<br/>(Certification / Trust Mark)]
-  C -->|network effects + adoption| D[Phase 4 — POLITICAL INITIATIVE<br/>(EU Strategic Framework)]
+flowchart TD
+  A[Phase 1 — ARCHITECTURE VISION<br/>{Brand & Standards}] -->|proof points accumulate| B[Phase 2 — OPERATING COMPANY<br/>{Services & Products}]
+  B -->|revenue + ecosystem develops| C[Phase 3 — UMBRELLA BRAND<br/>{Certification / Trust Mark}]
+  C -->|network effects + adoption| D[Phase 4 — POLITICAL INITIATIVE<br/>{EU Strategic Framework}]
 ```
 
 **Phase-1 KPIs**: IEF v0.1 released, ≥3 pilot repos with passing verification badges.
