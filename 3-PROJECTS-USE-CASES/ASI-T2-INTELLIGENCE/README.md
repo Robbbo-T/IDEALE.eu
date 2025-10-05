@@ -1,6 +1,6 @@
 # ASI-T2 Intelligence
 
-Intelligence-focused project leveraging advanced AI and strategic capabilities.
+**Aerospace Super Intelligence** - Advanced AI and strategic intelligence for aerospace applications.
 
 ## Overview
-This project focuses on developing and implementing artificial strategic intelligence capabilities for IDEALE.eu initiatives.
+This project focuses on developing and implementing Aerospace Super Intelligence capabilities for IDEALE.eu initiatives, combining advanced AI with aerospace domain expertise.
