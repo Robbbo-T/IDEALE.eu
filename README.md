@@ -230,12 +230,12 @@ IDEALE.eu/
 │       │   │   │   ├── CON/  # Concept
 │       │   │   │   │   ├── concept-definition.md
 │       │   │   │   │   ├── stakeholder-requirements.yaml
-│       │   │   │   │   ├── feasibility-study.pdf
+│       │   │   │   │   ├── feasibility-study.md
 │       │   │   │   │   ├── trade-studies/
 │       │   │   │   │   ├── preliminary-design-review/
 │       │   │   │   │   └── concept-validation/
 │       │   │   │   ├── REQ/  # Requirements
-│       │   │   │   │   ├── requirements-matrix.xlsx
+│       │   │   │   │   ├── requirements-matrix.csv
 │       │   │   │   │   ├── functional-requirements.yaml
 │       │   │   │   │   ├── non-functional-requirements.yaml
 │       │   │   │   │   ├── safety-requirements/
