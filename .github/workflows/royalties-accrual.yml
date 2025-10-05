@@ -1,0 +1,102 @@
+name: Royalties Accrual
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    paths:
+      - '**/artifact.json'
+      - 'artifacts/**/artifact.json'
+  push:
+    branches:
+      - main
+    paths:
+      - '**/artifact.json'
+      - 'artifacts/**/artifact.json'
+
+jobs:
+  accrue:
+    name: Accrue Creator Royalties
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Detect artifact metadata files
+        id: detect
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { execSync } = require('child_process');
+            
+            // Find all artifact.json files in the changeset
+            let files = [];
+            try {
+              const output = execSync('git diff --name-only ${{ github.event.before || github.event.pull_request.base.sha }} ${{ github.sha }} | grep artifact.json || true', { encoding: 'utf-8' });
+              files = output.trim().split('\n').filter(f => f && f.length > 0);
+            } catch (e) {
+              console.log('No artifact files changed');
+            }
+            
+            console.log(`Found ${files.length} artifact files`);
+            return { files };
+
+      - name: Accrue royalties
+        if: ${{ fromJSON(steps.detect.outputs.result).files.length > 0 }}
+        env:
+          EVENT_TYPE: ${{ github.event_name == 'push' && 'MAIN_PUSH' || 'PR_UPDATE' }}
+        run: |
+          FILES='${{ toJSON(fromJSON(steps.detect.outputs.result).files) }}'
+          echo "$FILES" | jq -r '.[]' | while read -r file; do
+            if [ -f "$file" ]; then
+              echo "Processing: $file"
+              python3 scripts/accrue_royalty.py "$file" "$EVENT_TYPE"
+            fi
+          done
+
+      - name: Commit ledger updates
+        if: ${{ fromJSON(steps.detect.outputs.result).files.length > 0 }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          
+          if [ -f royalties/ledger.jsonl ]; then
+            git add royalties/ledger.jsonl
+            if git diff --staged --quiet; then
+              echo "No changes to commit"
+            else
+              git commit -m "chore: update royalties ledger [skip ci]"
+              git push
+            fi
+          fi
+
+      - name: Post summary comment
+        if: ${{ github.event_name == 'pull_request' && fromJSON(steps.detect.outputs.result).files.length > 0 }}
+        uses: marocchino/sticky-pull-request-comment@v2
+        with:
+          header: "🎨 Creator Royalties · Accrual Preview"
+          message: |
+            Detected artifact metadata files:
+            ```
+            ${{ join(fromJSON(steps.detect.outputs.result).files, '
+            ') }}
+            ```
+            Royalties accrued and logged to `royalties/ledger.jsonl`.
+            If `tooling.used` is present, a share of the fee was distributed to Infra & Tooling (meta‑assets)
+            according to declared `weight` and the registry at `standards/v0.1/meta-assets.registry.json`.
+            > *Note*: This is a preview accrual on PR; payouts follow the configured period/threshold.
+
+      - name: Upload ledger artifact
+        if: ${{ fromJSON(steps.detect.outputs.result).files.length > 0 }}
+        uses: actions/upload-artifact@v3
+        with:
+          name: royalties-ledger
+          path: royalties/ledger.jsonl
+          retention-days: 90

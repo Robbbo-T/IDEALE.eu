@@ -1,0 +1,23 @@
+{
+  "$id": "ideale://registry/meta-assets.v0.1",
+  "assets": [
+    {
+      "id": "ideale://standards/artifact.schema.v0.1",
+      "maintainers": [
+        { "id": "did:github:ideale-core", "payout": { "tt": "creator/ideale-core", "iban": null } }
+      ]
+    },
+    {
+      "id": "ideale://workflows/ief-verify.v0.1",
+      "maintainers": [
+        { "id": "did:github:ideale-ci", "payout": { "tt": "creator/ideale-ci", "iban": null } }
+      ]
+    },
+    {
+      "id": "agent:copilot",
+      "maintainers": [
+        { "id": "did:github:copilot-operator", "payout": { "tt": "sink:ai-compute", "iban": null } }
+      ]
+    }
+  ]
+}
