@@ -1,0 +1,43 @@
+{
+  "artifact_id": "21deee08-237a-49cb-a8ac-95fd1515546d",
+  "artifact_type": "geometry",
+  "version": "1.0.0",
+  "created": "2025-10-06T16:47:28.831456Z",
+  "creator": {
+    "id": "unknown",
+    "type": "Person",
+    "name": "IDEALE Framework"
+  },
+  "checksum": {
+    "algorithm": "sha256",
+    "value": "268a33de9dc56e0339bef253a65b73f27f30952eb36124ab848d283fe845e19a"
+  },
+  "provenance": {
+    "source_tool": {
+      "name": "IDEALE Artifact Generator v1.0",
+      "version": "",
+      "vendor": ""
+    },
+    "export_timestamp": "2025-10-06T16:47:28.831479Z"
+  },
+  "metadata": {
+    "title": "Demo Component - STEP Artifact",
+    "description": "Example verifiable artifact with embedded STEP content, comprehensive metadata, and cryptographic hash",
+    "tags": [],
+    "classification": "internal"
+  },
+  "data": {
+    "format": "STEP",
+    "encoding": "base64",
+    "content": "U1RFUCBGSUxFIERFTU8gQ09OVEVOVAo=",
+    "units": {
+      "length": "mm",
+      "mass": "kg",
+      "time": "s"
+    }
+  },
+  "validation": {
+    "status": "pending",
+    "checks": []
+  }
+}
