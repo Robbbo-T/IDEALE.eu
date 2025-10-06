@@ -69,7 +69,7 @@ def validate_readme_links(readme_path='README.md'):
         if '## 📂 Repository Structure Index' in line:
             in_structure = True
             continue
-        if in_structure and line.startswith('---'):
+        if in_structure and (line.startswith('---') or re.match(r'^\s*#+\s', line)):
             break
         
         if in_structure and '*' in line:
