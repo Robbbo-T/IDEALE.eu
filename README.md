@@ -1,8 +1,3 @@
-This transforms the verbose ASCII tree listing into a cleaner, fully navigable Markdown index, suitable for direct display in a browser or GitHub interface.
-
-The structure section below replaces the previous Bash tree format.
-
-```markdown
 # 🇪🇺 IDEALE.eu — Verifiable Evidence & Portability for Critical Systems
 
 **We don't build aircraft. We build the infrastructure for Europe to collaborate on critical projects with verifiable evidence, total portability, and no vendor lock-in.**
@@ -478,35 +473,13 @@ generative_design_pipeline:
         *   [PPP-PROPULSION-FUEL-SYSTEMS/](./2-PROGRAM-TEMPLATE/DOMAINS/PPP-PROPULSION-FUEL-SYSTEMS/)
 *   [3-PROJECTS-USE-CASES/](./3-PROJECTS-USE-CASES/)
     *   [ASI-T2-INTELLIGENCE/](./3-PROJECTS-USE-CASES/ASI-T2-INTELLIGENCE/)
-        *   [README.md](./3-PROJECTS-USE-CASES/ASI-T2-INTELLIGENCE/README.md)
-        *   [DOMAINS/AAA-AIRFRAMES-AERODYNAMICS-AIRWORTHINESS/DELs/README.md](./3-PROJECTS-USE-CASES/ASI-T2-INTELLIGENCE/DOMAINS/AAA-AIRFRAMES-AERODYNAMICS-AIRWORTHINESS/DELs/README.md)
-        *   [DOMAINS/AAA-AIRFRAMES-AERODYNAMICS-AIRWORTHINESS/PAx/README.md](./3-PROJECTS-USE-CASES/ASI-T2-INTELLIGENCE/DOMAINS/AAA-AIRFRAMES-AERODYNAMICS-AIRWORTHINESS/PAx/README.md)
-        *   *(... many deep DOMAINS READMEs ...)*
-        *   [MAL-SERVICES/MAL-CB/README.md](./3-PROJECTS-USE-CASES/ASI-T2-INTELLIGENCE/MAL-SERVICES/MAL-CB/README.md)
-        *   *(... many deep MAL/MAP/TFA READMEs ...)*
     *   [AMPEL360-AIR-MANNED/](./3-PROJECTS-USE-CASES/AMPEL360-AIR-MANNED/)
-        *   [README.md](./3-PROJECTS-USE-CASES/AMPEL360-AIR-MANNED/README.md)
-        *   [DOMAINS/AAA-AIRFRAMES-AERODYNAMICS-AIRWORTHINESS/DELs/README.md](./3-PROJECTS-USE-CASES/AMPEL360-AIR-MANNED/DOMAINS/AAA-AIRFRAMES-AERODYNAMICS-AIRWORTHINESS/DELs/README.md)
-        *   [DOMAINS/AAA-AIRFRAMES-AERODYNAMICS-AIRWORTHINESS/PAx/README.md](./3-PROJECTS-USE-CASES/AMPEL360-AIR-MANNED/DOMAINS/AAA-AIRFRAMES-AERODYNAMICS-AIRWORTHINESS/PAx/README.md)
-        *   *(... 90+ deep DOMAINS, MAL, MAP, TFA READMEs added ...)*
     *   [AMPEL360-SPACE-MANNED/](./3-PROJECTS-USE-CASES/AMPEL360-SPACE-MANNED/)
-        *   [README.md](./3-PROJECTS-USE-CASES/AMPEL360-SPACE-MANNED/README.md)
-        *   *(... 90+ deep READMEs added ...)*
     *   [GAIA-AIR-UNMANNED/](./3-PROJECTS-USE-CASES/GAIA-AIR-UNMANNED/)
-        *   [README.md](./3-PROJECTS-USE-CASES/GAIA-AIR-UNMANNED/README.md)
-        *   *(... 90+ deep READMEs added ...)*
     *   [GAIA-SPACE-SATELLITES/](./3-PROJECTS-USE-CASES/GAIA-SPACE-SATELLITES/)
-        *   [README.md](./3-PROJECTS-USE-CASES/GAIA-SPACE-SATELLITES/README.md)
-        *   *(... 90+ deep READMEs added ...)*
     *   [GAIA-SEA-PROBES/](./3-PROJECTS-USE-CASES/GAIA-SEA-PROBES/)
-        *   [README.md](./3-PROJECTS-USE-CASES/GAIA-SEA-PROBES/README.md)
-        *   *(... 90+ deep READMEs added ...)*
     *   [GAIA-GROUND-RETAILS/](./3-PROJECTS-USE-CASES/GAIA-GROUND-RETAILS/)
-        *   [README.md](./3-PROJECTS-USE-CASES/GAIA-GROUND-RETAILS/README.md)
-        *   *(... 90+ deep READMEs added ...)*
     *   [H2-CHAIN-MRO/](./3-PROJECTS-USE-CASES/H2-CHAIN-MRO/)
-        *   [README.md](./3-PROJECTS-USE-CASES/H2-CHAIN-MRO/README.md)
-        *   *(... 90+ deep READMEs added ...)*
 *   [4-RESEARCH-DEVELOPMENT/](./4-RESEARCH-DEVELOPMENT/)
     *   [quantum-algorithms/](./4-RESEARCH-DEVELOPMENT/quantum-algorithms/)
     *   [ai-ml-models/](./4-RESEARCH-DEVELOPMENT/ai-ml-models/)
@@ -538,14 +511,6 @@ generative_design_pipeline:
     *   [schemas/](./8-RESOURCES/schemas/)
     *   [documentation/](./8-RESOURCES/documentation/)
     *   [training/](./8-RESOURCES/training/)
-*   [governance/](./governance/)
-    *   [con/](./governance/con/)
-        *   [civil/](./governance/con/civil/)
-            *   [programs/](./governance/con/civil/programs/)
-                *   [ampel360/](./governance/con/civil/programs/ampel360/)
-                *   [GAIA/](./governance/con/civil/programs/GAIA/)
-                *   [INFRANET/](./governance/con/civil/programs/INFRANET/)
-        *   [defense/](./governance/con/defense/)
 *   [standards/](./standards/)
     *   [v0.1/](./standards/v0.1/)
         *   [context.schema.json](./standards/v0.1/context.schema.json)
@@ -615,5 +580,3 @@ generative_design_pipeline:
 
 > **IDEALE.eu makes engineering artifacts portable, verifiable, and legally defensible across organizations — with cryptographic provenance and zero vendor lock-in.**
 
----
-```
