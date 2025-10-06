@@ -663,7 +663,7 @@ trl_6_pilot_operational:
 ### Gate 3 (2030 Q4): Market Entry Gate
 
 **Minimum TRL Requirements:**
-- H2-BWB-Q100 Cargo: Type Certified (TRL 9)
+- AMPEL360-Air-T Cargo: Type Certified (TRL 9)
 - Space-T: 1+ crewed mission success
 - Digital Twin: Operational (TRL 8)
 

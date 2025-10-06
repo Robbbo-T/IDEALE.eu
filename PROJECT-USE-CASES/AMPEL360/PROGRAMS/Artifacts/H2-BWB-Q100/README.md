@@ -1,14 +1,19 @@
-# H2-BWB-Q100 Artifact
+# AMPEL360-Air-T Artifact
 
-This directory contains the digital artifact metadata for the **AMPEL360-H2-BWB-Q100** hydrogen-powered Blended Wing Body aircraft.
+This directory contains the digital artifact metadata for the **AMPEL360-Air-T** (H2-BWB-Q100) hydrogen-powered Blended Wing Body aircraft.
 
 ## Overview
 
-The H2-BWB-Q100 is a revolutionary 180-passenger aircraft featuring:
+The AMPEL360-Air-T is a revolutionary 180-passenger aircraft featuring:
 - **Blended Wing Body (BWB)** airframe configuration
 - **Hydrogen fuel cell propulsion** (4x 25MW modular units)
 - **5,500 nm range** capability
 - **Zero emissions** operation
+
+**Technical Designation:** H2-BWB-Q100
+- **H2**: Hydrogen hybrid-electric fuel
+- **BWB**: Blended Wing Body architecture
+- **Q100**: Quantum-enhanced, 100+ passengers
 
 ## Artifact Contents
 

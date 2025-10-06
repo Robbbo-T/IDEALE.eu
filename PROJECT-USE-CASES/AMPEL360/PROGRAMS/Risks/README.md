@@ -1,6 +1,6 @@
 # AMPEL360 Risk Management
 
-This directory contains the comprehensive risk tracking and management framework for the AMPEL360 program, covering both H2-BWB-Q100 (aircraft) and Space-T (spacecraft) development.
+This directory contains the comprehensive risk tracking and management framework for the AMPEL360 program, covering both AMPEL360-Air-T (aircraft) and AMPEL360-Space-T (spacecraft) development.
 
 ## Overview
 

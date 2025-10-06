@@ -4,7 +4,7 @@ This directory contains the detailed technical and operational plans for the AMP
 
 ## Overview
 
-The Plans directory provides comprehensive roadmaps and strategies for all critical aspects of the AMPEL360 program, ensuring coordinated development across both H2-BWB-Q100 (aircraft) and Space-T (spacecraft) vehicles.
+The Plans directory provides comprehensive roadmaps and strategies for all critical aspects of the AMPEL360 program, ensuring coordinated development across both AMPEL360-Air-T (aircraft with H2-BWB-Q100 specs) and AMPEL360-Space-T (spacecraft) vehicles.
 
 ## Contents
 
@@ -31,7 +31,7 @@ Tracks 15 critical technologies from TRL 4-6 to TRL 8-9:
 
 Comprehensive certification approach for both vehicles:
 
-**H2-BWB-Q100 (Aircraft):**
+**AMPEL360-Air-T (Aircraft):**
 - Phase 1: Unmanned demonstrator (2025-2027)
 - Phase 2: Cargo variant certification (2027-2030)
 - Phase 3: Passenger variants - incremental 50→100→180 pax (2030-2034)

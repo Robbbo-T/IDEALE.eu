@@ -9,7 +9,7 @@
 
 The AMPEL360 program comprises two complementary manned vehicle architectures:
 
-1. **AMPEL360-H2-BWB-Q100**: Hydrogen-powered Blended Wing Body aircraft for up to 180 passengers
+1. **AMPEL360-Air-T** (H2-BWB-Q100): Hydrogen-powered Blended Wing Body aircraft for up to 180 passengers
 2. **AMPEL360-Space-T**: Orbital transfer vehicle for up to 18 passengers + 2 crew
 
 Both programs leverage the IDEALE.eu framework for comprehensive domain integration (AAA, PPP, CQH, EEE, EDI, CCC, LCC, DDD), digital thread implementation, and verifiable evidence chains.
@@ -63,7 +63,7 @@ PROJECT-USE-CASES/AMPEL360/PROGRAMS/
 - **Phase 2 (2027-2030)**: €4.5B - Development
 - **Phase 3 (2030-2034)**: €8B - Industrialization
 
-## AMPEL360-H2-BWB-Q100 Overview
+## AMPEL360-Air-T Overview
 
 **Configuration:**
 - 180 passengers

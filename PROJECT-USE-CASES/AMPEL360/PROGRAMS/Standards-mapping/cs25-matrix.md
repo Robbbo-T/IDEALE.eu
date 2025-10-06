@@ -1,4 +1,4 @@
-# CS-25 Certification Matrix - AMPEL360 H2-BWB-Q100
+# CS-25 Certification Matrix - AMPEL360-Air-T
 
 **Version:** 2.0  
 **Last Updated:** 2025-01-20  
@@ -6,7 +6,7 @@
 
 ## Overview
 
-This document maps EASA CS-25 (Large Aeroplanes) requirements to the AMPEL360 H2-BWB-Q100 design, identifying compliance approach and special conditions required for hydrogen propulsion and blended wing body configuration.
+This document maps EASA CS-25 (Large Aeroplanes) requirements to the AMPEL360-Air-T (H2-BWB-Q100) design, identifying compliance approach and special conditions required for hydrogen propulsion and blended wing body configuration.
 
 ## Compliance Status Legend
 

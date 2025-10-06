@@ -8,7 +8,7 @@
 
 This document outlines the phased certification strategy for both AMPEL360 vehicles, addressing the unique challenges of hydrogen-powered blended wing body aircraft and human-rated orbital spacecraft.
 
-## H2-BWB-Q100 Certification Pathway
+## AMPEL360-Air-T Certification Pathway
 
 ### Regulatory Framework
 

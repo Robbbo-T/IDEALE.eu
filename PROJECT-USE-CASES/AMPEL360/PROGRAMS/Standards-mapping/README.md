@@ -4,14 +4,14 @@ This directory contains comprehensive compliance mapping documents that demonstr
 
 ## Overview
 
-The Standards-mapping directory provides detailed traceability between program requirements and regulatory standards for both H2-BWB-Q100 (aircraft) and Space-T (spacecraft), ensuring full compliance with EASA, NASA, and ESA certification frameworks.
+The Standards-mapping directory provides detailed traceability between program requirements and regulatory standards for both AMPEL360-Air-T (aircraft) and AMPEL360-Space-T (spacecraft), ensuring full compliance with EASA, NASA, and ESA certification frameworks.
 
 ## Contents
 
 ### [cs25-matrix.md](./cs25-matrix.md)
 **EASA CS-25 Large Aeroplanes Compliance Matrix**
 
-Comprehensive mapping of H2-BWB-Q100 aircraft to EASA CS-25 requirements:
+Comprehensive mapping of AMPEL360-Air-T aircraft to EASA CS-25 requirements:
 
 **Coverage:**
 - **Core CS-25 Requirements**: All applicable sections for large transport aircraft
@@ -23,7 +23,7 @@ Comprehensive mapping of H2-BWB-Q100 aircraft to EASA CS-25 requirements:
 **Structure:**
 - CS-25 section reference
 - Requirement description
-- Applicability to H2-BWB-Q100
+- Applicability to AMPEL360-Air-T
 - Compliance approach
 - Verification method
 - Status and evidence

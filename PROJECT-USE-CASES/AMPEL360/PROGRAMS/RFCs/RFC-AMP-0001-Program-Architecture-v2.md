@@ -8,7 +8,7 @@
 
 ## Abstract
 
-This RFC defines the enhanced AMPEL360 program architecture incorporating comprehensive risk mitigation strategies, phased certification approaches, and realistic timeline adjustments based on technical feasibility analysis. The program targets dual manned vehicle development: hydrogen-powered aviation (H2-BWB-Q100) and orbital space transport (Space-T).
+This RFC defines the enhanced AMPEL360 program architecture incorporating comprehensive risk mitigation strategies, phased certification approaches, and realistic timeline adjustments based on technical feasibility analysis. The program targets dual manned vehicle development: AMPEL360-Air-T (hydrogen-powered aviation with H2-BWB-Q100 technical specifications) and AMPEL360-Space-T (orbital space transport).
 
 ## Motivation
 
@@ -33,7 +33,8 @@ investment_phase: "Technology Maturation & Risk Reduction"
 
 ### Dual Vehicle Architecture
 
-#### AMPEL360-H2-BWB-Q100 (Air Transport)
+#### AMPEL360-Air-T (Air Transport)
+**Technical Designation:** H2-BWB-Q100
 - **Capacity:** 180 passengers
 - **Range:** 5,500 nm
 - **Propulsion:** 4x 25MW modular fuel cells (100MW total)
@@ -168,7 +169,7 @@ h2_infrastructure_alliance:
     
     technology_partners:
       aircraft_oems:
-        - Airbus (lead integrator H2-BWB-Q100)
+        - Airbus (lead integrator AMPEL360-Air-T)
         - Partner OEMs (supply chain)
       space_industry:
         - Airbus Defence & Space (Space-T lead)
@@ -213,7 +214,7 @@ airport_h2_facilities:
 
 ## Phased Certification Strategy
 
-### H2-BWB-Q100 Certification Pathway
+### AMPEL360-Air-T Certification Pathway
 
 ```yaml
 certification_phases:

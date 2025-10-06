@@ -6,7 +6,7 @@
 
 ## Overview
 
-The AMPEL360 Digital Thread framework provides end-to-end digital continuity from design through manufacturing, operations, and maintenance for both H2-BWB-Q100 and Space-T vehicles. It integrates with the IDEALE.eu evidence framework for verifiable, auditable, and portable engineering artifacts.
+The AMPEL360 Digital Thread framework provides end-to-end digital continuity from design through manufacturing, operations, and maintenance for both AMPEL360-Air-T and AMPEL360-Space-T vehicles. It integrates with the IDEALE.eu evidence framework for verifiable, auditable, and portable engineering artifacts.
 
 ## Digital Thread Architecture
 
