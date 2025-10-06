@@ -26,7 +26,7 @@ Interference checks are critical for manufacturability and maintainability, ensu
 ## Contents Overview
 
 1. **Clash Reports** — Automated exports detailing geometric overlaps between parts in the CAD/DMU.
-2. **Minimum Clearance Specifications** — Required gaps around moving parts, HV components, and hot lines.
+2. **Minimum Clearance Specifications** — Required gaps around moving parts, HV components, and hot lines (stored in `rules/`).
 3. **Digital Mock‑Up (DMU) Verification** — Screenshots and reports confirming that assembly/maintenance paths are clear.
 
 ---
@@ -50,8 +50,8 @@ Achieving a clash‑free design in a densely packaged BWB requires continuous ve
 
 All findings, violations, and resolutions must be captured via **UTCS**.
 
-* **UTCS Anchors:** Each clash must anchor the specific geometric versions of colliding parts (e.g., `UTCS-MI:CAD:AAA:PRT:...`) and the assembly config used.
-* **Resolution:** Every reported clash links to an approved **ECR**/**Deviation** with decision evidence and mitigations.
+* **UTCS Anchors:** Each clash must anchor the specific geometric versions of colliding parts (e.g., `UTCS-MI:CAD:AAA:PRT:...`) and the assembly config used. All UTCS YAML records for this directory's artifacts are stored in the `./utcs/` subdirectory.
+* **Resolution:** Every reported clash links to an approved **ECR**/**Deviation** with decision evidence and mitigations (logged in `resolution-logs/`).
 * **No raw paths:** Always use UTCS anchors for CAD/DMU/CAE/QIP artifacts.
 
 ---
@@ -102,16 +102,18 @@ All findings, violations, and resolutions must be captured via **UTCS**.
 
 ## Directory Index (Hyperlinkable)
 
-| Folder                     | Description                                                                       |
-| :------------------------- | :-------------------------------------------------------------------------------- |
-| `./`                       | Master clash summary reports, clearance rule documentation.                       |
-| `clash-exports/`           | Raw data dumps and visualizations from automated clash detection tools.           |
-| `clearance-violations/`    | Reports where minimum clearances were not met, with mitigations.                  |
-| `kinematic-clash-reports/` | Interference checks for moving assemblies (e.g., landing gear, control surfaces). |
-| `harness-routing-clashes/` | Interference between harnesses/pipes and structures (PAx verification).           |
-| `digital-mockup-sims/`     | DMU videos/animations and snapshot packs.                                         |
-| `rules/`                   | Minimum‑clearance rule sets and thresholds.                                       |
-| `resolution-logs/`         | Mapping of issues to ECRs/Deviations with approval records.                       |
+| Folder | Description |
+| :--- | :--- |
+| [Current Folder (`./`)](#) | Master clash summary reports and overall clearance rule documentation. |
+| [`clash-exports/`](./clash-exports/) | Raw data dumps and visualizations from automated clash detection tools. |
+| [`clearance-violations/`](./clearance-violations/) | Reports where minimum clearances were not met, with mitigations. |
+| [`kinematic-clash-reports/`](./kinematic-clash-reports/) | Interference checks for moving assemblies (e.g., landing gear, control surfaces). |
+| [`harness-routing-clashes/`](./harness-routing-clashes/) | Interference between harnesses/pipes and structures (PAx verification). |
+| [`rules/`](./rules/) | **Canonical rulesets** for minimum clearance, thermal proximity, and EMI thresholds. |
+| [`digital-mockup-sims/`](./digital-mockup-sims/) | DMU videos/animations and snapshot packs used for visual verification. |
+| [`resolution-logs/`](./resolution-logs/) | Mapping of open and closed issues to ECRs/Deviations with approval records. |
+| [`utcs/`](./utcs/) | **Canonical UTCS YAML records** for all clash reports and rulesets in this directory. |
+| [`thumbnails/`](./thumbnails/) | Visual previews or key frame images associated with DMU simulations and reports. |
 
 ---
 
