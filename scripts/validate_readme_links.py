@@ -74,7 +74,7 @@ def validate_readme_links(readme_path='README.md'):
         
         if in_structure and '*' in line:
             has_link = bool(re.search(r'\[([^\]]+)\]\(([^\)]+)\)', line))
-            mentions_path = bool(re.search(r'(\w+/|\w+\.\w+)', 
+            mentions_path = bool(re.search(r'([a-zA-Z0-9_\-./]+/|[a-zA-Z0-9_\-./]+\.[a-zA-Z0-9_\-]+)', 
                                           line.strip().split('*')[-1] if '*' in line else ''))
             
             if mentions_path and not has_link:
