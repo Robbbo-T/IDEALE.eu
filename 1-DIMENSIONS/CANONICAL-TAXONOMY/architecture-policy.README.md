@@ -53,6 +53,10 @@ This corrected definition replaces earlier interpretations. UTCS ensures that ev
 **Implementation**: Embedded in artifact metadata schemas  
 **Standards**: W3C standards (context), IDEALE artifact schemas
 
+#### Abstract (UTCS, canon YAML)
+
+UTCS (**UiX Threading Context/Content/Cache and Structure/Style/Sheet**) is the **canonical YAML data structure** that threads context, content, derived artifacts, and integrity throughout the entire TFA lifecycle (**QS→FWD→UE→FE→CB→QB**). It defines a stable identifier (**utcs_id**), product/domain/LLC metadata, and a verifiable **provenance** block (MAL-EEM) with cryptographic signatures. Its **threading/structure/style/sheet** sections ensure traceability between CAD/CAE models, decisions, evidence, and exportable artifacts, eliminating fragile file paths and promoting **UTCS-MI** anchors. Integrated into CI pipelines, UTCS enables schema validation, change control, and **content_hash** calculation for audits and certification (CS-25, S1000D, ATA). In PAx/AAA contexts, it enables **UE** snapshots of "as-routed/as-installed" configurations, clearance/accessibility metrics, and installation orchestration (**FE**) under spatial constraints (**CB**) and optimization (**QB**). The result is a single, verifiable, and automatable thread connecting design, integration, evidence, and compliance in aerospace and logistics programs.
+
 ### TFA - Technology and Functional Architecture
 **Integrates classical and quantum-inspired computational layers.**
 
@@ -277,6 +281,7 @@ When implementing TFA components:
 
 | Date | Change | Rationale |
 |------|--------|-----------|
+| 2025-01-28 | Added UTCS canonical YAML abstract | Expand UTCS documentation with comprehensive definition of its role as canonical YAML data structure |
 | 2025-01-27 | Corrected UTCS definition | Align to canonical UiX threading specification |
 | 2025-01-27 | Initial canonical taxonomy creation | Standardize architecture terms |
 
