@@ -52,7 +52,7 @@ Kinematic verification is integrated in the canonical TFA flow **QS→FWD→UE�
 
 All kinematic models and reports must maintain traceability to driving requirements (e.g., max deflection for takeoff/landing) and to the exact geometry and actuator revisions used.
 
-* **UTCS Anchors:** Link all motion models to **MBD/CAD** via UTCS (e.g., `UTCS-MI:CAE:MBD:AAA:SURF-LEFT-ELEVON:v3`, `UTCS-MI:CAD:AAA:ASSY:57-10:revC`).
+* **UTCS Anchors:** Link all motion models to **MBD/CAD** via UTCS. All UTCS YAML records for this directory's artifacts are stored in the `./utcs/` subdirectory.
 * **Compliance:** Failures (binding/overlap/limit violations) must be resolved and logged in a **resolution log** with ECR/Deviation references before M4/M5 gates.
 * **No raw paths:** Use UTCS‑MI anchors for all referenced artifacts.
 
@@ -110,7 +110,10 @@ All kinematic models and reports must maintain traceability to driving requireme
 | [`joint-constraints/`](./joint-constraints/) | Limit definitions, stiffness, backlash and allowable clearances. |
 | [`actuator-interface/`](./actuator-interface/) | Input/output travel & force profiles; links to `PLM/CAE/MBD/actuator-models`. |
 | [`envelopes-vs-structure/`](./envelopes-vs-structure/) | Clearance margins across motion surfaces vs. structure (PAx/INT linkage). |
-| [`resolution-logs/`](./resolution-logs/) | Issue tracking with ECR/Deviation approvals. |
+| [`rom-reports/`](./rom-reports/) | Formal reports verifying the maximum and minimum range of motion achieved by mechanical systems. |
+| [`resolution-logs/`](./resolution-logs/) | Issue tracking with ECR/Deviation approvals for kinematic failures. |
+| [`utcs/`](./utcs/) | **Canonical UTCS YAML records** for kinematic models, ROM reports, and envelope definitions. |
+| [`thumbnails/`](./thumbnails/) | Visual previews or key frame images associated with MBD simulations. |
 
 ---
 
