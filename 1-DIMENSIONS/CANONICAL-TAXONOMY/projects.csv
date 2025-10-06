@@ -1,0 +1,9 @@
+Canonical Name,Focus,Mission,TFA Use
+AMPEL360-AIR-T,Manned Air Vehicle Platform,"Commercial H₂ hybrid-electric passenger transport with BWB architecture","QB for optimal flight path and resource distribution"
+AMPEL360-SPACE-T,Manned Space Vehicle Platform,"Human-rated suborbital/orbital tourism with rapid turnaround","FWD for trajectory prediction and reentry risk"
+ASI-T2-INTELLIGENCE,Advanced Intelligence and Information Systems,"AI/ML-powered decision support across product lines","QS feeding into FE decision chains (MAL-EEM)"
+GAIA-AIR-UNMANNED,Unmanned Air Vehicle Platform,"Autonomous UAVs for logistics and surveillance","CB + QB for real-time pathfinding and payload optimization"
+INFRANET-RETAIL-LOGISTICS,Ground & Retail Logistics Platform,"Optimize supply chain and inventory with blockchain provenance","QS for immutable asset records; CB enforces constraints; QB for TSP/VRP & MILP/QUBO optimization"
+GAIA-SEA-PROBES,Unmanned Sea Probe/AUV Platform,"Deep-sea AUVs with cryogenic power and resilience","UE snapshots for sensor health under pressure"
+GAIA-SPACE-SATELLITES,Space Satellite Systems,"Deploy/manage satellite constellations with orbital optimization","FWD for collision prediction and maneuvering"
+H2-CHAIN-MRO,Hydrogen MRO and Lifecycle Management,"Global MRO chain for H₂ propulsion systems with full auditability","UE for maintenance snapshots; QS for immutable ledger"

@@ -1,0 +1,11 @@
+Category,Acronym/Term,Definition
+Architecture,MAL-EEM,"Machine Learning Ethics, Empathy, Explainability, and Mitigation: Ensures human-centric ML design and risk management."
+Architecture,UTCS,"UiX Threading Context/Content/Cache and Structure/Style/Sheet: Canonical threading of context, content, cache and structure/style for provenance and UX integrity."
+Architecture,TFA,"Technology and Functional Architecture: Integrates classical and quantum-inspired computational layers."
+Architecture,QAFbW,"Quantum-Augmented Flight by Wire: Quantum/hybrid control framework."
+Architecture,CB,"Classical Bit / Solver: Classical algorithms enforcing physical constraints."
+Architecture,FE,"Federation Entanglement: Decision chain coordination across distributed UEs."
+Architecture,FWD,"Forward Wave Dynamics: Predictive modeling of quantum possibilities."
+Architecture,QB,"Qubit Inspired Solver: Quantum-inspired optimization engine (QUBO, QAOA)."
+Architecture,QS,"Quantum Superposition State: Probabilistic state space for massive provenance."
+Architecture,UE,"Unit/Unique Element: Deterministic snapshot for classical processing."
