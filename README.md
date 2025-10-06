@@ -187,7 +187,7 @@ generative_design_pipeline:
             *   [SI/](./2-PROGRAM-TEMPLATE/TFA/SYSTEMS/SI/)
                 *   [interfaces.yaml](./2-PROGRAM-TEMPLATE/TFA/SYSTEMS/SI/interfaces.yaml)
                 *   [orchestration.py](./2-PROGRAM-TEMPLATE/TFA/SYSTEMS/SI/orchestration.py)
-                *   tests/
+                *   [tests/](./2-PROGRAM-TEMPLATE/TFA/SYSTEMS/SI/tests/)
             *   [DI/](./2-PROGRAM-TEMPLATE/TFA/SYSTEMS/DI/)
                 *   [api-spec.yaml](./2-PROGRAM-TEMPLATE/TFA/SYSTEMS/DI/api-spec.yaml)
                 *   [contracts/](./2-PROGRAM-TEMPLATE/TFA/SYSTEMS/DI/contracts/)
