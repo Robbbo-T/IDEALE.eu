@@ -1,6 +1,3 @@
-I'll do both: make the Quickstart more concrete with the Airbus-Safran example, then add a detailed "Demo Walkthrough" section. Here's the updated README:
-
-```markdown
 # 🇪🇺 IDEALE.eu — Verifiable Evidence & Portability for Critical Systems
 
 **We don't build aircraft. We build the infrastructure for Europe to collaborate on critical projects with verifiable evidence, total portability, and no vendor lock-in.**
