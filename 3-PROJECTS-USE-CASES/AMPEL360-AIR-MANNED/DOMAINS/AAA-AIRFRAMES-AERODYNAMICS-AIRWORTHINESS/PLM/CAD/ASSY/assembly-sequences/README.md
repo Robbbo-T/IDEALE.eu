@@ -52,7 +52,7 @@ All sequencing is governed by the canonical TFA flow **QS→FWD→UE→FE→CB�
 
 Each sequence is linked to master assembly models and quality plans using **UTCS‑MI** anchors. Inspection hold points from **CAV/QIP** are embedded as sequence gates, with hazard log references for large‑structure manipulation and lifting operations.
 
-* **UTCS References:** Use UTCS anchors for CAD/DMU/CAE/QIP; avoid raw file paths.
+* **UTCS References:** Use UTCS anchors for CAD/DMU/CAE/QIP; avoid raw file paths. All UTCS YAML records for this directory's artifacts are stored in the `./utcs/` subdirectory.
 * **Interfaces:** Strong coupling with **PAx** (clearances, access) and **CAM/OPR** (tooling, takt).
 
 ---
@@ -106,17 +106,20 @@ Each sequence is linked to master assembly models and quality plans using **UTCS
 | [Current Folder (`./`)](#) | Top‑level assembly master sequence plans and WBS documents. |
 | [`major-section-joins/`](./major-section-joins/) | Joining procedures for main BWB sections (e.g., center body ↔ outer wing). |
 | [`system-installation-steps/`](./system-installation-steps/) | Sequences for integrating large mechanical/electrical systems (e.g., landing gear insertion, main duct installation). |
+| [`tool-access-plans/`](./tool-access-plans/) | Fixture reach studies, crane/AGV paths, and reposition budgets (formerly included in content overview). |
 | [`digital-mockup-sims/`](./digital-mockup-sims/) | CAD animation sequences and rendered videos of validated processes. |
 | [`fastener-schedules/`](./fastener-schedules/) | Torque and order schedules for critical joints. |
-| [`tool-access-plans/`](./tool-access-plans/) | Fixture reach studies, crane/AGV paths, and reposition budgets. |
-| [`tolerance-stackups/`](./tolerance-stackups/) | Stack‑up spreadsheets/reports and metrology correlation. |
+| [`tolerance-stackups/`](./tolerance-stackups/) | Stack‑up analyses and metrology correlation. |
 | [`qip-hold-points/`](./qip-hold-points/) | Inspection gates, checklists, and acceptance criteria. |
+| [`resolution-logs/`](./resolution-logs/) | Issue tracking with ECR/Deviation approvals. |
+| [`utcs/`](./utcs/) | **Canonical UTCS YAML records** for all sequence artifacts in this directory. |
+| [`thumbnails/`](./thumbnails/) | Visual previews or key frame images associated with DMU simulations. |
 
 ---
 
 ## Governance & Reviews
 
-* **Approvals:** AAA Integration Lead (design), CAI Lead (assembly/ops), QA (evidence), Safety (handling/lifting).
+* **Approvals:** AAA Integration Lead (design), CAI Lead (assembly/ops), QA (evidence/QIP), Safety (handling/lifting).
 * **Reviews:** Gate reviews at M2/M4; installation readiness at M5; PPAP/FAI sign‑off prior to EIS.
 * **Change Control:** All updates via PR with UTCS evidence links; CI enforces link/path validation and `ASM-AAA` code format.
 
