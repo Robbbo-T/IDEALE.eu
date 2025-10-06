@@ -13,8 +13,8 @@
         return 'Not a PR run';
       }
 
-      // Accumulate dirs and changes by dir as we paginate, to avoid huge arrays.
       let page = 1, per_page = 100, touchedDirs = new Set(), changedByDir = {};
+      const IGNORE_PREFIXES = ['.github', '.git', '_site', 'scripts', '.vscode', '.idea'];
       while (true) {
         const {data: files} = await github.rest.pulls.listFiles({
           owner, repo, pull_number: pr, per_page, page
@@ -22,7 +22,6 @@
         if (!files.length) break;
         for (const f of files) {
           const dir = path.posix.dirname(f.filename);
-          const IGNORE_PREFIXES = ['.github', '.git', '_site', 'scripts', '.vscode', '.idea'];
           if (IGNORE_PREFIXES.some(p => dir === p || dir.startsWith(p + '/'))) continue;
           touchedDirs.add(dir);
           changedByDir[dir] = changedByDir[dir] || [];
@@ -31,6 +30,11 @@
         if (files.length < per_page) break;
         page += 1;
       }
+      // Only process the first 500 touched directories
+      const touchedDirsArr = Array.from(touchedDirs).sort();
+      const limit = 500;
+      const limitedDirs = touchedDirsArr.slice(0, limit);
+      const omittedCount = touchedDirsArr.length > limit ? touchedDirsArr.length - limit : 0;
 
       const ws = process.env.GITHUB_WORKSPACE;
       const readmeRegex = new RegExp(`^(?:${process.env.README_CANDIDATES})$`, 'i');
@@ -47,7 +51,7 @@
       }
 
       const rows = [];
-      for (const dir of Array.from(touchedDirs).sort()) {
+      for (const dir of limitedDirs) {
         const readme = findReadmeName(dir);
         const changes = changedByDir[dir] || [];
         const readmeChanged = readme
@@ -67,7 +71,11 @@
       function linkToDir(d) { return `${repoUrl}/tree/${headSha}/${d}`; }
 
       let body = `**📚 README review checklist** (ping ${copilot})\n\n`;
-      body += `Folders touched in this PR: **${rows.length}**\n\n`;
+      body += `Folders touched in this PR: **${touchedDirsArr.length}**\n\n`;
+
+      if (omittedCount > 0) {
+        body += `⚠️ _Only the first ${limit} folders are listed below. ${omittedCount} additional folders are not shown._\n\n`;
+      }
 
       const missing = rows.filter(r => r.status === 'MISSING');
       const needs = rows.filter(r => r.status === 'NEEDS_UPDATE');
