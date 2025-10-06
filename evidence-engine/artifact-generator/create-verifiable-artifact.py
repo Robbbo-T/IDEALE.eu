@@ -8,7 +8,8 @@ import argparse
 import json
 import hashlib
 import uuid
-from datetime import datetime
+import base64
+from datetime import datetime, timezone
 from pathlib import Path
 
 
@@ -62,7 +63,7 @@ def create_verifiable_artifact(input_path, output_path, metadata=None):
         "artifact_id": generate_artifact_id(),
         "artifact_type": "geometry",
         "version": "1.0.0",
-        "created": datetime.utcnow().isoformat() + "Z",
+        "created": datetime.now(timezone.utc).isoformat().replace('+00:00', 'Z'),
         "creator": {
             "id": metadata.get('creator_id', 'unknown') if metadata else 'unknown',
             "type": "Person",
@@ -78,7 +79,7 @@ def create_verifiable_artifact(input_path, output_path, metadata=None):
                 "version": metadata.get('tool_version', '') if metadata else '',
                 "vendor": metadata.get('tool_vendor', '') if metadata else ''
             },
-            "export_timestamp": datetime.utcnow().isoformat() + "Z"
+            "export_timestamp": datetime.now(timezone.utc).isoformat().replace('+00:00', 'Z')
         },
         "metadata": {
             "title": metadata.get('title', input_file.stem) if metadata else input_file.stem,
@@ -89,7 +90,7 @@ def create_verifiable_artifact(input_path, output_path, metadata=None):
         "data": {
             "format": data_format,
             "encoding": "base64",
-            "content": content.hex(),  # For demo; use base64 in production
+            "content": base64.b64encode(content).decode('utf-8'),
             "units": {
                 "length": "mm",
                 "mass": "kg",

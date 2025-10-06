@@ -7,7 +7,7 @@ Cryptographically signs artifacts for authenticity and integrity.
 import argparse
 import json
 import base64
-from datetime import datetime
+from datetime import datetime, timezone
 from pathlib import Path
 
 
@@ -46,7 +46,7 @@ def sign_artifact(artifact_path, key_path=None, algorithm='Ed25519'):
         "algorithm": algorithm,
         "value": mock_signature,
         "signer": artifact['creator'],
-        "timestamp": datetime.utcnow().isoformat() + "Z",
+        "timestamp": datetime.now(timezone.utc).isoformat().replace('+00:00', 'Z'),
         "public_key": {
             "id": "key-001",
             "type": f"{algorithm}VerificationKey2020",
