@@ -1,0 +1,41 @@
+{
+  "artifact": {
+    "content_hash": "sha256:1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef",
+    "declared_value_eur": 10000,
+    "license": "Apache-2.0",
+    "tooling": {
+      "used": [
+        {
+          "id": "ideale://standards/artifact.schema.v0.1",
+          "version": "0.1.0",
+          "weight": 1.0
+        },
+        {
+          "id": "ideale://workflows/ief-verify.v0.1",
+          "version": "0.1.0",
+          "weight": 0.5
+        },
+        {
+          "id": "agent:copilot",
+          "version": null,
+          "weight": 0.2,
+          "payoutHint": {
+            "tt": "sink:ai-compute"
+          }
+        }
+      ]
+    },
+    "revshare": {
+      "allocations": [
+        {
+          "id": "did:github:alice",
+          "share_bps": 6000
+        },
+        {
+          "id": "did:github:bob",
+          "share_bps": 4000
+        }
+      ]
+    }
+  }
+}
