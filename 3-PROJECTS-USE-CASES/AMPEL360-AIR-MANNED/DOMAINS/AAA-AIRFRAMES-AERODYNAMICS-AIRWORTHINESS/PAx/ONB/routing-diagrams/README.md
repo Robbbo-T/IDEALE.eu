@@ -34,6 +34,18 @@ Files follow the pattern: `PAX-AAA-ONB-ROUTE-{IDX}.md`
 
 * `{IDX}` = 4‑digit serial number (e.g., 0001, 0027, 0152)
 
+## UTCS Canon Format
+
+Each artifact should include a YAML file following the **UTCS Canon** (UiX Threading Context/Content/Cache & Structure/Style/Sheet) schema. See [`PAX-AAA-ONB-ROUTE-0001.yaml`](./PAX-AAA-ONB-ROUTE-0001.yaml) for a complete example with:
+
+* **Threading** — Context (mission/env/refs), Content (summary/refs), Cache (exports/thumbnails)
+* **Structure** — Schema definition with domain-specific fields
+* **Style** — Naming conventions, units, notation standards
+* **Sheet** — File manifest with roles (spec/geometry/evidence)
+* **Evidence** — Requirements, checks, and UTCS anchor links
+* **Security** — Classification and access controls
+* **Integrity** — Hash and signature for provenance
+
 ## Required Artifacts
 
 | Artifact | Source | Evidence |
