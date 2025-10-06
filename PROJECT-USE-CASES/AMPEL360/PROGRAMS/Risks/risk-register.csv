@@ -1,0 +1,41 @@
+Risk_ID,Category,Risk_Description,Probability,Impact,Severity_Score,Mitigation_Strategy,Owner,Status,Last_Updated
+RISK-001,Technical,Liquid H2 storage boil-off exceeds target (>1%/day),MEDIUM,HIGH,8,Parallel tank concepts (spherical/cylindrical); Enhanced insulation R&D; Leverage space industry heritage,Chief Engineer H2 Systems,ACTIVE,2025-01-20
+RISK-002,Technical,Fuel cell power density below target (<8kW/kg),MEDIUM,HIGH,8,Dual technology tracks (PEM/SOFC); Modular architecture; Progressive scale-up validation,Chief Engineer Propulsion,ACTIVE,2025-01-20
+RISK-003,Technical,BWB structural certification complexity causes delays,HIGH,CRITICAL,9,Early EASA engagement; Cargo-first approach; X-48 heritage leverage,Chief Engineer Structures,ACTIVE,2025-01-20
+RISK-004,Regulatory,Special Conditions development delays (>12 months),HIGH,HIGH,8,Proactive EASA engagement Q1 2025; Precedent identification; Safety case progressive build,VP Regulatory Affairs,ACTIVE,2025-01-20
+RISK-005,Regulatory,FAA non-acceptance of EASA certification,MEDIUM,MEDIUM,6,Bilateral agreement leverage; Early FAA engagement 2026; Harmonized certification approach,VP Regulatory Affairs,MONITORING,2025-01-20
+RISK-006,Infrastructure,Frankfurt H2 facility permitting delays,MEDIUM,HIGH,8,Early permit applications Q3 2025; Parallel site preparation; Stakeholder pre-engagement,Infrastructure Consortium Lead,ACTIVE,2025-01-20
+RISK-007,Infrastructure,H2 production capacity shortfall,MEDIUM,MEDIUM,6,Multiple supplier contracts; Production capacity monitoring; Contingency supply agreements,Infrastructure Consortium Lead,MONITORING,2025-01-20
+RISK-008,Commercial,Launch customer withdrawal,LOW,HIGH,7,Multiple customer diversification; Flexible contract terms; Regular customer engagement,VP Commercial,MONITORING,2025-01-20
+RISK-009,Commercial,Market demand lower than projected,MEDIUM,MEDIUM,6,Market studies Q2 2025; Route analysis validation; Operating cost modeling,VP Commercial,ACTIVE,2025-01-20
+RISK-010,Financial,Phase 2 funding shortfall (€4.5B target),MEDIUM,CRITICAL,9,Diversified funding sources; Early capital market engagement; Risk-sharing partnerships,CFO,ACTIVE,2025-01-20
+RISK-011,Financial,Cost overruns >20% in Phase 1,MEDIUM,MEDIUM,6,Monthly EVM tracking; Change control rigor; Contingency management,Program Controller,ACTIVE,2025-01-20
+RISK-012,Supply Chain,Fuel cell supplier bankruptcy/exit,LOW,HIGH,7,Dual sourcing policy; Technology transfer agreements; Vertical integration consideration,VP Supply Chain,MONITORING,2025-01-20
+RISK-013,Supply Chain,Composite materials supply disruption,LOW,MEDIUM,5,Multiple suppliers qualified; Strategic inventory; Alternative material qualification,VP Supply Chain,MONITORING,2025-01-20
+RISK-014,Technical,Distributed propulsion EMI issues,MEDIUM,MEDIUM,6,EMI/EMC testing early (2026); Shielding design; Filter optimization,Chief Engineer Electrical,ACTIVE,2025-01-20
+RISK-015,Technical,Cryogenic system leak rate exceeds safety limits,MEDIUM,HIGH,8,Redundant leak detection; Advanced sealing technology; Continuous monitoring systems,Chief Engineer H2 Systems,ACTIVE,2025-01-20
+RISK-016,Safety,H2 ground handling incident,LOW,CRITICAL,8,Rigorous training programs; Safety system redundancy; Emergency response drills,VP Safety,ACTIVE,2025-01-20
+RISK-017,Safety,In-flight H2 system failure,LOW,CRITICAL,8,FMEA thoroughness; Redundancy in critical systems; Flight test validation extensive,Chief Engineer,ACTIVE,2025-01-20
+RISK-018,Technical,Space-T life support system reliability below target,MEDIUM,HIGH,8,Extended ground testing (90 days); ISS heritage leverage; Redundancy design,Chief Engineer Space Systems,ACTIVE,2025-01-20
+RISK-019,Regulatory,NASA human-rating requirements exceed capability,MEDIUM,HIGH,8,Early NASA engagement 2026; Commercial Crew precedent; Design margin adequacy,VP Regulatory Affairs,MONITORING,2025-01-20
+RISK-020,Commercial,SpaceX competitive pressure (pricing),HIGH,MEDIUM,7,European sovereignty positioning; Service differentiation; Cost optimization,VP Commercial Space,ACTIVE,2025-01-20
+RISK-021,Technical,BWB evacuation time exceeds 90 seconds,MEDIUM,HIGH,8,Multiple egress analysis; Full-scale mockup testing; Innovative egress design,Chief Engineer Cabin,ACTIVE,2025-01-20
+RISK-022,Infrastructure,Airport opposition to H2 infrastructure,LOW,MEDIUM,5,Early stakeholder engagement; Safety case communication; Economic benefit demonstration,Infrastructure Consortium Lead,MONITORING,2025-01-20
+RISK-023,Political,EU funding (Clean Aviation JU) reduced,MEDIUM,HIGH,8,Diversified funding strategy; National program engagement; Private capital development,CFO,MONITORING,2025-01-20
+RISK-024,Technical,Digital twin model correlation inadequate,MEDIUM,MEDIUM,6,Phased validation approach; Test data correlation; Model V&V rigor,Chief Engineer Digital,ACTIVE,2025-01-20
+RISK-025,Cybersecurity,Cyber attack on digital thread,MEDIUM,HIGH,8,ISO 27001 certification; Defense-in-depth; 24/7 SOC; Incident response plan,CISO,ACTIVE,2025-01-20
+RISK-026,Environmental,Public opposition to hydrogen (safety perception),MEDIUM,MEDIUM,6,Public education campaign; Safety record communication; Media engagement,VP Communications,MONITORING,2025-01-20
+RISK-027,Schedule,Gate 1 delay (>6 months),MEDIUM,HIGH,8,Critical path monitoring; Float management; Risk mitigation acceleration,Program Director,ACTIVE,2025-01-20
+RISK-028,Technical,Quantum computing applications fail to deliver benefit,HIGH,LOW,4,Realistic expectations set; Classical algorithms primary; No critical path dependency,Chief Engineer Digital,MONITORING,2025-01-20
+RISK-029,Supplier,Key supplier capacity constraints,MEDIUM,MEDIUM,6,Early supplier engagement; Capacity reservations; Alternative source development,VP Supply Chain,ACTIVE,2025-01-20
+RISK-030,Technical,Fuel cell cold-start capability inadequate,MEDIUM,MEDIUM,6,Cold-start testing program; Auxiliary power system; Pre-heating procedures,Chief Engineer Propulsion,ACTIVE,2025-01-20
+RISK-031,Regulatory,EASA requires passenger evacuation demo (full 180 pax),MEDIUM,HIGH,8,Negotiate incremental approach; Precedent research; Early clarity seeking,VP Regulatory Affairs,MONITORING,2025-01-20
+RISK-032,Financial,Exchange rate volatility impacts supplier costs,MEDIUM,LOW,4,Currency hedging strategy; Multi-currency contracts; Natural hedges,CFO,MONITORING,2025-01-20
+RISK-033,Technical,Space-T thermal protection system reusability issues,LOW,MEDIUM,5,Inspectability design; Material selection; Heritage from Dragon/Starliner,Chief Engineer Space Systems,MONITORING,2025-01-20
+RISK-034,Commercial,Insurance costs higher than projected,MEDIUM,MEDIUM,6,Early insurer engagement; Safety record emphasis; Pool arrangement negotiation,VP Finance,ACTIVE,2025-01-20
+RISK-035,Political,Brexit impacts UK supplier participation,LOW,LOW,3,EU supplier prioritization; Alternative sourcing; Customs planning,VP Supply Chain,CLOSED,2025-01-20
+RISK-036,Technical,BWB center-of-gravity range insufficient,LOW,MEDIUM,5,Weight distribution analysis; Fuel management system; Cargo loading optimization,Chief Engineer Systems,MONITORING,2025-01-20
+RISK-037,Market,Sustainable Aviation Fuel (SAF) competitiveness improves,MEDIUM,MEDIUM,6,Differentiation on zero-emission; Performance advantages; Cost trajectory monitoring,VP Strategy,MONITORING,2025-01-20
+RISK-038,Technical,Aircraft noise exceeds certification limits,LOW,MEDIUM,5,Acoustic analysis and testing; Nacelle design optimization; Community engagement,Chief Engineer Acoustics,MONITORING,2025-01-20
+RISK-039,Regulatory,Space debris regulations restrict orbital operations,LOW,MEDIUM,5,Compliant mission planning; De-orbit capability; Tracking system integration,VP Regulatory Affairs,MONITORING,2025-01-20
+RISK-040,Workforce,Critical skills shortage (H2 engineers),HIGH,MEDIUM,7,University partnerships; Training programs; Competitive compensation; Retention focus,VP Human Resources,ACTIVE,2025-01-20
