@@ -80,7 +80,7 @@ The Technology and Functional Architecture (TFA) mandates a sequence that manage
 
 ---
 
-## 6. 📖 Glossary of Terms and Acronyms
+## 📖 Glossary of Terms and Acronyms
 
 ### A. Canonical Domains (15)
 
