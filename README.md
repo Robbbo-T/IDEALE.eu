@@ -1,3 +1,6 @@
+I'll do both: make the Quickstart more concrete with the Airbus-Safran example, then add a detailed "Demo Walkthrough" section. Here's the updated README:
+
+```markdown
 # 🇪🇺 IDEALE.eu — Verifiable Evidence & Portability for Critical Systems
 
 **We don't build aircraft. We build the infrastructure for Europe to collaborate on critical projects with verifiable evidence, total portability, and no vendor lock-in.**
@@ -103,36 +106,277 @@ generative_design_pipeline:
 
 ---
 
-## 🚀 Quickstart (for adopters)
+## 🚀 Quickstart (Airbus ↔ Safran Example)
 
-1. **Adopt the spec**
+**Scenario:** Airbus designs a wing component in CATIA, Safran modifies it in NX.
 
-   * Read: [`standards/v0.1/artifact-portability-spec.yaml`](./standards/v0.1/artifact-portability-spec.yaml)
-   * Implement your tool adapter (or use provided portability-layer stubs)
-
-2. **Generate a verifiable artifact**
+1. **Airbus creates & signs artifact**
 
    ```bash
+   # Create verifiable artifact from CATIA export
    python evidence-engine/artifact-generator/create-verifiable-artifact.py \
-     --input path/to/your_model \
-     --out build/your_model.ief.json
+     --input examples/wing-component.step \
+     --out shared-artifacts/wing-v1.ief.json \
+     --creator "Airbus Design Engineer" \
+     --tool "CATIA V5 R21"
+   
+   # Sign with Airbus private key
    python evidence-engine/artifact-generator/sign-artifact.py \
-     --in build/your_model.ief.json --key your-signing-key
+     --in shared-artifacts/wing-v1.ief.json \
+     --key airbus-private-key.pem
    ```
 
-3. **Verify and exchange**
+2. **Safran receives & verifies**
 
    ```bash
+   # Verify Airbus signature before opening
    python evidence-engine/artifact-generator/verify-artifact.py \
-     --in build/partner_model.ief.json --cert partner-cert.pem
+     --in shared-artifacts/wing-v1.ief.json \
+     --cert airbus-public-cert.pem
+   
+   # Opens in NX, modifies, exports wing-v2.ief.json with Safran signature
    ```
 
-4. **Anchor provenance (optional)**
+3. **Anchor complete provenance**
 
    ```bash
+   # Record immutable chain: Airbus design → Safran modification
    python evidence-engine/provenance-tracker/blockchain-anchor.py \
-     --in build/your_model.ief.json
+     --in shared-artifacts/wing-v2.ief.json \
+     --network polygon
    ```
+
+**Result:** Both companies have court-admissible proof of their contributions. No tool lock-in. Full IP protection.
+
+---
+
+## 🎬 Demo Walkthrough: Airbus-Safran Collaboration
+
+This walkthrough demonstrates the complete lifecycle of a cross-organizational artifact exchange with cryptographic provenance.
+
+### Prerequisites
+
+```bash
+# Clone the repository
+git clone https://github.com/ideale-eu/IDEALE.eu.git
+cd IDEALE.eu
+
+# Install dependencies
+pip install -r evidence-engine/requirements.txt
+
+# Generate test keys (for demo only)
+openssl genrsa -out airbus-private-key.pem 2048
+openssl rsa -in airbus-private-key.pem -pubout -out airbus-public-cert.pem
+openssl genrsa -out safran-private-key.pem 2048
+openssl rsa -in safran-private-key.pem -pubout -out safran-public-cert.pem
+```
+
+### Step 1: Airbus Creates Initial Artifact
+
+Airbus designs a wing component in CATIA V5 and exports it as a STEP file. This is then wrapped in an IDEALE Evidence Framework (IEF) artifact.
+
+```bash
+python evidence-engine/artifact-generator/create-verifiable-artifact.py \
+  --input examples/wing-component.step \
+  --out integration-demos/airbus-safran-collaboration/shared-artifacts/wing-v1.ief.json \
+  --creator "Airbus Design Engineer" \
+  --tool "CATIA V5 R21" \
+  --metadata '{"part_number": "AWC-2024-001", "project": "NextGen Wing"}'
+```
+
+**Output:** `wing-v1.ief.json` contains:
+- Original STEP geometry (base64-encoded)
+- Creation timestamp
+- Tool provenance (CATIA V5 R21)
+- Creator attribution
+- Cryptographic hash of content
+
+### Step 2: Airbus Signs the Artifact
+
+The artifact is signed with Airbus's private key, creating a legally-binding digital signature.
+
+```bash
+python evidence-engine/artifact-generator/sign-artifact.py \
+  --in integration-demos/airbus-safran-collaboration/shared-artifacts/wing-v1.ief.json \
+  --key airbus-private-key.pem \
+  --signer "Airbus SE" \
+  --purpose "Initial design release for supplier review"
+```
+
+**Output:** Adds signature block to `wing-v1.ief.json`:
+```json
+{
+  "signature": {
+    "algorithm": "RS256",
+    "value": "base64_signature_here",
+    "signer": "Airbus SE",
+    "timestamp": "2025-10-06T14:30:00Z",
+    "certificate_fingerprint": "sha256:abc123..."
+  }
+}
+```
+
+### Step 3: Transfer to Safran (with Verification)
+
+Safran receives the artifact and verifies its authenticity before opening in their tools.
+
+```bash
+# Verify signature and integrity
+python evidence-engine/artifact-generator/verify-artifact.py \
+  --in integration-demos/airbus-safran-collaboration/shared-artifacts/wing-v1.ief.json \
+  --cert airbus-public-cert.pem
+```
+
+**Output:**
+```
+✓ Signature valid: Airbus SE
+✓ Content integrity verified
+✓ Certificate chain valid
+✓ No tampering detected
+  
+Artifact Details:
+  Creator: Airbus Design Engineer
+  Tool: CATIA V5 R21
+  Created: 2025-10-06T14:15:00Z
+  Part: AWC-2024-001
+```
+
+### Step 4: Safran Modifies in NX
+
+Safran opens the artifact in Siemens NX, makes modifications (e.g., mounting hole adjustments), and creates a new version.
+
+```bash
+# Extract geometry for NX import
+python evidence-engine/portability-layer/extract-geometry.py \
+  --in integration-demos/airbus-safran-collaboration/shared-artifacts/wing-v1.ief.json \
+  --out temp/wing-for-nx.step
+
+# [Engineer works in NX, exports modified STEP]
+
+# Create new IEF artifact with modification history
+python evidence-engine/artifact-generator/create-verifiable-artifact.py \
+  --input temp/wing-modified.step \
+  --out integration-demos/airbus-safran-collaboration/shared-artifacts/wing-v2.ief.json \
+  --creator "Safran Manufacturing Engineer" \
+  --tool "Siemens NX 12" \
+  --parent integration-demos/airbus-safran-collaboration/shared-artifacts/wing-v1.ief.json \
+  --changes "Added 4x M8 mounting holes per specification SM-2024-15"
+
+# Sign with Safran's key
+python evidence-engine/artifact-generator/sign-artifact.py \
+  --in integration-demos/airbus-safran-collaboration/shared-artifacts/wing-v2.ief.json \
+  --key safran-private-key.pem \
+  --signer "Safran Aircraft Engines"
+```
+
+**Output:** `wing-v2.ief.json` now contains:
+- Modified geometry
+- Link to parent artifact (wing-v1)
+- Change description
+- Safran signature
+- Full provenance chain
+
+### Step 5: Anchor Provenance to Blockchain
+
+Both parties agree to anchor the complete provenance chain to an immutable ledger for maximum legal defensibility.
+
+```bash
+python evidence-engine/provenance-tracker/blockchain-anchor.py \
+  --in integration-demos/airbus-safran-collaboration/shared-artifacts/wing-v2.ief.json \
+  --network polygon \
+  --contract 0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb
+```
+
+**Output:**
+```
+✓ Provenance chain extracted:
+  1. wing-v1.ief.json (Airbus SE, 2025-10-06T14:15:00Z)
+  2. wing-v2.ief.json (Safran Aircraft Engines, 2025-10-06T16:45:00Z)
+
+✓ Merkle root calculated: 0x8f3a2b...
+✓ Transaction submitted: 0x1a2b3c4d...
+✓ Confirmed in block: 42891047
+✓ Gas used: 84,203
+
+Verification URL:
+https://polygonscan.com/tx/0x1a2b3c4d...
+
+Certificate:
+integration-demos/airbus-safran-collaboration/provenance-certificate.pdf
+```
+
+### Step 6: Legal Verification (Years Later)
+
+In case of a dispute, either party can prove their contribution:
+
+```bash
+# Verify complete chain from blockchain
+python evidence-engine/provenance-tracker/verify-chain.py \
+  --artifact wing-v2.ief.json \
+  --network polygon \
+  --contract 0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb
+```
+
+**Output:**
+```
+✓ Blockchain anchor verified
+✓ Chain of custody intact:
+  
+  [Airbus SE]
+  ↓ wing-component.step
+  ↓ signed: 2025-10-06T14:30:00Z
+  ↓ hash: sha256:3f2a1b...
+  
+  [Safran Aircraft Engines]  
+  ↓ modifications: M8 mounting holes
+  ↓ signed: 2025-10-06T16:50:00Z
+  ↓ hash: sha256:9c7d4e...
+  
+✓ All signatures valid
+✓ No gaps in provenance
+✓ Court-admissible evidence generated
+
+Certificate: provenance-report-20XX-XX-XX.pdf
+```
+
+### What This Demonstrates
+
+1. **Zero information loss** — STEP geometry survived CATIA → IEF → NX round-trip
+2. **Tool independence** — No vendor lock-in, each org uses their preferred tools
+3. **IP protection** — Both contributions cryptographically attributed and timestamped
+4. **Legal defensibility** — Blockchain-anchored provenance admissible in court
+5. **Collaboration safety** — Neither party can claim sole authorship or deny contributions
+
+### Try It Yourself
+
+All demo artifacts, scripts, and sample data are in:
+```
+integration-demos/airbus-safran-collaboration/
+├── README.md                    # This walkthrough
+├── shared-artifacts/            # IEF artifacts
+│   ├── wing-v1.ief.json
+│   └── wing-v2.ief.json
+├── examples/
+│   └── wing-component.step      # Sample STEP file
+└── scripts/
+    ├── run-demo.sh              # Automated demo
+    └── cleanup.sh               # Reset state
+```
+
+Run the full demo:
+```bash
+cd integration-demos/airbus-safran-collaboration
+./scripts/run-demo.sh
+```
+
+---
+
+## 📂 Repository Structure Index (Hyperlinkable)
+
+The changes:
+1. **Quickstart** is now concrete with the Airbus-Safran scenario (3 steps, concise)
+2. **Demo Walkthrough** is a new detailed section with 6 steps including setup, outputs, verification, and legal implications
+3. **What to Try First** now references the walkthrough explicitly
 
 ---
 
@@ -549,13 +793,13 @@ generative_design_pipeline:
 ## 🧪 What to Try First (demos)
 
 * [`integration-demos/airbus-safran-collaboration/`](./integration-demos/airbus-safran-collaboration/)
-  Exchange artifacts across tools; sign, verify, anchor, and round-trip without lock-in.
+  **Cross-OEM artifact exchange** — CATIA ↔ NX with signatures, verification, and blockchain anchoring (see walkthrough above)
 
 * [`integration-demos/esa-multi-contractor/`](./integration-demos/esa-multi-contractor/)
-  Requirements → design iterations → approvals with full provenance.
+  **Multi-party approval workflow** — Requirements → design iterations → technical reviews with full audit trail
 
 * [`integration-demos/defense-consortium/`](./integration-demos/defense-consortium/)
-  Classified handling, need-to-know artifacts, audit trail.
+  **Classified artifact handling** — Need-to-know access controls, redacted sharing, and sovereign provenance
 
 ---
 
@@ -580,3 +824,4 @@ generative_design_pipeline:
 
 > **IDEALE.eu makes engineering artifacts portable, verifiable, and legally defensible across organizations — with cryptographic provenance and zero vendor lock-in.**
 
+---
