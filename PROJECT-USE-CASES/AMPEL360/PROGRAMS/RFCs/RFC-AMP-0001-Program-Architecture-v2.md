@@ -588,50 +588,50 @@ critical_supplier_strategy:
 investment_requirements:
   phase_1_risk_reduction:
     period: "2025-2027"
-    amount_eur: 1_500_000_000
+    amount_eur: 1500000000
     breakdown:
-      technology_maturation: 600_000_000
-      demonstrator_programs: 400_000_000
-      infrastructure_pilot: 300_000_000
-      regulatory_engagement: 100_000_000
-      facility_preparation: 100_000_000
+      technology_maturation: 600000000
+      demonstrator_programs: 400000000
+      infrastructure_pilot: 300000000
+      regulatory_engagement: 100000000
+      facility_preparation: 100000000
     sources:
-      clean_aviation_ju: 500_000_000
-      industry_partners: 600_000_000
-      national_programs: 400_000_000
+      clean_aviation_ju: 500000000
+      industry_partners: 600000000
+      national_programs: 400000000
     roi_expectation: "Technology de-risking, go/no-go decision"
   
   phase_2_development:
     period: "2027-2030"
-    amount_eur: 4_500_000_000
+    amount_eur: 4500000000
     breakdown:
-      h2_bwb_cargo: 2_500_000_000
-      space_t_development: 1_200_000_000
-      infrastructure_network: 400_000_000
-      certification: 300_000_000
-      tooling_facilities: 100_000_000
+      h2_bwb_cargo: 2500000000
+      space_t_development: 1200000000
+      infrastructure_network: 400000000
+      certification: 300000000
+      tooling_facilities: 100000000
     sources:
-      private_investment: 2_000_000_000
-      eu_green_deal: 1_500_000_000
-      partner_contributions: 1_000_000_000
+      private_investment: 2000000000
+      eu_green_deal: 1500000000
+      partner_contributions: 1000000000
     roi_expectation: "First revenue from cargo operations 2030"
   
   phase_3_industrialization:
     period: "2030-2034"
-    amount_eur: 8_000_000_000
+    amount_eur: 8000000000
     breakdown:
-      h2_bwb_passenger: 5_000_000_000
-      space_t_commercial: 2_000_000_000
-      infrastructure_expansion: 800_000_000
-      production_ramp: 200_000_000
+      h2_bwb_passenger: 5000000000
+      space_t_commercial: 2000000000
+      infrastructure_expansion: 800000000
+      production_ramp: 200000000
     sources:
-      capital_markets: 4_000_000_000
-      customer_advances: 2_000_000_000
-      strategic_partners: 2_000_000_000
+      capital_markets: 4000000000
+      customer_advances: 2000000000
+      strategic_partners: 2000000000
     roi_expectation: "Break-even 2035, full profitability 2037"
   
   total_program:
-    investment: 14_000_000_000
+    investment: 14000000000
     timeline: "2025-2034 (9 years)"
     expected_revenue_2035: "€3B annual"
     break_even: "2035"
