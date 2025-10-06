@@ -1,0 +1,31 @@
+{
+  "artifact": {
+    "content_hash": "sha256:a1b2c3d4e5f6789012345678901234567890abcdefabcdefabcdefabcdefabcd",
+    "declared_value_eur": 10000,
+    "license": "Apache-2.0",
+    "revshare": {
+      "total_bps": 10000,
+      "allocations": [
+        {
+          "id": "did:github:alice",
+          "role": "author",
+          "share_bps": 7000,
+          "payout": {
+            "tt": "creator/alice",
+            "iban": null
+          }
+        },
+        {
+          "id": "did:github:bob",
+          "role": "coauthor",
+          "share_bps": 3000,
+          "payout": {
+            "tt": "creator/bob",
+            "iban": null
+          }
+        }
+      ],
+      "derivative_policy": "accumulate_by_reference"
+    }
+  }
+}

@@ -2,105 +2,123 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "ideale://standards/artifact.schema.v0.1",
   "title": "IDEALE Artifact Metadata Schema",
-  "description": "Schema for artifact metadata including content hash, value declaration, licensing, tooling, and revenue sharing",
+  "description": "Schema for artifact metadata including content hash, declared value, licensing, tooling (meta-assets), and revenue sharing.",
   "type": "object",
   "required": ["artifact"],
+  "additionalProperties": false,
   "properties": {
     "artifact": {
       "type": "object",
-      "required": ["content_hash", "declared_value_eur", "license", "revshare"],
+      "required": ["content_hash", "revshare"],
+      "additionalProperties": false,
       "properties": {
-        "content_hash": { 
-          "type": "string", 
+        "content_hash": {
+          "type": "string",
           "pattern": "^(sha256:)[A-Fa-f0-9]{64}$",
           "description": "SHA-256 hash of the artifact content"
         },
-        "declared_value_eur": { 
-          "type": "number", 
+        "declared_value_eur": {
+          "type": "number",
           "minimum": 0,
-          "description": "Declared value of the artifact in EUR"
+          "description": "Declared value of the artifact in EUR (optional; if omitted, treated as 0 by tooling)."
         },
-        "license": { 
+        "license": {
           "type": "string",
           "description": "License identifier (e.g., Apache-2.0, MIT)"
         },
         "tooling": {
           "type": "object",
-          "description": "Declaration of meta-tools and infrastructure used to create this artifact",
+          "description": "Declaration of meta-tools and infrastructure used to create this artifact.",
+          "additionalProperties": false,
           "properties": {
             "used": {
               "type": "array",
-              "description": "List of meta-assets (schemas, workflows, generators, assistants) used",
+              "description": "List of meta-assets (schemas, workflows, generators, assistants) used.",
               "items": {
                 "type": "object",
                 "required": ["id"],
+                "additionalProperties": false,
                 "properties": {
-                  "id": { 
+                  "id": {
                     "type": "string",
-                    "description": "Unique identifier of the meta-asset"
+                    "description": "Unique identifier of the meta-asset (e.g., ideale://tools/my-tool.v1.0)."
                   },
-                  "version": { 
+                  "version": {
                     "type": ["string", "null"],
-                    "description": "Version of the meta-asset used"
+                    "description": "Version of the meta-asset used."
                   },
-                  "weight": { 
-                    "type": ["number", "null"], 
+                  "weight": {
+                    "type": ["number", "null"],
                     "minimum": 0,
-                    "description": "Relative weight for royalty distribution (higher = more contribution)"
+                    "description": "Relative weight for infra/tooling royalty distribution."
                   },
                   "payoutHint": {
                     "type": "object",
-                    "description": "Optional payout information override",
-                    "properties": { 
-                      "tt": { 
-                        "type": "string",
-                        "description": "Token transfer identifier or account reference"
-                      }, 
-                      "iban": { 
-                        "type": ["string", "null"],
-                        "description": "Optional IBAN for traditional payments"
-                      } 
-                    },
-                    "additionalProperties": false
+                    "description": "Optional payout info override; if absent, registry will be used.",
+                    "additionalProperties": false,
+                    "properties": {
+                      "tt": { "type": "string", "description": "Token transfer/account reference" },
+                      "iban": { "type": ["string", "null"], "description": "Optional IBAN" }
+                    }
                   }
-                },
-                "additionalProperties": false
+                }
               }
             }
-          },
-          "additionalProperties": false
+          }
         },
         "revshare": {
           "type": "object",
-          "required": ["allocations"],
-          "description": "Revenue sharing configuration for creators and validators",
+          "description": "Revenue sharing configuration for creators/validators.",
+          "additionalProperties": false,
+          "required": ["total_bps", "allocations"],
           "properties": {
+            "total_bps": {
+              "type": "integer",
+              "const": 10000,
+              "description": "Total basis points in the allocation set."
+            },
             "allocations": {
               "type": "array",
-              "description": "List of revenue share allocations to creators",
+              "minItems": 1,
               "items": {
                 "type": "object",
+                "additionalProperties": false,
                 "required": ["id", "share_bps"],
                 "properties": {
                   "id": {
                     "type": "string",
-                    "description": "Identifier of the contributor (e.g., DID, GitHub handle)"
+                    "description": "Contributor identifier (e.g., DID or GitHub handle)."
+                  },
+                  "role": {
+                    "type": "string",
+                    "description": "Optional role (e.g., creator, validator)."
                   },
                   "share_bps": {
-                    "type": "number",
-                    "minimum": 0,
+                    "type": "integer",
+                    "minimum": 1,
                     "maximum": 10000,
-                    "description": "Share in basis points (0-10000, where 10000 = 100%)"
+                    "description": "Share in basis points (1–10000)."
+                  },
+                  "payout": {
+                    "type": "object",
+                    "description": "Optional explicit payout routing.",
+                    "additionalProperties": false,
+                    "properties": {
+                      "tt":   { "type": "string" },
+                      "iban": { "type": ["string", "null"] }
+                    }
                   }
-                },
-                "additionalProperties": false
+                }
               }
+            },
+            "derivative_policy": {
+              "type": "string",
+              "enum": ["accumulate_by_reference", "flat"],
+              "description": "Optional policy for handling derivative artifacts."
             }
-          },
-          "additionalProperties": false
+          }
         }
-      },
-      "additionalProperties": false
+      }
     }
   }
 }

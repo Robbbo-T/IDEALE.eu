@@ -13,6 +13,10 @@ on:
       - '**/artifact.json'
       - 'artifacts/**/artifact.json'
 
+permissions:
+  contents: write           # needed to commit/push ledger on main
+  pull-requests: write      # needed for sticky PR comment
+
 jobs:
   accrue:
     name: Accrue Creator Royalties
@@ -25,7 +29,7 @@ jobs:
           fetch-depth: 0
 
       - name: Set up Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: '3.11'
 
@@ -33,38 +37,72 @@ jobs:
         id: detect
         uses: actions/github-script@v7
         with:
+          result-encoding: string
           script: |
-            const { execSync } = require('child_process');
-            // Find all artifact.json files in the changeset
-            let files = [];
-            try {
-              const output = execSync('git diff --name-only ${{ github.event.before || github.event.pull_request.base.sha }} ${{ github.sha }} | grep artifact.json || true', { encoding: 'utf-8' });
-              files = output.trim().split('\n').filter(f => f && f.length > 0);
-            } catch (e) {
-              console.log('No artifact files changed');
+            const {owner, repo} = context.repo;
+
+            // Helper: normalize to artifact.json paths we care about
+            const isArtifactJson = (p) =>
+              p.endsWith('/artifact.json') || p === 'artifact.json';
+
+            // pull_request: use the PR files API (more reliable than shelling out)
+            if (context.eventName === 'pull_request') {
+              const pr = context.payload.pull_request?.number;
+              if (!pr) return JSON.stringify({ files: [] });
+              const files = await github.paginate(
+                github.rest.pulls.listFiles,
+                { owner, repo, pull_number: pr, per_page: 100 }
+              );
+              const changed = files
+                .filter(f => f.status !== 'removed')
+                .map(f => f.filename)
+                .filter(isArtifactJson);
+              core.info(`PR changed artifact files: ${changed.length}`);
+              return JSON.stringify({ files: changed });
             }
-            console.log(`Found ${files.length} artifact files`);
-            return { files };
+
+            // push: diff between before and after SHAs
+            // Note: paths filter already limits workflow runs, but we still collect exact files.
+            const before = context.payload.before;
+            const after = context.sha;
+            const { execSync } = require('node:child_process');
+            let out = '';
+            try {
+              out = execSync(`git diff --name-only ${before} ${after}`, { encoding: 'utf8' });
+            } catch (e) {
+              core.warning(`git diff failed: ${e.message}`);
+            }
+            const files = out
+              .split('\n')
+              .map(s => s.trim())
+              .filter(Boolean)
+              .filter(isArtifactJson);
+            core.info(`Push changed artifact files: ${files.length}`);
+            return JSON.stringify({ files });
 
       - name: Accrue royalties
         if: ${{ fromJSON(steps.detect.outputs.result).files.length > 0 }}
         env:
           EVENT_TYPE: ${{ github.event_name == 'push' && 'MAIN_PUSH' || 'PR_UPDATE' }}
         run: |
-          FILES='${{ toJSON(fromJSON(steps.detect.outputs.result).files) }}'
-          echo "$FILES" | jq -r '.[]' | while read -r file; do
+          set -euo pipefail
+          echo '${{ steps.detect.outputs.result }}' | jq -r '.files[]' | while read -r file; do
             if [ -f "$file" ]; then
-              echo "Processing: $file"
+              echo "::group::Accruing for $file"
               python3 scripts/accrue_royalty.py "$file" "$EVENT_TYPE"
+              echo "::endgroup::"
+            else
+              echo "::warning file=$file::File not found (skipping)"
             fi
           done
 
-      - name: Commit ledger updates
-        if: ${{ fromJSON(steps.detect.outputs.result).files.length > 0 }}
+      - name: Commit ledger updates (main only)
+        if: ${{ github.event_name == 'push' && fromJSON(steps.detect.outputs.result).files.length > 0 }}
         run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
+          set -euo pipefail
           if [ -f royalties/ledger.jsonl ]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
             git add royalties/ledger.jsonl
             if git diff --staged --quiet; then
               echo "No changes to commit"
@@ -72,26 +110,29 @@ jobs:
               git commit -m "chore: update royalties ledger [skip ci]"
               git push
             fi
+          else
+            echo "royalties/ledger.jsonl not found; nothing to commit"
           fi
 
-      - name: Post summary comment
+      - name: Post summary comment (PRs)
         if: ${{ github.event_name == 'pull_request' && fromJSON(steps.detect.outputs.result).files.length > 0 }}
         uses: marocchino/sticky-pull-request-comment@v2
         with:
-          header: "🎨 Creator Royalties - Accrual Preview"
+          header: "🎨 Creator Royalties · Accrual Preview"
           message: |
             Detected artifact metadata files:
             ```
-            ${{ join(fromJSON(steps.detect.outputs.result).files, '
-            ') }}
+            ${{ join(fromJSON(steps.detect.outputs.result).files, '\n') }}
             ```
             Royalties accrued and logged to `royalties/ledger.jsonl`.
-            If `tooling.used` is present, a share of the fee was distributed to Infra & Tooling (meta‑assets)
+
+            If `tooling.used` is present, a share of the fee was distributed to Infra & Tooling (meta-assets)
             according to declared `weight` and the registry at `standards/v0.1/meta-assets.registry.json`.
+
             > *Note*: This is a preview accrual on PR; payouts follow the configured period/threshold.
 
       - name: Upload ledger artifact
-        if: ${{ fromJSON(steps.detect.outputs.result).files.length > 0 }}
+        if: ${{ fromJSON(steps.detect.outputs.result).files.length > 0 && hashFiles('royalties/ledger.jsonl') != '' }}
         uses: actions/upload-artifact@v4
         with:
           name: royalties-ledger
