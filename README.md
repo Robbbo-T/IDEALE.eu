@@ -3,9 +3,10 @@
 **We don't build aircraft. We build the infrastructure for Europe to collaborate on critical projects with verifiable evidence, total portability, and no vendor lock-in.**
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
-[![IEF](https://img.shields.io/badge/IDEALE%20Evidence%20Framework-v0.1-green.svg)](standards/v0.1/)
+[![IEF](https://img.shields.io/badge/IDEALE%20Evidence%20Framework-v0.1-0e7c86.svg)](standards/v0.1/)
 [![Provenance](https://img.shields.io/badge/Provenance-Cryptographic-blueviolet.svg)](standards/v0.1/provenance-chain.md)
 [![Portability](https://img.shields.io/badge/Artifacts-Portable%20%26%20Vendor--Neutral-0e7c86.svg)](standards/v0.1/artifact-portability-spec.yaml)
+[![CI: IEF Verify](https://img.shields.io/github/actions/workflow/status/ideale-eu/IDEALE.eu/ief-verify.yml?label=IEF%20verify)](.github/workflows/ief-verify.yml)
 
 ---
 
@@ -22,15 +23,16 @@ flowchart LR
   end
 ```
 
-### Artifact properties (what "good" looks like)
+### What “good” looks like (artifact properties)
 
 ```yaml
 artifact_properties:
   portable: true           # Moves across CAD/CAE/CAM/ERP/PLM
   verifiable: true         # Cryptographic hash + signature
-  traceable: true          # Full change history, immutable
-  vendor_neutral: true     # No tool lock-in (Dassault/Siemens/etc.)
+  traceable: true          # Immutable history & parent links
+  vendor_neutral: true     # No Dassault/Siemens/etc. lock-in
   legally_defensible: true # Chain of custody for IP & disputes
+  privacy_preserving: true # PII-aware; selective disclosure
 ```
 
 ---
@@ -39,7 +41,7 @@ artifact_properties:
 
 * **Any tool → Portable artifact → Any tool** (no information loss)
 * **Every change → Cryptographically recorded** (court-admissible evidence)
-* **Every contribution → Attributed** (optional incentives & settlements)
+* **Every contribution → Attributed** (optional incentives/settlements)
 * **Cross-org collaboration → Safe by default** (IP protected, provenance preserved)
 
 **Real example**
@@ -50,7 +52,7 @@ artifact_properties:
 
 ---
 
-## 🧠 Architecture (what's in this repo)
+## 🧠 Architecture (what’s in this repo)
 
 ```
 IDEALE.eu/
@@ -72,7 +74,7 @@ IDEALE.eu/
 └─ integration-demos/         # Airbus↔Safran, ESA multi-contractor, defense consortium
 ```
 
-> The **8 programs** live here as **demonstrations** that the infrastructure scales to extreme complexity (e.g., complete aerospace programs). They are *not* manufacturing projects — they are **evidence and portability showcases**.
+> The **8 programs** in `/3-PROJECTS-USE-CASES` are **evidence & portability showcases**, not manufacturing projects. They demonstrate interoperability at aerospace scale.
 
 ---
 
@@ -98,101 +100,27 @@ generative_design_pipeline:
 
 ## 🤝 Collaboration Models (optional token layer)
 
-* **Team** (single org), **Cross-org** (OEM–Tier1–Tier2), **Ad-hoc** (temporary consortia)
+* **Team** (single org) • **Cross-org** (OEM–Tier1–Tier2) • **Ad-hoc** (temporary consortia)
 * Each contribution can mint **verifiable evidence, attribution, and optional compensation**.
 
 ---
 
 ## 🚀 Quickstart (Airbus ↔ Safran Example)
 
-**Scenario:** Airbus designs a wing component in CATIA, Safran modifies it in NX.
+**Scenario:** Airbus designs a wing component in CATIA; Safran modifies it in NX.
 
 1. **Airbus creates & signs artifact**
 
-   ```bash
-   # Create verifiable artifact from CATIA export
-   python evidence-engine/artifact-generator/create-verifiable-artifact.py \
-     --input examples/wing-component.step \
-     --out shared-artifacts/wing-v1.ief.json \
-     --creator "Airbus Design Engineer" \
-     --tool "CATIA V5 R21"
-   
-   # Sign with Airbus private key
-   python evidence-engine/artifact-generator/sign-artifact.py \
-     --in shared-artifacts/wing-v1.ief.json \
-     --key airbus-private-key.pem
-   ```
-
-2. **Safran receives & verifies**
-
-   ```bash
-   # Verify Airbus signature before opening
-   python evidence-engine/artifact-generator/verify-artifact.py \
-     --in shared-artifacts/wing-v1.ief.json \
-     --cert airbus-public-cert.pem
-   
-   # Opens in NX, modifies, exports wing-v2.ief.json with Safran signature
-   ```
-
-3. **Anchor complete provenance**
-
-   ```bash
-   # Record immutable chain: Airbus design → Safran modification
-   python evidence-engine/provenance-tracker/blockchain-anchor.py \
-     --in shared-artifacts/wing-v2.ief.json \
-     --network polygon
-   ```
-
-**Result:** Both companies have court-admissible proof of their contributions. No tool lock-in. Full IP protection.
-
----
-
-## 🎬 Demo Walkthrough: Airbus-Safran Collaboration
-
-This walkthrough demonstrates the complete lifecycle of a cross-organizational artifact exchange with cryptographic provenance.
-
-### Prerequisites
-
 ```bash
-# Clone the repository
-git clone https://github.com/ideale-eu/IDEALE.eu.git
-cd IDEALE.eu
-
-# Install dependencies
-pip install -r evidence-engine/requirements.txt
-
-# Generate test keys (for demo only)
-openssl genrsa -out airbus-private-key.pem 2048
-openssl rsa -in airbus-private-key.pem -pubout -out airbus-public-cert.pem
-openssl genrsa -out safran-private-key.pem 2048
-openssl rsa -in safran-private-key.pem -pubout -out safran-public-cert.pem
-```
-
-### Step 1: Airbus Creates Initial Artifact
-
-Airbus designs a wing component in CATIA V5 and exports it as a STEP file. This is then wrapped in an IDEALE Evidence Framework (IEF) artifact.
-
-```bash
+# Create verifiable artifact from CATIA export
 python evidence-engine/artifact-generator/create-verifiable-artifact.py \
   --input examples/wing-component.step \
   --out integration-demos/airbus-safran-collaboration/shared-artifacts/wing-v1.ief.json \
   --creator "Airbus Design Engineer" \
   --tool "CATIA V5 R21" \
-  --metadata '{"part_number": "AWC-2024-001", "project": "NextGen Wing"}'
-```
+  --metadata '{"part_number":"AWC-2024-001","project":"NextGen Wing"}'
 
-**Output:** `wing-v1.ief.json` contains:
-- Original STEP geometry (base64-encoded)
-- Creation timestamp
-- Tool provenance (CATIA V5 R21)
-- Creator attribution
-- Cryptographic hash of content
-
-### Step 2: Airbus Signs the Artifact
-
-The artifact is signed with Airbus's private key, creating a legally-binding digital signature.
-
-```bash
+# Sign with Airbus private key
 python evidence-engine/artifact-generator/sign-artifact.py \
   --in integration-demos/airbus-safran-collaboration/shared-artifacts/wing-v1.ief.json \
   --key airbus-private-key.pem \
@@ -200,57 +128,22 @@ python evidence-engine/artifact-generator/sign-artifact.py \
   --purpose "Initial design release for supplier review"
 ```
 
-**Output:** Adds signature block to `wing-v1.ief.json`:
-```json
-{
-  "signature": {
-    "algorithm": "RS256",
-    "value": "base64_signature_here",
-    "signer": "Airbus SE",
-    "timestamp": "2025-10-06T14:30:00Z",
-    "certificate_fingerprint": "sha256:abc123..."
-  }
-}
-```
-
-### Step 3: Transfer to Safran (with Verification)
-
-Safran receives the artifact and verifies its authenticity before opening in their tools.
+2. **Safran verifies, edits in NX, re-signs**
 
 ```bash
-# Verify signature and integrity
+# Verify Airbus signature
 python evidence-engine/artifact-generator/verify-artifact.py \
   --in integration-demos/airbus-safran-collaboration/shared-artifacts/wing-v1.ief.json \
   --cert airbus-public-cert.pem
-```
 
-**Output:**
-```
-✓ Signature valid: Airbus SE
-✓ Content integrity verified
-✓ Certificate chain valid
-✓ No tampering detected
-  
-Artifact Details:
-  Creator: Airbus Design Engineer
-  Tool: CATIA V5 R21
-  Created: 2025-10-06T14:15:00Z
-  Part: AWC-2024-001
-```
-
-### Step 4: Safran Modifies in NX
-
-Safran opens the artifact in Siemens NX, makes modifications (e.g., mounting hole adjustments), and creates a new version.
-
-```bash
-# Extract geometry for NX import
+# Extract neutral geometry for NX import
 python evidence-engine/portability-layer/extract-geometry.py \
   --in integration-demos/airbus-safran-collaboration/shared-artifacts/wing-v1.ief.json \
   --out temp/wing-for-nx.step
 
-# [Engineer works in NX, exports modified STEP]
+# ...engineer modifies in NX → exports temp/wing-modified.step ...
 
-# Create new IEF artifact with modification history
+# Create new IEF artifact, link to parent, and sign
 python evidence-engine/artifact-generator/create-verifiable-artifact.py \
   --input temp/wing-modified.step \
   --out integration-demos/airbus-safran-collaboration/shared-artifacts/wing-v2.ief.json \
@@ -259,23 +152,13 @@ python evidence-engine/artifact-generator/create-verifiable-artifact.py \
   --parent integration-demos/airbus-safran-collaboration/shared-artifacts/wing-v1.ief.json \
   --changes "Added 4x M8 mounting holes per specification SM-2024-15"
 
-# Sign with Safran's key
 python evidence-engine/artifact-generator/sign-artifact.py \
   --in integration-demos/airbus-safran-collaboration/shared-artifacts/wing-v2.ief.json \
   --key safran-private-key.pem \
   --signer "Safran Aircraft Engines"
 ```
 
-**Output:** `wing-v2.ief.json` now contains:
-- Modified geometry
-- Link to parent artifact (wing-v1)
-- Change description
-- Safran signature
-- Full provenance chain
-
-### Step 5: Anchor Provenance to Blockchain
-
-Both parties agree to anchor the complete provenance chain to an immutable ledger for maximum legal defensibility.
+3. **Anchor complete provenance**
 
 ```bash
 python evidence-engine/provenance-tracker/blockchain-anchor.py \
@@ -284,636 +167,227 @@ python evidence-engine/provenance-tracker/blockchain-anchor.py \
   --contract 0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb
 ```
 
-**Output:**
-```
-✓ Provenance chain extracted:
-  1. wing-v1.ief.json (Airbus SE, 2025-10-06T14:15:00Z)
-  2. wing-v2.ief.json (Safran Aircraft Engines, 2025-10-06T16:45:00Z)
+**Result:** Both parties hold **court-admissible** proof of their contributions. No tool lock-in. Full IP protection.
 
-✓ Merkle root calculated: 0x8f3a2b...
-✓ Transaction submitted: 0x1a2b3c4d...
-✓ Confirmed in block: 42891047
-✓ Gas used: 84,203
+---
 
-Verification URL:
-https://polygonscan.com/tx/0x1a2b3c4d...
+## 🎬 Demo Walkthrough: Airbus–Safran
 
-Certificate:
-integration-demos/airbus-safran-collaboration/provenance-certificate.pdf
-```
-
-### Step 6: Legal Verification (Years Later)
-
-In case of a dispute, either party can prove their contribution:
+### Prerequisites
 
 ```bash
-# Verify complete chain from blockchain
-python evidence-engine/provenance-tracker/verify-chain.py \
-  --artifact wing-v2.ief.json \
-  --network polygon \
-  --contract 0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb
+git clone https://github.com/ideale-eu/IDEALE.eu.git
+cd IDEALE.eu
+pip install -r evidence-engine/requirements.txt
+
+# Demo keys (dev only; rotate/discard after)
+openssl genrsa -out airbus-private-key.pem 2048
+openssl rsa -in airbus-private-key.pem -pubout -out airbus-public-cert.pem
+openssl genrsa -out safran-private-key.pem 2048
+openssl rsa -in safran-private-key.pem -pubout -out safran-public-cert.pem
 ```
 
-**Output:**
-```
-✓ Blockchain anchor verified
-✓ Chain of custody intact:
-  
-  [Airbus SE]
-  ↓ wing-component.step
-  ↓ signed: 2025-10-06T14:30:00Z
-  ↓ hash: sha256:3f2a1b...
-  
-  [Safran Aircraft Engines]  
-  ↓ modifications: M8 mounting holes
-  ↓ signed: 2025-10-06T16:50:00Z
-  ↓ hash: sha256:9c7d4e...
-  
-✓ All signatures valid
-✓ No gaps in provenance
-✓ Court-admissible evidence generated
+### Steps at a glance
 
-Certificate: provenance-report-20XX-XX-XX.pdf
-```
+1. **Create artifact** → STEP embedded + metadata + content hash
+2. **Sign** → signature block added (algorithm, signer, timestamp, cert fp)
+3. **Verify** → integrity + chain of trust
+4. **Modify in NX** → new version with `parent` link + `changes` note
+5. **Re-sign** → independent attribution for Safran
+6. **Anchor** → Merkle root on chain; tx receipt stored with artifact
 
-### What This Demonstrates
+Try the automated flow:
 
-1. **Zero information loss** — STEP geometry survived CATIA → IEF → NX round-trip
-2. **Tool independence** — No vendor lock-in, each org uses their preferred tools
-3. **IP protection** — Both contributions cryptographically attributed and timestamped
-4. **Legal defensibility** — Blockchain-anchored provenance admissible in court
-5. **Collaboration safety** — Neither party can claim sole authorship or deny contributions
-
-### Try It Yourself
-
-All demo artifacts, scripts, and sample data are in:
-```
-integration-demos/airbus-safran-collaboration/
-├── README.md                    # This walkthrough
-├── shared-artifacts/            # IEF artifacts
-│   ├── wing-v1.ief.json
-│   └── wing-v2.ief.json
-├── examples/
-│   └── wing-component.step      # Sample STEP file
-└── scripts/
-    ├── run-demo.sh              # Automated demo
-    └── cleanup.sh               # Reset state
-```
-
-Run the full demo:
 ```bash
 cd integration-demos/airbus-safran-collaboration
 ./scripts/run-demo.sh
 ```
-| Acronym/Term | Category | Definition |
-| :--- | :--- | :--- |
-| **TFA** | Architecture | Technology and Functional Architecture: The core underlying system design integrating classical and quantum-inspired computational layers. |
-| **QS** | TFA Flow | **Quantum Superposition State (QS):** The initial, probabilistic, high-dimensional state space defining all possible solutions and operational scenarios. Used for massive data provenance. |
-| **FWD** | TFA Flow | **Forward Wave Dynamics (FWD):** The analysis layer responsible for predictability, uncertainty management, and high-level decision framing based on modeling the propagation of possibilities from the QS. |
-| **UE** | TFA Flow | **Unit/Unique Element (UE):** The point where the 'wave function collapses.' It represents a specific, verifiable, and deterministic snapshot of a component or system state for classical processing. |
-| **FE** | TFA Flow | **Federation Entanglement (FE):** The decision chain mechanism linking and coordinating multiple UEs. Ensures coordinated, traceable decision-making across distributed elements. |
-| **CB** | TFA Flow | **Classical Bit / Solver (CB):** The deterministic layer utilizing classical processing and algorithms (e.g., MILP, GA) to enforce known physical constraints. |
-| **QB** | TFA Flow | **Qubit Inspired Solver (QB):** The core optimization engine utilizing quantum or quantum-inspired methods (e.g., QUBO, QAOA) to find optimal solutions within the constrained space defined by the CB layer. |
-| **MAL-EEM** | Policy | Machine Learning **Ethics, Empathy, Explainability**, and Mitigation: Mandatory checklist ensuring human-centric design, transparency, and risk management for ML models. |
-| **UTCS** | Policy | Universal Traceability and Certification Standard: System used to index all artifacts to requirements and evidence. |
-```
-
-### Final README Structure (Applying the Glossary)
-
-I will now update all eight project READMEs one last time with the finalized glossary.
 
 ---
 
-### Update 1: `3-PROJECTS-USE-CASES/AMPEL360-AIR-MANNED/README.md`
+## 🔒 Security, Privacy & Legal Notes
 
-```markdown
-# AMPEL360-AIR-T — Manned Air Vehicle Platform
+* **Key management:** Demo keys are for testing only. Use HSMs/managed KMS in production.
+* **Selective disclosure:** Redact or encrypt sensitive geometry; attach proofs (hash commitments) instead of raw data where needed.
+* **GDPR & export controls:** Treat PII and controlled technical data appropriately; use jurisdiction-specific anchors if required.
+* **Offline verification:** All signatures and Merkle proofs are verifiable offline; chains add timestamping and third-party attestation.
 
-This project defines the complete lifecycle data and operational architecture for the **AMPEL360-AIR-T** (Manned Air Transport) platform, a commercial aviation system utilizing Blended Wing Body (BWB) and H₂ hybrid-electric propulsion.
-
-The work is executed under the core principles of **QAFbW** (Quantum-Augmented Flight for BWB) and strictly adheres to EASA CS-25/Special Conditions targets.
-
-## Core Architectural Layers
-The project utilizes the unified Domain → Process → ATA framework.
-
-| Layer | Focus Area | TFA Reference Flow |
-| :--- | :--- | :--- |
-| **DOMAINS** | AAA, AAP, CCC, CQH, DDD, EDI, EEE, EER, IIF, IIS, LCC, LIB, MEC, OOO, PPP | Technical Data, Models, Specs |
-| **PLM (CAx)** | CAD, CAE, CAO, CAM, CAI, CAV, CAS, CMP | Process Execution & Data Management |
-| **TFA Flow** | Canonical computational sequence ensuring data integrity and optimization. | **QS → FWD → UE → FE → CB → QB** |
-
-## Traceability & Compliance
-All artifacts must include a **UTCS record** for indexing (`governance/UTCS/`).
-Compliance documents must meet the **MAL-EEM** checklist and include hazard-log entries where applicable.
-
-## Product Variant
-- **Canonical Name:** `bwb-q100`
-- **Path:** `products/ampel360-air-t/variants/bwb-q100/`
-
-## Service Mappings
-- **MAL-SERVICES:** AI/ML models for forecasting, constrained solving, and uncertainty estimation.
-- **MAP-SERVICES:** Management and planning tailored for commercial flight operations.
-
-## 📖 Glossary of Terms and Acronyms
-
-| Acronym/Term | Category | Definition |
-| :--- | :--- | :--- |
-| **AAA** | Domain | Airframes, Aerodynamics, Airworthiness: Covers structural design, flight physics, and regulatory compliance. |
-| **AAP** | Domain | Airport Adaptable Platforms: Covers compatibility and operational readiness with various ground infrastructure systems. |
-| **CCC** | Domain | Cockpit, Cabin, Cargo: Covers HMI, passenger experience (PAx), and payload management systems. |
-| **CQH** | Domain | Cryogenics, Quantum, H2: Covers extreme temperature fluid storage (Hydrogen), and integrated quantum hardware/software. |
-| **DDD** | Domain | Drainage, Dehumidification, Drying: Covers environmental control, moisture management, and fluid drainage systems. |
-| **EDI** | Domain | Electronics, Digital, Instruments: Covers digital systems, avionics, sensors, and flight instrumentation. |
-| **EEE** | Domain | Electrical, Endotransponders, Circulation: Covers power generation, distribution, transponders, and circulation mechanics. |
-| **EER** | Domain | Environmental, Emissions, Remediation: Covers ecological impact, noise, emissions, and sustainable practices. |
-| **IIF** | Domain | Industrial Infrastructure, Facilities: Covers manufacturing plants, tooling, and maintenance facilities requirements. |
-| **IIS** | Domain | Information, Intelligence, Systems: Covers data management, advanced analytics, AI, and operational intelligence. |
-| **LCC** | Domain | Linkages, Control, Communications: Covers mechanical linkages, control laws, and internal/external communication systems. |
-| **LIB** | Domain | Logistics, Inventory, Blockchain: Covers supply chain management, spares inventory, and decentralized ledger technology (DLT) for provenance. |
-| **MEC** | Domain | Mechanical Systems, Modules: Covers non-propulsive mechanical components (hydraulics, landing gear, actuators). |
-| **OOO** | Domain | OS, Ontologies, Office Interfaces: Covers operating system requirements, data semantics (ontologies), and enterprise IT integration. |
-| **PPP** | Domain | Propulsion, Fuel Systems: Covers engines, motors, energy generation, and fuel management (including H₂). |
-| **---** | **PLM/CAx** | **---** |
-| **CAD** | CAx | Computer-Aided Design: Geometric modeling, parts, and assemblies. |
-| **CAE** | CAx | Computer-Aided Engineering: Simulation and analysis (CFD, FEM, MBD, EMI). |
-| **CAO** | CAx | Computer-Aided Optimization: Requirements management and early-stage systems engineering. |
-| **CAM** | CAx | Computer-Aided Manufacturing: NC programming, toolpath generation, and machining setup. |
-| **CAI** | CAx | Computer-Aided Integration: Assembly planning, installation procedures, and interface control. |
-| **CAV** | CAx | Computer-Aided Verification: Quality assurance, metrology, inspection planning, and certification evidence. |
-| **CAS** | CAx | Customer Aftermarket Service: Maintenance (AMM), repair (SRM), spare parts (IPD), and in-service data (EIS). |
-| **CMP** | CAx | Compliance/Corporate Management: EOL, ESG, process automation, and digital thread management (CAP). |
-| **---** | **TFA/MAL** | **---** |
-| **TFA** | Architecture | Technology and Functional Architecture: The core underlying system design integrating classical and quantum-inspired computational layers. |
-| **QS** | TFA Flow | **Quantum Superposition State (QS):** The initial, probabilistic, high-dimensional state space defining all possible solutions and operational scenarios. Used for massive data provenance. |
-| **FWD** | TFA Flow | **Forward Wave Dynamics (FWD):** The analysis layer responsible for predictability, uncertainty management, and high-level decision framing based on modeling the propagation of possibilities from the QS. |
-| **UE** | TFA Flow | **Unit/Unique Element (UE):** The point where the 'wave function collapses.' It represents a specific, verifiable, and deterministic snapshot of a component or system state for classical processing. |
-| **FE** | TFA Flow | **Federation Entanglement (FE):** The decision chain mechanism linking and coordinating multiple UEs. Ensures coordinated, traceable decision-making across distributed elements. |
-| **CB** | TFA Flow | **Classical Bit / Solver (CB):** The deterministic layer utilizing classical processing and algorithms (e.g., MILP, GA) to enforce known physical constraints. |
-| **QB** | TFA Flow | **Qubit Inspired Solver (QB):** The core optimization engine utilizing quantum or quantum-inspired methods (e.g., QUBO, QAOA) to find optimal solutions within the constrained space defined by the CB layer. |
-| **MAL-EEM** | Policy | Machine Learning **Ethics, Empathy, Explainability**, and Mitigation: Mandatory checklist ensuring human-centric design, transparency, and risk management for ML models. |
-| **UTCS** | Policy | Universal Traceability and Certification Standard: System used to index all artifacts to requirements and evidence. |
-```
-
-### Update 2: `3-PROJECTS-USE-CASES/AMPEL360-SPACE-MANNED/README.md`
-
-```markdown
-# AMPEL360-SPACE-T — Manned Space Vehicle Platform
-
-This project defines the complete lifecycle data and operational architecture for the **AMPEL360-SPACE-T** (Manned Space Transport) platform, targeting human-rating and tourism. It emphasizes advanced PLM for extreme environments and suborbital/orbital trajectory optimization.
-
-## Core Architectural Layers
-The project utilizes the unified Domain → Process → ATA framework.
-
-| Layer | Focus Area | TFA Reference Flow |
-| :--- | :--- | :--- |
-| **DOMAINS** | AAA, AAP, CCC, CQH, DDD, EDI, EEE, EER, IIF, IIS, LCC, LIB, MEC, OOO, PPP | Technical Data, Models, Specs |
-| **PLM (CAx)** | CAD, CAE, CAO, CAM, CAI, CAV, CAS, CMP | Process Execution & Data Management |
-| **TFA Flow** | Canonical computational sequence ensuring data integrity and optimization. | **QS → FWD → UE → FE → CB → QB** |
-
-## Traceability & Compliance
-All artifacts must include a **UTCS record** for indexing (`governance/UTCS/`).
-Compliance documents must meet the **MAL-EEM** checklist and include hazard-log entries where applicable.
-
-## Product Variant
-- **Canonical Name:** `plus`
-- **Path:** `products/ampel360-space-t/variants/plus/`
-
-## Service Mappings
-- **MAL-SERVICES:** AI/ML models for trajectory optimization and real-time failure prediction in space.
-- **MAP-SERVICES:** Management and planning tailored for crewed space operations.
-
-## 📖 Glossary of Terms and Acronyms
-
-| Acronym/Term | Category | Definition |
-| :--- | :--- | :--- |
-| **AAA** | Domain | Airframes, Aerodynamics, Airworthiness: Covers structural design, flight physics, and regulatory compliance. |
-| **AAP** | Domain | Airport Adaptable Platforms: Covers compatibility and operational readiness with various ground infrastructure systems. |
-| **CCC** | Domain | Cockpit, Cabin, Cargo: Covers HMI, passenger experience (PAx), and payload management systems. |
-| **CQH** | Domain | Cryogenics, Quantum, H2: Covers extreme temperature fluid storage (Hydrogen), and integrated quantum hardware/software. |
-| **DDD** | Domain | Drainage, Dehumidification, Drying: Covers environmental control, moisture management, and fluid drainage systems. |
-| **EDI** | Domain | Electronics, Digital, Instruments: Covers digital systems, avionics, sensors, and flight instrumentation. |
-| **EEE** | Domain | Electrical, Endotransponders, Circulation: Covers power generation, distribution, transponders, and circulation mechanics. |
-| **EER** | Domain | Environmental, Emissions, Remediation: Covers ecological impact, noise, emissions, and sustainable practices. |
-| **IIF** | Domain | Industrial Infrastructure, Facilities: Covers manufacturing plants, tooling, and maintenance facilities requirements. |
-| **IIS** | Domain | Information, Intelligence, Systems: Covers data management, advanced analytics, AI, and operational intelligence. |
-| **LCC** | Domain | Linkages, Control, Communications: Covers mechanical linkages, control laws, and internal/external communication systems. |
-| **LIB** | Domain | Logistics, Inventory, Blockchain: Covers supply chain management, spares inventory, and decentralized ledger technology (DLT) for provenance. |
-| **MEC** | Domain | Mechanical Systems, Modules: Covers non-propulsive mechanical components (hydraulics, landing gear, actuators). |
-| **OOO** | Domain | OS, Ontologies, Office Interfaces: Covers operating system requirements, data semantics (ontologies), and enterprise IT integration. |
-| **PPP** | Domain | Propulsion, Fuel Systems: Covers engines, motors, energy generation, and fuel management (including H₂). |
-| **---** | **PLM/CAx** | **---** |
-| **CAD** | CAx | Computer-Aided Design: Geometric modeling, parts, and assemblies. |
-| **CAE** | CAx | Computer-Aided Engineering: Simulation and analysis (CFD, FEM, MBD, EMI). |
-| **CAO** | CAx | Computer-Aided Optimization: Requirements management and early-stage systems engineering. |
-| **CAM** | CAx | Computer-Aided Manufacturing: NC programming, toolpath generation, and machining setup. |
-| **CAI** | CAx | Computer-Aided Integration: Assembly planning, installation procedures, and interface control. |
-| **CAV** | CAx | Computer-Aided Verification: Quality assurance, metrology, inspection planning, and certification evidence. |
-| **CAS** | CAx | Customer Aftermarket Service: Maintenance (AMM), repair (SRM), spare parts (IPD), and in-service data (EIS). |
-| **CMP** | CAx | Compliance/Corporate Management: EOL, ESG, process automation, and digital thread management (CAP). |
-| **---** | **TFA/MAL** | **---** |
-| **TFA** | Architecture | Technology and Functional Architecture: The core underlying system design integrating classical and quantum-inspired computational layers. |
-| **QS** | TFA Flow | **Quantum Superposition State (QS):** The initial, probabilistic, high-dimensional state space defining all possible solutions and operational scenarios. Used for massive data provenance. |
-| **FWD** | TFA Flow | **Forward Wave Dynamics (FWD):** The analysis layer responsible for predictability, uncertainty management, and high-level decision framing based on modeling the propagation of possibilities from the QS. |
-| **UE** | TFA Flow | **Unit/Unique Element (UE):** The point where the 'wave function collapses.' It represents a specific, verifiable, and deterministic snapshot of a component or system state for classical processing. |
-| **FE** | TFA Flow | **Federation Entanglement (FE):** The decision chain mechanism linking and coordinating multiple UEs. Ensures coordinated, traceable decision-making across distributed elements. |
-| **CB** | TFA Flow | **Classical Bit / Solver (CB):** The deterministic layer utilizing classical processing and algorithms (e.g., MILP, GA) to enforce known physical constraints. |
-| **QB** | TFA Flow | **Qubit Inspired Solver (QB):** The core optimization engine utilizing quantum or quantum-inspired methods (e.g., QUBO, QAOA) to find optimal solutions within the constrained space defined by the CB layer. |
-| **MAL-EEM** | Policy | Machine Learning **Ethics, Empathy, Explainability**, and Mitigation: Mandatory checklist ensuring human-centric design, transparency, and risk management for ML models. |
-| **UTCS** | Policy | Universal Traceability and Certification Standard: System used to index all artifacts to requirements and evidence. |
-```
-
-### Update 3: `3-PROJECTS-USE-CASES/ASI-T2-INTELLIGENCE/README.md`
-
-```markdown
-# ASI-T2-INTELLIGENCE — Advanced Intelligence and Information Systems
-
-This project establishes the foundation for T2 operational intelligence systems that manage and augment the AMPEL360 product lines. Its primary function is providing integrated intelligence and adaptive control leveraging quantum-enhanced capability across all domains.
-
-## Core Architectural Layers
-The project utilizes the unified Domain → Process → ATA framework.
-
-| Layer | Focus Area | TFA Reference Flow |
-| :--- | :--- | :--- |
-| **DOMAINS** | AAA, AAP, CCC, CQH, DDD, EDI, EEE, EER, IIF, IIS, LCC, LIB, MEC, OOO, PPP | Intelligence Model Application |
-| **PLM (CAx)** | CAD, CAE, CAO, CAM, CAI, CAV, CAS, CMP | Data Consumption & Decision Support |
-| **TFA Flow** | Canonical computational sequence ensuring data integrity and optimization. | **QS → FWD → UE → FE → CB → QB** |
-
-## Traceability & Compliance
-All generated intelligence artifacts must include a **UTCS record** for indexing (`governance/UTCS/`).
-All intelligence models must meet the **MAL-EEM** checklist (Ethics, Empathy, Explainability, Mitigation) and contribute to hazard-log entries where new risks are identified.
-
-## Service Mappings
-- **MAL-SERVICES:** Core AI/ML services for deep analysis and adaptive decision-making.
-- **MAP-SERVICES:** Intelligence-driven management and planning services.
-
-## 📖 Glossary of Terms and Acronyms
-
-| Acronym/Term | Category | Definition |
-| :--- | :--- | :--- |
-| **AAA** | Domain | Airframes, Aerodynamics, Airworthiness: Covers structural design, flight physics, and regulatory compliance. |
-| **AAP** | Domain | Airport Adaptable Platforms: Covers compatibility and operational readiness with various ground infrastructure systems. |
-| **CCC** | Domain | Cockpit, Cabin, Cargo: Covers HMI, passenger experience (PAx), and payload management systems. |
-| **CQH** | Domain | Cryogenics, Quantum, H2: Covers extreme temperature fluid storage (Hydrogen), and integrated quantum hardware/software. |
-| **DDD** | Domain | Drainage, Dehumidification, Drying: Covers environmental control, moisture management, and fluid drainage systems. |
-| **EDI** | Domain | Electronics, Digital, Instruments: Covers digital systems, avionics, sensors, and flight instrumentation. |
-| **EEE** | Domain | Electrical, Endotransponders, Circulation: Covers power generation, distribution, transponders, and circulation mechanics. |
-| **EER** | Domain | Environmental, Emissions, Remediation: Covers ecological impact, noise, emissions, and sustainable practices. |
-| **IIF** | Domain | Industrial Infrastructure, Facilities: Covers manufacturing plants, tooling, and maintenance facilities requirements. |
-| **IIS** | Domain | Information, Intelligence, Systems: Covers data management, advanced analytics, AI, and operational intelligence. |
-| **LCC** | Domain | Linkages, Control, Communications: Covers mechanical linkages, control laws, and internal/external communication systems. |
-| **LIB** | Domain | Logistics, Inventory, Blockchain: Covers supply chain management, spares inventory, and decentralized ledger technology (DLT) for provenance. |
-| **MEC** | Domain | Mechanical Systems, Modules: Covers non-propulsive mechanical components (hydraulics, landing gear, actuators). |
-| **OOO** | Domain | OS, Ontologies, Office Interfaces: Covers operating system requirements, data semantics (ontologies), and enterprise IT integration. |
-| **PPP** | Domain | Propulsion, Fuel Systems: Covers engines, motors, energy generation, and fuel management (including H₂). |
-| **---** | **PLM/CAx** | **---** |
-| **CAD** | CAx | Computer-Aided Design: Geometric modeling, parts, and assemblies. |
-| **CAE** | CAx | Computer-Aided Engineering: Simulation and analysis (CFD, FEM, MBD, EMI). |
-| **CAO** | CAx | Computer-Aided Optimization: Requirements management and early-stage systems engineering. |
-| **CAM** | CAx | Computer-Aided Manufacturing: NC programming, toolpath generation, and machining setup. |
-| **CAI** | CAx | Computer-Aided Integration: Assembly planning, installation procedures, and interface control. |
-| **CAV** | CAx | Computer-Aided Verification: Quality assurance, metrology, inspection planning, and certification evidence. |
-| **CAS** | CAx | Customer Aftermarket Service: Maintenance (AMM), repair (SRM), spare parts (IPD), and in-service data (EIS). |
-| **CMP** | CAx | Compliance/Corporate Management: EOL, ESG, process automation, and digital thread management (CAP). |
-| **---** | **TFA/MAL** | **---** |
-| **TFA** | Architecture | Technology and Functional Architecture: The core underlying system design integrating classical and quantum-inspired computational layers. |
-| **QS** | TFA Flow | **Quantum Superposition State (QS):** The initial, probabilistic, high-dimensional state space defining all possible solutions and operational scenarios. Used for massive data provenance. |
-| **FWD** | TFA Flow | **Forward Wave Dynamics (FWD):** The analysis layer responsible for predictability, uncertainty management, and high-level decision framing based on modeling the propagation of possibilities from the QS. |
-| **UE** | TFA Flow | **Unit/Unique Element (UE):** The point where the 'wave function collapses.' It represents a specific, verifiable, and deterministic snapshot of a component or system state for classical processing. |
-| **FE** | TFA Flow | **Federation Entanglement (FE):** The decision chain mechanism linking and coordinating multiple UEs. Ensures coordinated, traceable decision-making across distributed elements. |
-| **CB** | TFA Flow | **Classical Bit / Solver (CB):** The deterministic layer utilizing classical processing and algorithms (e.g., MILP, GA) to enforce known physical constraints. |
-| **QB** | TFA Flow | **Qubit Inspired Solver (QB):** The core optimization engine utilizing quantum or quantum-inspired methods (e.g., QUBO, QAOA) to find optimal solutions within the constrained space defined by the CB layer. |
-| **MAL-EEM** | Policy | Machine Learning **Ethics, Empathy, Explainability**, and Mitigation: Mandatory checklist ensuring human-centric design, transparency, and risk management for ML models. |
-| **UTCS** | Policy | Universal Traceability and Certification Standard: System used to index all artifacts to requirements and evidence. |
-```
-
-### Update 4: `3-PROJECTS-USE-CASES/GAIA-AIR-UNMANNED/README.md`
-
-```markdown
-# GAIA-AIR-UNMANNED — Unmanned Air Vehicle (UAV) Platform
-
-This project documents the complete lifecycle management and operational framework for the GAIA Unmanned Air Vehicle, focusing on lean, agile development, and maximizing autonomous mission capability.
-
-## Core Architectural Layers
-The project utilizes the unified Domain → Process → ATA framework.
-
-| Layer | Focus Area | TFA Reference Flow |
-| :--- | :--- | :--- |
-| **DOMAINS** | AAA, AAP, CCC, CQH, DDD, EDI, EEE, EER, IIF, IIS, LCC, LIB, MEC, OOO, PPP | Technical Data, Models, Specs |
-| **PLM (CAx)** | CAD, CAE, CAO, CAM, CAI, CAV, CAS, CMP | Process Execution & Data Management |
-| **TFA Flow** | Canonical computational sequence ensuring data integrity and optimization. | **QS → FWD → UE → FE → CB → QB** |
-
-## Traceability & Compliance
-All artifacts must include a **UTCS record** for indexing (`governance/UTCS/`).
-Compliance documents must meet the **MAL-EEM** checklist (especially for autonomous decision models) and include hazard-log entries where applicable.
-
-## Service Mappings
-- **MAL-SERVICES:** AI/ML models specialized for autonomous operation, navigation, and mission forecasting.
-- **MAP-SERVICES:** Management and planning services optimized for UAV fleet management.
-
-## 📖 Glossary of Terms and Acronyms
-
-| Acronym/Term | Category | Definition |
-| :--- | :--- | :--- |
-| **AAA** | Domain | Airframes, Aerodynamics, Airworthiness: Covers structural design, flight physics, and regulatory compliance. |
-| **AAP** | Domain | Airport Adaptable Platforms: Covers compatibility and operational readiness with various ground infrastructure systems. |
-| **CCC** | Domain | Cockpit, Cabin, Cargo: Covers HMI, passenger experience (PAx), and payload management systems. |
-| **CQH** | Domain | Cryogenics, Quantum, H2: Covers extreme temperature fluid storage (Hydrogen), and integrated quantum hardware/software. |
-| **DDD** | Domain | Drainage, Dehumidification, Drying: Covers environmental control, moisture management, and fluid drainage systems. |
-| **EDI** | Domain | Electronics, Digital, Instruments: Covers digital systems, avionics, sensors, and flight instrumentation. |
-| **EEE** | Domain | Electrical, Endotransponders, Circulation: Covers power generation, distribution, transponders, and circulation mechanics. |
-| **EER** | Domain | Environmental, Emissions, Remediation: Covers ecological impact, noise, emissions, and sustainable practices. |
-| **IIF** | Domain | Industrial Infrastructure, Facilities: Covers manufacturing plants, tooling, and maintenance facilities requirements. |
-| **IIS** | Domain | Information, Intelligence, Systems: Covers data management, advanced analytics, AI, and operational intelligence. |
-| **LCC** | Domain | Linkages, Control, Communications: Covers mechanical linkages, control laws, and internal/external communication systems. |
-| **LIB** | Domain | Logistics, Inventory, Blockchain: Covers supply chain management, spares inventory, and decentralized ledger technology (DLT) for provenance. |
-| **MEC** | Domain | Mechanical Systems, Modules: Covers non-propulsive mechanical components (hydraulics, landing gear, actuators). |
-| **OOO** | Domain | OS, Ontologies, Office Interfaces: Covers operating system requirements, data semantics (ontologies), and enterprise IT integration. |
-| **PPP** | Domain | Propulsion, Fuel Systems: Covers engines, motors, energy generation, and fuel management (including H₂). |
-| **---** | **PLM/CAx** | **---** |
-| **CAD** | CAx | Computer-Aided Design: Geometric modeling, parts, and assemblies. |
-| **CAE** | CAx | Computer-Aided Engineering: Simulation and analysis (CFD, FEM, MBD, EMI). |
-| **CAO** | CAx | Computer-Aided Optimization: Requirements management and early-stage systems engineering. |
-| **CAM** | CAx | Computer-Aided Manufacturing: NC programming, toolpath generation, and machining setup. |
-| **CAI** | CAx | Computer-Aided Integration: Assembly planning, installation procedures, and interface control. |
-| **CAV** | CAx | Computer-Aided Verification: Quality assurance, metrology, inspection planning, and certification evidence. |
-| **CAS** | CAx | Customer Aftermarket Service: Maintenance (AMM), repair (SRM), spare parts (IPD), and in-service data (EIS). |
-| **CMP** | CAx | Compliance/Corporate Management: EOL, ESG, process automation, and digital thread management (CAP). |
-| **---** | **TFA/MAL** | **---** |
-| **TFA** | Architecture | Technology and Functional Architecture: The core underlying system design integrating classical and quantum-inspired computational layers. |
-| **QS** | TFA Flow | **Quantum Superposition State (QS):** The initial, probabilistic, high-dimensional state space defining all possible solutions and operational scenarios. Used for massive data provenance. |
-| **FWD** | TFA Flow | **Forward Wave Dynamics (FWD):** The analysis layer responsible for predictability, uncertainty management, and high-level decision framing based on modeling the propagation of possibilities from the QS. |
-| **UE** | TFA Flow | **Unit/Unique Element (UE):** The point where the 'wave function collapses.' It represents a specific, verifiable, and deterministic snapshot of a component or system state for classical processing. |
-| **FE** | TFA Flow | **Federation Entanglement (FE):** The decision chain mechanism linking and coordinating multiple UEs. Ensures coordinated, traceable decision-making across distributed elements. |
-| **CB** | TFA Flow | **Classical Bit / Solver (CB):** The deterministic layer utilizing classical processing and algorithms (e.g., MILP, GA) to enforce known physical constraints. |
-| **QB** | TFA Flow | **Qubit Inspired Solver (QB):** The core optimization engine utilizing quantum or quantum-inspired methods (e.g., QUBO, QAOA) to find optimal solutions within the constrained space defined by the CB layer. |
-| **MAL-EEM** | Policy | Machine Learning **Ethics, Empathy, Explainability**, and Mitigation: Mandatory checklist ensuring human-centric design, transparency, and risk management for ML models. |
-| **UTCS** | Policy | Universal Traceability and Certification Standard: System used to index all artifacts to requirements and evidence. |
-```
-
-### Update 5: `3-PROJECTS-USE-CASES/GAIA-GROUND-RETAILS/README.md`
-
-```markdown
-# GAIA-GROUND-RETAILS — Ground & Retail Logistics Platform
-
-This project documents the application of the GAIA technical stack to ground-based assets and retail logistics supply chains, with heavy emphasis on inventory, infrastructure, and complex distribution optimization.
-
-## Core Architectural Layers
-The project utilizes the unified Domain → Process → ATA framework.
-
-| Layer | Focus Area | TFA Reference Flow |
-| :--- | :--- | :--- |
-| **DOMAINS** | AAA, AAP, CCC, CQH, DDD, EDI, EEE, EER, IIF, IIS, LCC, LIB, MEC, OOO, PPP | Technical Data, Models, Specs |
-| **PLM (CAx)** | CAD, CAE, CAO, CAM, CAI, CAV, CAS, CMP | Logistics and Infrastructure Management |
-| **TFA Flow** | Canonical computational sequence ensuring data integrity and optimization. | **QS → FWD → UE → FE → CB → QB** |
-
-## Traceability & Compliance
-All inventory and transaction records must include a **UTCS record** for indexing (`governance/UTCS/`).
-Optimization models must meet the **MAL-EEM** checklist and relevant safety/compliance logs.
-
-## Service Mappings
-- **MAL-SERVICES:** AI/ML models for logistics network optimization and demand forecasting.
-- **MAP-SERVICES:** Management services dedicated to retail supply chain planning and infrastructure lifecycle.
-
-## 📖 Glossary of Terms and Acronyms
-
-| Acronym/Term | Category | Definition |
-| :--- | :--- | :--- |
-| **AAA** | Domain | Airframes, Aerodynamics, Airworthiness: Covers structural design, flight physics, and regulatory compliance. |
-| **AAP** | Domain | Airport Adaptable Platforms: Covers compatibility and operational readiness with various ground infrastructure systems. |
-| **CCC** | Domain | Cockpit, Cabin, Cargo: Covers HMI, passenger experience (PAx), and payload management systems. |
-| **CQH** | Domain | Cryogenics, Quantum, H2: Covers extreme temperature fluid storage (Hydrogen), and integrated quantum hardware/software. |
-| **DDD** | Domain | Drainage, Dehumidification, Drying: Covers environmental control, moisture management, and fluid drainage systems. |
-| **EDI** | Domain | Electronics, Digital, Instruments: Covers digital systems, avionics, sensors, and flight instrumentation. |
-| **EEE** | Domain | Electrical, Endotransponders, Circulation: Covers power generation, distribution, transponders, and circulation mechanics. |
-| **EER** | Domain | Environmental, Emissions, Remediation: Covers ecological impact, noise, emissions, and sustainable practices. |
-| **IIF** | Domain | Industrial Infrastructure, Facilities: Covers manufacturing plants, tooling, and maintenance facilities requirements. |
-| **IIS** | Domain | Information, Intelligence, Systems: Covers data management, advanced analytics, AI, and operational intelligence. |
-| **LCC** | Domain | Linkages, Control, Communications: Covers mechanical linkages, control laws, and internal/external communication systems. |
-| **LIB** | Domain | Logistics, Inventory, Blockchain: Covers supply chain management, spares inventory, and decentralized ledger technology (DLT) for provenance. |
-| **MEC** | Domain | Mechanical Systems, Modules: Covers non-propulsive mechanical components (hydraulics, landing gear, actuators). |
-| **OOO** | Domain | OS, Ontologies, Office Interfaces: Covers operating system requirements, data semantics (ontologies), and enterprise IT integration. |
-| **PPP** | Domain | Propulsion, Fuel Systems: Covers engines, motors, energy generation, and fuel management (including H₂). |
-| **---** | **PLM/CAx** | **---** |
-| **CAD** | CAx | Computer-Aided Design: Geometric modeling, parts, and assemblies. |
-| **CAE** | CAx | Computer-Aided Engineering: Simulation and analysis (CFD, FEM, MBD, EMI). |
-| **CAO** | CAx | Computer-Aided Optimization: Requirements management and early-stage systems engineering. |
-| **CAM** | CAx | Computer-Aided Manufacturing: NC programming, toolpath generation, and machining setup. |
-| **CAI** | CAx | Computer-Aided Integration: Assembly planning, installation procedures, and interface control. |
-| **CAV** | CAx | Computer-Aided Verification: Quality assurance, metrology, inspection planning, and certification evidence. |
-| **CAS** | CAx | Customer Aftermarket Service: Maintenance (AMM), repair (SRM), spare parts (IPD), and in-service data (EIS). |
-| **CMP** | CAx | Compliance/Corporate Management: EOL, ESG, process automation, and digital thread management (CAP). |
-| **---** | **TFA/MAL** | **---** |
-| **TFA** | Architecture | Technology and Functional Architecture: The core underlying system design integrating classical and quantum-inspired computational layers. |
-| **QS** | TFA Flow | **Quantum Superposition State (QS):** The initial, probabilistic, high-dimensional state space defining all possible solutions and operational scenarios. Used for massive data provenance. |
-| **FWD** | TFA Flow | **Forward Wave Dynamics (FWD):** The analysis layer responsible for predictability, uncertainty management, and high-level decision framing based on modeling the propagation of possibilities from the QS. |
-| **UE** | TFA Flow | **Unit/Unique Element (UE):** The point where the 'wave function collapses.' It represents a specific, verifiable, and deterministic snapshot of a component or system state for classical processing. |
-| **FE** | TFA Flow | **Federation Entanglement (FE):** The decision chain mechanism linking and coordinating multiple UEs. Ensures coordinated, traceable decision-making across distributed elements. |
-| **CB** | TFA Flow | **Classical Bit / Solver (CB):** The deterministic layer utilizing classical processing and algorithms (e.g., MILP, GA) to enforce known physical constraints. |
-| **QB** | TFA Flow | **Qubit Inspired Solver (QB):** The core optimization engine utilizing quantum or quantum-inspired methods (e.g., QUBO, QAOA) to find optimal solutions within the constrained space defined by the CB layer. |
-| **MAL-EEM** | Policy | Machine Learning **Ethics, Empathy, Explainability**, and Mitigation: Mandatory checklist ensuring human-centric design, transparency, and risk management for ML models. |
-| **UTCS** | Policy | Universal Traceability and Certification Standard: System used to index all artifacts to requirements and evidence. |
-```
-
-### Update 6: `3-PROJECTS-USE-CASES/GAIA-SEA-PROBES/README.md`
-
-```markdown
-# GAIA-SEA-PROBES — Unmanned Sea Probe (USP/AUV) Platform
-
-This project documents the lifecycle management and operational architecture for GAIA Unmanned Sea Probes and AUVs. The technical focus is on deep-sea resilience, complex navigation, and the integration of cryogenic/H2 power solutions.
-
-## Core Architectural Layers
-The project utilizes the unified Domain → Process → ATA framework.
-
-| Layer | Focus Area | TFA Reference Flow |
-| :--- | :--- | :--- |
-| **DOMAINS** | AAA, AAP, CCC, CQH, DDD, EDI, EEE, EER, IIF, IIS, LCC, LIB, MEC, OOO, PPP | Technical Data, Models, Specs |
-| **PLM (CAx)** | CAD, CAE, CAO, CAM, CAI, CAV, CAS, CMP | Process Execution (Maritime) |
-| **TFA Flow** | Canonical computational sequence ensuring data integrity and optimization. | **QS → FWD → UE → FE → CB → QB** |
-
-## Traceability & Compliance
-All mission and deep-sea data must include a **UTCS record** for indexing (`governance/UTCS/`).
-Autonomy models must meet the **MAL-EEM** checklist and critical failure scenarios must be tracked in the hazard log.
-
-## Service Mappings
-- **MAL-SERVICES:** AI/ML models for mission planning, deep-sea navigation, and structural integrity monitoring.
-- **MAP-SERVICES:** Management services tailored for distributed sea fleet operations.
-
-## 📖 Glossary of Terms and Acronyms
-
-| Acronym/Term | Category | Definition |
-| :--- | :--- | :--- |
-| **AAA** | Domain | Airframes, Aerodynamics, Airworthiness: Covers structural design, flight physics, and regulatory compliance. |
-| **AAP** | Domain | Airport Adaptable Platforms: Covers compatibility and operational readiness with various ground infrastructure systems. |
-| **CCC** | Domain | Cockpit, Cabin, Cargo: Covers HMI, passenger experience (PAx), and payload management systems. |
-| **CQH** | Domain | Cryogenics, Quantum, H2: Covers extreme temperature fluid storage (Hydrogen), and integrated quantum hardware/software. |
-| **DDD** | Domain | Drainage, Dehumidification, Drying: Covers environmental control, moisture management, and fluid drainage systems. |
-| **EDI** | Domain | Electronics, Digital, Instruments: Covers digital systems, avionics, sensors, and flight instrumentation. |
-| **EEE** | Domain | Electrical, Endotransponders, Circulation: Covers power generation, distribution, transponders, and circulation mechanics. |
-| **EER** | Domain | Environmental, Emissions, Remediation: Covers ecological impact, noise, emissions, and sustainable practices. |
-| **IIF** | Domain | Industrial Infrastructure, Facilities: Covers manufacturing plants, tooling, and maintenance facilities requirements. |
-| **IIS** | Domain | Information, Intelligence, Systems: Covers data management, advanced analytics, AI, and operational intelligence. |
-| **LCC** | Domain | Linkages, Control, Communications: Covers mechanical linkages, control laws, and internal/external communication systems. |
-| **LIB** | Domain | Logistics, Inventory, Blockchain: Covers supply chain management, spares inventory, and decentralized ledger technology (DLT) for provenance. |
-| **MEC** | Domain | Mechanical Systems, Modules: Covers non-propulsive mechanical components (hydraulics, landing gear, actuators). |
-| **OOO** | Domain | OS, Ontologies, Office Interfaces: Covers operating system requirements, data semantics (ontologies), and enterprise IT integration. |
-| **PPP** | Domain | Propulsion, Fuel Systems: Covers engines, motors, energy generation, and fuel management (including H₂). |
-| **---** | **PLM/CAx** | **---** |
-| **CAD** | CAx | Computer-Aided Design: Geometric modeling, parts, and assemblies. |
-| **CAE** | CAx | Computer-Aided Engineering: Simulation and analysis (CFD, FEM, MBD, EMI). |
-| **CAO** | CAx | Computer-Aided Optimization: Requirements management and early-stage systems engineering. |
-| **CAM** | CAx | Computer-Aided Manufacturing: NC programming, toolpath generation, and machining setup. |
-| **CAI** | CAx | Computer-Aided Integration: Assembly planning, installation procedures, and interface control. |
-| **CAV** | CAx | Computer-Aided Verification: Quality assurance, metrology, inspection planning, and certification evidence. |
-| **CAS** | CAx | Customer Aftermarket Service: Maintenance (AMM), repair (SRM), spare parts (IPD), and in-service data (EIS). |
-| **CMP** | CAx | Compliance/Corporate Management: EOL, ESG, process automation, and digital thread management (CAP). |
-| **---** | **TFA/MAL** | **---** |
-| **TFA** | Architecture | Technology and Functional Architecture: The core underlying system design integrating classical and quantum-inspired computational layers. |
-| **QS** | TFA Flow | **Quantum Superposition State (QS):** The initial, probabilistic, high-dimensional state space defining all possible solutions and operational scenarios. Used for massive data provenance. |
-| **FWD** | TFA Flow | **Forward Wave Dynamics (FWD):** The analysis layer responsible for predictability, uncertainty management, and high-level decision framing based on modeling the propagation of possibilities from the QS. |
-| **UE** | TFA Flow | **Unit/Unique Element (UE):** The point where the 'wave function collapses.' It represents a specific, verifiable, and deterministic snapshot of a component or system state for classical processing. |
-| **FE** | TFA Flow | **Federation Entanglement (FE):** The decision chain mechanism linking and coordinating multiple UEs. Ensures coordinated, traceable decision-making across distributed elements. |
-| **CB** | TFA Flow | **Classical Bit / Solver (CB):** The deterministic layer utilizing classical processing and algorithms (e.g., MILP, GA) to enforce known physical constraints. |
-| **QB** | TFA Flow | **Qubit Inspired Solver (QB):** The core optimization engine utilizing quantum or quantum-inspired methods (e.g., QUBO, QAOA) to find optimal solutions within the constrained space defined by the CB layer. |
-| **MAL-EEM** | Policy | Machine Learning **Ethics, Empathy, Explainability**, and Mitigation: Mandatory checklist ensuring human-centric design, transparency, and risk management for ML models. |
-| **UTCS** | Policy | Universal Traceability and Certification Standard: System used to index all artifacts to requirements and evidence. |
-```
-
-### Update 7: `3-PROJECTS-USE-CASES/GAIA-SPACE-SATELLITES/README.md`
-
-```markdown
-# GAIA-SPACE-SATELLITES — Space Satellite Systems
-
-This project focuses on the development, deployment, and operation of GAIA satellite constellations. It addresses unique challenges in space environments, radiation tolerance, orbital trajectory, and long-duration mission planning.
-
-## Core Architectural Layers
-The project utilizes the unified Domain → Process → ATA framework.
-
-| Layer | Focus Area | TFA Reference Flow |
-| :--- | :--- | :--- |
-| **DOMAINS** | AAA, AAP, CCC, CQH, DDD, EDI, EEE, EER, IIF, IIS, LCC, LIB, MEC, OOO, PPP | Technical Data, Models, Specs |
-| **PLM (CAx)** | CAD, CAE, CAO, CAM, CAI, CAV, CAS, CMP | Process Execution (Space) |
-| **TFA Flow** | Canonical computational sequence ensuring data integrity and optimization. | **QS → FWD → UE → FE → CB → QB** |
-
-## Traceability & Compliance
-All design and orbital data must include a **UTCS record** for indexing (`governance/UTCS/`).
-AI/ML models for autonomous maneuvers must meet the **MAL-EEM** checklist and compliance with international space debris mitigation standards must be documented.
-
-## Service Mappings
-- **MAL-SERVICES:** AI/ML models for trajectory optimization, collision avoidance, and predictive component degradation.
-- **MAP-SERVICES:** Management services dedicated to orbital asset tracking and mission sequencing.
-
-## 📖 Glossary of Terms and Acronyms
-
-| Acronym/Term | Category | Definition |
-| :--- | :--- | :--- |
-| **AAA** | Domain | Airframes, Aerodynamics, Airworthiness: Covers structural design, flight physics, and regulatory compliance. |
-| **AAP** | Domain | Airport Adaptable Platforms: Covers compatibility and operational readiness with various ground infrastructure systems. |
-| **CCC** | Domain | Cockpit, Cabin, Cargo: Covers HMI, passenger experience (PAx), and payload management systems. |
-| **CQH** | Domain | Cryogenics, Quantum, H2: Covers extreme temperature fluid storage (Hydrogen), and integrated quantum hardware/software. |
-| **DDD** | Domain | Drainage, Dehumidification, Drying: Covers environmental control, moisture management, and fluid drainage systems. |
-| **EDI** | Domain | Electronics, Digital, Instruments: Covers digital systems, avionics, sensors, and flight instrumentation. |
-| **EEE** | Domain | Electrical, Endotransponders, Circulation: Covers power generation, distribution, transponders, and circulation mechanics. |
-| **EER** | Domain | Environmental, Emissions, Remediation: Covers ecological impact, noise, emissions, and sustainable practices. |
-| **IIF** | Domain | Industrial Infrastructure, Facilities: Covers manufacturing plants, tooling, and maintenance facilities requirements. |
-| **IIS** | Domain | Information, Intelligence, Systems: Covers data management, advanced analytics, AI, and operational intelligence. |
-| **LCC** | Domain | Linkages, Control, Communications: Covers mechanical linkages, control laws, and internal/external communication systems. |
-| **LIB** | Domain | Logistics, Inventory, Blockchain: Covers supply chain management, spares inventory, and decentralized ledger technology (DLT) for provenance. |
-| **MEC** | Domain | Mechanical Systems, Modules: Covers non-propulsive mechanical components (hydraulics, landing gear, actuators). |
-| **OOO** | Domain | OS, Ontologies, Office Interfaces: Covers operating system requirements, data semantics (ontologies), and enterprise IT integration. |
-| **PPP** | Domain | Propulsion, Fuel Systems: Covers engines, motors, energy generation, and fuel management (including H₂). |
-| **---** | **PLM/CAx** | **---** |
-| **CAD** | CAx | Computer-Aided Design: Geometric modeling, parts, and assemblies. |
-| **CAE** | CAx | Computer-Aided Engineering: Simulation and analysis (CFD, FEM, MBD, EMI). |
-| **CAO** | CAx | Computer-Aided Optimization: Requirements management and early-stage systems engineering. |
-| **CAM** | CAx | Computer-Aided Manufacturing: NC programming, toolpath generation, and machining setup. |
-| **CAI** | CAx | Computer-Aided Integration: Assembly planning, installation procedures, and interface control. |
-| **CAV** | CAx | Computer-Aided Verification: Quality assurance, metrology, inspection planning, and certification evidence. |
-| **CAS** | CAx | Customer Aftermarket Service: Maintenance (AMM), repair (SRM), spare parts (IPD), and in-service data (EIS). |
-| **CMP** | CAx | Compliance/Corporate Management: EOL, ESG, process automation, and digital thread management (CAP). |
-| **---** | **TFA/MAL** | **---** |
-| **TFA** | Architecture | Technology and Functional Architecture: The core underlying system design integrating classical and quantum-inspired computational layers. |
-| **QS** | TFA Flow | **Quantum Superposition State (QS):** The initial, probabilistic, high-dimensional state space defining all possible solutions and operational scenarios. Used for massive data provenance. |
-| **FWD** | TFA Flow | **Forward Wave Dynamics (FWD):** The analysis layer responsible for predictability, uncertainty management, and high-level decision framing based on modeling the propagation of possibilities from the QS. |
-| **UE** | TFA Flow | **Unit/Unique Element (UE):** The point where the 'wave function collapses.' It represents a specific, verifiable, and deterministic snapshot of a component or system state for classical processing. |
-| **FE** | TFA Flow | **Federation Entanglement (FE):** The decision chain mechanism linking and coordinating multiple UEs. Ensures coordinated, traceable decision-making across distributed elements. |
-| **CB** | TFA Flow | **Classical Bit / Solver (CB):** The deterministic layer utilizing classical processing and algorithms (e.g., MILP, GA) to enforce known physical constraints. |
-| **QB** | TFA Flow | **Qubit Inspired Solver (QB):** The core optimization engine utilizing quantum or quantum-inspired methods (e.g., QUBO, QAOA) to find optimal solutions within the constrained space defined by the CB layer. |
-| **MAL-EEM** | Policy | Machine Learning **Ethics, Empathy, Explainability**, and Mitigation: Mandatory checklist ensuring human-centric design, transparency, and risk management for ML models. |
-| **UTCS** | Policy | Universal Traceability and Certification Standard: System used to index all artifacts to requirements and evidence. |
-```
-
-### Update 8: `3-PROJECTS-USE-CASES/H2-CHAIN-MRO/README.md`
-
-```markdown
-# H2-CHAIN-MRO — Hydrogen MRO and Lifecycle Management
-
-This project establishes the Maintenance, Repair, and Overhaul (MRO) lifecycle management framework specifically for H₂-based propulsion systems and cryogenic assets. It heavily relies on advanced CAS (Customer Aftermarket Service) data and quantum optimization for supply chain efficiency.
-
-## Core Architectural Layers
-The project utilizes the unified Domain → Process → ATA framework.
-
-| Layer | Focus Area | TFA Reference Flow |
-| :--- | :--- | :--- |
-| **DOMAINS** | AAA, AAP, CCC, CQH, DDD, EDI, EEE, EER, IIF, IIS, LCC, LIB, MEC, OOO, PPP | MRO Documentation and Data |
-| **PLM (CAx)** | CAD, CAE, CAO, CAM, CAI, CAV, CAS, CMP | Maintenance Workflow Execution |
-| **TFA Flow** | Canonical computational sequence ensuring data integrity and optimization. | **QS → FWD → UE → FE → CB → QB** |
-
-## Traceability & Compliance
-All maintenance records and parts provenance must include a **UTCS record** for indexing (`governance/UTCS/`).
-Repair and logistics optimization models must meet the **MAL-EEM** checklist, and all H₂ handling procedures must be cross-referenced with the hazard log.
-
-## Service Mappings
-- **MAL-SERVICES:** AI/ML models for component degradation tracking and maintenance scheduling optimization.
-- **MAP-SERVICES:** Specialized management services for MRO logistics, resource planning, and facility allocation.
-
-## 📖 Glossary of Terms and Acronyms
-
-| Acronym/Term | Category | Definition |
-| :--- | :--- | :--- |
-| **AAA** | Domain | Airframes, Aerodynamics, Airworthiness: Covers structural design, flight physics, and regulatory compliance. |
-| **AAP** | Domain | Airport Adaptable Platforms: Covers compatibility and operational readiness with various ground infrastructure systems. |
-| **CCC** | Domain | Cockpit, Cabin, Cargo: Covers HMI, passenger experience (PAx), and payload management systems. |
-| **CQH** | Domain | Cryogenics, Quantum, H2: Covers extreme temperature fluid storage (Hydrogen), and integrated quantum hardware/software. |
-| **DDD** | Domain | Drainage, Dehumidification, Drying: Covers environmental control, moisture management, and fluid drainage systems. |
-| **EDI** | Domain | Electronics, Digital, Instruments: Covers digital systems, avionics, sensors, and flight instrumentation. |
-| **EEE** | Domain | Electrical, Endotransponders, Circulation: Covers power generation, distribution, transponders, and circulation mechanics. |
-| **EER** | Domain | Environmental, Emissions, Remediation: Covers ecological impact, noise, emissions, and sustainable practices. |
-| **IIF** | Domain | Industrial Infrastructure, Facilities: Covers manufacturing plants, tooling, and maintenance facilities requirements. |
-| **IIS** | Domain | Information, Intelligence, Systems: Covers data management, advanced analytics, AI, and operational intelligence. |
-| **LCC** | Domain | Linkages, Control, Communications: Covers mechanical linkages, control laws, and internal/external communication systems. |
-| **LIB** | Domain | Logistics, Inventory, Blockchain: Covers supply chain management, spares inventory, and decentralized ledger technology (DLT) for provenance. |
-| **MEC** | Domain | Mechanical Systems, Modules: Covers non-propulsive mechanical components (hydraulics, landing gear, actuators). |
-| **OOO** | Domain | OS, Ontologies, Office Interfaces: Covers operating system requirements, data semantics (ontologies), and enterprise IT integration. |
-| **PPP** | Domain | Propulsion, Fuel Systems: Covers engines, motors, energy generation, and fuel management (including H₂). |
-| **---** | **PLM/CAx** | **---** |
-| **CAD** | CAx | Computer-Aided Design: Geometric modeling, parts, and assemblies. |
-| **CAE** | CAx | Computer-Aided Engineering: Simulation and analysis (CFD, FEM, MBD, EMI). |
-| **CAO** | CAx | Computer-Aided Optimization: Requirements management and early-stage systems engineering. |
-| **CAM** | CAx | Computer-Aided Manufacturing: NC programming, toolpath generation, and machining setup. |
-| **CAI** | CAx | Computer-Aided Integration: Assembly planning, installation procedures, and interface control. |
-| **CAV** | CAx | Computer-Aided Verification: Quality assurance, metrology, inspection planning, and certification evidence. |
-| **CAS** | CAx | Customer Aftermarket Service: Maintenance (AMM), repair (SRM), spare parts (IPD), and in-service data (EIS). |
-| **CMP** | CAx | Compliance/Corporate Management: EOL, ESG, process automation, and digital thread management (CAP). |
-| **---** | **TFA/MAL** | **---** |
-| **TFA** | Architecture | Technology and Functional Architecture: The core underlying system design integrating classical and quantum-inspired computational layers. |
-| **QS** | TFA Flow | **Quantum Superposition State (QS):** The initial, probabilistic, high-dimensional state space defining all possible solutions and operational scenarios. Used for massive data provenance. |
-| **FWD** | TFA Flow | **Forward Wave Dynamics (FWD):** The analysis layer responsible for predictability, uncertainty management, and high-level decision framing based on modeling the propagation of possibilities from the QS. |
-| **UE** | TFA Flow | **Unit/Unique Element (UE):** The point where the 'wave function collapses.' It represents a specific, verifiable, and deterministic snapshot of a component or system state for classical processing. |
-| **FE** | TFA Flow | **Federation Entanglement (FE):** The decision chain mechanism linking and coordinating multiple UEs. Ensures coordinated, traceable decision-making across distributed elements. |
-| **CB** | TFA Flow | **Classical Bit / Solver (CB):** The deterministic layer utilizing classical processing and algorithms (e.g., MILP, GA) to enforce known physical constraints. |
-| **QB** | TFA Flow | **Qubit Inspired Solver (QB):** The core optimization engine utilizing quantum or quantum-inspired methods (e.g., QUBO, QAOA) to find optimal solutions within the constrained space defined by the CB layer. |
-| **MAL-EEM** | Policy | Machine Learning **Ethics, Empathy, Explainability**, and Mitigation: Mandatory checklist ensuring human-centric design, transparency, and risk management for ML models. |
-| **UTCS** | Policy | Universal Traceability and Certification Standard: System used to index all artifacts to requirements and evidence. |
-```
 ---
 
-## 📂 Repository Structure Index (Hyperlinkable)
+## ✅ Conformance & Profiles
 
-The changes:
-1. **Quickstart** is now concrete with the Airbus-Safran scenario (3 steps, concise)
-2. **Demo Walkthrough** is a new detailed section with 6 steps including setup, outputs, verification, and legal implications
-3. **What to Try First** now references the walkthrough explicitly
+* **IEF v0.1 Core:** portability, verifiability, traceability, vendor neutrality, legal defensibility
+* **UTCS:** universal traceability hooks present in all artifacts
+* **MAL-EEM:** ML components must ship with the **MAL-EEM checklist** + hazard log link
+* **TFA glossary:** canonical meanings for `QS, FWD, UE, FE, CB, QB` (see `docs/GLOSSARY_TFA.md`)
 
+---
+
+## 📂 Repository Index (hyperlinkable)
+
+* `standards/v0.1/` – specs & conformance materials
+* `evidence-engine/` – reference CLI (create/sign/verify/anchor)
+* `integration-demos/` – Airbus↔Safran, ESA multi-contractor, defense consortium
+* `3-PROJECTS-USE-CASES/` – eight large-scale demonstrations (portability showcases)
+* `6-BLOCKCHAIN-INTEGRATION/` – UTCS context & smart contracts
+* `.github/workflows/` – CI for IEF verification & structure checks
+
+> Full tree in the repo index section if you want the exhaustive listing.
+
+---
+
+## 🧪 What to Try First
+
+* **Airbus↔Safran** — CATIA ↔ NX exchange with signatures & anchoring
+  `integration-demos/airbus-safran-collaboration/`
+* **ESA multi-contractor** — multi-party approvals with audit trail
+  `integration-demos/esa-multi-contractor/`
+* **Defense consortium** — classified handling & sovereign provenance
+  `integration-demos/defense-consortium/`
+
+---
+
+## 📌 Roadmap
+
+* **v0.1 (now):** Specs + reference engine + integration demos
+* **v0.2:** More adapters (NX, SolidWorks, neutral formats), stronger signing flows
+* **v1.0:** Certification profile & trust marks (badge linked to conformance)
+* **Post-1.0:** Managed verification service & evidence hosting
+
+---
+
+## 🏛️ Governance & Contribution
+
+See **[CONTRIBUTING.md](CONTRIBUTING.md)** and **[GOVERNANCE.md](GOVERNANCE.md)**.
+We welcome **pilot partners** (OEMs, Tier1/2, agencies, labs).
+Open an issue titled **`Pilot: <ORG> x IDEALE.eu`** with your toolchain & goals.
+
+---
+
+## 📣 One-liner
+
+> **IDEALE.eu makes engineering artifacts portable, verifiable, and legally defensible across organizations — with cryptographic provenance and zero vendor lock-in.**
+
+---
+
+### Drop-in files (optional helpers)
+
+**`.github/workflows/ief-verify.yml`**
+
+```yaml
+name: IEF Verify
+on: [push, pull_request]
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.11' }
+      - run: pip install -r evidence-engine/requirements.txt
+      - name: Schema & signatures
+        run: |
+          python evidence-engine/artifact-generator/scan-repo.py --schema standards/v0.1/cross-tool-schema.json
+          python evidence-engine/artifact-generator/verify-repo-signatures.py
+      - name: UTCS links
+        run: python 6-BLOCKCHAIN-INTEGRATION/UTCS/validate_links.py
+```
+
+**`standards/v0.1/artifact-portability-spec.yaml` (skeleton)**
+
+```yaml
+ief_version: "0.1"
+artifact:
+  content:
+    encoding: base64
+    mime_types: [model/step, application/x-neutral-cad]
+  metadata:
+    required:
+      - part_number
+      - tool
+      - creator
+      - created_at
+  lineage:
+    parent_ref: optional
+    changes: optional
+  security:
+    signature:
+      algos: [RS256, ECDSA_P256_SHA256]
+    merkle:
+      enabled: true
+      leaf: sha256
+  utcs:
+    required: true
+    fields: [context_id, evidence_links]
+  conformance:
+    quality_score_min: 0.95
+    risk_score_max: 0.08
+```
+
+**`standards/v0.1/provenance-chain.md` (outline)**
+
+```md
+# Provenance Chain (IEF v0.1)
+- Merkle construction
+- Chain anchoring choices (Polygon, EU chains)
+- Offline verification flow
+- Legal considerations & evidence packaging
+```
+
+**`integration-demos/airbus-safran-collaboration/scripts/run-demo.sh`**
+
+```bash
+#!/usr/bin/env bash
+set -euo pipefail
+ROOT="$(git rev-parse --show-toplevel)"
+cd "$ROOT"
+
+pip install -r evidence-engine/requirements.txt
+
+# Keys (dev only)
+[ -f airbus-private-key.pem ] || openssl genrsa -out airbus-private-key.pem 2048
+[ -f airbus-public-cert.pem ] || openssl rsa -in airbus-private-key.pem -pubout -out airbus-public-cert.pem
+[ -f safran-private-key.pem ] || openssl genrsa -out safran-private-key.pem 2048
+[ -f safran-public-cert.pem ] || openssl rsa -in safran-private-key.pem -pubout -out safran-public-cert.pem
+
+# Create → sign → verify → modify → sign → anchor
+python evidence-engine/artifact-generator/create-verifiable-artifact.py \
+  --input integration-demos/airbus-safran-collaboration/examples/wing-component.step \
+  --out integration-demos/airbus-safran-collaboration/shared-artifacts/wing-v1.ief.json \
+  --creator "Airbus Design Engineer" --tool "CATIA V5 R21"
+
+python evidence-engine/artifact-generator/sign-artifact.py \
+  --in integration-demos/airbus-safran-collaboration/shared-artifacts/wing-v1.ief.json \
+  --key airbus-private-key.pem --signer "Airbus SE"
+
+python evidence-engine/artifact-generator/verify-artifact.py \
+  --in integration-demos/airbus-safran-collaboration/shared-artifacts/wing-v1.ief.json \
+  --cert airbus-public-cert.pem
+
+python evidence-engine/portability-layer/extract-geometry.py \
+  --in integration-demos/airbus-safran-collaboration/shared-artifacts/wing-v1.ief.json \
+  --out integration-demos/airbus-safran-collaboration/temp/wing-for-nx.step
+
+# Simulated NX modification (copy sample as "modified")
+cp integration-demos/airbus-safran-collaboration/temp/wing-for-nx.step \
+   integration-demos/airbus-safran-collaboration/temp/wing-modified.step
+
+python evidence-engine/artifact-generator/create-verifiable-artifact.py \
+  --input integration-demos/airbus-safran-collaboration/temp/wing-modified.step \
+  --out integration-demos/airbus-safran-collaboration/shared-artifacts/wing-v2.ief.json \
+  --creator "Safran Manufacturing Engineer" --tool "Siemens NX 12" \
+  --parent integration-demos/airbus-safran-collaboration/shared-artifacts/wing-v1.ief.json \
+  --changes "Added 4x M8 mounting holes"
+
+python evidence-engine/artifact-generator/sign-artifact.py \
+  --in integration-demos/airbus-safran-collaboration/shared-artifacts/wing-v2.ief.json \
+  --key safran-private-key.pem --signer "Safran Aircraft Engines"
+
+python evidence-engine/provenance-tracker/blockchain-anchor.py \
+  --in integration-demos/airbus-safran-collaboration/shared-artifacts/wing-v2.ief.json \
+  --network polygon
+echo "✓ Demo complete."
+```
 ---
 
 ## 📂 Repository Structure Index (Hyperlinkable)
