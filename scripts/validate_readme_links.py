@@ -24,7 +24,7 @@ def validate_readme_links(readme_path='README.md'):
     
     with open(readme_path, 'r') as f:
         content = f.read()
-        lines = f.readlines()
+        lines = content.splitlines(keepends=True)
     
     print("="*80)
     print("VALIDATING README.md HYPERLINKS")
