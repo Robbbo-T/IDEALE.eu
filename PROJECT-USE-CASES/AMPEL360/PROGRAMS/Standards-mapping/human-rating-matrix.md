@@ -89,7 +89,7 @@ This document maps human rating requirements from NASA, ESA, and ISO standards t
 | 5.3.2 | Engine-Out Capability | 🔄 | 4-engine config | Redundancy analysis | 1 engine-out capable |
 | 5.3.3 | Propellant Loading | ⏳ | Procedures dev | Ground ops manual | 2028 |
 | 5.3.4 | Leak Detection | 🔄 | Sensor suite | Helium mass spec | CH4, LOX, hypergolic |
-| 5.3.5 | Fire Suppression | 🔄 | Halon 1301 system | Fire test plan | Engine bay + cabin |
+| 5.3.5 | Fire Suppression | 🔄 | Clean agent system (e.g., Novec 1230, inert gas, or water mist) | Fire test plan | Engine bay + cabin |
 
 #### 5.4 Environmental Control & Life Support (ECLSS)
 
