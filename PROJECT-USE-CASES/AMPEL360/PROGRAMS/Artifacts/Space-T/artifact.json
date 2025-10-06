@@ -128,7 +128,7 @@
         "crew_protection": {
           "radiation_shielding": "Polyethylene + water wall",
           "micrometeoroid": "Whipple shield configuration",
-          "fire_suppression": "Halon 1301 + water mist"
+          "fire_suppression": "Novec 1230 + water mist"
         }
       }
     },
