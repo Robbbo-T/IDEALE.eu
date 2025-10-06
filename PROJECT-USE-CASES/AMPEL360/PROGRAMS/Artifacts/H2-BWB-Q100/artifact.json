@@ -1,0 +1,281 @@
+{
+  "artifact": {
+    "id": "ampel360-h2-bwb-q100-v2.0",
+    "name": "AMPEL360 H2-BWB-Q100 Aircraft Design",
+    "description": "Hydrogen-powered Blended Wing Body aircraft for 180 passengers with 5,500 nm range, zero-emission propulsion via modular fuel cell architecture",
+    "version": "2.0.0",
+    "created_at": "2025-01-20T12:00:00Z",
+    "content_hash": "sha256:a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2",
+    "declared_value_eur": 450000000,
+    "license": "Apache-2.0",
+    "category": "aerospace/aircraft/commercial",
+    
+    "specifications": {
+      "performance": {
+        "capacity": {
+          "passengers": 180,
+          "crew": 4,
+          "cargo_volume_m3": 150
+        },
+        "range": {
+          "design_nm": 5500,
+          "max_nm": 6000
+        },
+        "speed": {
+          "cruise_mach": 0.82,
+          "max_mach": 0.85
+        },
+        "ceiling": {
+          "max_altitude_ft": 43000,
+          "optimal_altitude_ft": 41000
+        }
+      },
+      
+      "propulsion": {
+        "type": "Distributed Electric Propulsion",
+        "fuel_type": "Liquid Hydrogen (LH2)",
+        "fuel_cell_architecture": {
+          "type": "Modular High-Power Fuel Cells",
+          "configuration": "4x 25MW per nacelle",
+          "total_power_mw": 100,
+          "technology": "PEM/SOFC hybrid",
+          "efficiency_percent": 60
+        },
+        "electric_motors": {
+          "count": 12,
+          "power_per_motor_kw": 2000,
+          "total_power_kw": 24000,
+          "power_density_kw_per_kg": 8
+        },
+        "fuel_storage": {
+          "capacity_kg": 20000,
+          "tank_type": "Cryogenic composite (Type V)",
+          "temperature_k": 20,
+          "pressure_bar": 8,
+          "boil_off_rate_percent_per_day": 0.8
+        }
+      },
+      
+      "airframe": {
+        "configuration": "Blended Wing Body (BWB)",
+        "wingspan_m": 80,
+        "length_m": 65,
+        "height_m": 15,
+        "wing_area_m2": 850,
+        "aspect_ratio": 7.5,
+        "materials": {
+          "primary_structure": "Carbon fiber composite",
+          "secondary_structure": "Aluminum-lithium alloy",
+          "fairings": "CFRP sandwich"
+        },
+        "weights": {
+          "max_takeoff_kg": 180000,
+          "operating_empty_kg": 90000,
+          "max_landing_kg": 150000,
+          "max_payload_kg": 30000
+        }
+      },
+      
+      "systems": {
+        "avionics": "Fly-by-wire with BWB-specific control laws",
+        "environmental_control": "Electric-driven ECS",
+        "hydraulics": "Electric-hydraulic hybrid",
+        "landing_gear": "Retractable tricycle, carbon brakes"
+      }
+    },
+    
+    "certification": {
+      "target_standards": [
+        "EASA CS-25 Amendment 28",
+        "Special Condition SC-H2-01 (Hydrogen Propulsion)",
+        "Special Condition SC-BWB-01 (Blended Wing Body)",
+        "Special Condition SC-H2-02 (Cryogenic Storage)"
+      ],
+      "phases": [
+        {
+          "phase": "Demonstrator",
+          "timeline": "2025-2027",
+          "status": "PLANNED"
+        },
+        {
+          "phase": "Cargo Variant",
+          "timeline": "2027-2030",
+          "status": "PLANNED"
+        },
+        {
+          "phase": "Passenger 50-pax",
+          "timeline": "2030-2031",
+          "status": "PLANNED"
+        },
+        {
+          "phase": "Passenger 100-pax",
+          "timeline": "2031-2033",
+          "status": "PLANNED"
+        },
+        {
+          "phase": "Passenger 180-pax",
+          "timeline": "2033-2034",
+          "status": "PLANNED"
+        }
+      ]
+    },
+    
+    "domains": {
+      "AAA": "Airframes, Aerodynamics, Airworthiness",
+      "PPP": "Propulsion, Power, Performance",
+      "CQH": "Cryogenics, Quantum, H2 Systems",
+      "EEE": "Electrical, Electronics, Energy",
+      "EDI": "Environmental, Digital, Integration",
+      "CCC": "Cockpit, Cabin, Cargo",
+      "LCC": "Lifecycle, Compliance, Certification",
+      "DDD": "Data, Digital Twin, Documentation"
+    },
+    
+    "technology_readiness": {
+      "overall_trl": 5,
+      "critical_technologies": [
+        {
+          "name": "Liquid H2 Storage",
+          "current_trl": 4,
+          "target_trl": 8,
+          "timeline": "2025-2030"
+        },
+        {
+          "name": "25MW Fuel Cells",
+          "current_trl": 5,
+          "target_trl": 9,
+          "timeline": "2025-2032"
+        },
+        {
+          "name": "BWB Airframe",
+          "current_trl": 6,
+          "target_trl": 9,
+          "timeline": "2025-2034"
+        },
+        {
+          "name": "Distributed Electric Propulsion",
+          "current_trl": 6,
+          "target_trl": 9,
+          "timeline": "2026-2032"
+        }
+      ]
+    },
+    
+    "market": {
+      "target_customers": [
+        "Lufthansa Group",
+        "Air France-KLM",
+        "SAS",
+        "Finnair"
+      ],
+      "target_markets": [
+        "European intra-continental",
+        "Trans-Atlantic",
+        "Green corridor routes"
+      ],
+      "pricing": {
+        "cargo_variant_eur": 200000000,
+        "passenger_180pax_eur": 450000000
+      },
+      "production_timeline": {
+        "first_delivery": "2030",
+        "ramp_rate": "2 per month by 2032"
+      }
+    },
+    
+    "tooling": {
+      "used": [
+        {
+          "id": "ideale://tools/3dexperience.v2025",
+          "name": "3DEXPERIENCE Platform",
+          "version": "R2025x",
+          "weight": 1.0,
+          "purpose": "PLM and Digital Twin"
+        },
+        {
+          "id": "ideale://tools/catia.v6",
+          "name": "CATIA V6",
+          "version": "R2025x",
+          "weight": 1.0,
+          "purpose": "CAD Design"
+        },
+        {
+          "id": "ideale://tools/ansys-twin.v2025",
+          "name": "Ansys Twin Builder",
+          "version": "2025.1",
+          "weight": 1.0,
+          "purpose": "Simulation and Analysis"
+        },
+        {
+          "id": "ideale://tools/teamcenter.v14",
+          "name": "Teamcenter PLM",
+          "version": "14.2",
+          "weight": 0.8,
+          "purpose": "Data Management"
+        }
+      ]
+    },
+    
+    "revshare": {
+      "allocations": [
+        {
+          "id": "did:github:ampel360/airframe-team",
+          "name": "Airframe Design Team",
+          "share_bps": 3000,
+          "role": "BWB structure and aerodynamics"
+        },
+        {
+          "id": "did:github:ampel360/propulsion-team",
+          "name": "Propulsion Systems Team",
+          "share_bps": 2500,
+          "role": "H2 fuel cell and electric propulsion"
+        },
+        {
+          "id": "did:github:ampel360/systems-team",
+          "name": "Systems Integration Team",
+          "share_bps": 2000,
+          "role": "Avionics, ECS, and systems"
+        },
+        {
+          "id": "did:github:ampel360/certification-team",
+          "name": "Certification Team",
+          "share_bps": 1500,
+          "role": "Regulatory compliance and certification"
+        },
+        {
+          "id": "did:github:ampel360/digital-team",
+          "name": "Digital Thread Team",
+          "share_bps": 1000,
+          "role": "Digital twin and evidence chain"
+        }
+      ],
+      "total_bps": 10000
+    },
+    
+    "evidence_chain": {
+      "blockchain_network": "Ethereum",
+      "anchoring_frequency": "Major milestones",
+      "provenance_records": [
+        {
+          "record_id": "prov-001",
+          "timestamp": "2025-01-20T12:00:00Z",
+          "event": "Initial design release v2.0",
+          "hash": "sha256:a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2",
+          "signers": ["Chief Engineer", "Certification Authority"]
+        }
+      ]
+    },
+    
+    "compliance": {
+      "gdpr_compliant": true,
+      "mica_ready": true,
+      "export_control": "EU Dual-Use Regulation compliant"
+    },
+    
+    "contacts": {
+      "program_director": "program.director@ampel360.eu",
+      "technical_lead": "chief.engineer@ampel360.eu",
+      "commercial": "commercial@ampel360.eu"
+    }
+  }
+}
