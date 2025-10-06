@@ -405,6 +405,12 @@ echo "✓ Demo complete."
     *   [KPIs/](./0-STRATEGY/KPIs/)
     *   [BUSINESS-MODELS/](./0-STRATEGY/BUSINESS-MODELS/)
 *   [1-DIMENSIONS/](./1-DIMENSIONS/)
+    *   [CANONICAL-TAXONOMY/](./1-DIMENSIONS/CANONICAL-TAXONOMY/)
+        *   [README.md](./1-DIMENSIONS/CANONICAL-TAXONOMY/README.md)
+        *   [projects.csv](./1-DIMENSIONS/CANONICAL-TAXONOMY/projects.csv) - 8 canonical use cases
+        *   [domains.csv](./1-DIMENSIONS/CANONICAL-TAXONOMY/domains.csv) - 15 canonical domains
+        *   [plm-cax.csv](./1-DIMENSIONS/CANONICAL-TAXONOMY/plm-cax.csv) - 8 PLM/CAx categories
+        *   [architecture-policy.csv](./1-DIMENSIONS/CANONICAL-TAXONOMY/architecture-policy.csv) - TFA components
     *   [INTELLIGENCE/](./1-DIMENSIONS/INTELLIGENCE/)
         *   [README.md](./1-DIMENSIONS/INTELLIGENCE/README.md)
         *   [dimension-config.yaml](./1-DIMENSIONS/INTELLIGENCE/dimension-config.yaml)
@@ -732,7 +738,7 @@ echo "✓ Demo complete."
     *   [GAIA-AIR-UNMANNED/](./3-PROJECTS-USE-CASES/GAIA-AIR-UNMANNED/)
     *   [GAIA-SPACE-SATELLITES/](./3-PROJECTS-USE-CASES/GAIA-SPACE-SATELLITES/)
     *   [GAIA-SEA-PROBES/](./3-PROJECTS-USE-CASES/GAIA-SEA-PROBES/)
-    *   [GAIA-GROUND-RETAILS/](./3-PROJECTS-USE-CASES/GAIA-GROUND-RETAILS/)
+    *   [INFRANET-RETAIL-LOGISTICS/](./3-PROJECTS-USE-CASES/INFRANET-RETAIL-LOGISTICS/)
     *   [H2-CHAIN-MRO/](./3-PROJECTS-USE-CASES/H2-CHAIN-MRO/)
 *   [4-RESEARCH-DEVELOPMENT/](./4-RESEARCH-DEVELOPMENT/)
     *   [quantum-algorithms/](./4-RESEARCH-DEVELOPMENT/quantum-algorithms/)

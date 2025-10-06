@@ -1,0 +1,9 @@
+Category,Acronym/Term,Definition
+PLM/CAx,CAD,"Computer-Aided Design: Geometric modeling, parts, and assemblies."
+PLM/CAx,CAE,"Computer-Aided Engineering: Simulation and analysis (CFD, FEM, MBD, EMI)."
+PLM/CAx,CAO,"Computer-Aided Optimization: Requirements management and early-stage systems engineering."
+PLM/CAx,CAM,"Computer-Aided Manufacturing: NC programming and machining setup."
+PLM/CAx,CAI,"Computer-Aided Integration: Assembly planning and interface control."
+PLM/CAx,CAV,"Computer-Aided Verification: QA, metrology, and certification evidence."
+PLM/CAx,CAS,"Customer Aftermarket Service: Maintenance (AMM), repair (SRM), and in-service data (EIS)."
+PLM/CAx,CMP,"Compliance/Corporate Management: EOL, ESG, and digital thread automation."
