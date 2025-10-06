@@ -24,24 +24,24 @@ The Technology and Functional Architecture (TFA) mandates a sequence that manage
 
 ### 1. AMPEL360-AIR-T (Manned Air Vehicle Platform)
 *Canonical Name: AMPEL360-AIR-T*
-*   **Mission:** Commercial certified passenger transport using H₂ hybrid-electric propulsion within the blended wing body (BWB) architecture. Targets **40% reduction in E_pax-km**.
-*   **Domain Emphasis:** **AAA** (Advanced Aerodynamics for BWB stability), **PPP** (H₂ fuel cell stacks and turbogenerator integration), **CCC** (Noise mitigation and passenger experience/PAx).
-*   **PLM (CAx) Emphasis:** CAD/CAE models focusing on transonic flow and structural fatigue analysis. **CAV** alignment with EASA CS-25/Special Conditions.
-*   **TFA Use:** Quantum-Augmented Flight control (QAFbW) using **QB** for optimal flight path and resource distribution.
+- **Mission:** Commercial certified passenger transport using H₂ hybrid-electric propulsion within the blended wing body (BWB) architecture. Targets **40% reduction in E_pax-km**.
+- **Domain Emphasis:** **AAA** (Advanced Aerodynamics for BWB stability), **PPP** (H₂ fuel cell stacks and turbogenerator integration), **CCC** (Noise mitigation and passenger experience/PAx).
+- **PLM (CAx) Emphasis:** CAD/CAE models focusing on transonic flow and structural fatigue analysis. **CAV** alignment with EASA CS-25/Special Conditions.
+- **TFA Use:** Quantum-Augmented Flight control (QAFbW) using **QB** for optimal flight path and resource distribution.
 
 ### 2. AMPEL360-SPACE-T (Manned Space Vehicle Platform)
 *Canonical Name: AMPEL360-SPACE-T*
-*   **Mission:** Human-rated suborbital and orbital tourism and transport. Focus on rapid turnaround (< 2 weeks) for commercial operations.
-*   **Domain Emphasis:** **AAA** (Thermal Protection System/TPS trades), **CQH** (Cryogenic fuel handling in space context), **EDI** (Radiation-hardened avionics and flight instruments).
-*   **PLM (CAx) Emphasis:** CAE for ascent/reentry thermal loads, CAO for escape/abort system requirements, CAS for in-service reliability monitoring (EIS).
-*   **TFA Use:** **FWD** is critical for trajectory prediction and risk assessment during launch and reentry phases.
+- **Mission:** Human-rated suborbital and orbital tourism and transport. Focus on rapid turnaround (< 2 weeks) for commercial operations.
+- **Domain Emphasis:** **AAA** (Thermal Protection System/TPS trades), **CQH** (Cryogenic fuel handling in space context), **EDI** (Radiation-hardened avionics and flight instruments).
+- **PLM (CAx) Emphasis:** CAE for ascent/reentry thermal loads, CAO for escape/abort system requirements, CAS for in-service reliability monitoring (EIS).
+- **TFA Use:** **FWD** is critical for trajectory prediction and risk assessment during launch and reentry phases.
 
 ### 3. ASI-T2-INTELLIGENCE (Advanced Intelligence and Information Systems)
 *Focus: Integrated T2 Operational Intelligence, AI/ML Foundation.*
-*   **Mission:** Provide deep analytical capability and adaptive autonomy across all product lines, leveraging vast digital thread data for proactive decision support.
-*   **Domain Emphasis:** **IIS** (Core AI/Data Analytics), **OOO** (Ontology management for data standardization), **LIB** (Secure data pipelines).
-*   **PLM (CAx) Emphasis:** CAP (Process automation based on AI decisions), CAO (Requirement validation via semantic linking).
-*   **TFA Use:** Focuses entirely on the **MAL-EEM**-compliant flow: utilizing **QS** for comprehensive data states feeding into complex **FE** decision chains.
+- **Mission:** Provide deep analytical capability and adaptive autonomy across all product lines, leveraging vast digital thread data for proactive decision support.
+- **Domain Emphasis:** **IIS** (Core AI/Data Analytics), **OOO** (Ontology management for data standardization), **LIB** (Secure data pipelines).
+- **PLM (CAx) Emphasis:** CAP (Process automation based on AI decisions), CAO (Requirement validation via semantic linking).
+- **TFA Use:** Focuses entirely on the **MAL-EEM**-compliant flow: utilizing **QS** for comprehensive data states feeding into complex **FE** decision chains.
 
 ### 4. GAIA-AIR-UNMANNED (Unmanned Air Vehicle Platform)
 *Focus: UAV Fleet Management, Autonomous Mission Capability.*
