@@ -1,29 +1,22 @@
-# 50-10-CARGO-HOLDS — Cargo and Baggage Compartment Structures
+# 50-50 — Liners Panels Insulation
 
 **ATA Chapter**: 50 (Cargo and Accessory Compartments)  
-**Sub-Zone**: 50-10  
+**Sub-Zone**: 50-50  
 **Domain**: AAA (Airframes, Aerodynamics, Airworthiness)  
 **Project**: AMPEL360-AIR-MANNED
 
 ## Overview
 
-The cargo holds system encompasses the structural design and integration of:
-- Forward cargo hold structure
-- Aft cargo hold structure
-- Bulk cargo compartment
-- Cargo door structural interfaces
-- Cargo loading systems integration
-- Fire suppression system interfaces
-- Environmental control boundaries
+The liners, panels, and insulation system encompasses the structural design and integration of cargo compartment interior liners, acoustic panels, thermal insulation, and fire barriers.
 
 ## Scope
 
-This sub-zone contains all design, analysis, manufacturing, and certification artifacts for cargo compartment structures.
+This sub-zone contains all design, analysis, manufacturing, and certification artifacts for cargo system components.
 
 ## Directory Structure
 
 ```
-50-10-CARGO-HOLDS/
+50-50/
 ├─ DELs/                          # Deliveries
 │  ├─ EASA-submissions/           # EASA certification submissions
 │  ├─ MoC-records/                # Means of Compliance records
@@ -75,13 +68,11 @@ This sub-zone contains all design, analysis, manufacturing, and certification ar
 ### Structural Interfaces
 - **53-XX-FUSELAGE** — Primary fuselage integration
 - **52-XX-DOORS** — Cargo door structural interfaces
-- **32-XX-LANDING-GEAR** (MEC domain) — Floor load distribution
 - **51-XX-STANDARDS** — Structural design standards
 
 ### Systems Interfaces
 - **26-XX-FIRE-PROTECTION** (DDD domain) — Cargo fire suppression
 - **21-XX-AIR-CONDITIONING** (DDD domain) — Cargo ventilation
-- **38-XX-WATER-WASTE** (DDD domain) — Drain systems
 - **25-XX-EQUIPMENT** (CCC domain) — Cargo handling equipment
 
 ## Compliance Requirements
@@ -104,20 +95,20 @@ This sub-zone contains all design, analysis, manufacturing, and certification ar
 This sub-zone follows the canonical TFA flow:
 **QS → FWD → UE → FE → CB → QB**
 
-- **QS** (Quantum Superposition State) — Cargo compartment design space
-- **FWD** (Forward Wave Dynamics) — Loading scenarios
+- **QS** (Quantum Superposition State) — Design space exploration
+- **FWD** (Forward Wave Dynamics) — Load cases and scenarios
 - **UE** (Unit/Unique Element) — Specific component definitions
 - **FE** (Federation Entanglement) — Interface coordination
-- **CB** (Classical Bit/Solver) — Structural analysis (FEA)
-- **QB** (Qubit Inspired Solver) — Layout optimization
+- **CB** (Classical Bit/Solver) — Deterministic analysis (FEA)
+- **QB** (Qubit Inspired Solver) — Structural optimization
 
 ## UTCS Anchors
 
 All artifacts must include UTCS anchors for traceability:
 ```
-UTCS-MI:CAD:AAA:50-10:CARGO:rev[X]
-UTCS-MI:CAE:AAA:50-10:LOADS:rev[X]
-UTCS-MI:DEL:AAA:50-10:CERT:rev[X]
+UTCS-MI:CAD:AAA:50-50:CARGO:rev[X]
+UTCS-MI:CAE:AAA:50-50:LOADS:rev[X]
+UTCS-MI:DEL:AAA:50-50:CERT:rev[X]
 ```
 
 ## Status
