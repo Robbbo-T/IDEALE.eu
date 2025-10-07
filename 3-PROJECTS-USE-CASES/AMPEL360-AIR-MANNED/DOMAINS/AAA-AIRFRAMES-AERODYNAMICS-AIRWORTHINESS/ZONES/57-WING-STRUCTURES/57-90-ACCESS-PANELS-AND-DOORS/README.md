@@ -7,11 +7,76 @@
 
 ## Overview
 
-Wing access panels and maintenance doors
+Wing access panels and doors provide maintenance access to internal structure and systems:
+- **Upper wing access panels** — Removable panels on upper wing surface
+- **Lower wing access panels** — Removable panels on lower wing surface
+- **Leading edge access doors** — Access to leading edge systems and structure
+- **Trailing edge access doors** — Access to flap mechanisms and actuators
+- **Fuel tank access panels** — Access for fuel tank inspection and maintenance
+- **Equipment access doors** — Access to electrical, hydraulic, and pneumatic systems
+- **Fastener systems** — Quick-release fasteners, captive screws, or Dzus fasteners
+- **Sealing and gasketing** — Fuel-tight and weather-tight seals
+- **Hinge and latch hardware** — Hinged doors with positive latching
+
+Access provisions must balance maintenance accessibility with structural integrity, weight, and aerodynamic performance.
 
 ## Scope
 
-This sub-zone contains all design, analysis, manufacturing, and certification artifacts for the wing access panels and maintenance doors.
+This sub-zone contains all design, analysis, manufacturing, and certification artifacts for wing access panels and doors, including:
+- Access panel location and sizing optimization
+- Panel structural design and cutout reinforcement
+- Fastener system selection and installation
+- Hinge and latch mechanism design
+- Sealing system design and specification
+- Aerodynamic impact assessment
+- Structural analysis of cutouts and reinforcement
+- Manufacturing drawings and specifications
+- Installation and maintenance procedures
+- Interchangeability and standardization
+
+## Key Design Considerations
+
+### Access Requirements
+- **System accessibility**: Adequate access to all serviceable components
+- **Inspection access**: Visual inspection of internal structure
+- **Removal and installation**: Tools and workspace for component R&R
+- **Frequency of access**: Size panels based on maintenance frequency
+- **Safety**: Prevent inadvertent opening, proper warnings and placards
+
+### Structural Requirements
+- **Cutout reinforcement**: Restore load paths around access openings
+- **Panel stiffness**: Prevent panel flutter or vibration
+- **Fastener loads**: Adequate fastener strength and spacing
+- **Load transfer**: Efficient load transfer across panel joints
+- **Damage tolerance**: Tolerate cracks at fastener holes
+
+### Aerodynamic Requirements
+- **Flush mounting**: Panels flush with wing surface
+- **Smooth edges**: Minimize drag from panel edges and gaps
+- **Gap tolerances**: Tight tolerances to prevent air leakage
+- **Surface quality**: Match adjacent surface finish
+- **Pressure effects**: Withstand differential pressure loads
+
+### Sealing Requirements
+- **Fuel tank panels**: Fuel-resistant sealants and gaskets
+- **Weather sealing**: Prevent moisture ingress
+- **Pressure sealing**: Maintain pressure differential (if applicable)
+- **Drainage**: Drain accumulated fluids from panel area
+- **Inspection**: Visual verification of seal integrity
+
+### Fastener Systems
+- **Quick-release fasteners**: Dzus, Camloc, or Airloc for frequent access
+- **Captive fasteners**: Prevent loss of screws and bolts
+- **Standard fasteners**: Phillips or hex screws for infrequent access
+- **Torque specifications**: Proper torque to prevent loosening
+- **Locking features**: Lock wire, cotter pins, or locking fasteners
+
+### Material Selection
+- **Panel materials**: Aluminum alloys matching adjacent structure
+- **Composite panels**: Carbon fiber or fiberglass for non-critical areas
+- **Fastener materials**: Corrosion-resistant steel or titanium
+- **Gaskets and seals**: Fuel-resistant rubber or silicone
+- **Hinges and latches**: Stainless steel or corrosion-resistant alloys
 
 ## Directory Structure
 
@@ -66,14 +131,21 @@ This sub-zone contains all design, analysis, manufacturing, and certification ar
 ## Key Interfaces
 
 ### Structural Interfaces
-- Adjacent wing structure components
-- Fuselage attachment points (for root fittings)
-- Control surface attachments (where applicable)
+- **57-10-BOX-SECTION** — Access panels for wing box interior inspection
+- **57-20-LEADING-EDGE-STRUCTURE** — Leading edge access for anti-ice systems
+- **57-30-TRAILING-EDGE-STRUCTURE** — Trailing edge access for flap mechanisms
+- **57-40-RIBS-AND-SHEAR-TIES** — Fuel tank access at rib bays
+- **57-50-SKINS-AND-STRINGERS** — Panel cutout reinforcement in skin structure
+- **57-80-FAIRINGS-AND-SEALS** — Fairing integration with access panels
 
 ### Systems Interfaces
-- **28-XX-FUEL-SYSTEMS** (PPP domain) — Fuel tank boundaries
-- **27-XX-FLIGHT-CONTROLS** (FFF domain) — Control surface actuation
-- **32-XX-LANDING-GEAR** (MEC domain) — Landing gear attachment (where applicable)
+- **28-XX-FUEL-SYSTEMS** (PPP domain) — Fuel tank access panels and sealing
+- **24-XX-ELECTRICAL** (EEE domain) — Access to electrical equipment and wiring
+- **29-XX-HYDRAULIC** (PPP domain) — Access to hydraulic components
+- **27-XX-FLIGHT-CONTROLS** (FFF domain) — Access to control surface actuators
+- **30-XX-ICE-RAIN-PROTECTION** (PPP domain) — Access to anti-ice systems
+- **05-XX-MAINTENANCE** (MMM domain) — Maintenance access requirements and procedures
+- **12-XX-SERVICING** (SSS domain) — Servicing points and ground equipment access
 
 ## Compliance Requirements
 

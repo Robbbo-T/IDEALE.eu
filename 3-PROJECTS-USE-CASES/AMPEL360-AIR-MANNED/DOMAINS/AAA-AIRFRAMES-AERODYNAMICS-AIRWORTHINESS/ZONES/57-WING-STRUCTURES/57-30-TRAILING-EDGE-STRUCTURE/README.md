@@ -7,11 +7,55 @@
 
 ## Overview
 
-Trailing edge structure and flap systems
+The trailing edge structure forms the aft aerodynamic surface of the wing and provides:
+- **Trailing edge spar** — Aft structural member and mounting for high-lift devices
+- **Trailing edge panels** — Aerodynamic closure and structural skin
+- **Flap support structure** — Flap tracks, hinges, and support beams
+- **Flap track fairings** — Aerodynamic fairings for flap mechanism
+- **Aileron support structure** — Aileron hinge fittings and support
+- **Spoiler support structure** — Spoiler mounting provisions
+- **Access panels** — Maintenance access to control surface mechanisms
+
+The trailing edge structure must support the high loads from deployed flaps and control surfaces while maintaining structural efficiency and aerodynamic performance.
 
 ## Scope
 
-This sub-zone contains all design, analysis, manufacturing, and certification artifacts for the trailing edge structure and flap systems.
+This sub-zone contains all design, analysis, manufacturing, and certification artifacts for the trailing edge structure, including:
+- Trailing edge spar structural design
+- Flap track and support beam design
+- Hinge fitting design and analysis
+- Control surface attachment provisions
+- Aerodynamic fairing design
+- Load path verification and optimization
+- Manufacturing and assembly processes
+- Fatigue and damage tolerance analysis
+
+## Key Design Considerations
+
+### Structural Requirements
+- **High-lift device loads**: Large download forces from deployed flaps
+- **Control surface actuation loads**: Aileron and spoiler hinge moments
+- **Flutter prevention**: Adequate stiffness to prevent flutter
+- **Fatigue life**: High-cycle fatigue from control surface movement
+- **Damage tolerance**: Fail-safe design for critical load paths
+
+### Aerodynamic Requirements
+- **Smooth contours**: Minimize drag and maintain airflow quality
+- **Flap deployment**: Smooth flap motion without binding
+- **Gap sealing**: Minimize air leakage through gaps
+- **Wake characteristics**: Manage wake turbulence
+
+### Systems Integration
+- **Flap actuation**: Hydraulic or electric flap drive system
+- **Aileron actuation**: Dual or triple redundant actuation
+- **Spoiler actuation**: Hydraulic or electric spoiler system
+- **Position sensing**: LVDT or RVDT position feedback
+
+### Material Selection
+- **Aluminum alloys**: 7075-T6 for high-strength applications
+- **Steel fittings**: High-strength steel for hinge fittings and lugs
+- **Composite materials**: Carbon fiber for fairings and secondary structure
+- **Corrosion protection**: Anodizing, primers, and sealants
 
 ## Directory Structure
 
@@ -66,14 +110,18 @@ This sub-zone contains all design, analysis, manufacturing, and certification ar
 ## Key Interfaces
 
 ### Structural Interfaces
-- Adjacent wing structure components
-- Fuselage attachment points (for root fittings)
-- Control surface attachments (where applicable)
+- **57-10-BOX-SECTION** — Trailing edge spar attachment to main wing box rear spar
+- **57-40-RIBS-AND-SHEAR-TIES** — Trailing edge ribs connection to main ribs
+- **57-50-SKINS-AND-STRINGERS** — Upper and lower skin panel transitions
+- **27-XX-FLAPS** (FFF domain) — Flap structural attachment, tracks, and hinges
+- **27-XX-AILERONS** (FFF domain) — Aileron hinge fittings and mounting
+- **27-XX-SPOILERS** (FFF domain) — Spoiler mounting provisions
 
 ### Systems Interfaces
-- **28-XX-FUEL-SYSTEMS** (PPP domain) — Fuel tank boundaries
-- **27-XX-FLIGHT-CONTROLS** (FFF domain) — Control surface actuation
-- **32-XX-LANDING-GEAR** (MEC domain) — Landing gear attachment (where applicable)
+- **27-XX-FLIGHT-CONTROLS** (FFF domain) — Flap, aileron, and spoiler actuation systems
+- **29-XX-HYDRAULIC** (PPP domain) — Hydraulic power for control surface actuation
+- **24-XX-ELECTRICAL** (EEE domain) — Electric actuators and position sensors
+- **31-XX-INDICATING-RECORDING** (III domain) — Flap and slat position indicators
 
 ## Compliance Requirements
 

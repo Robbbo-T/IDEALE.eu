@@ -7,11 +7,60 @@
 
 ## Overview
 
-Wing tips, winglets, and fences
+Wing tips and fences provide aerodynamic efficiency and structural closure:
+- **Wing tip structure** — Outboard termination of wing box and skins
+- **Winglets** — Vertical aerodynamic surfaces reducing induced drag
+- **Wing tip fairings** — Aerodynamic closure and equipment housing
+- **Tip navigation lights** — Structural provisions for lighting
+- **Tip rib and closure** — Structural termination of all wing components
+- **Fence structures** — Aerodynamic fences for flow control (if applicable)
+- **Vortex generators** — Aerodynamic devices for boundary layer control
+- **Inspection doors** — Access to internal structure and systems
+
+Wing tips must withstand aerodynamic loads, lightning strikes, and provide proper aerodynamic performance including drag reduction and stall characteristics.
 
 ## Scope
 
-This sub-zone contains all design, analysis, manufacturing, and certification artifacts for the wing tips, winglets, and fences.
+This sub-zone contains all design, analysis, manufacturing, and certification artifacts for wing tips and fences, including:
+- Wing tip structural design and closure
+- Winglet structural design and optimization
+- Aerodynamic fence design and integration
+- Lightning strike protection
+- Navigation light installation provisions
+- Tip fairing design and manufacturing
+- Aerodynamic performance analysis (CFD)
+- Static and fatigue structural analysis
+- Manufacturing and assembly procedures
+
+## Key Design Considerations
+
+### Aerodynamic Requirements
+- **Drag reduction**: Winglets reduce induced drag by ~5-7%
+- **Stall characteristics**: Progressive stall behavior, no tip stall
+- **Flow management**: Fences control spanwise flow
+- **Vortex reduction**: Minimize wake turbulence
+- **Performance optimization**: Balance drag reduction vs. weight
+
+### Structural Requirements
+- **Aerodynamic loads**: Bending, torsion, and flutter loads on winglets
+- **Lightning strike**: Direct strike capability and current dissipation
+- **Bird strike**: Adequate strength for tip-mounted structures
+- **Fatigue life**: High-cycle fatigue from aerodynamic excitation
+- **Weight optimization**: Minimize weight while meeting requirements
+
+### Systems Integration
+- **Navigation lights**: Wing tip position lights (red/green)
+- **Strobe lights**: Anti-collision lighting
+- **Antennas**: Communication and navigation antennas
+- **Static ports**: Alternate static pressure ports
+- **Lightning diverters**: Conductive paths and discharge wicks
+
+### Material Selection
+- **Composite materials**: Carbon fiber for winglets and fairings
+- **Aluminum alloys**: 2024-T3 or 7075-T6 for structural elements
+- **Conductive materials**: Lightning strike protection mesh
+- **Transparent materials**: Polycarbonate for light lenses
+- **Sealants and coatings**: Weather protection and aerodynamic finish
 
 ## Directory Structure
 
@@ -66,14 +115,19 @@ This sub-zone contains all design, analysis, manufacturing, and certification ar
 ## Key Interfaces
 
 ### Structural Interfaces
-- Adjacent wing structure components
-- Fuselage attachment points (for root fittings)
-- Control surface attachments (where applicable)
+- **57-10-BOX-SECTION** — Outboard termination of wing spars
+- **57-20-LEADING-EDGE-STRUCTURE** — Leading edge tip closure
+- **57-30-TRAILING-EDGE-STRUCTURE** — Trailing edge tip closure
+- **57-40-RIBS-AND-SHEAR-TIES** — Tip rib and closure structure
+- **57-50-SKINS-AND-STRINGERS** — Skin termination and tip fairing
+- **57-80-FAIRINGS-AND-SEALS** — Winglet-to-wing fairing interface
 
 ### Systems Interfaces
-- **28-XX-FUEL-SYSTEMS** (PPP domain) — Fuel tank boundaries
-- **27-XX-FLIGHT-CONTROLS** (FFF domain) — Control surface actuation
-- **32-XX-LANDING-GEAR** (MEC domain) — Landing gear attachment (where applicable)
+- **33-XX-LIGHTS** (LLL domain) — Wing tip navigation lights, strobe lights
+- **34-XX-NAVIGATION** (NNN domain) — Antennas and static ports
+- **23-XX-COMMUNICATIONS** (CCC domain) — Communication antennas
+- **24-XX-ELECTRICAL** (EEE domain) — Electrical wiring to lights and equipment
+- **30-XX-ICE-RAIN-PROTECTION** (PPP domain) — Winglet de-icing (if applicable)
 
 ## Compliance Requirements
 

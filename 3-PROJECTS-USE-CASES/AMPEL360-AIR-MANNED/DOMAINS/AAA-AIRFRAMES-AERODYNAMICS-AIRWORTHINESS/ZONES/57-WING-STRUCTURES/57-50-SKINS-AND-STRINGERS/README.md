@@ -7,11 +7,67 @@
 
 ## Overview
 
-Wing skins and stringer assemblies
+Wing skins and stringers form the outer aerodynamic surface and primary load-carrying panels:
+- **Upper wing skins** — Top surface panels carrying compression loads
+- **Lower wing skins** — Bottom surface panels carrying tension loads
+- **Longitudinal stringers** — Stiffening members preventing skin buckling
+- **Skin-stringer panels** — Integral or mechanically fastened assemblies
+- **Splice joints** — Spanwise and chordwise panel joints
+- **Doubler plates** — Local reinforcement at high-stress areas
+- **Fastener patterns** — Optimized rivet or bolt patterns
+- **Surface treatment** — Protective coatings and aerodynamic finish
+
+The skin-stringer combination provides an efficient structure for carrying bending and shear loads while maintaining the aerodynamic contour.
 
 ## Scope
 
-This sub-zone contains all design, analysis, manufacturing, and certification artifacts for the wing skins and stringer assemblies.
+This sub-zone contains all design, analysis, manufacturing, and certification artifacts for wing skins and stringers, including:
+- Skin panel design and optimization
+- Stringer design and spacing
+- Panel buckling and post-buckling analysis
+- Fastener pattern design and analysis
+- Splice joint design
+- Aerodynamic surface quality requirements
+- Manufacturing processes (machining, forming, assembly)
+- Non-destructive inspection requirements
+- Protective coating specifications
+
+## Key Design Considerations
+
+### Structural Requirements
+- **Panel stability**: Prevent buckling under compression loads
+- **Damage tolerance**: Slow crack growth and residual strength
+- **Fatigue resistance**: High-cycle fatigue from flight loads
+- **Manufacturing tolerances**: Maintain aerodynamic contours
+- **Joint efficiency**: Minimize stress concentrations at splices
+
+### Skin Panel Design
+- **Thickness distribution**: Varying thickness for load distribution
+- **Panel dimensions**: Optimize for manufacturing and assembly
+- **Curvature**: Single or compound curvature for aerodynamics
+- **Surface finish**: Smooth finish for drag reduction
+- **Fuel tank sealing**: Integral tank provisions
+
+### Stringer Design
+- **Cross-section types**: Z-section, J-section, T-section, or hat-section
+- **Stringer pitch**: Spacing optimized for buckling prevention
+- **End terminations**: Stringer run-outs and terminations
+- **Manufacturing method**: Extrusions, rolled sections, or machined
+- **Attachment method**: Riveting, bonding, or integral construction
+
+### Analysis Requirements
+- **Buckling analysis**: Elastic and plastic buckling modes
+- **Post-buckling**: Residual strength after initial buckling
+- **Crippling analysis**: Local instability of stringers
+- **Fastener analysis**: Bearing, shear, and fatigue strength
+- **Crack growth analysis**: Fatigue crack propagation rates
+
+### Material Selection
+- **Aluminum alloys**: 2024-T3 clad for skins (corrosion resistance)
+- **Aluminum alloys**: 7075-T6 for stringers (high strength)
+- **Composite materials**: Carbon fiber skins with co-cured stringers
+- **Aluminum-lithium**: Weight savings for next-generation designs
+- **Fasteners**: Flush-head Hi-Lok or rivets for aerodynamic surface
 
 ## Directory Structure
 
@@ -66,14 +122,20 @@ This sub-zone contains all design, analysis, manufacturing, and certification ar
 ## Key Interfaces
 
 ### Structural Interfaces
-- Adjacent wing structure components
-- Fuselage attachment points (for root fittings)
-- Control surface attachments (where applicable)
+- **57-10-BOX-SECTION** — Skin attachment to front and rear spars
+- **57-20-LEADING-EDGE-STRUCTURE** — Skin transition to leading edge panels
+- **57-30-TRAILING-EDGE-STRUCTURE** — Skin transition to trailing edge panels
+- **57-40-RIBS-AND-SHEAR-TIES** — Skin-to-rib fastening at each rib station
+- **57-60-WING-ROOT-AND-ATTACH-FITTINGS** — Root joint transition to fuselage
+- **57-70-WING-TIP-AND-FENCES** — Outboard termination and tip fairing
+- **57-80-FAIRINGS-AND-SEALS** — Aerodynamic fairing interfaces
+- **57-90-ACCESS-PANELS-AND-DOORS** — Removable panel cutouts and reinforcement
 
 ### Systems Interfaces
-- **28-XX-FUEL-SYSTEMS** (PPP domain) — Fuel tank boundaries
-- **27-XX-FLIGHT-CONTROLS** (FFF domain) — Control surface actuation
-- **32-XX-LANDING-GEAR** (MEC domain) — Landing gear attachment (where applicable)
+- **28-XX-FUEL-SYSTEMS** (PPP domain) — Fuel tank boundary sealing and access
+- **30-XX-ICE-RAIN-PROTECTION** (PPP domain) — Surface de-icing systems
+- **11-XX-PLACARDS-MARKINGS** (GGG domain) — External markings and identification
+- **27-XX-FLIGHT-CONTROLS** (FFF domain) — Control surface attach points on skins
 
 ## Compliance Requirements
 

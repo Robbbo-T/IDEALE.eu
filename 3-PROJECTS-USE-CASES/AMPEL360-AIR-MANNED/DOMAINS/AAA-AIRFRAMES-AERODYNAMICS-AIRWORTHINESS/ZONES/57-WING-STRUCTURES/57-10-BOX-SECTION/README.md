@@ -7,11 +7,50 @@
 
 ## Overview
 
-Wing box primary structure and main spar
+The wing box is the primary load-bearing structure of the wing, consisting of:
+- **Front spar** — Primary forward structural member
+- **Rear spar** — Primary aft structural member
+- **Upper skin panels** — Top surface load path and aerodynamic surface
+- **Lower skin panels** — Bottom surface load path and aerodynamic surface
+- **Internal structure** — Ribs, stringers, and attachment fittings within the box
+- **Wing-to-fuselage carry-through** — Central structural connection
+- **Fuel tank structural boundaries** — Integral fuel tank structure
+
+The wing box transfers all wing loads (bending, torsion, shear) to the fuselage center section and provides the foundation for all other wing components.
 
 ## Scope
 
-This sub-zone contains all design, analysis, manufacturing, and certification artifacts for the wing box primary structure and main spar.
+This sub-zone contains all design, analysis, manufacturing, and certification artifacts for the wing box primary structure, including:
+- Structural design and analysis of main spars
+- Wing box sizing and optimization
+- Load path definition and verification
+- Integral fuel tank structure
+- Fail-safe and damage tolerance assessments
+- Manufacturing process definition
+- Assembly and joining procedures
+- Non-destructive testing requirements
+
+## Key Design Considerations
+
+### Structural Requirements
+- **Ultimate load capability**: 1.5 × limit loads (CS 25.303)
+- **Fatigue life**: Design service goal (DSG) typically 90,000 flight cycles
+- **Damage tolerance**: Residual strength with critical damage
+- **Fail-safe design**: Multiple load paths and crack arresters
+- **Weight optimization**: Minimize structural weight while meeting requirements
+
+### Material Selection
+- **Aluminum alloys**: 2024-T3, 7075-T6 for primary structure
+- **Composite materials**: Carbon fiber reinforced polymer (CFRP) for weight savings
+- **Titanium alloys**: Ti-6Al-4V for high-stress areas
+- **Advanced materials**: Aluminum-lithium alloys for next-generation designs
+
+### Manufacturing Considerations
+- Large panel machining and forming
+- Automated fastening systems
+- Quality control and inspection
+- Assembly jig and fixture design
+- Surface treatment and corrosion protection
 
 ## Directory Structure
 
@@ -66,14 +105,20 @@ This sub-zone contains all design, analysis, manufacturing, and certification ar
 ## Key Interfaces
 
 ### Structural Interfaces
-- Adjacent wing structure components
-- Fuselage attachment points (for root fittings)
-- Control surface attachments (where applicable)
+- **53-10-CENTER-BODY** (Fuselage) — Wing-to-fuselage attachment fittings and carry-through structure
+- **57-20-LEADING-EDGE-STRUCTURE** — Leading edge spar attachment
+- **57-30-TRAILING-EDGE-STRUCTURE** — Trailing edge spar attachment and flap track fittings
+- **57-40-RIBS-AND-SHEAR-TIES** — Internal rib-to-spar connections
+- **57-50-SKINS-AND-STRINGERS** — Upper and lower skin panel attachment to spars
+- **57-60-WING-ROOT-AND-ATTACH-FITTINGS** — Root rib and primary attachment points
+- **57-70-WING-TIP-AND-FENCES** — Outboard termination of spars
 
 ### Systems Interfaces
-- **28-XX-FUEL-SYSTEMS** (PPP domain) — Fuel tank boundaries
-- **27-XX-FLIGHT-CONTROLS** (FFF domain) — Control surface actuation
-- **32-XX-LANDING-GEAR** (MEC domain) — Landing gear attachment (where applicable)
+- **28-XX-FUEL-SYSTEMS** (PPP domain) — Integral fuel tank sealing, access panels, and structural boundaries
+- **27-XX-FLIGHT-CONTROLS** (FFF domain) — Aileron and spoiler mounting provisions
+- **32-XX-LANDING-GEAR** (MEC domain) — Main landing gear attachment points and support structure (if wing-mounted)
+- **24-XX-ELECTRICAL** (EEE domain) — Electrical harness routing through wing box
+- **36-XX-PNEUMATIC** (PPP domain) — Pneumatic line routing for de-icing systems
 
 ## Compliance Requirements
 

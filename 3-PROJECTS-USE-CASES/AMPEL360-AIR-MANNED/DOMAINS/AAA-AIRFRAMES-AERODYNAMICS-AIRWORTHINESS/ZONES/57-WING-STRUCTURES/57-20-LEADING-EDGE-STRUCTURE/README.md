@@ -7,11 +7,54 @@
 
 ## Overview
 
-Leading edge structure and slat systems
+The leading edge structure forms the forward aerodynamic surface of the wing and provides:
+- **Leading edge spar** — Primary structural member supporting the leading edge
+- **Leading edge panels** — Aerodynamic surface and structural skin
+- **Slat tracks and supports** — High-lift device mounting structure
+- **Slat rails and carriages** — Slat deployment mechanism support
+- **Access doors and panels** — Maintenance access to internal systems
+- **Anti-ice system integration** — Thermal or pneumatic de-icing provisions
+- **Lightning strike protection** — Conductive paths and lightning diverters
+
+The leading edge structure must withstand bird strike loads, ice accretion forces, and high-lift device deployment loads while maintaining aerodynamic efficiency.
 
 ## Scope
 
-This sub-zone contains all design, analysis, manufacturing, and certification artifacts for the leading edge structure and slat systems.
+This sub-zone contains all design, analysis, manufacturing, and certification artifacts for the leading edge structure, including:
+- Leading edge spar structural design
+- Leading edge skin panel design and optimization
+- Slat track and support structure
+- Bird strike analysis and certification
+- Ice protection system integration
+- Lightning strike protection design
+- Manufacturing and assembly processes
+- Damage tolerance and inspection programs
+
+## Key Design Considerations
+
+### Aerodynamic Requirements
+- **Leading edge profile**: Maintains optimal airflow and minimizes drag
+- **Surface quality**: Smooth surface finish for laminar flow (where applicable)
+- **Slat integration**: Seamless integration with high-lift devices
+- **Stall characteristics**: Progressive stall behavior
+
+### Structural Requirements
+- **Bird strike resistance**: Certification to CS 25.571 (4 lb bird at cruise speed)
+- **Impact damage tolerance**: Sustain damage without catastrophic failure
+- **Environmental loads**: Ice loads, thermal stresses, and pressure differential
+- **Fatigue life**: High-cycle fatigue from slat deployment
+
+### Systems Integration
+- **Anti-ice systems**: Hot air or electrical heating elements
+- **Slat actuation**: Mechanical or hydraulic actuation system
+- **Sensors**: Angle of attack sensors and ice detectors
+- **Lightning protection**: Conductive strips and bonding
+
+### Material Selection
+- **Aluminum alloys**: 2024-T3 clad for corrosion resistance
+- **Composite materials**: Glass or carbon fiber for leading edge panels
+- **Erosion-resistant coatings**: Polyurethane or nickel-based coatings
+- **Conductive materials**: Aluminum or copper mesh for lightning protection
 
 ## Directory Structure
 
@@ -66,14 +109,17 @@ This sub-zone contains all design, analysis, manufacturing, and certification ar
 ## Key Interfaces
 
 ### Structural Interfaces
-- Adjacent wing structure components
-- Fuselage attachment points (for root fittings)
-- Control surface attachments (where applicable)
+- **57-10-BOX-SECTION** — Leading edge spar attachment to main wing box
+- **57-40-RIBS-AND-SHEAR-TIES** — Leading edge ribs connection to main ribs
+- **57-50-SKINS-AND-STRINGERS** — Upper and lower skin panel transitions
+- **27-XX-SLATS** (FFF domain) — Slat structural attachment and support
 
 ### Systems Interfaces
-- **28-XX-FUEL-SYSTEMS** (PPP domain) — Fuel tank boundaries
-- **27-XX-FLIGHT-CONTROLS** (FFF domain) — Control surface actuation
-- **32-XX-LANDING-GEAR** (MEC domain) — Landing gear attachment (where applicable)
+- **30-XX-ICE-RAIN-PROTECTION** (PPP domain) — Anti-ice and de-ice system integration
+- **27-XX-FLIGHT-CONTROLS** (FFF domain) — Slat actuation system and tracks
+- **24-XX-ELECTRICAL** (EEE domain) — Power for electric heating and sensors
+- **34-XX-NAVIGATION** (NNN domain) — Air data sensors and probes
+- **36-XX-PNEUMATIC** (PPP domain) — Pneumatic anti-ice air supply
 
 ## Compliance Requirements
 

@@ -7,11 +7,58 @@
 
 ## Overview
 
-Wing ribs and shear tie structures
+Wing ribs and shear ties provide internal structural support and load distribution:
+- **Main ribs** — Primary load-bearing transverse members
+- **Intermediate ribs** — Secondary ribs between main ribs for skin support
+- **Nose ribs** — Forward ribs supporting leading edge structure
+- **Aft ribs** — Rear ribs supporting trailing edge structure
+- **Shear ties** — Diagonal bracing members resisting shear loads
+- **Rib-to-spar fittings** — Connection hardware between ribs and spars
+- **Fuel tank sealing** — Rib sealant provisions for integral tanks
+- **Lightening holes** — Weight reduction cutouts with edge reinforcement
+
+Ribs maintain wing cross-sectional shape, distribute loads from skins to spars, and provide mounting provisions for systems and equipment.
 
 ## Scope
 
-This sub-zone contains all design, analysis, manufacturing, and certification artifacts for the wing ribs and shear tie structures.
+This sub-zone contains all design, analysis, manufacturing, and certification artifacts for wing ribs and shear ties, including:
+- Rib structural design and sizing
+- Shear tie design and placement optimization
+- Rib-to-spar connection design
+- Fuel tank sealing provisions
+- Lightening hole patterns and reinforcement
+- Buckling and crippling analysis
+- Manufacturing drawings and specifications
+- Assembly and installation procedures
+
+## Key Design Considerations
+
+### Structural Requirements
+- **Load distribution**: Transfer loads from skins to spars efficiently
+- **Shape maintenance**: Maintain aerodynamic wing profile under load
+- **Local reinforcement**: Support concentrated loads from systems
+- **Fuel tank integrity**: Sealed ribs for integral fuel tanks
+- **Damage tolerance**: Crack arrest and fail-safe features
+
+### Design Features
+- **Rib web design**: Optimized thickness and lightening hole patterns
+- **Rib caps and flanges**: Sufficient stiffness for stability
+- **Shear tie configuration**: Optimize for torsional stiffness
+- **Attachment design**: Riveted, bolted, or bonded connections
+- **Manufacturing considerations**: Formability and assembly access
+
+### Analysis Requirements
+- **Buckling analysis**: Web and flange buckling under compression
+- **Crippling analysis**: Local instability at fittings
+- **Fastener analysis**: Bearing and shear strength verification
+- **Fatigue analysis**: High-cycle and low-cycle fatigue
+- **Damage tolerance**: Residual strength with damage
+
+### Material Selection
+- **Aluminum alloys**: 2024-T3 for webs, 7075-T6 for caps and fittings
+- **Composite materials**: Carbon fiber for weight-critical applications
+- **Fasteners**: Hi-Lok, Hi-Lite, or rivets per design requirements
+- **Sealants**: Fuel-resistant sealants for integral tank ribs
 
 ## Directory Structure
 
@@ -66,14 +113,19 @@ This sub-zone contains all design, analysis, manufacturing, and certification ar
 ## Key Interfaces
 
 ### Structural Interfaces
-- Adjacent wing structure components
-- Fuselage attachment points (for root fittings)
-- Control surface attachments (where applicable)
+- **57-10-BOX-SECTION** — Rib-to-spar connections at front and rear spars
+- **57-20-LEADING-EDGE-STRUCTURE** — Nose rib attachment to leading edge spar
+- **57-30-TRAILING-EDGE-STRUCTURE** — Aft rib attachment to trailing edge spar
+- **57-50-SKINS-AND-STRINGERS** — Rib-to-skin and rib-to-stringer connections
+- **57-60-WING-ROOT-AND-ATTACH-FITTINGS** — Root rib interface with attachment fittings
+- **57-70-WING-TIP-AND-FENCES** — Tip rib and fence attachment provisions
 
 ### Systems Interfaces
-- **28-XX-FUEL-SYSTEMS** (PPP domain) — Fuel tank boundaries
-- **27-XX-FLIGHT-CONTROLS** (FFF domain) — Control surface actuation
-- **32-XX-LANDING-GEAR** (MEC domain) — Landing gear attachment (where applicable)
+- **28-XX-FUEL-SYSTEMS** (PPP domain) — Fuel tank sealing at ribs, feedthrough penetrations
+- **24-XX-ELECTRICAL** (EEE domain) — Electrical harness routing through ribs
+- **32-XX-LANDING-GEAR** (MEC domain) — Gear support ribs and load distribution (if applicable)
+- **27-XX-FLIGHT-CONTROLS** (FFF domain) — Control surface actuator mounting ribs
+- **29-XX-HYDRAULIC** (PPP domain) — Hydraulic line routing and support brackets
 
 ## Compliance Requirements
 

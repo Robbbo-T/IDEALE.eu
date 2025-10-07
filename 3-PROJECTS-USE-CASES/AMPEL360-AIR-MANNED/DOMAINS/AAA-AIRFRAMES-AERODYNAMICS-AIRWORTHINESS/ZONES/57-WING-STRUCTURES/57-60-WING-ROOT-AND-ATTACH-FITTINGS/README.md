@@ -7,11 +7,60 @@
 
 ## Overview
 
-Wing root and fuselage attachment fittings
+Wing root and attachment fittings transfer all wing loads to the fuselage structure:
+- **Wing root fittings** — Primary structural joints between wing and fuselage
+- **Main attachment lugs** — Pinned connections for shear and bending loads
+- **Tension/compression fittings** — Transfer axial loads from wing box
+- **Shear lugs** — Vertical and lateral shear load transfer
+- **Root rib structure** — Heavy-gauge rib at wing-fuselage interface
+- **Carry-through structure** — Wing box continuation through fuselage
+- **Failsafe features** — Multiple load paths and crack arresters
+- **Inspection provisions** — Access for regular structural inspection
+
+These critical fittings must transfer ultimate loads with appropriate factors of safety and provide damage-tolerant, fail-safe design.
 
 ## Scope
 
-This sub-zone contains all design, analysis, manufacturing, and certification artifacts for the wing root and fuselage attachment fittings.
+This sub-zone contains all design, analysis, manufacturing, and certification artifacts for wing root attachment, including:
+- Root fitting structural design and sizing
+- Lug and pin analysis (bearing, shear, tension)
+- Finite element analysis of complex joints
+- Fatigue and damage tolerance analysis
+- Fail-safe load path verification
+- Material specifications for high-strength fittings
+- Manufacturing processes (forging, machining, heat treatment)
+- Assembly and installation procedures
+- Inspection and maintenance requirements
+
+## Key Design Considerations
+
+### Structural Requirements
+- **Ultimate load capability**: All limit loads × 1.5 factor of safety
+- **Fail-safe design**: Multiple load paths, no single-point failures
+- **Fatigue life**: Design service goal plus scatter factors
+- **Damage tolerance**: Inspectable, repairable design
+- **Static strength**: Adequate margin against yield and ultimate failure
+
+### Fitting Design
+- **Lug design**: Proper lug geometry per MIL-HDBK-5 or equivalent
+- **Pin design**: Adequate pin diameter and material strength
+- **Bushing selection**: Wear-resistant bushings with proper clearances
+- **Corrosion protection**: Cadmium plating, anodizing, or coatings
+- **Load distribution**: Distribute loads over multiple fittings
+
+### Analysis Requirements
+- **Lug analysis**: Bearing, shear, tension, and combined loading
+- **Bushing analysis**: Wear life and load capacity
+- **Stress concentration**: Finite element analysis of complex geometry
+- **Fatigue analysis**: S-N curves, crack initiation and growth
+- **Fracture mechanics**: Damage tolerance and inspection intervals
+
+### Material Selection
+- **High-strength steel**: 300M, 4340, or custom alloy steel forgings
+- **Titanium alloys**: Ti-6Al-4V for weight savings
+- **Aluminum forgings**: 7075-T73 for moderate-strength applications
+- **Pins and bushings**: Heat-treated steel with surface treatments
+- **Corrosion protection**: Cadmium plate, anodize, or protective coatings
 
 ## Directory Structure
 
@@ -66,14 +115,18 @@ This sub-zone contains all design, analysis, manufacturing, and certification ar
 ## Key Interfaces
 
 ### Structural Interfaces
-- Adjacent wing structure components
-- Fuselage attachment points (for root fittings)
-- Control surface attachments (where applicable)
+- **53-10-CENTER-BODY** (Fuselage) — Primary wing-to-fuselage attachment interface
+- **57-10-BOX-SECTION** — Wing box termination at root fittings
+- **57-40-RIBS-AND-SHEAR-TIES** — Root rib connection to attachment fittings
+- **57-50-SKINS-AND-STRINGERS** — Skin and stringer run-out at wing root
+- **32-XX-LANDING-GEAR** (MEC domain) — Main landing gear support structure integration (if applicable)
 
 ### Systems Interfaces
-- **28-XX-FUEL-SYSTEMS** (PPP domain) — Fuel tank boundaries
-- **27-XX-FLIGHT-CONTROLS** (FFF domain) — Control surface actuation
-- **32-XX-LANDING-GEAR** (MEC domain) — Landing gear attachment (where applicable)
+- **28-XX-FUEL-SYSTEMS** (PPP domain) — Fuel line and wiring feedthrough at root
+- **24-XX-ELECTRICAL** (EEE domain) — Electrical harness routing through attachment area
+- **29-XX-HYDRAULIC** (PPP domain) — Hydraulic line routing to wing systems
+- **36-XX-PNEUMATIC** (PPP domain) — Pneumatic line routing to wing systems
+- **05-XX-MAINTENANCE** (MMM domain) — Inspection access provisions
 
 ## Compliance Requirements
 
