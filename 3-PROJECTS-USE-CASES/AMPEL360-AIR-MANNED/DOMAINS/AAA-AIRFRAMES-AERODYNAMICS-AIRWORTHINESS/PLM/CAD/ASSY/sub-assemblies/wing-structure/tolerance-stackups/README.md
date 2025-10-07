@@ -77,6 +77,10 @@ All tolerance stack-ups must be:
 - CAD Models - `../models/SA-AAA-WINGBOX-{IDX}.stp`
 - Resolution Logs - `../resolution-logs/RESLOG-ONB-WINGBOX-{IDX}.md` (if deviations occur)
 
+## Template Files
+
+- **`tolerance-stackup-template.csv`** - Generic tolerance stack-up template with columns for Stack ID, Feature/Requirement, Chain Path, Nominal, Upper/Lower Tolerances, Method (Worst/RSS), Cpk Target, Contributors, Contributor Type, Variation Source, Calculated Result, Margin, and Notes. Use this as a starting point for new wing structure tolerance analyses.
+
 ## References
 
 See parent [Wing Structure README](../README.md) for complete conventions and specifications.

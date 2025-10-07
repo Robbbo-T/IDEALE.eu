@@ -80,6 +80,8 @@ Thumbnails should be generated from:
 - **Rendering software** - KeyShot, VRED for high-quality presentations
 - **Automated CI/CD** - Scripted generation for consistency
 
+**Note**: A `.gitkeep` file is present to maintain this directory in version control when no thumbnail files are present.
+
 ## Related Files
 
 - CAD Models - `../models/SA-AAA-WINGBOX-{IDX}.stp`
