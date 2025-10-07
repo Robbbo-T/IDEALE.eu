@@ -1,34 +1,40 @@
-schema_version: "1.0.0"
-utcs_id: "UTCS-MI:MOC:AIRFRAME:STR:0001:v1"  # Adjust codes as required by your project
+schema_version: "1.0"
+utcs_id: "UTCS-MI:MOC:AAA:FUS:0001:v1"
 product: "AMPEL360-AIR-T"
 domain: "AAA"
 zone: "53-FUSELAGE-STRUCTURES"
 subzone: "53-10-CENTER-BODY"
+
 bridge: "QS→FWD→UE→FE→CB→QB"
-primary_path: "CB→CAV→UE"
+primary_path: "FE→CB→UE"
 
 requirement:
-  cs_ref: "CS-25.571(a)"
+  cs_ref: "CS25.571(a)"
   scope: "Fatigue and damage tolerance of 53-10 center body"
-method: "Analysis"
+
+method: "ANALYSIS"
+
 configuration:
   cad_assy: "UTCS-MI:CAD:AAA:ASSY:53-10:revC"
   fem_model: "UTCS-MI:CAE:AAA:FEM:53-10:FATIGUE:R02"
   materials:
     - "UTCS-MI:MAT:SPEC:CARBON:PREPREG:R05"
+
 evidence:
   record_file: "records/MOC-CS25-571-FATIGUE-DT-ANALYSIS-20250312-R01.pdf"
   attachments:
     - "methods/analysis/ANA-53-10-FATIGUE-R02.pdf"
     - "methods/test-results/TR-53-10-DT-01-R01.pdf"
+
 integrity:
   hash_algorithm: "SHA256"
-  content_hash:
-    MOC-CS25-571-FATIGUE-DT-ANALYSIS-20250312-R01.pdf: "<sha256>"
+  content_hash: "0000000000000000000000000000000000000000000000000000000000000000"  # Replace with actual SHA256
+
 provenance:
-  owner: ""  # Fill with actual team or responsible person, or leave blank/TBD
-  analyst: ""  # Fill with actual analyst, or leave blank/TBD
-  checker: ""  # Fill with actual checker, or leave blank/TBD
-  design_authority: ""  # Fill with actual authority, or leave blank/TBD
+  owner: "AAA Integration Team"
+  analyst: "TBD"
+  checker: "TBD"
+  design_authority: "TBD"
   created: "2025-03-12T10:20:00Z"
-status: "in_internal_review"
+
+status: "in_review"
