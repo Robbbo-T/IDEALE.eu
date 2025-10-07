@@ -1,21 +1,31 @@
-schema_version: "1.0"
-utcs_id: "UTCS-MI:BOM:AAA:WINGBOX:0001:v1"
-type: artifact
-status: approved
-timestamps: { created: "2025-10-07T00:00:00Z" }
+schema_version: "1.0.0"
+utcs_id: "UTCS-MI:BOM:AAA:WNG:0001:v1"
 
 product: "AMPEL360-AIR-T"
 domain: "AAA"
-llc: "SYSTEMS"
-bridge: "QS→FWD→UE→FE→CB→QB"
-primary_path: "FE→CB→UE"
+zone: "57-WING-STRUCTURES"
+subzone: "57-10-BOX-SECTION"
+maintainer: "AAA Integration Team"
 
-provenance: { owner: "AAA Integration Team" }
+bridge: "QS->FWD->UE->FE->CB->QB"
+primary_path: "FE->CB->UE"
+
+description: "Wingbox sub-assembly BOM (domain-level record)"
 
 sheet:
   files:
-    - { path: "boms/SA-AAA-WINGBOX-001.csv", role: "bom" }
+    - { path: "../boms/SA-AAA-WINGBOX-001.csv", role: "bom" }
+
+evidence:
+  requirements: [ "CS25.603", "CS25.605" ]
+  links:
+    - "../boms/SA-AAA-WINGBOX-001.csv"
 
 integrity:
   hash_algorithm: "SHA256"
-  content_hash: "<sha256-of-SA-AAA-WINGBOX-001.csv>"
+  content_hash: "<replace-with-real-64-hex>"
+
+provenance:
+  owner: "AAA Integration Team"
+  created: "2025-10-07T00:00:00Z"
+status: "in_review"
