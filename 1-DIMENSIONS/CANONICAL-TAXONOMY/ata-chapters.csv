@@ -93,7 +93,7 @@ ATA Chapter,90,Reserved,OOO,,Reserved for future use
 ATA Chapter,91,Charts,IIS,,Performance charts and tables
 ATA Chapter,92,Reserved,OOO,,Reserved for future use
 ATA Chapter,93,Central Control Systems,LCC,,Aircraft central control and monitoring systems
-ATA Chapter,94,Reserved,OOO,,Reserved for future use
+ATA Chapter,94,E/E Compartments,EDI,,
 ATA Chapter,95,Reserved,OOO,,Reserved for future use
 ATA Chapter,96,Reserved,OOO,,Reserved for future use
 ATA Chapter,97,Wiring,EEE,,Electrical wiring
