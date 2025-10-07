@@ -4,7 +4,16 @@ This directory contains the complete domain organization for the AMPEL360-AIR-MA
 
 ## Overview
 
-All domains follow the standardized BEZ (Bloque de Estructura Base) pattern, applied at the lowest organizational level (sub-zones for AAA, systems for all others).
+All domains follow a **hierarchical structure** with two distinct levels:
+
+1. **Domain Level**: Templates, schemas, policies, and standards (governance)
+2. **Subzone/System Level**: Actual artifacts, deliverables, and work products (implementation)
+
+The BEZ (Bloque de Estructura Base) pattern appears at both levels with different purposes:
+- **Domain-level BEZ folders** define templates and standards
+- **Subzone-level BEZ folders** contain actual implementation artifacts
+
+> **Important**: See [TFA-DOMAIN-HIERARCHY.md](./TFA-DOMAIN-HIERARCHY.md) for detailed explanation of the template vs. instance pattern.
 
 ## Domain Organization
 
@@ -34,24 +43,45 @@ All 101 ATA chapters (00-100) are mapped to these domains. See:
 - [ATA-STRUCTURE-EXAMPLE.md](./ATA-STRUCTURE-EXAMPLE.md) — Implementation guide
 - [COMPLETE-DOMAIN-STRUCTURE.md](./COMPLETE-DOMAIN-STRUCTURE.md) — Full reference
 
-## BEZ Structure
+## BEZ Structure Hierarchy
 
-Each lowest-level sub-zone or system contains:
+### Domain Level (Templates & Governance)
+
+Each domain contains BEZ folders at the domain level providing **templates and standards**:
+
+```
+[DOMAIN]/
+├─ DELs/                    # Document templates, schemas
+├─ PAx/                     # Packaging standards
+├─ PLM/                     # PLM policies
+├─ QUANTUM_OA/              # Optimization patterns
+├─ SUPPLIERS/               # Qualification criteria
+├─ policy/                  # Governance rules
+├─ tests/                   # Test frameworks
+└─ META.json               # Scope: "domain"
+```
+
+### Subzone/System Level (Instances & Artifacts)
+
+Each lowest-level sub-zone or system contains BEZ folders with **actual work products**:
 
 ```
 [SUB-ZONE or SYSTEM]/
-├─ DELs/                   # Deliveries
-├─ PAx/                    # Packaging (ONB/OUT)
-├─ PLM/                    # Product Lifecycle Management
-├─ PROCUREMENT/            # Vendor components
-├─ QUANTUM_OA/             # Quantum optimization
-├─ SUPPLIERS/              # Supplier management
-├─ policy/                 # Domain policies
-├─ tests/                  # Test artifacts
-├─ META.json              # Metadata
-├─ README.md              # Documentation
-└─ domain-config.yaml     # Configuration
+├─ DELs/                   # Actual certification documents
+├─ PAx/                    # Actual packaging artifacts (ONB/OUT)
+├─ PLM/                    # Actual CAD/CAE files
+├─ PROCUREMENT/            # Actual vendor components
+├─ QUANTUM_OA/             # Actual optimization runs
+├─ SUPPLIERS/              # Actual supplier contracts
+├─ policy/                 # System-specific policies
+├─ tests/                  # Actual test results
+├─ META.json              # Scope: "instance", UTCS anchor
+├─ inherit.json           # References domain templates
+├─ README.md              # System documentation
+└─ domain-config.yaml     # System configuration
 ```
+
+This hierarchical repetition is **intentional** — the domain level defines the contract, the subzone level implements it.
 
 ## Quick Start
 
@@ -64,7 +94,9 @@ To add a new ATA chapter system:
 
 | File | Purpose |
 |------|---------|
-| [ATA-STRUCTURE-EXAMPLE.md](./ATA-STRUCTURE-EXAMPLE.md) | Pattern explanation |
+| [TFA-DOMAIN-HIERARCHY.md](./TFA-DOMAIN-HIERARCHY.md) | **Template vs. instance pattern explained** |
+| [TFA-HIERARCHY-DIAGRAMS.md](./TFA-HIERARCHY-DIAGRAMS.md) | **Visual hierarchy diagrams** |
+| [ATA-STRUCTURE-EXAMPLE.md](./ATA-STRUCTURE-EXAMPLE.md) | Implementation pattern explanation |
 | [COMPLETE-DOMAIN-STRUCTURE.md](./COMPLETE-DOMAIN-STRUCTURE.md) | Full reference for all 15 domains |
 | [QUICKSTART-ATA-IMPLEMENTATION.md](./QUICKSTART-ATA-IMPLEMENTATION.md) | Implementation guide |
 | [IMPLEMENTATION-SUMMARY.md](./IMPLEMENTATION-SUMMARY.md) | Project summary |
