@@ -1,5 +1,6 @@
-schema_version: "1.0"
+schema_version: "1.0.0"  # Use full semantic versioning as required by the schema
 utcs_id: "UTCS-MI:MOC:CS25:571:ANALYSIS:2025:001:v1"
+sheet: "MoC-CS25-571-ANALYSIS-2025-001"  # Added 'sheet' property per schema requirements
 product: "AMPEL360-AIR-T"
 domain: "AAA"
 zone: "53-FUSELAGE-STRUCTURES"
@@ -14,7 +15,8 @@ method: "Analysis"
 configuration:
   cad_assy: "UTCS-MI:CAD:AAA:ASSY:53-10:revC"
   fem_model: "UTCS-MI:CAE:AAA:FEM:53-10:FATIGUE:R02"
-  materials: ["UTCS-MI:MAT:SPEC:CARBON:PREPREG:R05"]
+  materials:
+    - "UTCS-MI:MAT:SPEC:CARBON:PREPREG:R05"
 evidence:
   record_file: "records/MOC-CS25-571-FATIGUE-DT-ANALYSIS-20250312-R01.pdf"
   attachments:
