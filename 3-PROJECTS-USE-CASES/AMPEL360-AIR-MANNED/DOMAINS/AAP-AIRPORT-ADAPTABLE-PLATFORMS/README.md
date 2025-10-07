@@ -31,7 +31,7 @@ The AAP domain manages all ground handling, parking, mooring, and airport interf
 AAP-AIRPORT-ADAPTABLE-PLATFORMS/
 ├─ SYSTEMS/
 │  └─ 10-PARKING-MOORING/      ← Complete BEZ structure
-│     ├─ DELs/                  (Design Evidence Lists)
+│     ├─ DELs/                  (Deliveries)
 │     ├─ PAx/                   (Packaging: ONB/OUT)
 │     ├─ PLM/                   (CAD, CAE, CAI, CAM, CAO, CAP, CAS, CAV, CMP)
 │     ├─ QUANTUM_OA/            (Optimization algorithms)

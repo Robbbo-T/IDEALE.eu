@@ -38,7 +38,7 @@ The OOO domain manages all foundational standards, ontologies, general practices
 OOO-OS-ONTOLOGIES-OFFICE-INTERFACES/
 ├─ PLATFORM/
 │  ├─ 00-GENERAL/                       ← Complete BEZ structure
-│  │  ├─ DELs/                          (Design Evidence Lists)
+│  │  ├─ DELs/                          (Deliveries)
 │  │  ├─ PAx/                           (Packaging: ONB/OUT)
 │  │  ├─ PLM/                           (CAD, CAE, CAI, CAM, CAO, CAP, CAS, CAV, CMP)
 │  │  ├─ QUANTUM_OA/                    (Optimization algorithms)

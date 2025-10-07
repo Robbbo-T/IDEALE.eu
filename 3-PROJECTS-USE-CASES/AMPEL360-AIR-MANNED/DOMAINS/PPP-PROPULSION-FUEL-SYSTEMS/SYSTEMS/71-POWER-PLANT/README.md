@@ -21,7 +21,7 @@ This system contains all design, analysis, manufacturing, and certification arti
 
 ```
 71-POWER-PLANT/
-├─ DELs/                          # Design Evidence Lists
+├─ DELs/                          # Deliveries
 │  ├─ EASA-submissions/           # EASA certification submissions
 │  ├─ MoC-records/                # Means of Compliance records
 │  ├─ airworthiness-statements/   # Airworthiness compliance statements

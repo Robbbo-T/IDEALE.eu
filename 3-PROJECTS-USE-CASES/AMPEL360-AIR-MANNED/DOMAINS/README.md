@@ -40,7 +40,7 @@ Each lowest-level sub-zone or system contains:
 
 ```
 [SUB-ZONE or SYSTEM]/
-├─ DELs/                   # Design Evidence Lists
+├─ DELs/                   # Deliveries
 ├─ PAx/                    # Packaging (ONB/OUT)
 ├─ PLM/                    # Product Lifecycle Management
 ├─ PROCUREMENT/            # Vendor components

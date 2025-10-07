@@ -58,7 +58,7 @@ Each sub-zone (lowest level) contains the complete BEZ:
 
 ```
 [SUB-ZONE]/
-├─ DELs/                   # Design Evidence Lists
+├─ DELs/                   # Deliveries
 ├─ PAx/                    # Packaging (ONB/OUT)
 ├─ PLM/                    # Product Lifecycle Management
 ├─ PROCUREMENT/            # Vendor and component procurement

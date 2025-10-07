@@ -36,7 +36,7 @@ The IIS domain manages all information systems, data intelligence, documentation
 IIS-INFORMATION-INTELLIGENCE-SYSTEMS/
 ├─ SYSTEMS/
 │  ├─ 16-GROUND-SUPPORT-EQUIPMENT/  ← Complete BEZ structure
-│  │  ├─ DELs/                      (Design Evidence Lists)
+│  │  ├─ DELs/                      (Deliveries)
 │  │  ├─ PAx/                       (Packaging: ONB/OUT)
 │  │  ├─ PLM/                       (CAD, CAE, CAI, CAM, CAO, CAP, CAS, CAV, CMP)
 │  │  ├─ QUANTUM_OA/                (Optimization algorithms)

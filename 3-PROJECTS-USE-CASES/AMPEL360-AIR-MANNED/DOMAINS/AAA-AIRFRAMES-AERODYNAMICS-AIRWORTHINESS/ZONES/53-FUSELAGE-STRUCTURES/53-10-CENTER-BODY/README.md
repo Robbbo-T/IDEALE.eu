@@ -22,7 +22,7 @@ This sub-zone contains all design, analysis, manufacturing, and certification ar
 
 ```
 53-10-CENTER-BODY/
-├─ DELs/                          # Design Evidence Lists
+├─ DELs/                          # Deliveries
 │  ├─ EASA-submissions/           # EASA certification submissions
 │  ├─ MoC-records/                # Means of Compliance records
 │  ├─ airworthiness-statements/   # Airworthiness compliance statements

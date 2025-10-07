@@ -1,4 +1,4 @@
-# Design Evidence Lists (DELs)
+# Deliveries (DELs)
 
 This directory contains all formal certification documentation and design evidence required for regulatory approval.
 

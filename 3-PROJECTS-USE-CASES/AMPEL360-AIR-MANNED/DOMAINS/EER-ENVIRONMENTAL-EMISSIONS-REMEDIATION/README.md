@@ -35,7 +35,7 @@ The EER domain manages all environmental control, fire protection, emissions red
 EER-ENVIRONMENTAL-EMISSIONS-REMEDIATION/
 ├─ SYSTEMS/
 │  ├─ 26-FIRE-PROTECTION/       ← Complete BEZ structure
-│  │  ├─ DELs/                   (Design Evidence Lists)
+│  │  ├─ DELs/                   (Deliveries)
 │  │  ├─ PAx/                    (Packaging: ONB/OUT)
 │  │  ├─ PLM/                    (CAD, CAE, CAI, CAM, CAO, CAP, CAS, CAV, CMP)
 │  │  ├─ QUANTUM_OA/             (Optimization algorithms)

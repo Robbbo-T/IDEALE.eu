@@ -51,4 +51,4 @@ All submissions must:
 **Related**:
 - [MoC-records/](../MoC-records/) — Means of Compliance documentation
 - [airworthiness-statements/](../airworthiness-statements/) — Compliance statements
-- [DELs README](../README.md) — Design Evidence Lists overview
+- [DELs README](../README.md) — Deliveries overview

@@ -36,7 +36,7 @@ The LIB domain manages all logistics operations, inventory control, maintenance 
 LIB-LOGISTICS-INVENTORY-BLOCKCHAIN/
 ├─ LOGISTICS/
 │  ├─ 01-INTRODUCTION/                  ← Complete BEZ structure
-│  │  ├─ DELs/                          (Design Evidence Lists)
+│  │  ├─ DELs/                          (Deliveries)
 │  │  ├─ PAx/                           (Packaging: ONB/OUT)
 │  │  ├─ PLM/                           (CAD, CAE, CAI, CAM, CAO, CAP, CAS, CAV, CMP)
 │  │  ├─ QUANTUM_OA/                    (Optimization algorithms)
