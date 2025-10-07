@@ -56,11 +56,19 @@ artifact_properties:
 
 ```
 IDEALE.eu/
-├─ standards/v0.1/            # IDEALE Evidence Framework (IEF) specs
-│  ├─ artifact-portability-spec.yaml
-│  ├─ cryptographic-signing.md
-│  ├─ cross-tool-schema.json
-│  └─ provenance-chain.md
+├─ standards/                 # Standards & specifications
+│  ├─ IDEALE-STD-0001-UTCS.md # UTCS Core normative standard (v0.1.0)
+│  ├─ schemas/                # JSON Schemas for validation
+│  ├─ policies/               # Naming conventions & rules
+│  ├─ checklists/             # Conformance checklists
+│  └─ v0.1/                   # IDEALE Evidence Framework (IEF) specs
+│     ├─ artifact-portability-spec.yaml
+│     ├─ cryptographic-signing.md
+│     ├─ cross-tool-schema.json
+│     └─ provenance-chain.md
+├─ scripts/                   # Automation tools
+│  ├─ validate-utcs.py        # UTCS validation script
+│  └─ update-utcs-hash.py     # SHA256 hash calculator
 ├─ evidence-engine/           # Reference implementation
 │  ├─ artifact-generator/     # create/sign/verify artifacts
 │  ├─ portability-layer/      # CATIA/NX ↔ neutral ↔ any
@@ -217,7 +225,7 @@ cd integration-demos/airbus-safran-collaboration
 ## ✅ Conformance & Profiles
 
 * **IEF v0.1 Core:** portability, verifiability, traceability, vendor neutrality, legal defensibility
-* **UTCS:** universal traceability hooks present in all artifacts
+* **UTCS (IDEALE-STD-0001):** universal traceability standard with normative specification, JSON Schema validation, and automated CI/CD enforcement (see `standards/IDEALE-STD-0001-UTCS.md`)
 * **MAL-EEM:** ML components must ship with the **MAL-EEM checklist** + hazard log link
 * **TFA glossary:** canonical meanings for `QS, FWD, UE, FE, CB, QB` (see `docs/GLOSSARY_TFA.md`)
 
@@ -225,7 +233,9 @@ cd integration-demos/airbus-safran-collaboration
 
 ## 📂 Repository Index (hyperlinkable)
 
-* `standards/v0.1/` – specs & conformance materials
+* `standards/` – UTCS Core standard (v0.1.0) with schemas, policies, and validation tools
+* `standards/v0.1/` – IEF specs & conformance materials
+* `scripts/` – automation tools (validate-utcs.py, update-utcs-hash.py)
 * `evidence-engine/` – reference CLI (create/sign/verify/anchor)
 * `integration-demos/` – Airbus↔Safran, ESA multi-contractor, defense consortium
 * `3-PROJECTS-USE-CASES/` – eight large-scale demonstrations (portability showcases)
@@ -772,6 +782,17 @@ echo "✓ Demo complete."
     *   [documentation/](./8-RESOURCES/documentation/)
     *   [training/](./8-RESOURCES/training/)
 *   [standards/](./standards/)
+    *   [IDEALE-STD-0001-UTCS.md](./standards/IDEALE-STD-0001-UTCS.md) - UTCS Core normative specification
+    *   [README.md](./standards/README.md) - Standards documentation
+    *   [QUICKSTART.md](./standards/QUICKSTART.md) - UTCS quick start guide
+    *   [STRUCTURE.md](./standards/STRUCTURE.md) - UTCS structure diagrams
+    *   [MIGRATION.md](./standards/MIGRATION.md) - UTCS migration guide
+    *   [schemas/](./standards/schemas/)
+        *   [utcs-core.schema.json](./standards/schemas/utcs-core.schema.json) - UTCS JSON Schema
+    *   [policies/](./standards/policies/)
+        *   [naming.md](./standards/policies/naming.md) - UTCS naming conventions
+    *   [checklists/](./standards/checklists/)
+        *   [conformance.md](./standards/checklists/conformance.md) - UTCS conformance checklist
     *   [v0.1/](./standards/v0.1/)
         *   [context.schema.json](./standards/v0.1/context.schema.json)
         *   [sbom-baseline.md](./standards/v0.1/sbom-baseline.md)

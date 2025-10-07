@@ -1,0 +1,52 @@
+name: UTCS Validation
+
+on:
+  push:
+    paths:
+      - '**/*.yaml'
+      - '**/*.yml'
+      - 'standards/schemas/utcs-core.schema.json'
+      - '.github/workflows/utcs-validation.yml'
+  pull_request:
+    paths:
+      - '**/*.yaml'
+      - '**/*.yml'
+      - 'standards/schemas/utcs-core.schema.json'
+
+jobs:
+  validate-utcs:
+    runs-on: ubuntu-latest
+    name: Validate UTCS Records
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+        
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install pyyaml jsonschema
+        
+    - name: Find UTCS files
+      id: find-files
+      run: |
+        # Find all YAML files in utcs/ directories
+        find . -path "*/utcs/*.yaml" -o -path "*/utcs/*.yml" > utcs_files.txt
+        echo "Found $(wc -l < utcs_files.txt) UTCS files"
+        
+    - name: Validate UTCS files
+      run: |
+        python scripts/validate-utcs.py
+        
+    - name: Upload validation report
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: utcs-validation-report
+        path: utcs-validation-report.txt
+        retention-days: 30
