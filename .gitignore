@@ -86,3 +86,6 @@ Desktop.ini
 
 # Royalties ledger (generated)
 royalties/ledger.jsonl
+
+# UTCS validation reports
+utcs-validation-report.txt
