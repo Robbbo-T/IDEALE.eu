@@ -140,25 +140,47 @@ Examples:
 
 ### BEZ (Bloque de Estructura Base) Application
 
-The complete BEZ structure (DELs/, PAx/, PLM/, QUANTUM_OA/, SUPPLIERS/, etc.) should **only** be applied at the **lowest level** of the hierarchy:
+The BEZ structure appears at **two hierarchical levels**:
+
+#### Domain Level (Templates & Governance)
+- **Location**: `DOMAINS/AAA-AIRFRAMES-AERODYNAMICS-AIRWORTHINESS/`
+- **Purpose**: Templates, schemas, policies, and standards
+- **Contents**: Document templates, validation schemas, governance rules
+- **Metadata**: `"scope": "domain"`
+
+#### Subzone Level (Instances & Artifacts)
+- **Location**: `DOMAINS/AAA/.../ZONES/53-FUSELAGE-STRUCTURES/53-10-CENTER-BODY/`
+- **Purpose**: Actual work products and deliverables
+- **Contents**: Completed documents, CAD files, test results, contracts
+- **Metadata**: `"scope": "instance"`, references domain templates
+
+This hierarchical repetition is **intentional** — domain level defines the contract, subzone level implements it.
+
+**Complete BEZ structure should be fully populated at the subzone level**:
 
 ```
 DOMAINS/
 ├─ AAA-AIRFRAMES-AERODYNAMICS-AIRWORTHINESS/
-│  ├─ ZONES/
-│  │  ├─ 53-FUSELAGE-STRUCTURES/
-│  │  │  └─ 53-10-CENTER-BODY/  ← BEZ applied here
-│  │  │     ├─ DELs/
-│  │  │     ├─ PAx/
-│  │  │     ├─ PLM/
-│  │  │     ├─ QUANTUM_OA/
-│  │  │     ├─ SUPPLIERS/
-│  │  │     ├─ policy/
-│  │  │     ├─ tests/
-│  │  │     ├─ META.json
-│  │  │     ├─ README.md
-│  │  │     └─ domain-config.yaml
+│  ├─ DELs/         ← Templates and policies (domain scope)
+│  ├─ PAx/          ← Standards (domain scope)
+│  ├─ PLM/          ← Policies (domain scope)
+│  └─ ZONES/
+│     ├─ 53-FUSELAGE-STRUCTURES/
+│     │  └─ 53-10-CENTER-BODY/  ← BEZ with artifacts (instance scope)
+│     │     ├─ DELs/
+│     │     ├─ PAx/
+│     │     ├─ PLM/
+│     │     ├─ QUANTUM_OA/
+│     │     ├─ SUPPLIERS/
+│     │     ├─ policy/
+│     │     ├─ tests/
+│     │     ├─ META.json
+│     │     ├─ inherit.json
+│     │     ├─ README.md
+│     │     └─ domain-config.yaml
 ```
+
+> **See**: [TFA-DOMAIN-HIERARCHY.md](../../../3-PROJECTS-USE-CASES/AMPEL360-AIR-MANNED/DOMAINS/TFA-DOMAIN-HIERARCHY.md) for detailed explanation of this pattern.
 
 ## Cross-Domain Workflows
 

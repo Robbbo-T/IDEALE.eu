@@ -1,0 +1,50 @@
+{
+  "$schema": "../../../schemas/meta-instance.schema.json",
+  "utcs_anchor": "utcs://ampel360/aaa/53/10/centerBody/dels",
+  "utcs_scope": "instance",
+  "inherits_from": "../../../DELs",
+  "domain": "AAA-AIRFRAMES-AERODYNAMICS-AIRWORTHINESS",
+  "ata_chapter": "53-10",
+  "system_name": "Center Body",
+  "description": "Certification documentation for 53-10 Center Body structure",
+  "applies_templates": [
+    {
+      "template": "FDR-template-v2.docx",
+      "instance": "53-10-CENTER-BODY-FDR-v1.0.pdf",
+      "status": "approved",
+      "date": "2025-01-15"
+    },
+    {
+      "template": "MoC-checklist-v1.xlsx",
+      "instance": "53-10-MoC-tracking.xlsx",
+      "status": "in_progress",
+      "date": "2025-01-20"
+    }
+  ],
+  "certification": {
+    "basis": "CS-25 Amendment 27",
+    "authority": "EASA",
+    "status": "in_progress",
+    "target_date": "2025-12-31"
+  },
+  "responsible": {
+    "engineer": "did:example:engineer123",
+    "team": "Structures-Fuselage",
+    "manager": "did:example:manager456"
+  },
+  "artifact_counts": {
+    "EASA-submissions": 5,
+    "MoC-records": 23,
+    "final-design-reports": 8,
+    "airworthiness-statements": 3,
+    "data-packages": 12
+  },
+  "tfa_state": {
+    "qs_current_state": "review",
+    "ue_collapsed_state": "nominal",
+    "forward_wave_active": false
+  },
+  "created": "2024-06-01",
+  "last_updated": "2025-01-27",
+  "version": "1.2"
+}

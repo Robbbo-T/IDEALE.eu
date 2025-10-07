@@ -4,10 +4,31 @@ This document provides a complete overview of how the 15 canonical domains are o
 
 ## Structure Overview
 
-All domains follow the pattern:
+All domains follow a **hierarchical pattern** with two distinct levels:
+
+### 1. Domain Level (Templates & Governance)
 - **Domain-level README** — Overview, TFA integration, compliance requirements
+- **Domain-level BEZ folders** — Templates, schemas, policies, and standards
+  - DELs/ — Document templates and schemas
+  - PAx/ — Packaging standards
+  - PLM/ — PLM policies and naming conventions
+  - QUANTUM_OA/ — Optimization pattern library
+  - SUPPLIERS/ — Supplier qualification criteria
+  - policy/ — Governance rules
+  - tests/ — Test framework specifications
+
+### 2. Subzone/System Level (Instances & Artifacts)
 - **ZONES/** (for AAA) or **SYSTEMS/** (all others) — ATA chapter organization
-- **Sub-Zone/System level** — Complete BEZ structure (DELs, PAx, PLM, QUANTUM_OA, etc.)
+- **Sub-Zone/System level** — Complete BEZ structure with actual work products
+  - DELs/ — Actual certification documents
+  - PAx/ — Actual packaging artifacts
+  - PLM/ — Actual CAD/CAE files
+  - QUANTUM_OA/ — Actual optimization runs
+  - SUPPLIERS/ — Actual contracts and bids
+
+> **Key Insight**: The repetition of BEZ folders is intentional — domain level provides the **contract**, subzone level provides the **implementation**.
+>
+> See [TFA-DOMAIN-HIERARCHY.md](./TFA-DOMAIN-HIERARCHY.md) for detailed explanation.
 
 ## Domain Organization by Type
 
@@ -203,7 +224,9 @@ OOO-OS-ONTOLOGIES-OFFICE-INTERFACES/
 
 ## BEZ (Bloque de Estructura Base) Template
 
-Each lowest-level sub-zone or system contains:
+### Subzone/System Level (Instance Scope)
+
+Each lowest-level sub-zone or system contains **actual artifacts**:
 
 ```
 [ATA-CHAPTER-SYSTEM]/
@@ -244,9 +267,38 @@ Each lowest-level sub-zone or system contains:
 │  └─ SERVICES/
 ├─ policy/
 ├─ tests/
-├─ META.json
+├─ META.json                      # "scope": "instance"
+├─ inherit.json                   # References domain templates
 ├─ README.md
 └─ domain-config.yaml
+```
+
+### Domain Level (Template Scope)
+
+Domain-level BEZ folders contain **templates and policies**:
+
+```
+[DOMAIN-NAME]/
+├─ DELs/
+│  ├─ TEMPLATES/                 # Document templates
+│  ├─ SCHEMAS/                   # Validation schemas
+│  └─ README.md                  # Usage guide
+├─ PAx/
+│  ├─ STANDARDS/                 # Packaging standards
+│  └─ README.md
+├─ PLM/
+│  ├─ STANDARDS/                 # Naming conventions, requirements
+│  └─ README.md
+├─ QUANTUM_OA/
+│  ├─ PATTERNS/                  # Optimization workflows
+│  └─ README.md
+├─ SUPPLIERS/
+│  ├─ CRITERIA/                  # Qualification requirements
+│  └─ README.md
+├─ policy/                       # Governance rules
+├─ tests/                        # Test frameworks
+├─ META.json                     # "scope": "domain"
+└─ README.md
 ```
 
 ## Implementation Status
@@ -269,6 +321,7 @@ Each lowest-level sub-zone or system contains:
 
 ## Cross-References
 
+- [TFA Domain Hierarchy](./TFA-DOMAIN-HIERARCHY.md) — **Template vs. instance pattern explained**
 - [ATA Chapters CSV](../../../1-DIMENSIONS/CANONICAL-TAXONOMY/ata-chapters.csv) — Complete assignment table
 - [ATA Chapters README](../../../1-DIMENSIONS/CANONICAL-TAXONOMY/ata-chapters.README.md) — Detailed documentation
 - [Domains README](../../../1-DIMENSIONS/CANONICAL-TAXONOMY/domains.README.md) — Domain definitions

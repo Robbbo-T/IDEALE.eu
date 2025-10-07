@@ -1,0 +1,46 @@
+{
+  "$schema": "./schemas/meta-domain.schema.json",
+  "utcs_scope": "domain",
+  "type": "template_repository",
+  "domain": "AAA-AIRFRAMES-AERODYNAMICS-AIRWORTHINESS",
+  "purpose": "Design Evidence Lists (DELs) template repository",
+  "description": "Contains templates, schemas, and policies for certification documentation within the AAA domain",
+  "applies_to": [
+    "ZONES/06-DIMENSIONS-STATIONS",
+    "ZONES/53-FUSELAGE-STRUCTURES",
+    "ZONES/57-WING-STRUCTURES",
+    "ZONES/52-DOORS",
+    "ZONES/55-STABILIZERS",
+    "ZONES/56-WINDOWS"
+  ],
+  "templates": [
+    {
+      "name": "FDR-template-v2.docx",
+      "type": "Final Design Report",
+      "version": "2.0",
+      "path": "TEMPLATES/FDR-template-v2.docx",
+      "description": "Standard template for final design reports"
+    },
+    {
+      "name": "MoC-checklist-v1.xlsx",
+      "type": "Means of Compliance Checklist",
+      "version": "1.0",
+      "path": "TEMPLATES/MoC-checklist-v1.xlsx",
+      "description": "Compliance tracking checklist for regulatory submissions"
+    }
+  ],
+  "validation_schema": "./schemas/dels-validation.schema.json",
+  "policy_version": "v1.2",
+  "governance": {
+    "approval_required": true,
+    "reviewers": ["domain-lead", "certification-manager"],
+    "update_frequency": "quarterly"
+  },
+  "tfa_integration": {
+    "llc_contract": "utcs://ideale/llc/aaa/dels",
+    "qs_states": ["draft", "review", "approved", "submitted", "archived"],
+    "utcs_format": "utcs://project/domain/ata/subsystem/artifact"
+  },
+  "last_updated": "2025-01-27",
+  "version": "1.0"
+}

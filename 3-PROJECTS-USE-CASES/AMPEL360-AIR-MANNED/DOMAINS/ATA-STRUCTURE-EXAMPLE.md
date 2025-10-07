@@ -4,7 +4,14 @@ This document demonstrates the correct application of the BEZ (Bloque de Estruct
 
 ## Principle
 
-The BEZ structure (DELs/, PAx/, PLM/, QUANTUM_OA/, SUPPLIERS/, policy/, tests/) should **only exist at the final sub-zone or system level**, not at the domain level.
+The BEZ structure (DELs/, PAx/, PLM/, QUANTUM_OA/, SUPPLIERS/, policy/, tests/) appears at **two hierarchical levels** with distinct purposes:
+
+- **Domain Level**: Templates, schemas, and policies (governance layer)
+- **Subzone Level**: Actual artifacts and deliverables (implementation layer)
+
+This hierarchical repetition is **intentional** — it reflects the TFA governance pattern where upper levels define contracts and lower levels implement them.
+
+> **See**: [TFA-DOMAIN-HIERARCHY.md](./TFA-DOMAIN-HIERARCHY.md) for detailed explanation of the template vs. instance pattern.
 
 ## Structure Pattern
 
@@ -12,7 +19,19 @@ The BEZ structure (DELs/, PAx/, PLM/, QUANTUM_OA/, SUPPLIERS/, policy/, tests/) 
 
 ```
 AAA-AIRFRAMES-AERODYNAMICS-AIRWORTHINESS/
-├─ ZONES/
+├─ DELs/                                  ← Domain templates and policies
+│  ├── TEMPLATES/                         ← Document templates
+│  ├── SCHEMAS/                           ← Validation schemas
+│  └── README.md                          ← Template usage guide
+├─ PAx/                                   ← Domain packaging standards
+├─ PLM/                                   ← Domain PLM policies
+├─ QUANTUM_OA/                            ← Domain optimization patterns
+├─ SUPPLIERS/                             ← Domain supplier criteria
+├─ policy/                                ← Domain governance
+├─ tests/                                 ← Domain test frameworks
+├─ README.md                              ← Domain overview
+├─ domain-config.yaml                     ← Domain configuration
+└─ ZONES/
 │  ├─ 06-DIMENSIONS-STATIONS/
 │  │  └─ 06-10-REFERENCE-FRAME/          ← BEZ applied here
 │  │     ├─ DELs/
@@ -52,7 +71,16 @@ AAA-AIRFRAMES-AERODYNAMICS-AIRWORTHINESS/
 
 ```
 PPP-PROPULSION-FUEL-SYSTEMS/
-├─ SYSTEMS/
+├─ DELs/                                  ← Domain templates (as above)
+├─ PAx/                                   ← Domain packaging standards
+├─ PLM/                                   ← Domain PLM policies
+├─ QUANTUM_OA/                            ← Domain optimization patterns
+├─ SUPPLIERS/                             ← Domain supplier criteria
+├─ policy/                                ← Domain governance
+├─ tests/                                 ← Domain test frameworks
+├─ README.md                              ← Domain overview
+├─ domain-config.yaml                     ← Domain configuration
+└─ SYSTEMS/
 │  ├─ 28-FUEL-SYSTEMS/                   ← BEZ applied here
 │  │  ├─ DELs/
 │  │  ├─ PAx/
@@ -76,7 +104,9 @@ PPP-PROPULSION-FUEL-SYSTEMS/
 
 ## BEZ (Bloque de Estructura Base) Contents
 
-When applied at the lowest level, the complete BEZ includes:
+### At Subzone/System Level (Instances)
+
+When applied at the lowest level, the complete BEZ includes actual artifacts:
 
 ```
 ├─ DELs/
@@ -116,9 +146,35 @@ When applied at the lowest level, the complete BEZ includes:
 │  └─ SERVICES/
 ├─ policy/
 ├─ tests/
-├─ META.json
+├─ META.json                   # Includes "scope": "instance"
+├─ inherit.json                # References domain-level templates
 ├─ README.md
 └─ domain-config.yaml
+```
+
+### At Domain Level (Templates)
+
+Domain-level BEZ folders contain templates and policies, not artifacts:
+
+```
+├─ DELs/
+│  ├─ TEMPLATES/
+│  │  ├─ FDR-template.docx
+│  │  └─ MoC-checklist.xlsx
+│  ├─ SCHEMAS/
+│  │  └─ dels-validation.schema.json
+│  └─ README.md               # "DELs Template Repository"
+├─ PLM/
+│  ├─ STANDARDS/
+│  │  ├─ cad-naming-convention.md
+│  │  └─ cae-mesh-requirements.md
+│  └─ README.md
+├─ QUANTUM_OA/
+│  ├─ PATTERNS/
+│  │  └─ optimization-workflows.md
+│  └─ README.md
+├─ META.json                   # Includes "scope": "domain"
+└─ README.md
 ```
 
 ## ATA Chapter to Domain Assignments
@@ -154,19 +210,54 @@ Examples:
 - `57-20-LEADING-EDGE/`
 - `57-30-TRAILING-EDGE/`
 
+## Understanding Hierarchical BEZ
+
+The presence of BEZ folders at both domain and subzone levels is intentional:
+
+### Domain Level Purpose
+- **What**: Templates, schemas, policies, standards
+- **Why**: Define contracts and governance for entire domain
+- **Example**: Document templates that all subzones use
+- **Metadata**: `"scope": "domain"`
+
+### Subzone Level Purpose
+- **What**: Actual artifacts, deliverables, work products
+- **Why**: Implement domain contracts for specific systems
+- **Example**: Completed certification documents
+- **Metadata**: `"scope": "instance"`, `"inherits_from": "..."`
+
+### Inheritance Pattern
+
+Each subzone **inherits** from domain level:
+
+```json
+// ZONES/53-10-CENTER-BODY/inherit.json
+{
+  "inherits_from": "../../../DELs",
+  "utcs_scope": "instance",
+  "applies_templates": [
+    "FDR-template-v2.docx",
+    "MoC-checklist-v1.xlsx"
+  ]
+}
+```
+
 ## Migration from Current Structure
 
-If a domain currently has BEZ at the domain level (as AAA does), migration involves:
+If domain-level folders contain actual artifacts (not templates):
 
-1. Create `ZONES/` or `SYSTEMS/` directory
-2. Create ATA chapter directories within ZONES/SYSTEMS
-3. Create sub-zone directories with descriptive names
-4. Move BEZ structure to the sub-zone level
-5. Update README files to reflect new hierarchy
-6. Update UTCS anchors and references
+1. **Audit** domain-level BEZ folders to identify instances vs. templates
+2. **Convert** true templates to TEMPLATES/ subdirectories
+3. **Move** instance artifacts to appropriate subzone directories
+4. **Add** META.json with scope metadata to both levels
+5. **Create** inherit.json in subzone folders
+6. **Update** README files to clarify template vs. instance role
+7. **Validate** using CI checks for scope compliance
 
 ## Cross-References
 
+- [TFA Domain Hierarchy](./TFA-DOMAIN-HIERARCHY.md) — **Detailed explanation of template vs. instance pattern**
 - [ATA Chapters README](../../../1-DIMENSIONS/CANONICAL-TAXONOMY/ata-chapters.README.md)
 - [Canonical Domains README](../../../1-DIMENSIONS/CANONICAL-TAXONOMY/domains.README.md)
+- [Complete Domain Structure](./COMPLETE-DOMAIN-STRUCTURE.md)
 - [AMPEL360-AIR-MANNED README](../README.md)
