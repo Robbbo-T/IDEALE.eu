@@ -71,7 +71,7 @@ To add a new ATA chapter system:
 
 ## Status
 
-🏗️ **Framework Complete** — 2 full BEZ implementations, 6 placeholder structures, 93 ATA chapters ready for implementation
+🏗️ **Framework Complete** — 2 full BEZ implementations, 6 placeholder structures, 93 ATA chapters remaining to be implemented (of 101 total ATA chapters)
 
 ---
 
