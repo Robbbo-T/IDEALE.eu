@@ -15,6 +15,42 @@ canonical_hash: "TBD"
 
 ---
 
+# Packaging (PAx) Template Repository — AAA Domain
+
+> **Scope**: Domain-level template repository  
+> **Type**: Standards, templates, and policies  
+> **Purpose**: Defines standards for packaging documentation across all AAA subzones
+
+This folder manages **template standards** for Packaging (PAx) documentation: the physical placement, routing, protection, and space allocation of internal systems within airframe structures.
+
+## Domain vs. Subzone Distinction
+
+This is a **domain-level template repository**. It provides:
+- Packaging standards and guidelines
+- Clearance calculation methodologies
+- Routing specification templates
+- Mounting specification formats
+
+**For actual packaging artifacts** (routing diagrams, clearance reports, mounting specs), see subzone-level PAx folders:
+- `ZONES/53-FUSELAGE-STRUCTURES/53-10-CENTER-BODY/PAx/`
+- `ZONES/57-WING-STRUCTURES/57-10-BOX-SECTION/PAx/`
+- etc.
+
+> **See**: [TFA-DOMAIN-HIERARCHY.md](../TFA-DOMAIN-HIERARCHY.md) for detailed explanation of template vs. instance pattern.
+
+---
+
+## What This Template Repository Contains
+
+The domain-level PAx folder establishes:
+1. **Component Space Allocation Standards** — How to define reserved volumes
+2. **Harness & Pipe Routing Guidelines** — Standard practices for routing documentation
+3. **Vibration/Shock Isolation Specifications** — Requirements for mounting hardware
+4. **Clearance Calculation Methods** — How to compute and document clearances
+5. **Access Panel Standards** — Requirements for maintainability documentation
+
+---
+
 # Packaging (PAx) for AAA Domain — AMPEL360‑AIR‑T
 
 This folder manages documentation, analysis, and specifications related to **Packaging (PAx)**: the physical placement, routing, protection, and space allocation of internal systems within the **AMPEL360‑AIR‑T** airframe (BWB architecture).
@@ -23,7 +59,27 @@ The core focus of PAx within AAA is ensuring that components, harnessing, and pi
 
 ---
 
-## Contents Overview
+## Template Repository Contents (Domain Level)
+
+This folder manages documentation, analysis, and specifications related to **Packaging (PAx)**: the physical placement, routing, protection, and space allocation of internal systems within the **AMPEL360‑AIR‑T** airframe (BWB architecture).
+
+The core focus of PAx within AAA is ensuring that components, harnessing, and pipes fit the structural envelope without causing stress concentrations, thermal conflicts, EMI issues, or violating structural integrity. This is particularly complex in BWB due to tight spatial constraints and coupled aero‑structural loads.
+
+### Domain-Level Standards
+
+The following are **standards and guidelines** (not actual artifacts):
+
+1. **Component Space Allocation Standards** — How to define reserved volumes for critical equipment
+2. **Harness & Pipe Routing Guidelines** — Standard practices for pathway documentation
+3. **Vibration/Shock Isolation Specifications** — Requirements for mounting hardware/isolators
+
+### Subzone-Level Implementation
+
+For **actual routing diagrams, clearance reports, and mounting specs**, see subzone PAx folders which inherit from this template repository.
+
+---
+
+## Contents Overview (Standards & Templates)
 
 Documents here verify practical fit and integration requirements, tying component data (**PLM/CAD/PRT**) and assembly definitions (**PLM/CAD/ASSY**) back to the physical airframe structure.
 

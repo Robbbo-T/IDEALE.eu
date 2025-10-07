@@ -1,0 +1,32 @@
+{
+  "$schema": "../../../schemas/inherit.schema.json",
+  "inherits_from": "../../../DELs",
+  "utcs_scope": "instance",
+  "inheritance_type": "template_application",
+  "applies_templates": [
+    "FDR-template-v2.docx",
+    "MoC-checklist-v1.xlsx",
+    "compliance-matrix-template.xlsx"
+  ],
+  "applies_schemas": [
+    "dels-validation.schema.json"
+  ],
+  "applies_policies": [
+    "certification-document-control.md",
+    "regulatory-submission-process.md"
+  ],
+  "overrides": {
+    "submission_authority": "EASA",
+    "certification_basis": "CS-25 Amendment 27",
+    "project_specific": {
+      "aircraft_type": "AMPEL360-AIR-T",
+      "configuration": "Blended Wing Body"
+    }
+  },
+  "additional_requirements": [
+    "BWB-specific structural analysis required",
+    "H2 fuel system integration documentation"
+  ],
+  "notes": "This subzone implements domain DELs templates for the center body structure, which is critical for BWB aerodynamic performance and H2 tank integration.",
+  "version": "1.0"
+}
