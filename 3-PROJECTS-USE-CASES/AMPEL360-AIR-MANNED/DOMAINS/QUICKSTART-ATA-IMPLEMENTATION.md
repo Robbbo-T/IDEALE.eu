@@ -80,7 +80,8 @@ mkdir -p SUPPLIERS/{BIDS,SERVICES}
 mkdir -p policy tests
 
 # Create placeholder files
-touch META.json domain-config.yaml
+echo '{\n  "name": "[REPLACE-WITH-NAME]",\n  "description": "[REPLACE-WITH-DESCRIPTION]",\n  "version": "0.1.0"\n}' > META.json
+touch domain-config.yaml
 ```
 
 ### Step 5: Create README.md
