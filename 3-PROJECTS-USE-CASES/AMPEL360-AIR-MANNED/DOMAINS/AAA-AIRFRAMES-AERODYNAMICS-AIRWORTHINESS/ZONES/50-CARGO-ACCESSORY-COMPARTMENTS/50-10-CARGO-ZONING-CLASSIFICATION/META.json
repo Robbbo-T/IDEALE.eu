@@ -1,0 +1,13 @@
+{
+  "utcs_scope": "instance",
+  "utcs_anchor": "utcs://ampel360/aaa/50/50-10/cargo-structure",
+  "ata_chapter": "50",
+  "ata_section": "50-10",
+  "domain": "AAA",
+  "project": "AMPEL360-AIR-MANNED",
+  "component_type": "Cargo zoning and classification",
+  "inherits_from": "../../../",
+  "created": "2025-01-27",
+  "status": "in-development",
+  "maintainer": "AAA Integration Team"
+}
