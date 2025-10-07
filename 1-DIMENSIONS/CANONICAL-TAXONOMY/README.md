@@ -58,11 +58,11 @@ Defines the **15 canonical domains** that organize engineering disciplines and f
 - **PPP** - Propulsion, Fuel Systems
 
 ### 3. [ata-chapters.csv](./ata-chapters.csv)
-Defines the **primary assignment** of all 100 ATA (Air Transport Association) chapters to the 15 canonical domains.
+Defines the **primary assignment** of all 101 ATA (Air Transport Association) chapters (00-100) to the 15 canonical domains.
 
 **Columns:**
 - `Category`: Classification type (ATA Chapter)
-- `ATA_Chapter`: Chapter number (01-100)
+- `ATA_Chapter`: Chapter number (00-100)
 - `ATA_Title`: Functional title of the chapter
 - `Primary_Domain`: Three-letter code of the primary canonical domain
 - `Secondary_Domains`: Optional list of related domains
@@ -83,7 +83,7 @@ Defines the **primary assignment** of all 100 ATA (Air Transport Association) ch
 - **AAP** (Airport): 10
 - **CQH** (Cryo/H2): 47
 - **IIF** (Infrastructure): 07
-- **OOO** (General/Process): Reserved chapters and standards
+- **OOO** (General/Process): 00, reserved chapters and standards
 
 ### 4. [plm-cax.csv](./plm-cax.csv)
 Defines the **8 PLM/CAx categories** that structure product lifecycle management and computer-aided processes.

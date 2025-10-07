@@ -1,6 +1,6 @@
 # ATA Chapter Assignments to Canonical Domains
 
-This file defines the **primary assignment** of all 100 ATA (Air Transport Association) chapters to the 15 canonical domains of the IDEALE.eu framework.
+This file defines the **primary assignment** of all 101 ATA (Air Transport Association) chapters (00-100) to the 15 canonical domains of the IDEALE.eu framework.
 
 ## Purpose
 
@@ -112,9 +112,9 @@ Key focus: Nitrogen generation, inert gas systems, hydrogen storage
 Key focus: Lifting, shoring, jacking facilities
 
 ### OOO - OS, Ontologies, Office Interfaces
-**Primary chapters**: 02, 03, 13, 17, 18, 19, 20, 40, 48, 58, 59, 68, 69, 86-90, 92-96, 98-100
+**Primary chapters**: 00, 02, 03, 13, 17, 18, 19, 20, 40, 48, 58, 59, 68, 69, 86-90, 92-96, 98-100
 
-Key focus: Reserved chapters, standard practices, general hardware, process interfaces
+Key focus: General information, reserved chapters, standard practices, general hardware, process interfaces
 
 ## Usage in Project Structure
 
