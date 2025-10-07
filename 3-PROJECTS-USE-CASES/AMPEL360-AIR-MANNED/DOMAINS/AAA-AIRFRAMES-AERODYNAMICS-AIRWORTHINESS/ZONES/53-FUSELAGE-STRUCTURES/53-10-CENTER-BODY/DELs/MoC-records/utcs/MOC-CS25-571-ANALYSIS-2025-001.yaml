@@ -1,12 +1,14 @@
-schema_version: "1.0"
+schema_version: "1.0.0"
 utcs_id: "UTCS-MI:MOC:AAA:FUS:0001:v1"
+
 product: "AMPEL360-AIR-T"
 domain: "AAA"
 zone: "53-FUSELAGE-STRUCTURES"
 subzone: "53-10-CENTER-BODY"
+maintainer: "AAA Integration Team"
 
-bridge: "QS→FWD→UE→FE→CB→QB"
-primary_path: "FE→CB→UE"
+bridge: "QS->FWD->UE->FE->CB->QB"
+primary_path: "FE->CB->UE"
 
 requirement:
   cs_ref: "CS25.571(a)"
@@ -26,9 +28,15 @@ evidence:
     - "methods/analysis/ANA-53-10-FATIGUE-R02.pdf"
     - "methods/test-results/TR-53-10-DT-01-R01.pdf"
 
+sheet:
+  files:
+    - { path: "records/MOC-CS25-571-FATIGUE-DT-ANALYSIS-20250312-R01.pdf", role: "record" }
+    - { path: "methods/analysis/ANA-53-10-FATIGUE-R02.pdf", role: "method-analysis" }
+    - { path: "methods/test-results/TR-53-10-DT-01-R01.pdf", role: "method-test" }
+
 integrity:
   hash_algorithm: "SHA256"
-  content_hash: "0000000000000000000000000000000000000000000000000000000000000000"  # Replace with actual SHA256
+  content_hash: "<replace-with-real-64-hex>"
 
 provenance:
   owner: "AAA Integration Team"
@@ -38,3 +46,4 @@ provenance:
   created: "2025-03-12T10:20:00Z"
 
 status: "in_review"
+
