@@ -1,0 +1,38 @@
+# Domain Configuration - 50-40
+# ATA Chapter 50 - Cargo and Accessory Compartments
+# Bulk cargo area structure
+
+ata:
+  chapter: "50"
+  section: "50-40"
+  name: "Cargo and Accessory Compartments"
+  subsystem: "Bulk cargo area structure"
+
+domain:
+  code: "AAA"
+  name: "Airframes, Aerodynamics, Airworthiness"
+  project: "AMPEL360-AIR-MANNED"
+
+utcs:
+  scope: "instance"
+  anchor: "utcs://ampel360/aaa/50/50-40/cargo-structure"
+
+compliance:
+  standards:
+    - "EASA CS-25"
+    - "FAA 14 CFR Part 25"
+  certifications:
+    - "Type Certificate"
+    - "Production Certificate"
+
+tfa:
+  flow: "QS → FWD → UE → FE → CB → QB"
+  quantum_enabled: true
+
+status:
+  phase: "development"
+  completeness: "structure-defined"
+
+maintainer:
+  team: "AAA Integration Team"
+  contact: "aaa-integration@ampel360.eu"
