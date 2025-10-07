@@ -1,6 +1,5 @@
-schema_version: "1.0.0"  # Use full semantic versioning as required by the schema
-utcs_id: "UTCS-MI:MOC:CS25:571:ANALYSIS:2025:001:v1"
-sheet: "MoC-CS25-571-ANALYSIS-2025-001"  # Added 'sheet' property per schema requirements
+schema_version: "1.0.0"
+utcs_id: "UTCS-MI:MOC:CS25:571:0001:v1"
 product: "AMPEL360-AIR-T"
 domain: "AAA"
 zone: "53-FUSELAGE-STRUCTURES"
