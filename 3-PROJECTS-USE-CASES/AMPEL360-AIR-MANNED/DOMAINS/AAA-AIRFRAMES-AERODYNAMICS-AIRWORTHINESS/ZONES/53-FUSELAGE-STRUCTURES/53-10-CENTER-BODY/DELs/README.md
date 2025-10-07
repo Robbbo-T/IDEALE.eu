@@ -1,6 +1,26 @@
-# Deliveries (DELs)
+# Deliveries (DELs) — 53-10 Center Body
 
-This directory contains all formal certification documentation and design evidence required for regulatory approval.
+> **Scope**: Instance-level artifact repository  
+> **Type**: Actual certification documents and submissions  
+> **Inherits from**: `../../../DELs` (domain-level templates)  
+> **UTCS Anchor**: `utcs://ampel360/aaa/53/10/centerBody/dels`
+
+This directory contains all formal certification documentation and design evidence for the **53-10 Center Body** system, required for regulatory approval.
+
+## Instance vs. Domain Distinction
+
+This is an **instance-level artifact repository**. It contains:
+- Actual certification documents (completed, not templates)
+- Regulatory submissions to EASA
+- Final design reports specific to center body
+- Means of Compliance records for this system
+- Data packages with traceability
+
+**For templates and standards**, see the domain-level folder: `../../../DELs/`
+
+> **See**: [TFA-DOMAIN-HIERARCHY.md](../../../../TFA-DOMAIN-HIERARCHY.md) for detailed explanation of template vs. instance pattern.
+
+---
 
 ## Purpose
 
@@ -9,14 +29,23 @@ DELs organize and manage the complete set of documentation that demonstrates com
 ## Structure
 
 ```
-DELs/
+DELs/ (Instance Level — Actual Artifacts)
 ├─ EASA-submissions/        # Formal submissions to EASA
 ├─ MoC-records/             # Means of Compliance documentation
 ├─ airworthiness-statements/ # Compliance declarations
 ├─ data-packages/           # Complete certification packages
 ├─ final-design-reports/    # Design summary reports
+├─ META.json.example        # Example instance metadata
+├─ inherit.json.example     # Example inheritance declaration
 └─ README.md                # This file
 ```
+
+### Inheritance
+
+This folder inherits templates and standards from the domain-level DELs:
+- Document templates from `../../../DELs/TEMPLATES/`
+- Validation schemas from `../../../DELs/SCHEMAS/`
+- Policies from `../../../DELs/POLICIES/`
 
 ## Subdirectories
 
@@ -83,13 +112,30 @@ All DEL documents must:
 - Follow agency formatting requirements
 - Maintain version control
 
+## Metadata Files
+
+### META.json.example
+Example showing instance-level metadata structure:
+- `"utcs_scope": "instance"`
+- `"utcs_anchor"`: Specific identifier for this system
+- `"inherits_from"`: Path to domain templates
+- `"artifact_counts"`: Number of artifacts in each category
+
+### inherit.json.example
+Example showing inheritance declaration:
+- `"inherits_from": "../../../DELs"`
+- `"applies_templates"`: List of templates being used
+- `"overrides"`: System-specific customizations
+
 ## Status
 
-📋 **Framework Ready** — Template structure established, awaiting certification artifacts
+📋 **Framework Ready** — Instance structure established, awaiting certification artifacts
 
 ---
 
 **Related**:
+- [Domain DELs Templates](../../../DELs/) — Template repository
+- [TFA-DOMAIN-HIERARCHY.md](../../../../TFA-DOMAIN-HIERARCHY.md) — Hierarchy explanation
 - [PLM/](../PLM/) — Product lifecycle data
 - [tests/](../tests/) — Test artifacts
 - [policy/](../policy/) — Certification policies
