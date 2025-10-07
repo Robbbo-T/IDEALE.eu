@@ -51,8 +51,8 @@ All work is orchestrated within the canonical TFA flow **QS→FWD→UE→FE→CB
 
 ## Traceability Mandate
 
-* **UTCS Anchors:** Every master module, ICD, BOM, and evidence item must be referenced via **UTCS‑MI** (no raw paths). Example anchors: `UTCS-MI:CAD:AAA:ASSY:WINGBOX-001:revB`, `UTCS-MI:CAV:QIP:AAA:SUB-WINGBOX-001:v1`.
-* **Quality Gates:** Embed **CAV/QIP** hold points inside module docs; map nonconformances to ECR/Deviation records.
+* **UTCS Anchors:** Every master module, ICD, BOM, and evidence item must be referenced via **UTCS‑MI** (no raw paths). All UTCS YAML records for this directory's artifacts are stored in the `./utcs/` subdirectory.
+* **Quality Gates:** Embed **CAV/QIP** hold points inside module docs; map nonconformances to ECR/Deviation records (logged in `resolution-logs/`).
 * **Change Control:** All updates via PR with UTCS links; CI enforces link/path validation and code naming.
 
 ---
@@ -113,9 +113,11 @@ All work is orchestrated within the canonical TFA flow **QS→FWD→UE→FE→CB
 | [`handling-and-lifting/`](./handling-and-lifting/) | Fixture reach, sling data, COG tables, orientation limits. |
 | [`fastener-schedules/`](./fastener-schedules/) | Torque, order, and pattern docs for critical joints. |
 | [`tolerance-stackups/`](./tolerance-stackups/) | Stack‑up analyses and metrology correlation. |
-| [`icd/`](./icd/) | Interface control definitions and datum schemes. |
-| [`boms/`](./boms/) | Module BOMs and ABoM extracts. |
-| [`resolution-logs/`](./resolution-logs/) | ECR/Deviation mapping and approvals. |
+| [`icd/`](./icd/) | **Interface Control Definitions (ICD)** detailing mating geometry and tolerances. |
+| [`boms/`](./boms/) | Module BOMs (Engineering BOM/Assembly BOM) and component extracts. |
+| [`resolution-logs/`](./resolution-logs/) | ECR/Deviation mapping and approvals for module-specific issues. |
+| [`utcs/`](./utcs/) | **Canonical UTCS YAML records** for all module, ICD, and BOM artifacts. |
+| [`thumbnails/`](./thumbnails/) | Visual previews of sub-assemblies for quick identification. |
 
 ---
 
