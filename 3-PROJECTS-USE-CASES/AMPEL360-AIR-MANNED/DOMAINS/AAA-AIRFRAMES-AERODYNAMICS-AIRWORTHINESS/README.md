@@ -34,13 +34,44 @@ The AAA domain relies on the TFA flow to optimize structural weight, predict fli
 
 ## 3. Directory Index
 
+### New ATA Chapter-Based Structure
+
 | Folder | Content Description |
 | :--- | :--- |
-| [`PLM/`](./PLM/) | Contains all Product Lifecycle Management data (CAD, CAE, CAM, CAV, etc.). |
-| [`QUANTUM_OA/`](./QUANTUM_OA/) | Computational data and models for Quantum Optimization (QUBO, QAOA) applied to airframe design parameters. |
-| [`DELs/`](./DELs/) | Final Deliverables, including formal certification reports and compliance documents. |
-| [`PAx/`](./PAx/) | Documents addressing passenger comfort and human factors related to the airframe structure (e.g., vibration, noise insulation). |
-| [`PROCUREMENT/`](./PROCUREMENT/) | Information on vendors for structural materials and standardized parts. |
-| [`SUPPLIERS/`](./SUPPLIERS/) | Contracts and performance records for external structural analysis or component fabrication services. |
-| [`policy/`](./policy/) | Internal policies specific to aerodynamic data retention and structural design standards. |
-| [`tests/`](./tests/) | Raw data and procedures for physical tests (e.g., wind tunnel, static loading, fatigue testing). |
+| [`ZONES/`](./ZONES/) | **Primary structure** — Organizes structural zones by ATA chapter (53-Fuselage, 57-Wings, etc.). Each sub-zone contains complete BEZ (DELs, PAx, PLM, QUANTUM_OA, etc.). See [ATA-STRUCTURE-EXAMPLE.md](../ATA-STRUCTURE-EXAMPLE.md) for details. |
+| [`domain-config.yaml`](./domain-config.yaml) | Domain-level configuration file. |
+| `README.md` | This file — domain overview and guidance. |
+
+### Legacy Structure (Transitioning)
+
+The following directories represent the legacy domain-level BEZ structure. New work should be organized within `ZONES/` following ATA chapter assignments:
+
+| Folder | Content Description | Status |
+| :--- | :--- | :--- |
+| [`PLM/`](./PLM/) | Legacy PLM data (CAD, CAE, CAM, CAV, etc.). | 🔄 Migrate to ZONES/ sub-zones |
+| [`QUANTUM_OA/`](./QUANTUM_OA/) | Legacy quantum optimization models. | 🔄 Migrate to ZONES/ sub-zones |
+| [`DELs/`](./DELs/) | Legacy certification documents. | 🔄 Migrate to ZONES/ sub-zones |
+| [`PAx/`](./PAx/) | Legacy packaging documentation. | 🔄 Migrate to ZONES/ sub-zones |
+| [`PROCUREMENT/`](./PROCUREMENT/) | Legacy vendor information. | 🔄 Migrate to ZONES/ sub-zones |
+| [`SUPPLIERS/`](./SUPPLIERS/) | Legacy supplier contracts. | 🔄 Migrate to ZONES/ sub-zones |
+| [`policy/`](./policy/) | Legacy policies. | 🔄 Migrate to ZONES/ sub-zones |
+| [`tests/`](./tests/) | Legacy test data. | 🔄 Migrate to ZONES/ sub-zones |
+
+### ATA Chapter Assignments for AAA Domain
+
+According to [ata-chapters.csv](../../../../1-DIMENSIONS/CANONICAL-TAXONOMY/ata-chapters.csv), the AAA domain owns:
+
+- **06** - Dimensions and Stations
+- **14** - Hardware (Zones)
+- **50** - Cargo and Accessory Compartments
+- **51** - Standard Practices and Structures
+- **52** - Doors
+- **53** - Fuselage ✓ (example implemented)
+- **54** - Nacelles/Pylons (shared with PPP)
+- **55** - Stabilizers
+- **56** - Windows
+- **57** - Wings ✓ (example implemented)
+- **62** - Main Rotor (helicopters)
+- **64** - Tail Rotor (helicopters)
+- **65** - Tail Rotor Drive (helicopters)
+- **66** - Folding Blades/Pylon

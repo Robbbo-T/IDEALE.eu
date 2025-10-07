@@ -25,6 +25,7 @@ jobs:
           result-encoding: string
           script: |
             const path = require('path');
+            const BATCH_LIMIT = 100; // cap to avoid oversized outputs
 
             const pr = context.payload.pull_request;
             if (!pr) {
@@ -40,8 +41,8 @@ jobs:
             const baseRef = pr.base.ref;
             const repoUrl = pr.base.repo.html_url;
 
-            const README_CANDS = (process.env.README_CANDIDATES || 'README.md').split('|').map(s=>s.trim());
-            const IGNORE = (process.env.IGNORE_PREFIXES || '').split(',').map(s=>s.trim()).filter(Boolean);
+            const README_CANDS = (process.env.README_CANDIDATES || 'README.md').split('|').map(s=>s.trim()).slice(0, 4);
+            const IGNORE = (process.env.IGNORE_PREFIXES || '').split(',').map(s=>s.trim()).filter(Boolean).slice(0, 12);
             const IGNORE_RE = new RegExp(`^(?:${
               IGNORE.map(p => p.replace(/[.*+?^${}()|[\\]\\\\]/g, '\\$&')).join('|')
             })(?:/|$)`);
@@ -51,20 +52,9 @@ jobs:
               owner, repo, pull_number: prNum, per_page: 100
             });
 
-            // gather candidate dirs where a .gitkeep is present (either added or already on base),
-            // and no README candidate is present *in head*
-            const dirs = new Map(); // dir -> { hasGitkeep, hasReadme, changed:[] }
-            const baseHas = async (p) => {
-              try { await github.rest.repos.getContent({ owner, repo, path: p, ref: baseSha }); return true; }
-              catch { return false; }
-            };
-            const headHas = async (p) => {
-              try { await github.rest.repos.getContent({ owner, repo, path: p, ref: headSha }); return true; }
-              catch { return false; }
-            };
-
-            // Prime by PR file list (fast path)
-            for (const f of files) {
+            // gather candidate dirs
+            const dirs = new Map();
+            for (const f of files.slice(0, 500)) { // process only first 500 for safety
               const dir = path.posix.dirname(f.filename) || '.';
               if (IGNORE_RE.test(dir)) continue;
               if (!dirs.has(dir)) dirs.set(dir, { hasGitkeep:false, hasReadme:false, changed:[] });
@@ -77,35 +67,34 @@ jobs:
               if (README_CANDS.some(c => c.toLowerCase() === base)) rec.hasReadme = true;
             }
 
-            // Enrich with repo state (head/base) for dirs that mention .gitkeep or have changes
+            async function baseHas(p) {
+              try { await github.rest.repos.getContent({ owner, repo, path: p, ref: baseSha }); return true; }
+              catch { return false; }
+            }
+            async function headHas(p) {
+              try { await github.rest.repos.getContent({ owner, repo, path: p, ref: headSha }); return true; }
+              catch { return false; }
+            }
+
             async function evaluateDir(dir) {
               const info = dirs.get(dir) || { hasGitkeep:false, hasReadme:false, changed:[] };
-              // Confirm .gitkeep exists in head OR base
               const gitkeepPath = dir === '.' ? '.gitkeep' : `${dir}/.gitkeep`;
               const gitkeepExists = info.hasGitkeep || await headHas(gitkeepPath) || await baseHas(gitkeepPath);
 
-              // Check readme existence on head
               let readmeHead = false;
               for (const cand of README_CANDS) {
                 const p = dir === '.' ? cand : `${dir}/${cand}`;
                 if (await headHas(p)) { readmeHead = true; break; }
               }
 
-              // If nothing to do, skip
               if (!gitkeepExists || readmeHead) return null;
-
-              // Prefer a title from the dir name
               const title = dir === '.' ? 'Project root' : dir.split('/').slice(-1)[0];
-
-              const link = dir === '.'
-                ? `${repoUrl}/tree/${headSha}`
-                : `${repoUrl}/tree/${headSha}/${dir}`;
-
+              const link = dir === '.' ? `${repoUrl}/tree/${headSha}` : `${repoUrl}/tree/${headSha}/${dir}`;
               return { dir, link, title, suggestReplace: gitkeepExists && !readmeHead };
             }
 
             const tasksRaw = await Promise.all([...dirs.keys()].filter(d=>!IGNORE_RE.test(d)).map(evaluateDir));
-            const tasks = tasksRaw.filter(Boolean);
+            const tasks = tasksRaw.filter(Boolean).slice(0, BATCH_LIMIT); // cap output
 
             const result = { needs: tasks.length>0, tasks, headRef, baseRef, headSha, baseSha, repoUrl };
             core.setOutput('json', JSON.stringify(result));
@@ -123,7 +112,7 @@ jobs:
 
             function chunk(arr, size) {
               const out = [];
-              for (let i=0; i<arr.length; i+=size) out.push(arr.slice(i, i+size));
+              for (let i=0; i<arr.length; i+=size) out.push(arr.slice(i,i+size));
               return out;
             }
 
@@ -142,7 +131,7 @@ jobs:
               return header + '✅ No `.gitkeep`→README conversions required.\n';
             }
 
-            const groups = chunk(data.tasks, 40); // keep comments reasonable
+            const groups = chunk(data.tasks, 40);
             const messages = groups.map((group, idx) => {
               let body = header + `**Batch ${idx+1} of ${groups.length}** — folders: ${group.length}\n\n`;
               for (const t of group) {
@@ -164,7 +153,6 @@ jobs:
             });
 
             core.setOutput('text', messages[0]);
-            // Also output extra batches (if any) for later steps to post
             if (messages.length > 1) core.setOutput('extra', JSON.stringify(messages.slice(1)));
             return messages[0];
 
