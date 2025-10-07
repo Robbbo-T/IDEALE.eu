@@ -1,0 +1,3 @@
+Joint ID,Location/Station,Component A,Component B,Fastener Spec,Diameter,Grip/Length,Washer(s),Nut/Collar,Hole Class,Fit,Sealant/Adhesive,Torque [N·m],Torque Tolerance,Ref Drawing,Notes
+J-WS-FS-001,STA 220 FS,FRONT SPAR,UPPER SKIN,NAS1100,4.0 mm,10 mm,NAS1149-CW,NAS1291,Close,Interference,PR1422,BY SPEC,±10%,DRW-WS-FAST-01,
+J-WS-RS-002,STA 350 RS,REAR SPAR,RIB 05,MS20426,3/16 in,0.625 in,AN960-10L,MS21042-3,Std,Clearance,None,BY SPEC,±10%,DRW-WS-FAST-02,

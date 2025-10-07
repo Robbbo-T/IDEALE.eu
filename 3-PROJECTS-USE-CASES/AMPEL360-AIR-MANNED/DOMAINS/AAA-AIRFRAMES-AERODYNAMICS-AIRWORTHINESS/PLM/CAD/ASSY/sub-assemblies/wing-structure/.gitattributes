@@ -1,0 +1,30 @@
+# Treat common CAD/neutral formats as binary to avoid mangled diffs
+*.stp  binary
+*.step binary
+*.igs  binary
+*.iges binary
+*.jt   binary
+*.x_t  binary
+*.x_b  binary
+*.stl  binary
+*.3mf  binary
+
+# Native system formats (examples across platforms)
+*.sldprt binary
+*.sldasm binary
+*.slddrw binary
+*.ipt    binary
+*.iam    binary
+*.idw    binary
+*.f3d    binary
+*.prt    binary
+*.asm    binary
+*.dmg    binary
+*.cgr    binary
+*.catpart    binary
+*.catproduct binary
+
+# Drawings (often binary/structured)
+*.dwg binary
+# DXF can be text; if you prefer text diffs, comment the next line
+*.dxf binary
