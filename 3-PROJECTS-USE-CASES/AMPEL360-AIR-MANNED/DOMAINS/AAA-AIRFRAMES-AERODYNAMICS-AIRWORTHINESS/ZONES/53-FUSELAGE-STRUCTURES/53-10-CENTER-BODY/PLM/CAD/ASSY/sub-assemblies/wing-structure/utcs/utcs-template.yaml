@@ -1,15 +1,16 @@
 schema_version: "1.0.0"
-utcs_id: "UTCS-MI:TPL:AAA:TPL:0000:v0"
+utcs_id: "UTCS-MI:TPL:AAA:WNG:0000:v0"
 
 product: "AMPEL360-AIR-T"
 domain: "AAA"
 zone: "57-WING-STRUCTURES"
 subzone: "57-10-BOX-SECTION"
+maintainer: "AAA Integration Team"
 
 bridge: "QS->FWD->UE->FE->CB->QB"
 primary_path: "FE->CB->UE"
 
-description: "VALID TEMPLATE — do not delete. Use as starter for UTCS records."
+description: "VALID TEMPLATE — starter for UTCS records."
 
 sheet:
   files:
