@@ -1,5 +1,5 @@
 schema_version: "1.0.0"
-utcs_id: "UTCS-MI:MOC:CS25:571:0001:v1"
+utcs_id: "UTCS-MI:MOC:AIRFRAME:STR:0001:v1"  # Adjust codes as required by your project
 product: "AMPEL360-AIR-T"
 domain: "AAA"
 zone: "53-FUSELAGE-STRUCTURES"
@@ -26,9 +26,9 @@ integrity:
   content_hash:
     MOC-CS25-571-FATIGUE-DT-ANALYSIS-20250312-R01.pdf: "<sha256>"
 provenance:
-  owner: "AAA Certification Team"
-  analyst: "J. Smith"
-  checker: "M. Rossi"
-  design_authority: "Chief of Structures"
+  owner: ""  # Fill with actual team or responsible person, or leave blank/TBD
+  analyst: ""  # Fill with actual analyst, or leave blank/TBD
+  checker: ""  # Fill with actual checker, or leave blank/TBD
+  design_authority: ""  # Fill with actual authority, or leave blank/TBD
   created: "2025-03-12T10:20:00Z"
 status: "in_internal_review"
