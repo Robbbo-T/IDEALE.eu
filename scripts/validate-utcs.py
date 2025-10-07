@@ -38,7 +38,7 @@ def find_utcs_files(root_dir="."):
 
 def validate_utcs_id(utcs_id):
     """Validate UTCS ID format"""
-    pattern = r'^UTCS-MI:[A-Z0-9\-]+:[A-Z0-9\-]+:[A-Z0-9\-]+:[0-9]{4}:v[0-9]+$'
+    pattern = r'^UTCS-MI:[A-Z]{3}:[A-Z0-9\-]+:[A-Z0-9\-]+:[0-9]{4}:v[0-9]+$'
     return re.match(pattern, utcs_id) is not None
 
 def check_file_exists(base_path, relative_path):
