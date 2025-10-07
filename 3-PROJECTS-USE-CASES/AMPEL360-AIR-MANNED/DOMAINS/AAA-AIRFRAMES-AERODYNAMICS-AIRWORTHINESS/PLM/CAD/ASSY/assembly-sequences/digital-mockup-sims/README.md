@@ -138,13 +138,13 @@ CI verifies that each UTCS YAML in `./utcs/`:
 | [Current Folder (`./`)](#) | Master DMU reports, validation summaries, and top-level simulation definitions. |
 | [`utcs/`](./utcs/) | Canonical UTCS YAML records for all DMU artifacts in this directory. |
 | [`thumbnails/`](./thumbnails/) | Visual previews or key frame images associated with DMU simulations. |
-| `major-join-sequences/` | Simulations detailing the critical mating of main airframe sections. |
-| `system-installation-paths/` | DMU models validating the installation path of large, complex systems. |
-| `tool-access-studies/` | Simulations checking jig, fixture, crane, and AGV clearances during assembly. |
-| `kinematic-simulations/` | Dynamic simulations checking control surface and gear movement feasibility. |
-| `interference-analysis/` | Detailed reports and outputs from static and dynamic clash detection runs. |
-| `resolution-logs/` | Mapping of DMU findings to ECR/Deviation approvals. |
-| `simulation-reports/` | Detailed technical reports summarizing methodology and validation results. |
+| [`major-join-sequences/`](./major-join-sequences/) | Simulations detailing the critical mating of main airframe sections. |
+| [`system-installation-paths/`](./system-installation-paths/) | DMU models validating the installation path of large, complex systems. |
+| [`tool-access-studies/`](./tool-access-studies/) | Simulations checking jig, fixture, crane, and AGV clearances during assembly. |
+| [`kinematic-simulations/`](./kinematic-simulations/) | Dynamic simulations checking control surface and gear movement feasibility. |
+| [`interference-analysis/`](./interference-analysis/) | Detailed reports and outputs from static and dynamic clash detection runs. |
+| [`resolution-logs/`](./resolution-logs/) | Mapping of DMU findings to ECR/Deviation approvals. |
+| [`simulation-reports/`](./simulation-reports/) | Detailed technical reports summarizing methodology and validation results. |
 
 ## Related Directories
 
