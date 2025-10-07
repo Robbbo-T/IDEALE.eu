@@ -14,11 +14,19 @@ Each zone is organized by ATA chapter number and contains sub-zones where the co
 Sub-zones:
 - `06-10-REFERENCE-FRAME/` — Aircraft reference frame and datum system ✓
 
-### 14-HARDWARE-ZONES/
-**ATA Chapter 14** - Hardware (Zones)
+### 14-HARDWARE/
+**ATA Chapter 14** - Hardware
 
 Sub-zones:
-- `14-10-ZONE-DEFINITIONS/` — Aircraft zone classification system ✓
+- `14-10-HARDWARE-STANDARD-PRACTICES/` — Hardware standard practices ✓
+- `14-20-FASTENERS-GENERAL/` — General fasteners ✓
+- `14-30-RIVETS-PINS/` — Rivets and pins ✓
+- `14-40-BOLTS-NUTS-WASHERS/` — Bolts, nuts, and washers ✓
+- `14-50-INSERTS-BUSHINGS-ANCHORS/` — Inserts, bushings, and anchors ✓
+- `14-60-CLAMPS-CLIPS-TIES/` — Clamps, clips, and ties ✓
+- `14-70-SAFETY-WIRE-COTTER/` — Safety wire and cotter pins ✓
+- `14-80-ADHESIVES-SEALERS-HARDWARE/` — Adhesives, sealers, and hardware ✓
+- `14-90-STANDARD-PARTS-CATALOG/` — Standard parts catalog ✓
 
 ### 50-CARGO-ACCESSORY-COMPARTMENTS/
 **ATA Chapter 50** - Cargo and Accessory Compartments
