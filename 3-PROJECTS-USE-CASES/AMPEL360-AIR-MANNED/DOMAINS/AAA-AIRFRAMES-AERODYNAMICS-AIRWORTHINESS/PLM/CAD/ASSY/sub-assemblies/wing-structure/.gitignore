@@ -1,0 +1,15 @@
+# CAD/derivative cruft
+*.tmp
+*.bak
+*.log
+~$*
+.DS_Store
+Thumbs.db
+
+# Analysis caches
+**/__pycache__/
+*.ipynb_checkpoints
+
+# Exports / large renders (optional)
+exports/
+renders/

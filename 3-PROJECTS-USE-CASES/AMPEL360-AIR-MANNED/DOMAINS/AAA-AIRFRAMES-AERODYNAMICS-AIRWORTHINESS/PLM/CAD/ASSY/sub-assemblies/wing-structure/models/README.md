@@ -31,6 +31,8 @@ Each model file represents:
 - Tooling reference points
 - Mass properties embedded metadata
 
+**Note**: A `.gitkeep` file is present to maintain this directory in version control when no model files are present.
+
 ## Model Requirements
 
 All CAD models must be:

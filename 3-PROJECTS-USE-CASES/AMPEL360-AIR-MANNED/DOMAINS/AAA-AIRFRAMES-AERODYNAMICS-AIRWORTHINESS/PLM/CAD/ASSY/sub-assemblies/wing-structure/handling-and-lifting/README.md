@@ -59,6 +59,10 @@ All handling and lifting plans must be:
 - CAD Models - `../models/SA-AAA-WINGBOX-{IDX}.stp`
 - Mass properties in UTCS - `../utcs/SA-AAA-WINGBOX-{IDX}.yaml`
 
+## Template Files
+
+- **`handling-and-lifting-guidance.md`** - Generic handling and lifting guidance template covering CG & Lift Points, Hardware requirements, safety Procedures, and References. Use this as a starting point for new wing structure handling procedures.
+
 ## References
 
 See parent [Wing Structure README](../README.md) for complete conventions and specifications.

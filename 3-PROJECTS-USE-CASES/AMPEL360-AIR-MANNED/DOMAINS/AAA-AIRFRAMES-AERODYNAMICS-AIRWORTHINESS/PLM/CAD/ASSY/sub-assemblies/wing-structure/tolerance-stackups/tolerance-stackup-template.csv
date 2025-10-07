@@ -1,0 +1,2 @@
+Stack ID,Feature / Requirement,Chain Path,Nominal,Upper Tol,Lower Tol,Method (Worst/RSS),Cpk Target,Contributors,Contributor Type,Variation Source,Calculated Result,Margin,Notes
+TSU-WS-001,Spar-to-rib hole position,FS->RIB05->Skin,10.00,0.10,-0.10,RSS,1.33,"Machining FS; Machining RIB05; Drill-match",GeoTol,Process,0.12,-0.02,

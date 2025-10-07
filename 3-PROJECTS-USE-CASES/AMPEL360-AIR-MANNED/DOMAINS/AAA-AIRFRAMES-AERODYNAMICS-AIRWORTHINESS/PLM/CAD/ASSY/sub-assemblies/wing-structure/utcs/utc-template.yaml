@@ -1,0 +1,21 @@
+# Universal/Test Case Template – Wing Structure
+test_case_id: UTC-WS-001
+title: Fit check – RIB05 to FRONT SPAR
+objective: Verify positional and clearance requirements per ICD for RIB05 to FS interface.
+configuration:
+  cad_model: AMPEL360-WING-RIB-RIB05_A
+  drawing_ref: DRW-WS-RIB05-A
+  tools:
+    - CMM
+    - Go/No-Go gauges
+steps:
+  - description: Locate datum features A/B/C on RIB05
+  - description: Measure hole pattern vs. ICD INT-WS-001
+  - description: Dry fit with FS and record gaps
+acceptance_criteria:
+  - "Positional tolerance ≤ 0.10 mm @ MMC"
+  - "Edge margin ≥ 1.5×D"
+evidence:
+  - type: measurement_report
+    file: to-be-added.pdf
+status: Draft

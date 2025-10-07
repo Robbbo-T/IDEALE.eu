@@ -70,6 +70,10 @@ All fastener schedules must be:
 - Validated through assembly trials
 - Include inspection hold points
 
+## Template Files
+
+- **`fastener-schedule-wing-structure.csv`** - Generic fastener schedule template with columns for Joint ID, Location/Station, Component A/B, Fastener Spec, Diameter, Grip/Length, Washer(s), Nut/Collar, Hole Class, Fit, Sealant/Adhesive, Torque, Torque Tolerance, Ref Drawing, and Notes. Use this as a starting point for new wing structure fastener schedules.
+
 ## Related Files
 
 - ICD - `../icd/ICD-AAA-WINGBOX-{IDX}.md`

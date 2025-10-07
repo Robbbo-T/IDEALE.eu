@@ -22,6 +22,23 @@ This directory should contain:
 - Tolerance stack-up reports
 - PAx clearance and clash check results
 
+## New Template Files
+
+This PR adds the following template files to help bootstrap new wing structure documentation:
+
+- **`.gitignore`** - Git ignore rules for CAD workflow artifacts (temp files, autosaves, analysis caches, renders)
+- **`.gitattributes`** - Binary format declarations for 20+ CAD file types (STEP, CATIA, SolidWorks, NX, etc.)
+- **`INDEX.md`** - Quick reference index to all template files and key artifacts
+- **`boms/BOM-wing-structure.csv`** - Generic BOM template with aerospace-standard columns
+- **`icd/wing-structure-ICD-template.md`** - Interface Control Document template
+- **`fastener-schedules/fastener-schedule-wing-structure.csv`** - Fastener specification template
+- **`tolerance-stackups/tolerance-stackup-template.csv`** - Tolerance analysis template
+- **`handling-and-lifting/handling-and-lifting-guidance.md`** - Safety procedures template
+- **`resolution-logs/issues-log.csv`** - Issue tracking template
+- **`utcs/utc-template.yaml`** - Universal Test Case template
+
+These templates provide starting points for creating new wing structure artifacts. See individual subdirectory READMEs for details on each template's structure and usage.
+
 ## TFA Context
 Primary flow: **FE→CB→UE**, backed by **QS** provenance and **FWD** schedule assessment.
 

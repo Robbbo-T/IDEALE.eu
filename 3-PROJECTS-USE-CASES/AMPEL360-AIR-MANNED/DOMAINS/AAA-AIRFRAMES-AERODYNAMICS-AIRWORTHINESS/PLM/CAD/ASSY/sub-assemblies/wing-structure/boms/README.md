@@ -62,6 +62,10 @@ All BOMs must be:
 - Synchronized with engineering changes (ECRs)
 - Updated with as-built configurations
 
+## Template Files
+
+- **`BOM-wing-structure.csv`** - Generic BOM template with aerospace-standard columns (WBS, Part Number, Nomenclature, Qty, Material, Finish, Mass, Source, Drawing, CAD File, Notes). Use this as a starting point for new wing structure BOMs.
+
 ## Related Files
 
 - CAD Models - `../models/SA-AAA-WINGBOX-{IDX}.stp`

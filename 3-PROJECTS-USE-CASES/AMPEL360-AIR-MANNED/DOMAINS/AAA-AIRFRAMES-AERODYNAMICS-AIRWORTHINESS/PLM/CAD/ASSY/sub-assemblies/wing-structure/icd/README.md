@@ -64,6 +64,10 @@ All ICDs must be:
 - Updated with as-built deviations
 - Verified against clearance requirements
 
+## Template Files
+
+- **`wing-structure-ICD-template.md`** - Generic ICD template covering Referenced Documents, Coordinate Systems & Datums, Mechanical Interfaces, Systems Interfaces, Tolerances & Assembly Clearances, Environment & Loads, Verification, and Change Control. Use this as a starting point for new wing structure ICDs.
+
 ## Related Files
 
 - CAD Models - `../models/SA-AAA-WINGBOX-{IDX}.stp`

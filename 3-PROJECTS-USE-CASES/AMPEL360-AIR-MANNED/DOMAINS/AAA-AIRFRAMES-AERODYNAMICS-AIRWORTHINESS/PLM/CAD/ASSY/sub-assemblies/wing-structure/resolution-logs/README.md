@@ -91,6 +91,10 @@ All ECRs and deviations must be:
 - Verified before closure
 - Archived for certification audit trail
 
+## Template Files
+
+- **`issues-log.csv`** - Generic issues log template with columns for ID, Title, Owner, Priority, Status, Opened (ISO), Due (ISO), Category, Reference/Link, and Notes. Use this as a starting point for tracking technical issues and decisions related to wing structure development.
+
 ## References
 
 See parent [Wing Structure README](../README.md) for complete conventions and specifications.
