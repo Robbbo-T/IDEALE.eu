@@ -3,7 +3,7 @@ utcs_id: "UTCS-MI:SAS:AAA:WNG:0001:v1"
 
 product: "AMPEL360-AIR-T"
 domain: "AAA"
-zone: "57-WING-STRUCTURES"
+zone: "AAA"
 subzone: "57-10-BOX-SECTION"
 maintainer: "AAA Integration Team"
 
