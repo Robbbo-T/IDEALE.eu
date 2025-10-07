@@ -1,21 +1,30 @@
-# Universal/Test Case Template – Wing Structure
-test_case_id: UTC-WS-001
-title: Fit check – RIB05 to FRONT SPAR
-objective: Verify positional and clearance requirements per ICD for RIB05 to FS interface.
-configuration:
-  cad_model: AMPEL360-WING-RIB-RIB05_A
-  drawing_ref: DRW-WS-RIB05-A
-  tools:
-    - CMM
-    - Go/No-Go gauges
-steps:
-  - description: Locate datum features A/B/C on RIB05
-  - description: Measure hole pattern vs. ICD INT-WS-001
-  - description: Dry fit with FS and record gaps
-acceptance_criteria:
-  - "Positional tolerance ≤ 0.10 mm @ MMC"
-  - "Edge margin ≥ 1.5×D"
+schema_version: "1.0.0"
+utcs_id: "UTCS-MI:TPL:AAA:WNG:0000:v0"
+
+product: "AMPEL360-AIR-T"
+domain: "AAA"
+zone: "57-WING-STRUCTURES"
+subzone: "57-10-BOX-SECTION"
+maintainer: "AAA Integration Team"
+
+bridge: "QS->FWD->UE->FE->CB->QB"
+primary_path: "FE->CB->UE"
+
+description: "VALID TEMPLATE — starter for UTCS records."
+
+sheet:
+  files:
+    - { path: "../README.md", role: "readme" }
+
 evidence:
-  - type: measurement_report
-    file: to-be-added.pdf
-status: Draft
+  requirements: []
+  links: []
+
+integrity:
+  hash_algorithm: "SHA256"
+  content_hash: "0000000000000000000000000000000000000000000000000000000000000000"
+
+provenance:
+  owner: "TEMPLATE"
+  created: "2025-01-01T00:00:00Z"
+status: "template"
