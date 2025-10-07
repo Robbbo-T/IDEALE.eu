@@ -1,0 +1,101 @@
+Category,ATA_Chapter,ATA_Title,Primary_Domain,Secondary_Domains,Notes
+ATA Chapter,01,Introduction,LIB,OOO,General maintenance introduction
+ATA Chapter,02,Reserved,OOO,,Reserved for future use
+ATA Chapter,03,Reserved,OOO,,Reserved for future use
+ATA Chapter,04,Airworthiness Limitations,LIB,AAA,Maintenance scheduling
+ATA Chapter,05,Time Limits/Maintenance Checks,LIB,AAA,Scheduled maintenance
+ATA Chapter,06,Dimensions and Stations,AAA,,Reference frame and coordinates
+ATA Chapter,07,Lifting and Shoring,IIF,,Jacking and support facilities
+ATA Chapter,08,Leveling and Weighing,LCC,AAA,Motion control and measurement
+ATA Chapter,09,Towing and Taxiing,DDD,AAP,Surface protection and drainage
+ATA Chapter,10,Parking and Mooring,AAP,,Ground handling platforms
+ATA Chapter,11,Placards and Markings,CCC,,Cabin/cockpit signage
+ATA Chapter,12,Servicing,LIB,,Scheduled servicing
+ATA Chapter,13,General Hardware,OOO,,Standard parts and practices
+ATA Chapter,14,Hardware,AAA,,Structural zones definition
+ATA Chapter,15,External Training (Time),EER,,Noise/vibration environmental effects
+ATA Chapter,16,Ground Support Equipment,IIS,,Master systems information
+ATA Chapter,17,Reserved,OOO,,Reserved for future use
+ATA Chapter,18,Reserved,OOO,,Reserved for future use
+ATA Chapter,19,Reserved,OOO,,Reserved for future use
+ATA Chapter,20,Standard Practices,OOO,,General standard practices
+ATA Chapter,21,Air Conditioning,DDD,EER,Dehumidification and pressurization
+ATA Chapter,22,Auto Flight,LCC,EDI,Autopilot and flight control systems
+ATA Chapter,23,Communications,LCC,EDI,Radio and SATCOM systems
+ATA Chapter,24,Electrical Power,EEE,,Generation and distribution
+ATA Chapter,25,Equipment/Furnishings,CCC,,Cabin and cargo equipment
+ATA Chapter,26,Fire Protection,EER,,Fire detection and suppression
+ATA Chapter,27,Flight Controls,MEC,LCC,Control surfaces and linkages
+ATA Chapter,28,Fuel,PPP,,Fuel systems
+ATA Chapter,29,Hydraulic Power,MEC,,Hydraulic systems
+ATA Chapter,30,Ice and Rain Protection,DDD,,Anti-icing and drainage
+ATA Chapter,31,Indicating/Recording Systems,EDI,,Digital instruments and recorders
+ATA Chapter,32,Landing Gear,MEC,,Landing gear systems
+ATA Chapter,33,Lights,EEE,,Electrical lighting systems
+ATA Chapter,34,Navigation,EDI,,Avionics and navigation systems
+ATA Chapter,35,Oxygen,CCC,EER,Life support systems
+ATA Chapter,36,Pneumatic,MEC,,Pneumatic bleed air systems
+ATA Chapter,37,Vacuum,MEC,,Vacuum and pressure systems
+ATA Chapter,38,Water/Waste,EER,,Water and waste systems
+ATA Chapter,39,Electrical - Electronic Panels,EEE,EDI,Electrical distribution panels
+ATA Chapter,40,Reserved,OOO,,Reserved for future use
+ATA Chapter,41,Water Ballast,DDD,,Water ballast and drainage
+ATA Chapter,42,Integrated Modular Avionics,EDI,,IMA systems
+ATA Chapter,43,Cabin Systems,CCC,,Catering and cabin services
+ATA Chapter,44,Cabin Systems,LCC,CCC,Integrated cabin control
+ATA Chapter,45,Central Maintenance System,LCC,IIS,CMS and diagnostics
+ATA Chapter,46,Information Systems,IIS,,AIM and electronic documentation
+ATA Chapter,47,Nitrogen Generation System,CQH,,Inert gas and cryogenics
+ATA Chapter,48,Reserved,OOO,,Reserved for future use
+ATA Chapter,49,Airborne Auxiliary Power,PPP,,APU systems
+ATA Chapter,50,Cargo and Accessory Compartments,AAA,,Structural bays and compartments
+ATA Chapter,51,Standard Practices and Structures,AAA,,General structural standards
+ATA Chapter,52,Doors,AAA,,Door structures and systems
+ATA Chapter,53,Fuselage,AAA,,Fuselage body structure
+ATA Chapter,54,Nacelles/Pylons,PPP,AAA,Engine nacelles and mounting
+ATA Chapter,55,Stabilizers,AAA,,Horizontal and vertical stabilizers
+ATA Chapter,56,Windows,AAA,,Windows and windshields
+ATA Chapter,57,Wings,AAA,,Wing structures
+ATA Chapter,58,Reserved,OOO,,Reserved for future use
+ATA Chapter,59,Reserved,OOO,,Reserved for future use
+ATA Chapter,60,Standard Practices - Propeller/Rotor,PPP,,Propeller standards
+ATA Chapter,61,Propellers/Propulsors,PPP,,Propeller systems
+ATA Chapter,62,Main Rotor,AAA,,Main rotor (helicopter)
+ATA Chapter,63,Main Rotor Drive,MEC,,Rotor transmission
+ATA Chapter,64,Tail Rotor,AAA,,Tail rotor (helicopter)
+ATA Chapter,65,Tail Rotor Drive,AAA,,Tail rotor drive
+ATA Chapter,66,Folding Blades/Pylon,AAA,,Rotor blades
+ATA Chapter,67,Rotors Flight Control,MEC,,Rotor control systems
+ATA Chapter,68,Reserved,OOO,,Reserved for future use
+ATA Chapter,69,Reserved,OOO,,Reserved for future use
+ATA Chapter,70,Standard Practices - Engine,PPP,,Engine standard practices
+ATA Chapter,71,Power Plant,PPP,,General power plant
+ATA Chapter,72,Engine,PPP,,Turbine/piston engine
+ATA Chapter,73,Engine Fuel and Control,PPP,,Fuel supply and control
+ATA Chapter,74,Ignition,EEE,,Engine ignition systems
+ATA Chapter,75,Air,PPP,,Engine bleed air
+ATA Chapter,76,Engine Controls,LCC,,Engine control systems
+ATA Chapter,77,Engine Indicating,EDI,,Engine instrumentation
+ATA Chapter,78,Exhaust,PPP,,Engine exhaust systems
+ATA Chapter,79,Oil,MEC,,Engine lubrication
+ATA Chapter,80,Starting,EEE,,Engine starting systems
+ATA Chapter,81,Turbines,PPP,,General turbine systems
+ATA Chapter,82,Water Injection,PPP,,Water injection systems
+ATA Chapter,83,Accessory Gearboxes,MEC,,Engine accessories
+ATA Chapter,84,Propulsion Augmentation,EDI,,Thrust measurement and control
+ATA Chapter,85,Reciprocating Engine,EER,,Piston engine emissions
+ATA Chapter,86,Reserved,OOO,,Reserved for future use
+ATA Chapter,87,Reserved,OOO,,Reserved for future use
+ATA Chapter,88,Reserved,OOO,,Reserved for future use
+ATA Chapter,89,Reserved,OOO,,Reserved for future use
+ATA Chapter,90,Reserved,OOO,,Reserved for future use
+ATA Chapter,91,Charts,IIS,,Performance charts and tables
+ATA Chapter,92,Reserved,OOO,,Reserved for future use
+ATA Chapter,93,Reserved,OOO,,Reserved for future use
+ATA Chapter,94,Reserved,OOO,,Reserved for future use
+ATA Chapter,95,Reserved,OOO,,Reserved for future use
+ATA Chapter,96,Reserved,OOO,,Reserved for future use
+ATA Chapter,97,Wiring,EEE,,Electrical wiring
+ATA Chapter,98,Reserved,OOO,,Reserved for future use
+ATA Chapter,99,Reserved,OOO,,Reserved for future use
+ATA Chapter,100,Reserved,OOO,,Reserved for future use

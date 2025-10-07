@@ -57,7 +57,35 @@ Defines the **15 canonical domains** that organize engineering disciplines and f
 - **OOO** - OS, Ontologies, Office Interfaces
 - **PPP** - Propulsion, Fuel Systems
 
-### 3. [plm-cax.csv](./plm-cax.csv)
+### 3. [ata-chapters.csv](./ata-chapters.csv)
+Defines the **primary assignment** of all 100 ATA (Air Transport Association) chapters to the 15 canonical domains.
+
+**Columns:**
+- `Category`: Classification type (ATA Chapter)
+- `ATA_Chapter`: Chapter number (01-100)
+- `ATA_Title`: Functional title of the chapter
+- `Primary_Domain`: Three-letter code of the primary canonical domain
+- `Secondary_Domains`: Optional list of related domains
+- `Notes`: Additional context or clarifications
+
+**Key Assignments:**
+- **AAA** (Airframes): 06, 14, 50-57, 62, 64-66
+- **MEC** (Mechanical): 27, 29, 32, 36-37, 63, 67, 79, 83
+- **PPP** (Propulsion): 28, 49, 54, 60-61, 70-73, 75, 78, 81-82
+- **LCC** (Controls/Comms): 08, 22-23, 44-45, 76, 93
+- **EDI** (Electronics): 31, 34, 42, 77, 84, 94
+- **EEE** (Electrical): 24, 33, 39, 74, 80, 97
+- **EER** (Environmental): 15, 26, 38, 85
+- **DDD** (Drainage/Drying): 09, 21, 30, 41
+- **CCC** (Cabin): 11, 25, 35, 43
+- **IIS** (Intelligence): 16, 46, 91
+- **LIB** (Logistics): 01, 04-05, 12
+- **AAP** (Airport): 10
+- **CQH** (Cryo/H2): 47
+- **IIF** (Infrastructure): 07
+- **OOO** (General/Process): Reserved chapters and standards
+
+### 4. [plm-cax.csv](./plm-cax.csv)
 Defines the **8 PLM/CAx categories** that structure product lifecycle management and computer-aided processes.
 
 **Columns:**
@@ -75,7 +103,7 @@ Defines the **8 PLM/CAx categories** that structure product lifecycle management
 - **CAS** - Customer Aftermarket Service
 - **CMP** - Compliance/Corporate Management
 
-### 4. [architecture-policy.csv](./architecture-policy.csv)
+### 5. [architecture-policy.csv](./architecture-policy.csv)
 Defines the **architectural patterns and policy terms** that form the Technology and Functional Architecture (TFA) framework.
 
 **Columns:**
@@ -100,9 +128,10 @@ Defines the **architectural patterns and policy terms** that form the Technology
 ### For Project Teams
 When creating or documenting a new project:
 1. Reference the appropriate canonical domain codes from `domains.csv`
-2. Select relevant PLM/CAx categories from `plm-cax.csv`
-3. Identify which TFA components from `architecture-policy.csv` apply to your use case
-4. Align with the mission and focus patterns in `projects.csv`
+2. Map ATA chapters to domains using `ata-chapters.csv` (for aviation projects)
+3. Select relevant PLM/CAx categories from `plm-cax.csv`
+4. Identify which TFA components from `architecture-policy.csv` apply to your use case
+5. Align with the mission and focus patterns in `projects.csv`
 
 ### For Developers
 Use these canonical definitions when:
@@ -141,6 +170,7 @@ import sys
 files = [
     '1-DIMENSIONS/CANONICAL-TAXONOMY/projects.csv',
     '1-DIMENSIONS/CANONICAL-TAXONOMY/domains.csv',
+    '1-DIMENSIONS/CANONICAL-TAXONOMY/ata-chapters.csv',
     '1-DIMENSIONS/CANONICAL-TAXONOMY/plm-cax.csv',
     '1-DIMENSIONS/CANONICAL-TAXONOMY/architecture-policy.csv'
 ]
