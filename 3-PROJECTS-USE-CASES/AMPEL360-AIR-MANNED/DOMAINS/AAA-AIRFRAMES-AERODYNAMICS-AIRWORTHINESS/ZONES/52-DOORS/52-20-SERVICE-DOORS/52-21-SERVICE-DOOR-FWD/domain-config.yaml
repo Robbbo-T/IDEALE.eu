@@ -1,0 +1,7 @@
+# Configuration file for 52-21
+# This file is intentionally minimal to allow inheritance from domain-level configuration
+
+ata_chapter: 52
+sub_zone: 52-21
+domain: AAA
+project: AMPEL360-AIR-MANNED
