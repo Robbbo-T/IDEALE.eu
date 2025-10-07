@@ -8,8 +8,7 @@
 ## Overview
 
 The passenger doors system encompasses the structural design and integration of:
-- Main passenger entry doors
-- Emergency exit doors
+- Main passenger entry doors (forward and aft)
 - Door frame and threshold structures
 - Door operating mechanisms (structural interface)
 - Door seal interfaces
@@ -18,57 +17,40 @@ The passenger doors system encompasses the structural design and integration of:
 
 ## Scope
 
-This sub-zone contains all design, analysis, manufacturing, and certification artifacts for passenger door structures.
+This zone is organized into specific door instances, each containing the complete BEZ (Bloque de Estructura Base) structure with all design, analysis, manufacturing, and certification artifacts.
+
+### Sub-Zones
+
+- **52-11-PASSENGER-DOOR-FWD** — Forward passenger entry door
+- **52-12-PASSENGER-DOOR-AFT** — Aft passenger entry door
 
 ## Directory Structure
 
 ```
 52-10-PASSENGER-DOORS/
-├─ DELs/                          # Deliveries
-│  ├─ EASA-submissions/           # EASA certification submissions
-│  ├─ MoC-records/                # Means of Compliance records
-│  ├─ airworthiness-statements/   # Airworthiness compliance statements
-│  ├─ data-packages/              # Complete data packages
-│  └─ final-design-reports/       # Final design reports
+├─ 52-11-PASSENGER-DOOR-FWD/      # Forward passenger door (full BEZ)
+│  ├─ DELs/                       # Deliveries and certification
+│  ├─ PAx/                        # Packaging and Integration
+│  ├─ PLM/                        # Product Lifecycle Management
+│  ├─ PROCUREMENT/                # Procurement Management
+│  ├─ QUANTUM_OA/                 # Quantum Optimization
+│  ├─ SUPPLIERS/                  # Supplier Management
+│  ├─ policy/                     # Policies and procedures
+│  ├─ tests/                      # Test plans and results
+│  ├─ META.json                   # Metadata
+│  ├─ README.md                   # Component documentation
+│  └─ domain-config.yaml          # Configuration
 │
-├─ PAx/                           # Packaging and Integration
-│  ├─ ONB/                        # Onboard systems integration
-│  └─ OUT/                        # External systems integration
+├─ 52-12-PASSENGER-DOOR-AFT/      # Aft passenger door (full BEZ)
+│  └─ {Full BEZ structure}
 │
-├─ PLM/                           # Product Lifecycle Management
-│  ├─ CAD/                        # 3D geometry and assemblies
-│  ├─ CAE/                        # Structural analysis (FEA, CFD)
-│  ├─ CAI/                        # Integration planning
-│  ├─ CAM/                        # Manufacturing processes
-│  ├─ CAO/                        # Optimization and requirements
-│  ├─ CAP/                        # Process automation
-│  ├─ CAS/                        # Service and maintenance
-│  ├─ CAV/                        # Verification and validation
-│  └─ CMP/                        # Compliance management
-│
-├─ PROCUREMENT/                   # Procurement Management
-│  └─ VENDORSCOMPONENTS/          # Vendor-supplied components
-│
-├─ QUANTUM_OA/                    # Quantum Optimization Algorithms
-│  ├─ GA/                         # Genetic algorithms
-│  ├─ LP/                         # Linear programming
-│  ├─ MILP/                       # Mixed-integer linear programming
-│  ├─ QAOA/                       # Quantum approximate optimization
-│  ├─ QOX/                        # Quantum optimization exchange
-│  ├─ QP/                         # Quadratic programming
-│  ├─ QUBO/                       # Quadratic unconstrained binary opt
-│  └─ SA/                         # Simulated annealing
-│
-├─ SUPPLIERS/                     # Supplier Management
-│  ├─ BIDS/                       # Supplier bids and proposals
-│  └─ SERVICES/                   # Supplier services and support
-│
-├─ policy/                        # Policies and procedures
-├─ tests/                         # Test plans and results
-├─ META.json                      # Metadata
+├─ DELs/                          # Legacy - Zone-level deliveries
+├─ META.json                      # Zone metadata
 ├─ README.md                      # This file
-└─ domain-config.yaml             # Configuration
+└─ domain-config.yaml             # Zone configuration
 ```
+
+**Note**: The legacy DELs directory at this level is deprecated. New work should be organized under the specific door sub-zones (52-11, 52-12).
 
 ## Key Interfaces
 
@@ -117,16 +99,17 @@ This sub-zone follows the canonical TFA flow:
 
 ## UTCS Anchors
 
-All artifacts must include UTCS anchors for traceability:
+All artifacts must include UTCS anchors for traceability. Door-specific anchors should be under the respective sub-zone (52-11, 52-12):
 ```
-UTCS-MI:CAD:AAA:52-10:DOORS:rev[X]
-UTCS-MI:CAE:AAA:52-10:STRESS:rev[X]
-UTCS-MI:DEL:AAA:52-10:CERT:rev[X]
+UTCS-MI:CAD:AAA:52-11:DOOR:rev[X]  # Forward door
+UTCS-MI:CAD:AAA:52-12:DOOR:rev[X]  # Aft door
+UTCS-MI:CAE:AAA:52-11:STRESS:rev[X]
+UTCS-MI:DEL:AAA:52-11:CERT:rev[X]
 ```
 
 ## Status
 
-🚧 **In Development** — Structure defined, artifacts to be populated
+✅ **Structure Complete** — Sub-zones defined with full BEZ structure, ready for artifacts
 
 ## Related Documentation
 
