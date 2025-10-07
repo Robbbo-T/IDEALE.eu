@@ -5,6 +5,7 @@ product: "AMPEL360-AIR-T"
 domain: "AAA"
 zone: "57-WING-STRUCTURES"
 subzone: "57-10-BOX-SECTION"
+maintainer: "AAA Integration Team"
 
 bridge: "QS->FWD->UE->FE->CB->QB"
 primary_path: "FE->CB->UE"
@@ -18,9 +19,7 @@ sheet:
     - { path: "../boms/SA-AAA-WINGBOX-001.csv", role: "bom" }
 
 evidence:
-  requirements:
-    - "CS25.305"   # Strength and deformation
-    - "CS25.307"   # Proof of structure
+  requirements: [ "CS25.305", "CS25.307" ]
   links:
     - "../models/SA-AAA-WINGBOX-001.stp"
     - "../boms/SA-AAA-WINGBOX-001.csv"
