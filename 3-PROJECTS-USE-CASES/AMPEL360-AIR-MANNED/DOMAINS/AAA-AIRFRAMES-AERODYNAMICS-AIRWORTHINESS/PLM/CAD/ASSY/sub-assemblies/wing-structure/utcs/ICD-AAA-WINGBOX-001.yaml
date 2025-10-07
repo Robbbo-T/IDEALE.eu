@@ -1,0 +1,26 @@
+schema_version: "1.0"
+utcs_id: "UTCS-MI:ICD:AAA:WINGBOX:0001:v1"
+type: artifact
+status: in_review
+timestamps: { created: "2025-10-07T00:00:00Z" }
+
+product: "AMPEL360-AIR-T"
+domain: "AAA"
+llc: "SYSTEMS"
+bridge: "QS→FWD→UE→FE→CB→QB"
+primary_path: "FE→CB→UE"
+
+provenance: { owner: "AAA Integration Team" }
+
+threading:
+  context:
+    refs:
+      - "UTCS-MI:CAD:AAA:ASSY:WINGBOX-001:revA"
+
+sheet:
+  files:
+    - { path: "icd/ICD-AAA-WINGBOX-001.md", role: "icd" }
+
+integrity:
+  hash_algorithm: "SHA256"
+  content_hash: "<sha256-of-ICD-AAA-WINGBOX-001.md>"
