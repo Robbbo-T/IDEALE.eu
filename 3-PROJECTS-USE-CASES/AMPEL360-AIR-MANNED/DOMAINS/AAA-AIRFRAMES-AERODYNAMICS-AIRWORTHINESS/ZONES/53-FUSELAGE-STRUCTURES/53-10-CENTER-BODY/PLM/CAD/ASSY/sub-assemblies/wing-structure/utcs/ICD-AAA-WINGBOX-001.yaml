@@ -5,6 +5,7 @@ product: "AMPEL360-AIR-T"
 domain: "AAA"
 zone: "57-WING-STRUCTURES"
 subzone: "57-10-BOX-SECTION"
+maintainer: "AAA Integration Team"
 
 bridge: "QS->FWD->UE->FE->CB->QB"
 primary_path: "FE->CB->UE"
@@ -17,9 +18,7 @@ sheet:
     - { path: "../models/SA-AAA-WINGBOX-001.stp", role: "reference-geometry" }
 
 evidence:
-  requirements:
-    - "CS25.603"
-    - "CS25.609"
+  requirements: [ "CS25.603", "CS25.609" ]
   links:
     - "../icd/SA-AAA-WINGBOX-001-ICD.pdf"
     - "../models/SA-AAA-WINGBOX-001.stp"
