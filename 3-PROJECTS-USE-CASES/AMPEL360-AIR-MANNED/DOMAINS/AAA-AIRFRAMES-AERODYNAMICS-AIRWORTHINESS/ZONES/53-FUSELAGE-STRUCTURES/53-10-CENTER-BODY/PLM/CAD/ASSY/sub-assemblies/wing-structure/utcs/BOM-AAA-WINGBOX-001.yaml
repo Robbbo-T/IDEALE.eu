@@ -1,29 +1,38 @@
 schema_version: "1.0.0"
-utcs_id: "UTCS-MI:BOM:AAA:WNG:0001:v1"
+utcs_id: "UTCS-MI:MOC:AAA:FUS:0001:v1"
 
 product: "AMPEL360-AIR-T"
 domain: "AAA"
-zone: "57-WING-STRUCTURES"
-subzone: "57-10-BOX-SECTION"
+zone: "53-FUSELAGE-STRUCTURES"
+subzone: "53-10-CENTER-BODY"
+maintainer: "AAA Integration Team"
 
 bridge: "QS->FWD->UE->FE->CB->QB"
 primary_path: "FE->CB->UE"
 
-description: "Wingbox sub-assembly BOM for SA-AAA-WINGBOX-001"
+requirement:
+  cs_ref: "CS25.571(a)"
+  scope: "Fatigue and damage tolerance of 53-10 center body"
+
+method: "ANALYSIS"
+
+configuration:
+  cad_assy: "UTCS-MI:CAD:AAA:ASSY:53-10:revC"
+  fem_model: "UTCS-MI:CAE:AAA:FEM:53-10:FATIGUE:R02"
+  materials:
+    - "UTCS-MI:MAT:SPEC:CARBON:PREPREG:R05"
+
+evidence:
+  record_file: "records/MOC-CS25-571-FATIGUE-DT-ANALYSIS-20250312-R01.pdf"
+  attachments:
+    - "methods/analysis/ANA-53-10-FATIGUE-R02.pdf"
+    - "methods/test-results/TR-53-10-DT-01-R01.pdf"
 
 sheet:
   files:
-    - { path: "../boms/SA-AAA-WINGBOX-001.csv", role: "bom" }
-    - { path: "../models/SA-AAA-WINGBOX-001.stp", role: "cad-model" }
-
-evidence:
-  requirements:
-    - "CS25.603"   # Materials
-    - "CS25.605"   # Fabrication methods
-    - "CS25.609"   # Protection of structure
-  links:
-    - "../boms/SA-AAA-WINGBOX-001.csv"
-    - "../models/SA-AAA-WINGBOX-001.stp"
+    - { path: "records/MOC-CS25-571-FATIGUE-DT-ANALYSIS-20250312-R01.pdf", role: "record" }
+    - { path: "methods/analysis/ANA-53-10-FATIGUE-R02.pdf", role: "method-analysis" }
+    - { path: "methods/test-results/TR-53-10-DT-01-R01.pdf", role: "method-test" }
 
 integrity:
   hash_algorithm: "SHA256"
@@ -31,5 +40,9 @@ integrity:
 
 provenance:
   owner: "AAA Integration Team"
-  created: "2025-10-07T00:00:00Z"
+  analyst: "TBD"
+  checker: "TBD"
+  design_authority: "TBD"
+  created: "2025-03-12T10:20:00Z"
+
 status: "in_review"
