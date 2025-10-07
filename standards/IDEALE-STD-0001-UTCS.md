@@ -60,5 +60,5 @@ El fichero es **conforme** si:
 
 ## 11. Apéndice A — Regex de UTCS ID
 ```
-^UTCS-MI:[A-Z]{3}:[A-Z]{3,8}:[A-Z]{3}:[0-9]{4}:v[0-9]+$
+^UTCS-MI:[A-Z]{3}:[A-Z]{3}:[A-Z]{3}:[0-9]{4}:v[0-9]+$
 ```
