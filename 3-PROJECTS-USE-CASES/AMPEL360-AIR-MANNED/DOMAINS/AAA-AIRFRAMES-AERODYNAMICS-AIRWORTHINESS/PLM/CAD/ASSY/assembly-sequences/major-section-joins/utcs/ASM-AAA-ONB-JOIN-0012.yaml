@@ -1,0 +1,63 @@
+schema_version: "1.0"
+utcs_id: "UTCS-MI:ASM:JOIN:ONB:0012:v1"
+type: artifact
+status: in_review
+timestamps: { created: "2025-10-07T00:00:00Z", updated: "2025-10-07T00:00:00Z" }
+
+product: "AMPEL360-AIR-T"
+domain: "AAA"
+llc: "SYSTEMS"
+bridge: "QS→FWD→UE→FE→CB→QB"
+primary_path: "FE→CB→UE"
+
+provenance:
+  owner: "AAA Integration Team"
+  maintainer: "amedeo.pelliccia"
+  reviewers: ["cai.lead","qa.lead","safety.lead"]
+
+threading:
+  context:
+    mission: "BWB-Q100 Station 57-10 major join"
+    env: "onboard"
+    refs:
+      - "UTCS-MI:CAD:AAA:ASSY:57-10:revC"
+      - "UTCS-MI:CAM:FIX:WING-JIG-02:v3"
+  content:
+    summary: "Center body ↔ wing join sequence, torque pattern A, QIP H-1..H-5"
+  cache:
+    exports: []
+
+structure:
+  schema: "asm.join.v1"
+  fields:
+    zone: "ONB"
+    kind: "JOIN"
+    index: 12
+    pattern: "Torque Pattern A"
+    min_clearance_mm: 8.0
+    torque_nominal_Nm: 12
+
+sheet:
+  files:
+    - { path: "ASM-AAA-ONB-JOIN-0012.md", role: "sequence-spec" }
+    - { path: "FAST-ONB-JOIN-0012.csv", role: "fastener-schedule" }
+    - { path: "TOOL-ACCESS-ONB-JOIN-0012.md", role: "tool-access" }
+    - { path: "QIP-ONB-JOIN-0012.md", role: "qip-holds" }
+    - { path: "RESLOG-ONB-JOIN-0012.md", role: "resolution-log" }
+
+evidence:
+  requirements: ["CS25.601","CS25.607","ATA57"]
+  links:
+    - "../digital-mockup-sims/utcs/ASM-AAA-ONB-DMU-0012.yaml"
+    - "../digital-mockup-sims/ASM-AAA-ONB-DMU-0012_clearances.csv"
+    - "../digital-mockup-sims/ASM-AAA-ONB-DMU-0012_interferences.csv"
+
+security:
+  classification: "INTERNAL–EVIDENCE-REQUIRED"
+  access:
+    read: ["engineering","qa","safety"]
+    write: ["AAA Integration Team"]
+
+integrity:
+  hash_algorithm: "SHA256"
+  content_hash: "<sha256-of-ASSEMBLY-SEQUENCE-PACK>"
