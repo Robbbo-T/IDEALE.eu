@@ -1,0 +1,10 @@
+{
+  "name": "14-70-SAFETY-WIRE-COTTER",
+  "title": "Safety Wire and Cotter Pins",
+  "ata_chapter": "14",
+  "domain": "AAA",
+  "project": "AMPEL360-AIR-MANNED",
+  "version": "0.1.0",
+  "status": "in_development",
+  "scope": "instance"
+}

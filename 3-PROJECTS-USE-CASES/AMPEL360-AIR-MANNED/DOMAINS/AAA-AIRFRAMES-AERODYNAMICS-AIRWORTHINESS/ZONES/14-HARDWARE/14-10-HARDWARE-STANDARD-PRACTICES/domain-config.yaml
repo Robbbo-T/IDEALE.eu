@@ -1,0 +1,7 @@
+# Configuration file for 14-10-HARDWARE-STANDARD-PRACTICES
+# This file is intentionally minimal to allow inheritance from domain-level configuration
+
+ata_chapter: 14
+sub_zone: 14-10-HARDWARE-STANDARD-PRACTICES
+domain: AAA
+project: AMPEL360-AIR-MANNED
