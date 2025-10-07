@@ -1,0 +1,29 @@
+schema_version: "1.0.0"
+utcs_id: "UTCS-MI:TPL:AAA:TPL:0000:v0"
+
+product: "AMPEL360-AIR-T"
+domain: "AAA"
+zone: "57-WING-STRUCTURES"
+subzone: "57-10-BOX-SECTION"
+
+bridge: "QS->FWD->UE->FE->CB->QB"
+primary_path: "FE->CB->UE"
+
+description: "VALID TEMPLATE — do not delete. Use as starter for UTCS records."
+
+sheet:
+  files:
+    - { path: "../README.md", role: "readme" }
+
+evidence:
+  requirements: []
+  links: []
+
+integrity:
+  hash_algorithm: "SHA256"
+  content_hash: "0000000000000000000000000000000000000000000000000000000000000000"
+
+provenance:
+  owner: "TEMPLATE"
+  created: "2025-01-01T00:00:00Z"
+status: "template"
