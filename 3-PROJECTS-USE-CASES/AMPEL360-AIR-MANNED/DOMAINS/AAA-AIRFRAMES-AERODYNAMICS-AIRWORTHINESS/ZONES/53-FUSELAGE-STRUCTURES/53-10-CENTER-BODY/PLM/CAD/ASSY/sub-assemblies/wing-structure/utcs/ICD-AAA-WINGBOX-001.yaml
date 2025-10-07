@@ -1,0 +1,34 @@
+schema_version: "1.0.0"
+utcs_id: "UTCS-MI:ICD:AAA:WNG:0001:v1"
+
+product: "AMPEL360-AIR-T"
+domain: "AAA"
+zone: "57-WING-STRUCTURES"
+subzone: "57-10-BOX-SECTION"
+
+bridge: "QS->FWD->UE->FE->CB->QB"
+primary_path: "FE->CB->UE"
+
+description: "Interface Control Definition for Wingbox SA-AAA-WINGBOX-001"
+
+sheet:
+  files:
+    - { path: "../icd/SA-AAA-WINGBOX-001-ICD.pdf", role: "icd" }
+    - { path: "../models/SA-AAA-WINGBOX-001.stp", role: "reference-geometry" }
+
+evidence:
+  requirements:
+    - "CS25.603"
+    - "CS25.609"
+  links:
+    - "../icd/SA-AAA-WINGBOX-001-ICD.pdf"
+    - "../models/SA-AAA-WINGBOX-001.stp"
+
+integrity:
+  hash_algorithm: "SHA256"
+  content_hash: "<replace-with-real-64-hex>"
+
+provenance:
+  owner: "AAA Integration Team"
+  created: "2025-10-07T00:00:00Z"
+status: "in_review"
