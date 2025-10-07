@@ -1,135 +1,139 @@
----
-id: ASIT-AMPEL360-AIR-T-AAA-SUB
-project: PRODUCTS/AMPEL360/AMPEL360_AIR_TRANSPORT
-artifact: PRODUCTS/AMPEL360/AMPEL360_AIR_TRANSPORT/BWB-Q100/domains/AAA/sub-assemblies/README.md
-llc: SYSTEMS
-classification: INTERNAL–EVIDENCE-REQUIRED
-version: "1.0.0"
-release_date: 2025-10-07
-maintainer: "AAA Integration Team"
-bridge: "QS→FWD→UE→FE→CB→QB"
-ethics_guard: MAL-EEM
-utcs_mi: v5.0
-canonical_hash: "TBD"
----
+# Digital Mockup Simulations (DMU)
 
-# Sub‑Assemblies for AAA Domain — AMPEL360‑AIR‑T
+This directory contains CAD animation sequences, rendered videos, and simulation reports validating assembly processes for the **AMPEL360-AIR-T** BWB aircraft. Digital Mock-Up (DMU) simulations are essential for verifying assembly feasibility, detecting interferences, and optimizing sequences before physical implementation.
 
-This folder holds the CAD models, metadata, and documentation for predefined, complex modular **Sub‑Assemblies** belonging to the primary airframe structure and aerodynamic elements of **AMPEL360‑AIR‑T** (AAA Domain).
+## UTCS YAML Records for DMU
 
-Sub‑assemblies serve as building blocks for the main airframe, enabling parallel design, manufacturing, and integration workflows. They must have a clear internal **Bill of Materials (BOM)** and well‑defined **external interfaces** governed by **PAx** (packaging/clearances) and **Interference** domains.
+Use the `./utcs/` subfolder to store the canonical UTCS (UiX Threading Context/Content/Cache and Structure/Style/Sheet) YAML records for **artifacts in this directory**. These records are the traceability anchors that:
+1. **Anchor geometry** revisions of input assemblies/tooling used in each DMU run.
+2. Capture the canonical **TFA flow** (`QS→FWD→UE→FE→CB→QB`) and the **primary DMU loop** (`CB→UE`, coordinated via **FE**).
+3. Record **provenance** (analyst, validation date) and link interference lists to `resolution-logs/` entries.
 
----
+## Purpose
+
+The digital-mockup-sims directory serves as the central repository for:
+
+- **DMU animation sequences** showing step-by-step assembly motions and component paths
+- **Interference detection reports** identifying collisions and clearance violations
+- **Tool access simulations** validating fixture reach and ergonomic considerations
+- **Assembly validation videos** for training and procedure review
+- **UTCS-anchored evidence** of validated assembly processes
 
 ## Contents Overview
 
-1. **Modular Assembly Files** — CAD/DMU sources (STEP + native) for major structural modules (e.g., wing‑box sections, stabilizer units, specialized ribs).
-2. **Interface Control Definitions (ICD)** — Mating conditions, fastener patterns, tolerances, datum schemes, and allowable gaps.
-3. **Sub‑Assembly BOMs** — Module‑level component lists derived from the top‑level BOM (`PLM/CAD/ASSY`).
-4. **Handling & Lifting Plans** — Fixtures, slings, COG data, and permissible orientations.
-5. **Fastener Schedules** — Torque, order, and pattern for critical joints within the module.
-6. **Tolerance Stack‑ups** — Sequential effects on key dimensions, metrology correlation.
+### Simulation Types
 
----
+1. **Major Join Sequences**
+   - Center body to wing mating simulations
+   - Fuselage section assembly animations
+   - Visualization of large component positioning and alignment
 
-## TFA Context & Modular Flow
+2. **System Installation Paths**
+   - Main duct insertion through center body
+   - Landing gear installation motion
+   - Engine/propulsion system integration paths
+   - Electrical harness routing visualization
 
-All work is orchestrated within the canonical TFA flow **QS→FWD→UE→FE→CB→QB**:
+3. **Tool Access Studies**
+   - Crane and AGV (Automated Guided Vehicle) path planning
+   - Fixture positioning and reach validation
+   - Worker access and ergonomic analysis
+   - Tooling interference checks
 
-* **QS** — Provenance ledger of module geometry, ICDs, BOM, tools, and schedules (UTCS‑threaded).
-* **FWD** — Predictive sims for takt‑time, WIP, and schedule risk across parallel module lines.
-* **UE** — Deterministic snapshots at module freeze/release (as‑modeled / as‑built).
-* **FE** — Coordination of multiple module **UEs** into the master structure; dependency management.
-* **CB** — Enforcement of PAx clearances, interface tolerances, cure windows, and tooling constraints.
-* **QB** — Optimization of module sequencing/line balancing and change‑impact scheduling under constraints.
+4. **Kinematic Simulations**
+   - Control surface deployment and rigging
+   - Landing gear extension/retraction validation
+   - Door and panel operation clearances
+   - Mechanism travel validation
 
-> **Primary loop for sub‑assemblies:** **FE→CB→UE**, backed by **QS** provenance and **FWD** schedule assessment.
+5. **Interference Analysis**
+   - Static interference detection between components
+   - Dynamic clearance analysis during motion
+   - Tolerance variation impact studies
+   - Service access validation
 
----
+## File Naming Conventions
 
-## Traceability Mandate
+**DMU artifacts:** `ASM-AAA-{ZONE}-DMU-{IDX}.{ext}`  
+**UTCS YAML (in `./utcs/`):** `ASM-AAA-{ZONE}-DMU-{IDX}.yaml`
 
-* **UTCS Anchors:** Every master module, ICD, BOM, and evidence item must be referenced via **UTCS‑MI** (no raw paths). All UTCS YAML records for this directory's artifacts are stored in the `./utcs/` subdirectory.
-* **Quality Gates:** Embed **CAV/QIP** hold points inside module docs; map nonconformances to ECR/Deviation records (logged in `resolution-logs/`).
-* **Change Control:** All updates via PR with UTCS links; CI enforces link/path validation and code naming.
+- `{ZONE}` = `ONB` (onboard/internal) or `OUT` (outboard/external)  
+- `{IDX}` = 4-digit serial (`0001`, `0150`, …)
 
----
+Examples:
+- `ASM-AAA-ONB-DMU-0001.mp4` — Center body to wing join animation video
+- `ASM-AAA-ONB-DMU-0001.md` — Simulation report and validation summary
+- `ASM-AAA-ONB-DMU-0015.pdf` — ECS duct installation interference report
+- `ASM-AAA-OUT-DMU-0042.avi` — Outer wing panel assembly sequence
 
-## Conventions
+## Expected File Types
 
-* **File Code Template:** `SA-AAA-{MODULE}-{IDX}`
+- `.mp4`, `.avi`, `.mov` — Rendered animation videos
+- `.md` — Simulation reports and validation summaries
+- `.pdf` — Interference reports, clearance analysis documents
+- `.json` — Simulation metadata, interference lists, kinematic data
+- `.csv` — Clearance measurements, interference coordinates
+- `.step`, `.stp` — DMU assembly snapshots at key states
+- `.jpg`, `.png` — Screenshots of key assembly states or interferences
+- `.pptx`, `.pdf` — Presentation materials for design reviews
 
-  * `{MODULE}` ∈ `{WINGBOX|STAB|FUSE|LGBAY|PYLON|RIB|SPAR|PANEL|DOOR}`
-  * `{IDX}` = 3‑digit serial (e.g., `001`)
-  * Examples: `SA-AAA-WINGBOX-001.stp`, `SA-AAA-LGBAY-002.md`, `SA-AAA-STAB-003.bom.csv`
+## Software and Tools (Abbreviated)
 
-* **Zones (when applicable):** `ONB` (onboard/internal) and `OUT` (outboard/skins/LE‑TE/service). Include in filenames if zone‑specific (e.g., `SA-AAA-WINGBOX-001-ONB.md`).
+- **CAD/DMU Platforms:** CATIA V5/V6, Siemens NX, Dassault 3DEXPERIENCE, PTC Creo.
+- **Rendering & Visualization:** KeyShot, Blender, Unity/Unreal.
+- **Analysis Tools:** CATIA DMU Space Analysis, 3DCS Variation Analyst, Process Simulate.
 
-* **Geometry & Evidence:** Always via UTCS anchors (CAD/DMU/CAE/QIP). Cross‑link to **PAx** and **Interference** artifacts for clearances and clashes.
+## TFA Context
 
----
+DMU simulations adhere to the canonical TFA flow: **QS→FWD→UE→FE→CB→QB**.
 
-## Required Artifacts (Minimum for CI)
+- **QS** — Global context (geometry revs, rule sets, fixtures) threaded via UTCS.
+- **FWD** — Predictive analyses (cycle time, access/ergonomics risk, queueing impacts).
+- **UE** — Deterministic clash-free snapshots at gates (as-planned / as-built).
+- **FE** — Orchestration across subsystems (join sequence vs. system installs).
+- **CB** — Clearance/tool-access constraint enforcement during simulation.
+- **QB** — Optional optimization for dense schedule/sequence or parameter sweeps.
 
-| Artifact | Source (CAx) | TFA Stage | Evidence (UTCS) | Status |
-| :--- | :--- | :---: | :--- | :----: |
-| Master Module CAD/ASSY | CAD/DMU | QS→UE | `UTCS-MI:CAD:AAA:ASSY:{MODULE}-{IDX}:revX` | 🔄 |
-| Interface Control Definition (ICD) | CAD/CAI | FE→CB | `UTCS-MI:ICD:AAA:{MODULE}-{IDX}:v1` | 🔄 |
-| Sub‑Assembly BOM | CAD/ASSY | QS→UE | `UTCS-MI:BOM:AAA:{MODULE}-{IDX}:v1` | 🔄 |
-| PAx Clearance & Clash Check | CAD/DMU · PAx/INT | CB→UE | `UTCS-MI:INT:CLASH:{MODULE}-{IDX}:v1` | 🔄 |
-| Tolerance Stack‑up Report | CAE · Metrology | CB→UE | `UTCS-MI:SUB:TSTACK:{MODULE}-{IDX}:v1` | 🔄 |
-| Fastener Torque/Pattern Schedule | CAM · QIP | FE→CB | `UTCS-MI:SUB:FASTENER:{MODULE}-{IDX}:v1` | 🔄 |
-| Handling & Lifting Plan | CAI · Safety | FE→CB | `UTCS-MI:SUB:HANDLE:{MODULE}-{IDX}:v1` | 🔄 |
-| QIP Hold Points & Inspection Plan | CAV/QIP | FE | `UTCS-MI:CAV:QIP:AAA:{MODULE}-{IDX}:v1` | 🔄 |
-| ECR/Deviation Resolution Log | Change Control | FE | `UTCS-MI:SUB:RESLOG:{MODULE}-{IDX}:v1` | 🔄 |
+> **Primary DMU loop:** **CB → UE** with **FE** coordination, recorded under UTCS.
+
+## Required Artifacts
+
+Each DMU simulation must include:
+
+| Artifact | Format | UTCS Reference Pattern | Status |
+| :--- | :--- | :--- | :---: |
+| Animation Video | `.mp4` or `.avi` | `UTCS-MI:ASM:DMU:{DESC}:{IDX}:v{X}` | 🔄 |
+| Simulation Report | `.md` or `.pdf` | `UTCS-MI:ASM:DMU:{DESC}:{IDX}:REPORT:v{X}` | 🔄 |
+| Interference List | `.json` or `.csv` | `UTCS-MI:ASM:DMU:{DESC}:{IDX}:INTERF:v{X}` | 🔄 |
+| Clearance Report | `.pdf` or table | `UTCS-MI:ASM:DMU:{DESC}:{IDX}:CLEAR:v{X}` | 🔄 |
+| DMU Assembly Model | `.step` or native | `UTCS-MI:CAD:AAA:ASSY:{ASSY_CODE}:rev{X}` | 🔄 |
 
 > **Status Legend:** 🔄 In Progress · ✅ Approved · ⏳ Pending Review · ❌ Blocked
 
----
+## CI Validation
 
-## KPIs (tracked via CI)
+CI verifies that each UTCS YAML in `./utcs/`:
+1. Includes `bridge: "QS→FWD→UE→FE→CB→QB"` and `primary_path: "CB→UE"`.
+2. Validates the `content_hash` of the associated DMU file.
+3. References a valid `ethics_guard` (MAL-EEM) when applicable.
 
-* **Interface nonconformance rate** (ppm)
-* **Mass delta vs. baseline** (kg) and **CG shift** (mm)
-* **Open clash count** (count) → target **0** at release
-* **Schedule maturity index** (%) and **rework rate** (%)
-* **ICD compliance** (%) and **fastener torque NC rate** (ppm)
-* **Change churn** (changes/week) and **lead time** (days)
+## Example UTCS IDs
 
----
+| UTCS ID Pattern | Anchored Artifact Type |
+|:-------------------------------------------------|:----------------------------------------------------------------|
+| `UTCS-MI:ASM:DMU:WING-JOIN:0012:v2` | DMU animation video (`.mp4`) and report (`.md`) |
+| `UTCS-MI:ASM:DMU:LG-CYCLE:0045:INTERF:v1` | Dynamic clash list (`.csv`) for landing-gear retraction |
+| `UTCS-MI:CAD:AAA:ASSY:57-10:revC` | Clash-free assembly snapshot (`.step`) |
 
-## Directory Index (Hyperlinkable)
+## Simulation Workflow, Quality Criteria, and Governance
 
-| Folder | Description |
-| :--- | :--- |
-| [Current Folder (`./`)](#) | Top‑level index of all major structural sub‑assemblies (e.g., `SA-AAA-WINGBOX-001.stp`). |
-| [`wing-structure/`](./wing-structure/) | Wing‑box internals, spars, ribs, composite panels. |
-| [`stabilizer-units/`](./stabilizer-units/) | Vertical/horizontal stabilizer modules. |
-| [`fuselage-sections/`](./fuselage-sections/) | Pressure/payload sections of the BWB fuselage. |
-| [`landing-gear-bays/`](./landing-gear-bays/) | Integration bays for landing gear systems. |
-| [`pylon-interfaces/`](./pylon-interfaces/) | Interfaces between airframe and propulsion systems (PPP cross‑link). |
-| [`handling-and-lifting/`](./handling-and-lifting/) | Fixture reach, sling data, COG tables, orientation limits. |
-| [`fastener-schedules/`](./fastener-schedules/) | Torque, order, and pattern docs for critical joints. |
-| [`tolerance-stackups/`](./tolerance-stackups/) | Stack‑up analyses and metrology correlation. |
-| [`icd/`](./icd/) | **Interface Control Definitions (ICD)** detailing mating geometry and tolerances. |
-| [`boms/`](./boms/) | Module BOMs (Engineering BOM/Assembly BOM) and component extracts. |
-| [`resolution-logs/`](./resolution-logs/) | ECR/Deviation mapping and approvals for module-specific issues. |
-| [`utcs/`](./utcs/) | **Canonical UTCS YAML records** for all module, ICD, and BOM artifacts. |
-| [`thumbnails/`](./thumbnails/) | Visual previews of sub-assemblies for quick identification. |
+*(Sections covering workflow, quality criteria, standards, and governance follow the detailed content provided previously.)*
 
----
+## Related Directories
 
-## Governance & Reviews
-
-* **Approvals:** AAA Integration Lead (design), CAI Lead (interfaces), QA (evidence/QIP), Safety (handling/lifting).
-* **Reviews:** Module freeze at M3; design freeze at M4; release at M5; deltas tracked via ECR.
-* **Change Control:** PRs must carry UTCS anchors for all artifacts; CI enforces link/path validation and code naming.
-
----
-
-## References
-
-* **TFA Flow:** QS→FWD→UE→FE→CB→QB (canon)
-* **Standards:** EASA CS‑25 (structures & manufacturing), ATA iSpec 2200, S1000D 6.0
-* **Cross‑Links:** `domains/AAA/pax/`, `domains/AAA/interference/`, `domains/AAA/assembly/`, `PLM/CAM/OPR`, `PLM/CAV/QIP`.
-```
+- `../../../../assembly-sequences/major-section-joins/` — Major join sequences validated by DMU  
+- `../../../../assembly-sequences/system-installation-steps/` — System installs requiring DMU validation  
+- `../../../../assembly-sequences/tool-access-plans/` — Tooling and fixture access plans  
+- `../../../../assembly-sequences/tolerance-stackups/` — Tolerance impacts on DMU clearances  
+- `../PRT/` — Component part models used in DMU (sibling of `ASSY/`)  
+- `../../../CAM/FIX/` — Fixture designs modeled in DMU

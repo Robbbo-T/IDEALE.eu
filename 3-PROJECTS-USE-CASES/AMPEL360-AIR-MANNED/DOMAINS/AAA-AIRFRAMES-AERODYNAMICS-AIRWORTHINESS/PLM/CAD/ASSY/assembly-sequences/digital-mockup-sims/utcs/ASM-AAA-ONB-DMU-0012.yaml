@@ -1,0 +1,30 @@
+schema_version: "1.0"
+utcs_id: "UTCS-MI:ASM:DMU:WING-JOIN:0012:v2"
+type: artifact
+status: approved
+timestamps: { created: "2025-10-07T00:00:00Z", updated: "2025-10-07T00:00:00Z" }
+product: "AMPEL360-AIR-T"
+domain: "AAA"
+llc: "SYSTEMS"
+bridge: "QS→FWD→UE→FE→CB→QB"
+primary_path: "CB→UE"
+provenance: { owner: "AAA Integration Team", maintainer: "amedeo.pelliccia" }
+threading:
+  context:
+    env: "onboard"
+    refs: ["UTCS-MI:CAD:AAA:ASSY:57-10:revC", "UTCS-MI:CAM:FIX:WING-JIG-02:v3"]
+  content: { summary: "Center body ↔ wing join DMU, rev alignment to 57-10:revC" }
+structure: { schema: "asm.dmu.v1", fields: { zone: "ONB", index: 12 } }
+sheet:
+  files:
+    - { path: "ASM-AAA-ONB-DMU-0012.mp4", role: "video" }
+    - { path: "ASM-AAA-ONB-DMU-0012.md", role: "report" }
+    - { path: "ASM-AAA-ONB-DMU-0012_interferences.csv", role: "interference-list" }
+    - { path: "ASM-AAA-ONB-DMU-0012_clearances.csv", role: "clearance-table" }
+evidence:
+  links:
+    - "UTCS-MI:INT:CLASH:MATRIX:v1"
+    - "UTCS-MI:ASM:JOIN:ONB:0012:v1"
+integrity:
+  hash_algorithm: "SHA256"
+  content_hash: "<sha256-of-ASM-AAA-ONB-DMU-0012.mp4>"

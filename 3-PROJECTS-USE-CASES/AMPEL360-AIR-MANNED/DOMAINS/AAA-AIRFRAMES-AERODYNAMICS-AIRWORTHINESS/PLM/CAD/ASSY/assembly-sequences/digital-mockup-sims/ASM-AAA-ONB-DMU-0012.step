@@ -1,0 +1,7 @@
+ISO-10303-21;
+HEADER;
+/* Placeholder STEP snapshot for DMU state */
+ENDSEC;
+DATA;
+ENDSEC;
+END-ISO-10303-21;
