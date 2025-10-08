@@ -1,0 +1,7 @@
+{
+  "domain": "AAA",
+  "system": "52-DOORS",
+  "subSystem": "52-30",
+  "utcsPattern": "UTCS-MI:AAA:CAS:52-52-30:{artifact}:rev[X]",
+  "artifacts": []
+}

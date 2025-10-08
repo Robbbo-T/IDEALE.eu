@@ -1,0 +1,7 @@
+{
+  "domain": "AAA",
+  "system": "06-DIMENSIONS-STATIONS",
+  "subSystem": "06-20",
+  "utcsPattern": "UTCS-MI:AAA:CAS:06-06-20:{artifact}:rev[X]",
+  "artifacts": []
+}

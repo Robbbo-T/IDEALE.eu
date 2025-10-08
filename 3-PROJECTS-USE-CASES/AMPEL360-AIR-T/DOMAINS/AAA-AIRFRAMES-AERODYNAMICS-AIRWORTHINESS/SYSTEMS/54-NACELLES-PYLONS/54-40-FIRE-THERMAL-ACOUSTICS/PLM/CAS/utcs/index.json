@@ -1,0 +1,7 @@
+{
+  "domain": "AAA",
+  "system": "54-NACELLES-PYLONS",
+  "subSystem": "54-40",
+  "utcsPattern": "UTCS-MI:AAA:CAS:54-54-40:{artifact}:rev[X]",
+  "artifacts": []
+}

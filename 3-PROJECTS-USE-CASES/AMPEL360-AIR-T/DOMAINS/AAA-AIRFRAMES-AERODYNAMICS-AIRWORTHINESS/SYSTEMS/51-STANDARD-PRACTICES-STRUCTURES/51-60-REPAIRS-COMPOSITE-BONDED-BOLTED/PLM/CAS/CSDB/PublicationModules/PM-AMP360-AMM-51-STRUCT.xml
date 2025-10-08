@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Aircraft Maintenance Manual (AMM) Structure Publication Module -->
+<!-- pmCode must match filename -->
+<!-- To be populated during S1000D authoring -->
+<pm xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <!-- PM structure for AMM ATA 51 to be defined per S1000D Issue 6.0 standards -->
+</pm>

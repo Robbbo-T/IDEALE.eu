@@ -1,0 +1,10 @@
+# S1000D Publishing Policy
+publication_workflow:
+  - dmrl_verification
+  - baseline_creation
+  - package_generation
+  - checksum_validation
+output_formats:
+  - pdf
+  - html5
+  - ietm

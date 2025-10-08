@@ -1,0 +1,7 @@
+{
+  "domain": "AAA",
+  "system": "57-WING-STRUCTURES",
+  "subSystem": "57-40",
+  "utcsPattern": "UTCS-MI:AAA:CAS:57-57-40:{artifact}:rev[X]",
+  "artifacts": []
+}
