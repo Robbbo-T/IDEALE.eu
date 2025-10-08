@@ -35,6 +35,7 @@ Files follow DMC pattern with info code 00UA (Common Information):
 ```
 DMC-AMP360-AAA-00-00-00-00A-00UA-A_en-001-00.xml
 ```
+IETP example: [https://g.co/gemini/share/dc828d58b25e](https://g.co/gemini/share/dc828d58b25e)
 
 ## Content Organization
 
