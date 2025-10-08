@@ -1,0 +1,52 @@
+---
+# Domain Configuration for 06-00-GENERAL
+# ATA Chapter 06: Dimensions and Stations - General Documentation
+
+system:
+  id: "06-00-GENERAL"
+  name: "Dimensions and Stations General Documentation"
+  ata_chapter: "06"
+  ata_section: "06-00"
+  domain: "AAA"
+  project: "AMPEL360-AIR-T"
+
+scope:
+  description: "General governance, standards, and cross-cutting documentation for all dimensional and station-related systems"
+  type: "general_governance"
+
+tfa_flow:
+  enabled: true
+  phases:
+    - QS  # Quantum Superposition State
+    - FWD # Forward Wave Dynamics
+    - UE  # Unit/Unique Element
+    - FE  # Federation Entanglement
+    - CB  # Classical Bit/Solver
+    - QB  # Qubit Inspired Solver
+
+interfaces:
+  internal:
+    - "06-10-REFERENCE-FRAME"
+    - "06-20-STATIONING-MAPS"
+    - "06-30-EXTERNAL-ENVELOPE"
+    - "06-40-GROUND-CLEARANCES"
+    - "06-50-MAINTENANCE-ACCESS-ZONES"
+    - "06-60-ZONE-NUMBERING"
+  external:
+    - "53-XX-FUSELAGE-STRUCTURES"
+    - "57-XX-WING-STRUCTURES"
+    - "55-XX-STABILIZERS"
+    - "LCC-LANDING-GEAR"
+    - "PPP-PROPULSION"
+
+compliance:
+  standards:
+    - "CS/FAR-25.25"
+    - "CS/FAR-25.27"
+    - "CS/FAR-25.29"
+    - "ISO 1151"
+    - "ISO 5843"
+    - "DO-160"
+
+status: "in_development"
+last_updated: "2025-01-27"
