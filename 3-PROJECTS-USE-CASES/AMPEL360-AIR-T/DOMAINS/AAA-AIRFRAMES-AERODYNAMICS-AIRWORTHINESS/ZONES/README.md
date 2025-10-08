@@ -53,6 +53,16 @@ Sub-zones:
 - `53-10-CENTER-BODY/` — Central fuselage section and wing carry-through ✓
 - Additional sub-zones to be defined (forward section, aft section, etc.)
 
+### 54-NACELLES-PYLONS/
+**ATA Chapter 54** - Nacelles and Pylons (shared with PPP domain)
+
+Sub-zones:
+- `54-00-GENERAL/` — Zone governance, HAZOP/FTA, requirements matrices ✓
+- `54-10-NACELLE-STRUCTURE/` — Inlet, fan cowl, outer barrel, access doors ✓
+- `54-20-PYLON-STRUT/` — Primary/secondary load paths, engine mounts ✓
+- `54-30-THRUST-REVERSER-STRUCTURE/` — TR structural elements (interfaces with ATA 78/PPP) ✓
+- `54-40-FIRE-THERMAL-ACOUSTICS/` — Firewalls, thermal blankets, acoustic liners ✓
+
 ### 57-WING-STRUCTURES/
 **ATA Chapter 57** - Wing structures and aerodynamic surfaces
 
@@ -70,7 +80,7 @@ According to [ata-chapters.csv](../../../../1-DIMENSIONS/CANONICAL-TAXONOMY/ata-
 - **51** - Standard Practices and Structures ✓ (implemented)
 - **52** - Doors ✓ (implemented)
 - **53** - Fuselage ✓ (implemented)
-- **54** - Nacelles/Pylons (shared with PPP)
+- **54** - Nacelles/Pylons (shared with PPP) ✓ (implemented)
 - **55** - Stabilizers
 - **56** - Windows
 - **57** - Wings ✓ (implemented)
