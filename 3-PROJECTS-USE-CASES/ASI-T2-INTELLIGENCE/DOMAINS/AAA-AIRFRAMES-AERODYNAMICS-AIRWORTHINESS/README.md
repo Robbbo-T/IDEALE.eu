@@ -1,54 +1,58 @@
-# AAA-AIRFRAMES-AERODYNAMICS-AIRWORTHINESS
+# AAA — AIRFRAMES · AERODYNAMICS · AIRWORTHINESS
 
-> **Part of**: ASI-T2-INTELLIGENCE | **Domain**: AAA  
-> **Category**: Knowledge Domain  
-> **Status**: Template · **UTCS-anchored**
+**Part of:** ASI-T2-INTELLIGENCE · **Domain:** AAA · **Category:** Knowledge Domain  
+**Status:** Template · UTCS-anchored
 
 ---
 
 ## Overview
 
-This domain folder contains all technical documentation, models, and compliance evidence related to **structural design, aerodynamic performance, and airworthiness certification** for the ASI-T2-INTELLIGENCE platform.
+This domain curates the theoretical knowledge for **airframe structures, aerodynamic performance, and airworthiness certification**. It serves as a **knowledge base** (ontologies, methods, standards, models, playbooks) that **informs and governs** program deliverables via PLM/CAx skills and MAP services.
+
+Scope includes metal/composite primary structure, aero/loads, flutter, stability & control, fatigue/damage tolerance, certification basis, and structural repair & maintenance engineering.
 
 ---
 
-## Domain Definition
+## Domain Definition (Canon)
 
-**DOMAINS represent areas of theoretical knowledge and specialization** (ontologies, methods, models, standards, playbooks). They are **not** project deliverables; instead they **inform** and **govern** deliverables via CAx skills and MAP services.
+**DOMAINS** represent areas of **theoretical knowledge and specialization**. They are **not** program deliverables; they regulate them through PLM/CAx competencies and MAP orchestration.
 
 ---
 
-## Directory Structure
+## Directory Structure (canon paths)
 
 ```
 
 AAA-AIRFRAMES-AERODYNAMICS-AIRWORTHINESS/
-├─ DELs/              # Certification and compliance deliverables
-├─ PLM/               # Product Lifecycle Management data
-│  ├─ CAD/            # Geometric design (Computer-Aided Design)
-│  ├─ CAE/            # Engineering analysis (Computer-Aided Engineering)
-│  ├─ CAO/            # Requirements optimization (Computer-Aided Optimization)
-│  ├─ CAM/            # Manufacturing planning (Computer-Aided Manufacturing)
-│  ├─ CAI/            # Interface coordination (Computer-Aided Integration)
-│  ├─ CAV/            # Verification & validation (Computer-Aided Verification)
-│  ├─ CAS/            # Operational support (Computer-Aided Service)
-│  └─ CMP/            # Program management (Computer-Aided Management Planning)
-├─ QUANTUM_OA/        # Quantum-inspired optimization algorithms
-│  ├─ GA/             # Genetic Algorithms
-│  ├─ LP/             # Linear Programming
-│  ├─ MILP/           # Mixed-Integer Linear Programming
-│  ├─ QAOA/           # Quantum Approximate Optimization Algorithm
-│  ├─ QOX/            # Quantum Optimization Experimental
-│  ├─ QP/             # Quadratic Programming
-│  ├─ QUBO/           # Quadratic Unconstrained Binary Optimization
-│  └─ SA/             # Simulated Annealing
-├─ PROCUREMENT/       # Vendor and component procurement information
-│  └─ VENDORSCOMPONENTS/
-├─ SUPPLIERS/         # Supplier contracts and services
-│  ├─ BIDS/
-│  └─ SERVICES/
-├─ policy/            # Domain-specific policies and guidelines
-└─ tests/             # Domain test data and validation
+DELS/                  # Certification & compliance deliverables (LLC-scoped)
+PLM/
+CAD/                 # Geometric design (Computer-Aided Design)
+CAE/                 # Engineering analysis (FEM/CFD/loads/Flutter)
+CAO/                 # Requirements optimization (targets, trade trees)
+CAM/                 # Manufacturing planning (layup, machining, assembly)
+CAI/                 # Interface coordination (pylon, systems, cabin)
+CAV/                 # Verification & validation (tests, MoCs, signoffs)
+CAS/                 # Operational support (SRM, inspections, MRO)
+CMP/                 # Strategic governance (basis, MoC plan, risks)
+QUANTUM_OA/
+GA/                  # Genetic Algorithms
+LP/                  # Linear Programming
+MILP/                # Mixed-Integer Linear Programming
+QAOA/                # Quantum Approximate Optimization Algorithm
+QOX/                 # Quantum Optimization Experimental
+QP/                  # Quadratic Programming
+QUBO/                # Quadratic Unconstrained Binary Optimization
+SA/                  # Simulated Annealing
+PROCUREMENT/
+VENDORSCOMPONENTS/   # Material allowables, fasteners, test coupons
+SUPPLIERS/
+BIDS/                # Supplier bids and proposals
+SERVICES/            # Static/fatigue test labs, NDI/NDT
+policy/                # Domain-specific policies and guidelines
+tests/                 # Domain test data and validation artifacts
+utcs.json              # UTCS threading configuration
+META.json              # Domain metadata
+domain-config.yaml     # Domain configuration
 
 ```
 
@@ -60,29 +64,27 @@ Each CAx subfolder supports specific agentic skills:
 
 | PLM/CAx | Agentic Skill | Purpose in AAA Domain |
 | :--- | :--- | :--- |
-| **CAD** | Geometric Interpretation Skill | Airframe geometry, parametric design, assemblies |
-| **CAE** | Predictive Modeling Skill | Structural FEM, CFD aerodynamics, flutter analysis |
-| **CAO** | Requirements Synthesis Skill | Airworthiness requirements, performance targets |
-| **CAM** | Manufacturing Synthesis Skill | Composite layup, machining, assembly planning |
-| **CAI** | Interface Coordination Skill | Structure-propulsion, structure-systems interfaces |
-| **CAV** | Verification & Auditing Skill | CS-25 compliance, structural testing, certification |
-| **CAS** | Operational Forecasting Skill | Structural maintenance, repair procedures, SRM |
-| **CMP** | Strategic Governance Skill | Airframe program management, certification strategy |
+| **CAD** | Geometric Interpretation Skill | Parametric airframe geometry, assemblies, splice/joint features |
+| **CAE** | Predictive Modeling Skill | FEM (strength, buckling), CFD/ROM (aero), aeroelastic/Flutter |
+| **CAO** | Requirements Synthesis Skill | Airworthiness & performance targets, loads envelopes, trade studies |
+| **CAM** | Manufacturing Synthesis Skill | Composite layup plans, ply books, machining, assembly sequencing |
+| **CAI** | Interface Coordination Skill | Structure–propulsion (pylon), systems mounts, cabin/door cutouts |
+| **CAV** | Verification & Auditing Skill | CS-25/FAR-25 compliance, static/fatigue tests, analysis MoCs |
+| **CAS** | Operational Forecasting Skill | Inspection intervals, SRM repairs, damage growth predictions |
+| **CMP** | Strategic Governance Skill | Certification basis, MoCs, risk & capital planning |
 
 ---
 
 ## TFA Flow Integration
 
-This domain integrates with the full TFA canonical flow:
-
 | TFA Stage | AAA Domain Activities |
 | :--- | :--- |
-| **QS** (Quantum Superposition) | Explore airframe configurations, structural concepts, materials |
-| **FWD** (Forward Wave Dynamics) | Predict fatigue life, aerodynamic performance, certification timeline |
-| **UE** (Unit/Unique Element) | Capture design baselines, as-built configurations, test articles |
-| **FE** (Federation Entanglement) | Coordinate with PPP (propulsion), CCC (cabin), LCC (controls) |
-| **CB** (Classical Bit/Solver) | Validate against CS-25 requirements, structural limits, aero constraints |
-| **QB** (Qubit-Inspired Solver) | Optimize structural weight, aerodynamic efficiency, topology |
+| **QS** (Quantum Superposition) | Explore configurations (wing planform, tail sizing, materials) |
+| **FWD** (Forward Wave Dynamics) | Predict loads/fatigue life, aero performance, schedule/cert timelines |
+| **UE** (Unit/Unique Element) | Capture baselines, test articles, MSN as-built/repair snapshots |
+| **FE** (Federation Entanglement) | Coordinate with PPP (pylons/bleed), MEC (doors/kinematics), LCC (controls) |
+| **CB** (Classical Bit/Solver) | Validate CS-25 limits/margins, aero/structural constraints |
+| **QB** (Qubit-Inspired Solver) | Optimize weight, aero efficiency, topology & laminate stacks |
 
 ---
 
@@ -96,50 +98,86 @@ UTCS-MI:AAA:{plm_type}:{artifact}:rev
 
 ```
 
-**Example**:
+**Examples**
 ```
 
 UTCS-MI:AAA:CAE:WING-STRESS-ANALYSIS:rev
+UTCS-MI:AAA:CAE:FLUTTER-CLEARANCE:rev
+UTCS-MI:AAA:CAO:LOADS-ENVELOPE-REQS:rev
+UTCS-MI:AAA:CAD:FUSELAGE-FRAMESET:rev
 
 ```
+
+### UTCS Threading Components
+- **Context**: Aircraft class, flight envelope, materials system
+- **Content**: Loads cases, FEM/CFD models, MoC plans, allowables
+- **Cache**: Test data, allowables versions, historical margins
+- **Structure**: CS-25/ARP4754A/4761 hierarchy, ATA chapters, ICDs
+- **Style**: Certification documentation conventions (EASA/FAA)
+- **Sheet**: API schemas for loads, FEM, and test evidence interchange
 
 ---
 
 ## Related Services
 
-- **[MAP-AAA](../../MAP-SERVICES/MAP-AAA/)** — Domain orchestration service  
-- **[MAL-SERVICES](../../MAL-SERVICES/)** — TFA computational services  
-- **[MAP-PPP](../../MAP-SERVICES/MAP-PPP/)** — Propulsion domain (pylon integration)  
-- **[MAP-CCC](../../MAP-SERVICES/MAP-CCC/)** — Cabin domain (interior structure)
+- **MAP-AAA** — Domain orchestration service  
+- **MAL-SERVICES** — TFA computational services (QS/FWD/UE/FE/CB/QB)  
+- **MAP-PPP** — Propulsion (pylon loads & interfaces)  
+- **MAP-CCC** — Cabin (interior structure, cutouts)
 
 ---
 
-## Quantum Optimization (QUANTUM_OA)
+## QUANTUM_OA — Problems ⇄ Formulations ⇄ Algorithms
 
-This domain uses quantum-inspired optimization for:
-- Structural topology optimization
-- Aerodynamic shape optimization
-- Weight-stiffness trade-offs
-- Multi-objective design optimization
+| Specific Problem | Typical Formulation | Algorithm(s) | Minimum Inputs | Outputs | Key Metrics |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **Structural Topology (wing/rib/spar)** | Compliance/volume **QP/NLP** with density vars (TO) | QP/NLP, GA, SA | Load cases, material props, volume/bounds | Density/geometry field, weight | Mass (kg), compliance, min gage |
+| **Laminate & Ply Angle Stacking** | Mixed-integer **MILP/QP** | MILP, GA | Ply candidates, manufacturing rules | Ply sequence, thickness | Strength margins, manufacturability |
+| **Aero Shape Optimization** | Drag min **NLP** (adjoint), constraints on CL/CM | NLP, GA | Mesh/ROM, mission points | Updated surface/ROM coeffs | CD, CL targets, buffet margin |
+| **Flutter Clearance & Mode Separation** | Eigenvalue-constrained **QP/NLP** | QP/NLP | Mass/stiffness/aero kernels | Stiffness/tuning updates | V_f/V_d ratio, damping margin |
+| **Global Loads Allocation** | Multi-case **LP/QP** | LP/QP | Maneuver/gust set, mass props | Critical case set, envelope | Peak forces/moments, coverage |
+| **Repair Optimization (SRM)** | Precedence/scheduling **MILP** | MILP, SA | Damage map, resources, access | Repair plan & intervals | Turnaround (h), residual life |
+| **Door/Window Cutout Reinforcement** | Weight min **QP** under stress/buckle | QP | Cutout geom, margins | Reinforcement sizing | Margin ≥ 0, Δmass |
+| **Joint/Fastener Pattern Selection** | Discrete pattern **QUBO/MILP** | QUBO, MILP | Load paths, catalogs | Pattern & sizes | Bearing/bypass margin, count |
 
-Available algorithms: GA, LP, MILP, QAOA, QOX, QP, QUBO, SA
+> Quantum-ready cues: large discrete catalogs (>20k fasteners/plies), high-dimensional aero shapes, or combinatorial repair scheduling.
+
+---
+
+## Variables / Constraints / Objectives
+
+### Key Variables
+- **Binary**: Ply presence, fastener selection, panel/joint option picks  
+- **Integer**: Ply counts, stiffener spacing indices, repair steps  
+- **Continuous**: Thicknesses, ply angles (relaxed), control points, mode tuning scalars
+
+### Common Constraints
+- **Structural**: Stress/buckle ≥ 0 margin; displacement limits; joint/B-B margins  
+- **Aero/Aeroelastic**: CL/CM/balance; buffet/trim; flutter damping ≥ req.  
+- **Certification**: CS-25.301/.303/.305, DT/Fatigue per .571; MoC traceability  
+- **Manufacturing**: Min gage, ply drop rules, curvature & tool reach
+
+### Typical Objectives
+- Minimize structural mass / drag / manufacturing cost  
+- Maximize margins to limit load / flutter speed / fatigue life  
+- Minimize cycle time for repairs and test programs
 
 ---
 
 ## Airworthiness Focus
 
-AAA domain is primary owner of:
-- **CS-25 / FAR-25**: Large aircraft airworthiness
-- **Structural Integrity**: Strength, fatigue, damage tolerance
-- **Aerodynamic Performance**: Stability, control, performance guarantees
-- **Certification Basis**: Type Certificate Data Sheet (TCDS)
+AAA is primary owner for:
+- **CS-25 / FAR-25** (strength, structural integrity, aero/stability)  
+- **Damage Tolerance & Fatigue** (analysis + test)  
+- **Aero Performance & Handling** (stability/control, flutter)  
+- **Certification Basis & MoCs** (TCDS alignment, conformity & reports)
 
 ---
 
 ## Procurement & Suppliers
 
-- **PROCUREMENT/**: Structural materials, fasteners, composite materials
-- **SUPPLIERS/**: OEM suppliers, material vendors, testing services
+- **PROCUREMENT/**: Materials, allowables, fasteners, test coupons & fixtures  
+- **SUPPLIERS/**: Structural test labs, NDI/NDT, composite kitters, machining
 
 ---
 
