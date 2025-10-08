@@ -33,7 +33,7 @@ DMC-AMP360-AAA-06-10-00-00A-{INFO_CODE}-A_en-001-00.xml
 Examples:
 - `DMC-AMP360-AAA-06-10-00-00A-000A-A_en-001-00.xml` (Procedural)
 - `DMC-AMP360-AAA-06-10-00-00A-00GA-A_en-001-00.xml` (Descriptive)
-- `DMC-AMP360-AAA-06-10-00-00A-04DA-A_en-001-00.xml` (Fault Isolation)
+- `DMC-AMP360-AAA-06-10-00-00A-04DA-A_en-001-00.xml` (Fault Isolation) IETP Example [https://g.co/gemini/share/b957090832ca](https://g.co/gemini/share/b957090832ca)
 
 ## S1000D Requirements
 
