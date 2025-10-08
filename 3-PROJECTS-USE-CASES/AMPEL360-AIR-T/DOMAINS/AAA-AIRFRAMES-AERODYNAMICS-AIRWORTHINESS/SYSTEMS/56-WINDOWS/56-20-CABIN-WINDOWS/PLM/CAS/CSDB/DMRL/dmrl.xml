@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Data Module Requirements List (DMRL) placeholder -->
+<!-- This file defines which Data Modules are required for publication -->
+<!-- To be populated during S1000D authoring -->
+<dmodule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <!-- DMRL structure to be defined per S1000D Issue 6.0 standards -->
+</dmodule>

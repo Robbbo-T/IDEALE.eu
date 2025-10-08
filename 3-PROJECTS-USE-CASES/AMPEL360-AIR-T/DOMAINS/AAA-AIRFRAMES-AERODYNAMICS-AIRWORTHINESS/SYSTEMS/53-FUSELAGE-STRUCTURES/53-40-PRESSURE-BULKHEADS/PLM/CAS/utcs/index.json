@@ -1,0 +1,7 @@
+{
+  "domain": "AAA",
+  "system": "53-FUSELAGE-STRUCTURES",
+  "subSystem": "53-40",
+  "utcsPattern": "UTCS-MI:AAA:CAS:53-53-40:{artifact}:rev[X]",
+  "artifacts": []
+}

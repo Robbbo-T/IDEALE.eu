@@ -1,0 +1,10 @@
+# S1000D Content Acceptance Policy
+validation_stages:
+  - xsd_validation
+  - schematron_validation
+  - brex_validation
+  - dmrl_check
+quality_gates:
+  - technical_review
+  - language_review
+  - illustration_review

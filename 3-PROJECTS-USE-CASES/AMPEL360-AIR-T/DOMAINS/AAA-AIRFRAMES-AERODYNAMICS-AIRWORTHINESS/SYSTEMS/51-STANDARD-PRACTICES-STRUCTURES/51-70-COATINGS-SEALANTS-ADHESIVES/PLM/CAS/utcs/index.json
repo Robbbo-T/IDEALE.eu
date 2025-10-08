@@ -1,0 +1,7 @@
+{
+  "domain": "AAA",
+  "system": "51-STANDARD-PRACTICES-STRUCTURES",
+  "subSystem": "51-70",
+  "utcsPattern": "UTCS-MI:AAA:CAS:51-51-70:{artifact}:rev[X]",
+  "artifacts": []
+}

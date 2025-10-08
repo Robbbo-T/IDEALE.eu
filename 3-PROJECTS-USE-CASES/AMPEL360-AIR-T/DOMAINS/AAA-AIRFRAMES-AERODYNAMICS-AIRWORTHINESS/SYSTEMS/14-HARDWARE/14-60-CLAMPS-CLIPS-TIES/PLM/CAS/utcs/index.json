@@ -1,0 +1,7 @@
+{
+  "domain": "AAA",
+  "system": "14-HARDWARE",
+  "subSystem": "14-60",
+  "utcsPattern": "UTCS-MI:AAA:CAS:14-14-60:{artifact}:rev[X]",
+  "artifacts": []
+}

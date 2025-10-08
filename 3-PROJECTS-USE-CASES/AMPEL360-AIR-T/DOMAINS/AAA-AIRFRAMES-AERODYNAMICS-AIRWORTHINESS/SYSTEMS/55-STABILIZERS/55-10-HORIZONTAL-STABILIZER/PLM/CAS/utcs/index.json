@@ -1,0 +1,7 @@
+{
+  "domain": "AAA",
+  "system": "55-STABILIZERS",
+  "subSystem": "55-10",
+  "utcsPattern": "UTCS-MI:AAA:CAS:55-55-10:{artifact}:rev[X]",
+  "artifacts": []
+}

@@ -1,0 +1,8 @@
+# S1000D Metadata Requirements Policy
+required_ids_fields:
+  - responsiblePartnerCompany
+  - security
+  - issueInfo
+  - language
+  - qualityAssurance
+fail_on_missing: true

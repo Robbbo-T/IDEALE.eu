@@ -1,0 +1,7 @@
+{
+  "domain": "AAA",
+  "system": "50-CARGO-ACCESSORY-COMPARTMENTS",
+  "subSystem": "50-80",
+  "utcsPattern": "UTCS-MI:AAA:CAS:50-50-80:{artifact}:rev[X]",
+  "artifacts": []
+}

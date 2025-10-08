@@ -1,0 +1,7 @@
+{
+  "domain": "AAA",
+  "system": "56-WINDOWS",
+  "subSystem": "56-20",
+  "utcsPattern": "UTCS-MI:AAA:CAS:56-56-20:{artifact}:rev[X]",
+  "artifacts": []
+}

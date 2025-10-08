@@ -1,0 +1,8 @@
+# S1000D Security Classification Policy
+default_classification: public
+allowed_classifications:
+  - public
+  - internal
+  - confidential
+  - restricted
+access_control: role_based

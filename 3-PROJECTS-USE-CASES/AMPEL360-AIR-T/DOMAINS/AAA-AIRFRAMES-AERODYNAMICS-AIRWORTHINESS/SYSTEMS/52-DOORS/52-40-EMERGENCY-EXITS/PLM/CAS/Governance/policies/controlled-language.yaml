@@ -1,0 +1,5 @@
+# S1000D Controlled Language Policy
+language_standard: ASD-STE100
+compliance_level: mandatory
+verification_tool: required
+exceptions_process: documented_approval
