@@ -22,6 +22,8 @@ ACT is defined as a special Data Module with:
 ```
 DMC-AMP360-AAA-00-00-00-00A-022A-A_en-001-00.xml
 ```
+IETP Example: [https://g.co/gemini/share/40f7dd219838](https://g.co/gemini/share/40f7dd219838)
+
 
 Info Code 022A = Applicability Cross-reference Table
 
