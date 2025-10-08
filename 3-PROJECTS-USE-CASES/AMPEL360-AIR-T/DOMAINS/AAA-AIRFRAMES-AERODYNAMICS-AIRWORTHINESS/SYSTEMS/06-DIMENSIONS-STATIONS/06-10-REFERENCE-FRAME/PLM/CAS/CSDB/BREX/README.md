@@ -22,6 +22,9 @@ Unlike other validation artifacts, BREX is itself a **Data Module** with:
 
 **File**: `DMC-AMP360-AAA-00-00-00-00A-000A-A_en-US_001-00.xml`
 
+
+IETP example: [(https://g.co/gemini/share/42be727bee5c](https://g.co/gemini/share/42be727bee5c)
+
 This BREX DM defines validation rules for:
 - AMP360 enterprise code
 - DMC naming patterns
