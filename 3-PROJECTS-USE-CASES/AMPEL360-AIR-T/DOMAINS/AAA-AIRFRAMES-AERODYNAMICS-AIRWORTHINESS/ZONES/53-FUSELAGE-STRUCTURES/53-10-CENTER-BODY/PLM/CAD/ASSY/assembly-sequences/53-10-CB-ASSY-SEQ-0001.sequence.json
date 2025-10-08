@@ -1,0 +1,232 @@
+{
+  "utcs_header": {
+    "utcs_id": "UTCS-MI:AAA:CAD:ASSY:SEQ:53-10-CB-0001:rev[A]",
+    "timestamp": "2025-01-27T12:00:00Z",
+    "kpi_emit": {
+      "takt_time_sec": 2400,
+      "ctq_pass_rate": 0.97
+    }
+  },
+  "assy_code": "53-10-CB-0001",
+  "title": "53-10 Center Body — Assembly Sequence 0001",
+  "revision": "A",
+  "bom_ref": [
+    "UTCS-MI:AAA:BOM:53-10-CB:rev[A]",
+    "UTCS-MI:AAA:CAD:ASSY:SA:FRAME-SECTION-001:rev[A]"
+  ],
+  "graph": {
+    "nodes": [
+      {
+        "id": "S010",
+        "label": "Jig & datum alignment"
+      },
+      {
+        "id": "S020",
+        "label": "Tack & clamp sequence A"
+      },
+      {
+        "id": "S030",
+        "label": "Torque rows 1–4 (12 N·m)"
+      },
+      {
+        "id": "S040",
+        "label": "Clearance scan (DMU-0053)"
+      }
+    ],
+    "edges": [
+      {
+        "from": "S010",
+        "to": "S020"
+      },
+      {
+        "from": "S020",
+        "to": "S030"
+      },
+      {
+        "from": "S030",
+        "to": "S040"
+      }
+    ]
+  },
+  "steps": [
+    {
+      "id": "S010",
+      "name": "Jig & datum alignment",
+      "parts": [
+        {
+          "pn": "CB-PANEL-A",
+          "qty": 1,
+          "loc": "STN-53-10"
+        }
+      ],
+      "tools": [
+        {
+          "type": "fixture_jig",
+          "asset_id": "JIG-CB-03"
+        },
+        {
+          "type": "laser_tracker",
+          "asset_id": "LT-07",
+          "calibration_date": "2024-11-15"
+        }
+      ],
+      "process": {
+        "parameters": {
+          "clamp_force_kN": 4.5,
+          "delta_T_C": 2.0
+        }
+      },
+      "checks": [
+        {
+          "type": "measurement",
+          "criterion": "Datum offset ≤ 0.20 mm",
+          "moc_ref": "CAV-DATUM-CB-01"
+        }
+      ],
+      "time_sec": 600,
+      "skill": "A&P",
+      "notes": "Seat datum pins; verify thermal delta."
+    },
+    {
+      "id": "S020",
+      "name": "Tack & clamp sequence A",
+      "predecessors": [
+        "S010"
+      ],
+      "parts": [
+        {
+          "pn": "CLECO-3/16",
+          "qty": 40,
+          "loc": "ROW-A"
+        }
+      ],
+      "process": {
+        "parameters": {
+          "sequence": "A",
+          "clamp_spacing_mm": 150
+        }
+      },
+      "checks": [
+        {
+          "type": "visual",
+          "criterion": "No gap > 0.5 mm"
+        }
+      ],
+      "time_sec": 900
+    },
+    {
+      "id": "S030",
+      "name": "Torque rows 1–4",
+      "predecessors": [
+        "S020"
+      ],
+      "parts": [
+        {
+          "pn": "HLU-5-6",
+          "qty": 64,
+          "loc": "ROWS-1-4"
+        }
+      ],
+      "tools": [
+        {
+          "type": "powered_torque_wrench",
+          "torque_Nm": 12.0,
+          "calibration_date": "2025-01-10",
+          "asset_id": "TW-118"
+        }
+      ],
+      "process": {
+        "parameters": {
+          "tolerance_Nm": 0.6
+        }
+      },
+      "checks": [
+        {
+          "type": "torque",
+          "criterion": "12.0 ± 0.6 N·m",
+          "moc_ref": "CAV-TORQUE-CB-12Nm"
+        },
+        {
+          "type": "measurement",
+          "criterion": "Fastener protrusion ≤ 0.4 mm"
+        }
+      ],
+      "time_sec": 600
+    },
+    {
+      "id": "S040",
+      "name": "Clearance scan (DMU-0053)",
+      "predecessors": [
+        "S030"
+      ],
+      "parts": [],
+      "tools": [
+        {
+          "type": "structured_light_scanner",
+          "asset_id": "SLS-03",
+          "calibration_date": "2024-10-20"
+        }
+      ],
+      "process": {
+        "parameters": {
+          "dmu_id": "ASM-AAA-ONB-DMU-0053"
+        }
+      },
+      "checks": [
+        {
+          "type": "measurement",
+          "criterion": "min_clearance ≥ 8.0 mm",
+          "moc_ref": "ASM-AAA-ONB-DMU-0053"
+        }
+      ],
+      "time_sec": 300,
+      "notes": "On pass, trigger UE emission."
+    }
+  ],
+  "resources": {
+    "tools": [
+      "TW-118",
+      "LT-07",
+      "SLS-03"
+    ],
+    "fixtures": [
+      "JIG-CB-03"
+    ],
+    "consumables": [
+      "CLECO-3/16"
+    ]
+  },
+  "quality": {
+    "ctq": [
+      "datum_alignment",
+      "torque_rows_1_4",
+      "min_clearance_8mm"
+    ],
+    "moc_refs": [
+      "CAV-DATUM-CB-01",
+      "CAV-TORQUE-CB-12Nm",
+      "ASM-AAA-ONB-DMU-0053"
+    ]
+  },
+  "safety": {
+    "ppe": [
+      "gloves",
+      "eye_protection",
+      "hearing_protection"
+    ],
+    "hazards": [
+      "pinch_points",
+      "noise"
+    ]
+  },
+  "provenance": {
+    "generator": "assy-gen/1.4.0",
+    "git_commit": "f39cab7",
+    "sha256": "TBD",
+    "inputs": [
+      "main-assembly.step",
+      "SA:FRAME-SECTION-001",
+      "ASM-AAA-ONB-DMU-0053"
+    ]
+  }
+}
