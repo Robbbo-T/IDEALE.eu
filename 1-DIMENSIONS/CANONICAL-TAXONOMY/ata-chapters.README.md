@@ -180,7 +180,7 @@ DOMAINS/
 │     │     └─ domain-config.yaml
 ```
 
-> **See**: [TFA-DOMAIN-HIERARCHY.md](../../../3-PROJECTS-USE-CASES/AMPEL360-AIR-MANNED/DOMAINS/TFA-DOMAIN-HIERARCHY.md) for detailed explanation of this pattern.
+> **See**: [TFA-DOMAIN-HIERARCHY.md](../../../3-PROJECTS-USE-CASES/AMPEL360-AIR-T/DOMAINS/TFA-DOMAIN-HIERARCHY.md) for detailed explanation of this pattern.
 
 ## Cross-Domain Workflows
 

@@ -1,7 +1,0 @@
-# Configuration file for 14-80-ADHESIVES-SEALERS-HARDWARE
-# This file is intentionally minimal to allow inheritance from domain-level configuration
-
-ata_chapter: 14
-sub_zone: 14-80-ADHESIVES-SEALERS-HARDWARE
-domain: AAA
-project: AMPEL360-AIR-MANNED

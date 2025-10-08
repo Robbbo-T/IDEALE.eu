@@ -1,7 +1,0 @@
-# Configuration file for 14-30-RIVETS-PINS
-# This file is intentionally minimal to allow inheritance from domain-level configuration
-
-ata_chapter: 14
-sub_zone: 14-30-RIVETS-PINS
-domain: AAA
-project: AMPEL360-AIR-MANNED

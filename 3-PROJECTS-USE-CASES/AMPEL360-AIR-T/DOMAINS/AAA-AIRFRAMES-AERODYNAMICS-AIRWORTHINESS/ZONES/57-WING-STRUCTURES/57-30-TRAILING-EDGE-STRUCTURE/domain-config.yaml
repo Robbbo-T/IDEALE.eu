@@ -1,0 +1,38 @@
+# Domain Configuration - 57-30-TRAILING-EDGE-STRUCTURE
+# ATA Chapter 57 - Wing Structures
+# Trailing edge structure
+
+ata:
+  chapter: "57"
+  section: "57-30"
+  name: "Wing Structures"
+  subsystem: "Trailing edge structure"
+
+domain:
+  code: "AAA"
+  name: "Airframes, Aerodynamics, Airworthiness"
+  project: "AMPEL360-AIR-T"
+
+utcs:
+  scope: "instance"
+  anchor: "utcs://ampel360/aaa/57/57-30/wing-structure"
+
+compliance:
+  standards:
+    - "EASA CS-25"
+    - "FAA 14 CFR Part 25"
+  certifications:
+    - "Type Certificate"
+    - "Production Certificate"
+
+tfa:
+  flow: "QS → FWD → UE → FE → CB → QB"
+  quantum_enabled: true
+
+status:
+  phase: "development"
+  completeness: "structure-defined"
+
+maintainer:
+  team: "AAA Integration Team"
+  contact: "aaa-integration@ampel360.eu"

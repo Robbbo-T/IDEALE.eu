@@ -2,7 +2,7 @@
 set -Eeuo pipefail
 
 # --------- CONFIG ---------
-BASE="3-PROJECTS-USE-CASES/AMPEL360-AIR-MANNED/DOMAINS/AAA-AIRFRAMES-AERODYNAMICS-AIRWORTHINESS/PLM/CAD/ASSY/sub-assemblies/wing-structure"
+BASE="3-PROJECTS-USE-CASES/AMPEL360-AIR-T/DOMAINS/AAA-AIRFRAMES-AERODYNAMICS-AIRWORTHINESS/PLM/CAD/ASSY/sub-assemblies/wing-structure"
 # -------------------------
 
 mkdir -p "$BASE"/{models,boms,icd,handling-and-lifting,fastener-schedules,tolerance-stackups,resolution-logs,thumbnails,utcs}

@@ -1,0 +1,7 @@
+# Configuration file for 14-50-INSERTS-BUSHINGS-ANCHORS
+# This file is intentionally minimal to allow inheritance from domain-level configuration
+
+ata_chapter: 14
+sub_zone: 14-50-INSERTS-BUSHINGS-ANCHORS
+domain: AAA
+project: AMPEL360-AIR-T
