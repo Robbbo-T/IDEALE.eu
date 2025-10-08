@@ -15,16 +15,17 @@ This hierarchical repetition is **intentional** — it reflects the TFA governan
 
 ## Structure Pattern
 
-### For AAA (Structural Domains) - Use ZONES/
+### For AAA (Structural Domains) - Use SYSTEMS/
 
 ```
 AAA-AIRFRAMES-AERODYNAMICS-AIRWORTHINESS/
-└─ ZONES/
+└─ SYSTEMS/
 │  ├─ 06-DIMENSIONS-STATIONS/
 │  │  └─ 06-10-REFERENCE-FRAME/          ← BEZ applied here
 │  │     ├─ DELs/
 │  │     ├─ PAx/
 │  │     ├─ PLM/
+│  │     ├─ PROCUREMENT-VENDORSCOMPONENTS/
 │  │     ├─ QUANTUM_OA/
 │  │     ├─ SUPPLIERS/
 │  │     ├─ policy/
@@ -49,7 +50,7 @@ AAA-AIRFRAMES-AERODYNAMICS-AIRWORTHINESS/
 │  │  └─ 57-30-TRAILING-EDGE/            ← BEZ applied here
 │  │     └─ {Full BEZ structure}
 │  │
-│  └─ README.md                           ← Zone index only
+│  └─ README.md                           ← System index only
 │
 ├─ README.md                              ← Domain overview only
 └─ domain-config.yaml                     ← Domain-level config only
@@ -64,6 +65,7 @@ PPP-PROPULSION-FUEL-SYSTEMS/
 │  │  ├─ DELs/
 │  │  ├─ PAx/
 │  │  ├─ PLM/
+│  │  ├─ PROCUREMENT-VENDORSCOMPONENTS/
 │  │  ├─ QUANTUM_OA/
 │  │  ├─ SUPPLIERS/
 │  │  ├─ policy/

@@ -6,7 +6,7 @@ This guide provides step-by-step instructions for implementing new ATA chapter s
 
 1. Identify the ATA chapter number (01-100)
 2. Check [ata-chapters.csv](../../../1-DIMENSIONS/CANONICAL-TAXONOMY/ata-chapters.csv) for domain assignment
-3. Understand if the domain uses ZONES/ (AAA only) or SYSTEMS/ (all others)
+3. Understand that all domains now use SYSTEMS/ organization
 
 ## Step-by-Step Process
 
@@ -29,9 +29,9 @@ Example domain directories:
 **For AAA domain (structural):**
 ```
 AAA-AIRFRAMES-AERODYNAMICS-AIRWORTHINESS/
-└─ ZONES/
+└─ SYSTEMS/
    └─ [ATA-CHAPTER-NAME]/
-      └─ [SUB-ZONE]/  ← BEZ applied here
+      └─ [SUB-SYSTEM]/  ← BEZ applied here
 ```
 
 **For all other domains (functional):**
@@ -43,14 +43,14 @@ AAA-AIRFRAMES-AERODYNAMICS-AIRWORTHINESS/
 
 ### Step 3: Create Directory Structure
 
-#### For AAA (with sub-zones):
+#### For AAA (with sub-systems):
 ```bash
-cd DOMAINS/AAA-AIRFRAMES-AERODYNAMICS-AIRWORTHINESS/ZONES
+cd DOMAINS/AAA-AIRFRAMES-AERODYNAMICS-AIRWORTHINESS/SYSTEMS
 
-# Create zone and sub-zone
+# Create system and sub-system
 mkdir -p 52-DOORS/52-10-PASSENGER-DOORS
 
-# Navigate to sub-zone
+# Navigate to sub-system
 cd 52-DOORS/52-10-PASSENGER-DOORS
 ```
 
@@ -67,14 +67,14 @@ cd 28-FUEL-SYSTEMS
 
 ### Step 4: Create BEZ Structure
 
-Run this command from within your sub-zone or system directory:
+Run this command from within your sub-system or system directory:
 
 ```bash
 # Create all BEZ directories
 mkdir -p DELs/{EASA-submissions,MoC-records,airworthiness-statements,data-packages,final-design-reports}
 mkdir -p PAx/{ONB,OUT}
 mkdir -p PLM/{CAD,CAE,CAI,CAM,CAO,CAP,CAS,CAV,CMP}
-mkdir -p PROCUREMENT/VENDORSCOMPONENTS
+mkdir -p PROCUREMENT-VENDORSCOMPONENTS
 mkdir -p QUANTUM_OA/{GA,LP,MILP,QAOA,QOX,QP,QUBO,SA}
 mkdir -p SUPPLIERS/{BIDS,SERVICES}
 mkdir -p policy tests
@@ -192,9 +192,9 @@ EOF
 
 ### Step 7: Update Parent README
 
-Update the parent ZONES/README.md or SYSTEMS/README.md to include your new chapter:
+Update the parent SYSTEMS/README.md to include your new chapter:
 
-Add to the "Zones Defined" or "Systems Defined" section:
+Add to the "Systems Defined" section:
 
 ```markdown
 ### [ATA-NUMBER]-[SYSTEM-NAME]/
@@ -202,7 +202,7 @@ Add to the "Zones Defined" or "Systems Defined" section:
 
 [Brief description]
 
-Sub-zones/Systems:
+Sub-systems:
 - `[ATA-SUBSYSTEM]/` — [Description]
 ```
 
@@ -226,7 +226,7 @@ Examples:
 - `71-POWER-PLANT/`
 - `24-ELECTRICAL-POWER/`
 
-### Sub-Zone Names (AAA only)
+### Sub-System Names (AAA only)
 Format: `[ATA-NUMBER]-[SUBSYSTEM-NUMBER]-[DESCRIPTIVE-NAME]/`
 
 Examples:
@@ -250,9 +250,9 @@ DOMAIN/SYSTEMS/[ATA-CHAPTER]/
 ```
 
 ### Multi-Component Chapters (AAA only)
-Structural chapters may have multiple sub-zones:
+Structural chapters may have multiple sub-systems:
 ```
-AAA/ZONES/[ATA-CHAPTER]/
+AAA/SYSTEMS/[ATA-CHAPTER]/
 ├─ [ATA]-10-[COMPONENT-A]/
 │  └─ [BEZ structure]
 ├─ [ATA]-20-[COMPONENT-B]/
@@ -292,9 +292,9 @@ cd 33-LIGHTS
 # [Create README.md]
 ```
 
-### Example 2: Complex Zone (AAA Domain)
+### Example 2: Complex System (AAA Domain)
 ```bash
-cd DOMAINS/AAA-AIRFRAMES-AERODYNAMICS-AIRWORTHINESS/ZONES
+cd DOMAINS/AAA-AIRFRAMES-AERODYNAMICS-AIRWORTHINESS/SYSTEMS
 mkdir -p 55-STABILIZERS/55-10-HORIZONTAL-STABILIZER
 mkdir -p 55-STABILIZERS/55-20-VERTICAL-STABILIZER
 cd 55-STABILIZERS/55-10-HORIZONTAL-STABILIZER

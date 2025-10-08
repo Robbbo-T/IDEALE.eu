@@ -18,7 +18,7 @@ The BEZ (Bloque de Estructura Base) pattern appears at both levels with differen
 ## Domain Organization
 
 ### Structural Domain (AAA)
-- **AAA-AIRFRAMES-AERODYNAMICS-AIRWORTHINESS/** — Uses ZONES/ organization for physical structural zones
+- **AAA-AIRFRAMES-AERODYNAMICS-AIRWORTHINESS/** — Uses SYSTEMS/ organization for physical structural systems
 
 ### Functional Domains (All Others)
 - **AAP-AIRPORT-ADAPTABLE-PLATFORMS/** — Airport ground operations
@@ -66,18 +66,18 @@ Each domain contains BEZ folders at the domain level providing **templates and s
 Each lowest-level sub-zone or system contains BEZ folders with **actual work products**:
 
 ```
-[SUB-ZONE or SYSTEM]/
-├─ DELs/                   # Actual certification documents
-├─ PAx/                    # Actual packaging artifacts (ONB/OUT)
-├─ PLM/                    # Actual CAD/CAE files
-├─ PROCUREMENT/            # Actual vendor components
-├─ QUANTUM_OA/             # Actual optimization runs
-├─ SUPPLIERS/              # Actual supplier contracts
-├─ policy/                 # System-specific policies
-├─ tests/                  # Actual test results
-├─ META.json              # Scope: "instance", UTCS anchor
-├─ inherit.json           # References domain templates
-├─ README.md              # System documentation
+[SUB-SYSTEM or SYSTEM]/
+├─ DELs/                          # Actual certification documents
+├─ PAx/                           # Actual packaging artifacts (ONB/OUT)
+├─ PLM/                           # Actual CAD/CAE files
+├─ PROCUREMENT-VENDORSCOMPONENTS/ # Actual vendor components
+├─ QUANTUM_OA/                    # Actual optimization runs
+├─ SUPPLIERS/                     # Actual supplier contracts
+├─ policy/                        # System-specific policies
+├─ tests/                         # Actual test results
+├─ META.json                      # Scope: "instance", UTCS anchor
+├─ inherit.json                   # References domain templates
+├─ README.md                      # System documentation
 └─ domain-config.yaml     # System configuration
 ```
 
