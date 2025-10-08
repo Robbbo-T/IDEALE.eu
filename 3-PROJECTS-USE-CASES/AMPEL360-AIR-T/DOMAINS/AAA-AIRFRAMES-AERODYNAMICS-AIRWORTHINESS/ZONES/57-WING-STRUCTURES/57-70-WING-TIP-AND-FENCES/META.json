@@ -1,0 +1,13 @@
+{
+  "utcs_scope": "instance",
+  "utcs_anchor": "utcs://ampel360/aaa/57/57-70/wing-structure",
+  "ata_chapter": "57",
+  "ata_section": "57-70",
+  "domain": "AAA",
+  "project": "AMPEL360-AIR-T",
+  "component_type": "Wing tips and fences",
+  "inherits_from": "../../../",
+  "created": "2025-01-27",
+  "status": "in-development",
+  "maintainer": "AAA Integration Team"
+}
