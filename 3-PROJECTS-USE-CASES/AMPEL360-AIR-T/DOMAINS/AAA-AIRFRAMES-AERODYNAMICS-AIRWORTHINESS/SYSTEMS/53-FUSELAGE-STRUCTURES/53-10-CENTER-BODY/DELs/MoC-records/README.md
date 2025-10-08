@@ -1,5 +1,5 @@
 # Means of Compliance (MoC) Records — 53-10 Center Body (ATA 53-10)
-**Path:** `3-PROJECTS-USE-CASES/AMPEL360-AIR-T/DOMAINS/AAA-AIRFRAMES-AERODYNAMICS-AIRWORTHINESS/ZONES/53-FUSELAGE-STRUCTURES/53-10-CENTER-BODY/DELs/MoC-records/`
+**Path:** `3-PROJECTS-USE-CASES/AMPEL360-AIR-T/DOMAINS/AAA-AIRFRAMES-AERODYNAMICS-AIRWORTHINESS/SYSTEMS/53-FUSELAGE-STRUCTURES/53-10-CENTER-BODY/DELs/MoC-records/`
 
 MoC records document **how** each applicable requirement is shown compliant (analysis, test, inspection, similarity, or service experience) and bind that proof to immutable **UTCS** anchors under the **TFA** model.
 

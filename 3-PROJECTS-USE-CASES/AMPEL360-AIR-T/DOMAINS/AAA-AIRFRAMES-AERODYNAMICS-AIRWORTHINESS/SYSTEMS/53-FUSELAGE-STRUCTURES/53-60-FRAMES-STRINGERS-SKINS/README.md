@@ -96,5 +96,5 @@ UTCS IDs for this sub-zone follow the pattern:
 ## Related Documentation
 
 - [AAA Domain Overview](../../../README.md)
-- [ZONES Index](../../README.md)
+- [SYSTEMS Index](../../README.md)
 - [ATA Structure Example](../../../../ATA-STRUCTURE-EXAMPLE.md)

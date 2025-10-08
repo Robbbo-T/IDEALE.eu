@@ -201,7 +201,7 @@ The QUANTUM_OA directory supports optimization algorithms:
 ## Related Documentation
 
 - [AAA Domain README](../../README.md)
-- [ZONES README](../README.md)
+- [SYSTEMS README](../README.md)
 - [ATA Chapter Assignments](../../../../../1-DIMENSIONS/CANONICAL-TAXONOMY/ata-chapters.csv)
 - [QUICKSTART Guide](../../QUICKSTART-ATA-IMPLEMENTATION.md)
 

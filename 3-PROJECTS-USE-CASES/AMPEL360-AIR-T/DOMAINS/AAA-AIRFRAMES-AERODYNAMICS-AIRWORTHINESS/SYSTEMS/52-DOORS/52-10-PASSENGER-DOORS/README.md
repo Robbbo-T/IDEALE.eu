@@ -113,7 +113,7 @@ UTCS-MI:DEL:AAA:52-11:CERT:rev[X]
 
 ## Related Documentation
 
-- [ZONES README](../README.md)
+- [SYSTEMS README](../README.md)
 - [AAA Domain README](../../README.md)
 - [ATA Chapter 52 Assignments](../../../../../1-DIMENSIONS/CANONICAL-TAXONOMY/ata-chapters.csv)
 

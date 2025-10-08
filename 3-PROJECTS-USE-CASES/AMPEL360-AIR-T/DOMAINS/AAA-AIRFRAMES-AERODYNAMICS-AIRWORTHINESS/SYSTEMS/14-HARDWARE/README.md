@@ -103,7 +103,7 @@ Each sub-zone contains the complete BEZ (Bloque de Estructura Base) structure:
 
 ## Related Documentation
 
-- [ZONES README](../README.md)
+- [SYSTEMS README](../README.md)
 - [AAA Domain README](../../README.md)
 - [ATA Chapter 14 Assignments](../../../../1-DIMENSIONS/CANONICAL-TAXONOMY/ata-chapters.csv)
 - [QUICKSTART-ATA-IMPLEMENTATION.md](../../QUICKSTART-ATA-IMPLEMENTATION.md)

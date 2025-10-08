@@ -185,7 +185,7 @@ UTCS-MI:AAA:Z56:CAP:SOP-EXIT-WINDOW-OPERATION:rev[A]
 
 * [56-00-GENERAL](../56-00-GENERAL/README.md) — General governance and standards
 * [52-XX-DOORS](../../52-DOORS/README.md) — Emergency exit doors
-* [ZONES README](../README.md)
+* [SYSTEMS README](../README.md)
 * [AAA Domain README](../../README.md)
 * CS-25.807 — Emergency Exits
 * CS-25.809 — Emergency Exit Arrangement

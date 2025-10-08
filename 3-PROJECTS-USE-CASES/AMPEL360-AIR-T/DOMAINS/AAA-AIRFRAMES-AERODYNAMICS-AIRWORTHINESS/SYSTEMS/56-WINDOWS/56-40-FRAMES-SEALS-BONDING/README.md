@@ -232,7 +232,7 @@ UTCS-MI:AAA:Z56:CAV:SEAL-LEAK-TEST-REPORT:rev[A]
 * [56-00-GENERAL](../56-00-GENERAL/README.md) — General governance and standards
 * [56-10-FLIGHT-DECK-WINDOWS](../56-10-FLIGHT-DECK-WINDOWS/README.md) — Flight deck window frames
 * [56-20-CABIN-WINDOWS](../56-20-CABIN-WINDOWS/README.md) — Cabin window frames
-* [ZONES README](../README.md)
+* [SYSTEMS README](../README.md)
 * [AAA Domain README](../../README.md)
 * CS-25.1316 — Electrical Bonding and Lightning Protection
 * DO-160 — Environmental Conditions and Test Procedures

@@ -202,7 +202,7 @@ UTCS-MI:AAA:Z56:CAP:SOP-WINDSHIELD-INSTALLATION:rev[A]
 ## Related Documentation
 
 * [56-00-GENERAL](../56-00-GENERAL/README.md) — General governance and standards
-* [ZONES README](../README.md)
+* [SYSTEMS README](../README.md)
 * [AAA Domain README](../../README.md)
 * CS-25.773 — Pilot Compartment View
 * CS-25.775 — Windshields and Windows

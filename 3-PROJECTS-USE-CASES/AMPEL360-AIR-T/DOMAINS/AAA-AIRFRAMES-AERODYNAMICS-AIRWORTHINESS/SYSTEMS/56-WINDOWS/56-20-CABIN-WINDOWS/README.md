@@ -207,7 +207,7 @@ UTCS-MI:AAA:Z56:CAP:SOP-CABIN-WINDOW-INSTALLATION:rev[A]
 
 * [56-00-GENERAL](../56-00-GENERAL/README.md) — General governance and standards
 * [56-40-FRAMES-SEALS-BONDING](../56-40-FRAMES-SEALS-BONDING/README.md) — Frame and seal details
-* [ZONES README](../README.md)
+* [SYSTEMS README](../README.md)
 * [AAA Domain README](../../README.md)
 * CS-25.365 — Pressurization loads
 * CS-25.571 — Damage tolerance and fatigue

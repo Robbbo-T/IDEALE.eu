@@ -169,7 +169,7 @@ UTCS-MI:AAA:Z56:CAO:REQUIREMENTS-SPEC:rev[A]
 
 ## Related Documentation
 
-* [ZONES README](../README.md)
+* [SYSTEMS README](../README.md)
 * [AAA Domain README](../../README.md)
 * [ATA Chapter 56 Standards](../../../../../1-DIMENSIONS/CANONICAL-TAXONOMY/ata-chapters.csv)
 

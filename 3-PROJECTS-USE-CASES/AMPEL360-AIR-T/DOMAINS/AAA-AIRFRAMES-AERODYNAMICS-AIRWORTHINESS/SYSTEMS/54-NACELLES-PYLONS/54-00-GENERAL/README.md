@@ -178,7 +178,7 @@ Zone-level CAP includes:
 ## Related Documentation
 
 - [Zone README](../README.md) — ATA 54 zone overview
-- [ZONES README](../../README.md) — AAA zones overview
+- [SYSTEMS README](../../README.md) — AAA zones overview
 - [AAA Domain README](../../../README.md) — AAA domain documentation
 
 ---

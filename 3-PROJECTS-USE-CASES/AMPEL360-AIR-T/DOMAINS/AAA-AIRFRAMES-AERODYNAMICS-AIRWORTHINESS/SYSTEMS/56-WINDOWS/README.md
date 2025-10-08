@@ -248,7 +248,7 @@ This script creates all sub-zones with the complete BEZ structure including:
 ## Related Documentation
 
 * [AAA Domain README](../README.md)
-* [ZONES README](./README.md)
+* [SYSTEMS README](./README.md)
 * [ATA Chapter 56 Standards](../../../../1-DIMENSIONS/CANONICAL-TAXONOMY/ata-chapters.csv)
 * [TFA Domain Hierarchy](../../../../3-PROJECTS-USE-CASES/AMPEL360-AIR-T/DOMAINS/TFA-DOMAIN-HIERARCHY.md)
 

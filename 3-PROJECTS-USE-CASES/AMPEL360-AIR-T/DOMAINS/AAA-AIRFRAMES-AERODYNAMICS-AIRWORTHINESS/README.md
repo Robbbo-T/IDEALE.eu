@@ -38,13 +38,13 @@ The AAA domain relies on the TFA flow to optimize structural weight, predict fli
 
 | Folder | Content Description |
 | :--- | :--- |
-| [`ZONES/`](./ZONES/) | **Primary structure** — Organizes structural zones by ATA chapter (53-Fuselage, 57-Wings, etc.). Each sub-zone contains complete BEZ (DELs, PAx, PLM, QUANTUM_OA, etc.). See [ATA-STRUCTURE-EXAMPLE.md](../ATA-STRUCTURE-EXAMPLE.md) for details. |
+| [`SYSTEMS/`](./SYSTEMS/) | **Primary structure** — Organizes structural systems by ATA chapter (53-Fuselage, 57-Wings, etc.). Each sub-system contains complete BEZ (DELs, PAx, PLM, QUANTUM_OA, etc.). See [ATA-STRUCTURE-EXAMPLE.md](../ATA-STRUCTURE-EXAMPLE.md) for details. |
 | [`domain-config.yaml`](./domain-config.yaml) | Domain-level configuration file. |
 | `README.md` | This file — domain overview and guidance. |
 
 ### Legacy Structure (Transitioning)
 
-The following directories represent the legacy domain-level BEZ structure. New work should be organized within `ZONES/` following ATA chapter assignments:
+The following directories represent the legacy domain-level BEZ structure. New work should be organized within `SYSTEMS/` following ATA chapter assignments:
 
 | Folder | Content Description | Status |
 | :--- | :--- | :--- |

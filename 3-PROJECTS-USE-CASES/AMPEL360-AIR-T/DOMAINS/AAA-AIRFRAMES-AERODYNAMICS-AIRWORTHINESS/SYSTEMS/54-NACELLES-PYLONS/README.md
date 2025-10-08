@@ -215,7 +215,7 @@ This script creates the complete directory structure with all required subdirect
 
 ## Related Documentation
 
-- [ZONES README](../README.md) — AAA Domain zones overview
+- [SYSTEMS README](../README.md) — AAA Domain zones overview
 - [AAA Domain README](../../README.md) — AAA domain documentation
 - [ATA Chapter 54 Assignments](../../../../../1-DIMENSIONS/CANONICAL-TAXONOMY/ata-chapters.csv)
 - [Scaffolding Script](../../../../../scripts/scaffold-ata54.sh)
