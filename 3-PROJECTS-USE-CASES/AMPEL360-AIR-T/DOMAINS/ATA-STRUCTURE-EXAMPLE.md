@@ -19,18 +19,6 @@ This hierarchical repetition is **intentional** — it reflects the TFA governan
 
 ```
 AAA-AIRFRAMES-AERODYNAMICS-AIRWORTHINESS/
-├─ DELs/                                  ← Domain templates and policies
-│  ├── TEMPLATES/                         ← Document templates
-│  ├── SCHEMAS/                           ← Validation schemas
-│  └── README.md                          ← Template usage guide
-├─ PAx/                                   ← Domain packaging standards
-├─ PLM/                                   ← Domain PLM policies
-├─ QUANTUM_OA/                            ← Domain optimization patterns
-├─ SUPPLIERS/                             ← Domain supplier criteria
-├─ policy/                                ← Domain governance
-├─ tests/                                 ← Domain test frameworks
-├─ README.md                              ← Domain overview
-├─ domain-config.yaml                     ← Domain configuration
 └─ ZONES/
 │  ├─ 06-DIMENSIONS-STATIONS/
 │  │  └─ 06-10-REFERENCE-FRAME/          ← BEZ applied here
@@ -71,15 +59,6 @@ AAA-AIRFRAMES-AERODYNAMICS-AIRWORTHINESS/
 
 ```
 PPP-PROPULSION-FUEL-SYSTEMS/
-├─ DELs/                                  ← Domain templates (as above)
-├─ PAx/                                   ← Domain packaging standards
-├─ PLM/                                   ← Domain PLM policies
-├─ QUANTUM_OA/                            ← Domain optimization patterns
-├─ SUPPLIERS/                             ← Domain supplier criteria
-├─ policy/                                ← Domain governance
-├─ tests/                                 ← Domain test frameworks
-├─ README.md                              ← Domain overview
-├─ domain-config.yaml                     ← Domain configuration
 └─ SYSTEMS/
 │  ├─ 28-FUEL-SYSTEMS/                   ← BEZ applied here
 │  │  ├─ DELs/
