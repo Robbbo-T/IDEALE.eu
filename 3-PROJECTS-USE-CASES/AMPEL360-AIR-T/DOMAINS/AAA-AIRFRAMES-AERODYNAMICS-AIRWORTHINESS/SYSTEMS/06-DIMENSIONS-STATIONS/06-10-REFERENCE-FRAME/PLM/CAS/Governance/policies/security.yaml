@@ -1,8 +1,51 @@
-# S1000D Security Classification Policy
+# S1000D Security Classification and Export Control Policy
+
+# Security Classification
 default_classification: public
 allowed_classifications:
-  - public
-  - internal
-  - confidential
-  - restricted
+  - 01_unclassified_public
+  - 02_unclassified_internal
+  - 03_confidential
+  - 04_restricted
+  - 05_secret
+
+# IDS Security Metadata (Required in identAndStatusSection)
+required_fields:
+  - security_classification
+  - commercial_classification
+  - caveat_text
+  - distribution_statement
+
+# Export Control
+export_control:
+  default_status: non_controlled
+  itar_applicable: false
+  ear_applicable: false
+  review_required: for_technical_data
+  authority: Export_Control_Officer
+
+# Access Control
 access_control: role_based
+authentication: required_for_internal_plus
+audit_logging: enabled
+
+# Distribution
+distribution_restrictions:
+  public: unrestricted
+  internal: company_personnel_only
+  confidential: need_to_know_basis
+  restricted: authorized_personnel_only
+
+# Marking Requirements
+marking:
+  cover_page: required
+  header_footer: required
+  watermark: optional_for_draft
+
+# Review Process
+security_review:
+  initial_classification: author_responsibility
+  verification: security_officer
+  frequency: annual_review
+  change_authority: Security_Manager
+

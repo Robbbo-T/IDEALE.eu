@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dmodule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+         xsi:noNamespaceSchemaLocation="http://www.s1000d.org/S1000D_6-0/xml_schema_flat/dmodule.xsd">
+  <identAndStatusSection>
+    <dmAddress>
+      <dmIdent>
+        <dmCode modelIdentCode="AMP360" systemDiffCode="AAA" systemCode="00" 
+                subSystemCode="0" subSubSystemCode="0" assyCode="00" 
+                disassyCode="00" disassyCodeVariant="A" infoCode="00U" 
+                infoCodeVariant="A" itemLocationCode="A"/>
+        <language languageIsoCode="en" countryIsoCode="US"/>
+        <issueInfo issueNumber="001" inWork="00"/>
+      </dmIdent>
+      <dmAddressItems>
+        <issueDate year="2025" month="01" day="31"/>
+        <dmTitle>
+          <techName>Common Information</techName>
+          <infoName>Warnings and Cautions</infoName>
+        </dmTitle>
+      </dmAddressItems>
+    </dmAddress>
+    <dmStatus issueType="new">
+      <security securityClassification="01"/>
+      <responsiblePartnerCompany enterpriseCode="AMP360">
+        <enterpriseName>AMPEL360 Engineering</enterpriseName>
+      </responsiblePartnerCompany>
+      <originator enterpriseCode="AMP360"/>
+      <applic>
+        <displayText>
+          <simplePara>All aircraft</simplePara>
+        </displayText>
+      </applic>
+      <brexDmRef>
+        <dmRef>
+          <dmRefIdent>
+            <dmCode modelIdentCode="AMP360" systemDiffCode="AAA" systemCode="00" 
+                    subSystemCode="0" subSubSystemCode="0" assyCode="00" 
+                    disassyCode="00" disassyCodeVariant="A" infoCode="00A" 
+                    infoCodeVariant="A" itemLocationCode="A"/>
+          </dmRefIdent>
+        </dmRef>
+      </brexDmRef>
+      <qualityAssurance>
+        <firstVerification verificationType="tabtop"/>
+      </qualityAssurance>
+    </dmStatus>
+  </identAndStatusSection>
+  <content>
+    <commonRepository>
+      <commonInfo>
+        <warningRepository>
+          <warning id="CIR-WARN-MEASUREMENT-001">
+            <warningIdent>
+              <warningIdentNumber warningIdentNumberValue="WARN-001"/>
+            </warningIdent>
+            <warningAndCautionPara>
+              <para>Make sure that the aircraft is on level ground before you do measurements. If the aircraft is not level, the measurements will not be correct.</para>
+            </warningAndCautionPara>
+          </warning>
+          <warning id="CIR-WARN-CALIBRATION-001">
+            <warningIdent>
+              <warningIdentNumber warningIdentNumberValue="WARN-002"/>
+            </warningIdent>
+            <warningAndCautionPara>
+              <para>Use only calibrated measuring tools. If you use tools that are not calibrated, you can get incorrect measurements.</para>
+            </warningAndCautionPara>
+          </warning>
+        </warningRepository>
+        <cautionRepository>
+          <caution id="CIR-CAUT-MARKERS-001">
+            <cautionIdent>
+              <cautionIdentNumber cautionIdentNumberValue="CAUT-001"/>
+            </cautionIdent>
+            <warningAndCautionPara>
+              <para>Do not hit the datum markers. Damage to the datum markers can cause incorrect measurements.</para>
+            </warningAndCautionPara>
+          </caution>
+          <caution id="CIR-CAUT-CLEANING-001">
+            <cautionIdent>
+              <cautionIdentNumber cautionIdentNumberValue="CAUT-002"/>
+            </cautionIdent>
+            <warningAndCautionPara>
+              <para>Do not use solvents to clean the datum markers. Solvents can remove the markings.</para>
+            </warningAndCautionPara>
+          </caution>
+        </cautionRepository>
+      </commonInfo>
+    </commonRepository>
+  </content>
+</dmodule>

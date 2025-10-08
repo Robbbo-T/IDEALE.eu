@@ -1,0 +1,82 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://ideale.eu/schemas/utcs-core.schema.json",
+  "title": "UTCS Core Schema",
+  "description": "JSON Schema for UTCS (UiX Threading Context/Content/Cache and Structure/Style/Sheet) validation",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "utcs_id",
+    "domain",
+    "artifact_type",
+    "status"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$",
+      "description": "UTCS schema version in SemVer format"
+    },
+    "utcs_id": {
+      "type": "string",
+      "pattern": "^UTCS-MI:[A-Z]{3}:[A-Z0-9\\-]+:[A-Z0-9\\-]+:[A-Z0-9\\-]+:rev\\[[A-Za-z0-9]+\\]$",
+      "description": "Unique UTCS identifier"
+    },
+    "domain": {
+      "type": "string",
+      "enum": ["AAA", "APS", "HFS", "IIS", "POS"],
+      "description": "Domain code"
+    },
+    "artifact_type": {
+      "type": "string",
+      "enum": [
+        "DataModule",
+        "PublicationModule",
+        "DMRL",
+        "BREX",
+        "Illustration",
+        "ACT",
+        "WorkPackage",
+        "Baseline"
+      ],
+      "description": "Type of S1000D artifact"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["new", "active", "revised", "superseded", "archived"],
+      "description": "Artifact lifecycle status"
+    },
+    "file_path": {
+      "type": "string",
+      "description": "Relative path to artifact file"
+    },
+    "dmc": {
+      "type": "string",
+      "pattern": "^DMC-[A-Z0-9\\-]+$",
+      "description": "Data Module Code (for DMs)"
+    },
+    "pm_code": {
+      "type": "string",
+      "description": "Publication Module code (for PMs)"
+    },
+    "icn": {
+      "type": "string",
+      "pattern": "^ICN-[A-Z0-9\\-]+$",
+      "description": "Illustration Control Number (for ICNs)"
+    },
+    "title": {
+      "type": "string",
+      "description": "Human-readable title"
+    },
+    "issue_date": {
+      "type": "string",
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$",
+      "description": "Issue date in YYYY-MM-DD format"
+    },
+    "checksum": {
+      "type": "string",
+      "pattern": "^sha256:[a-f0-9]{64}$|^sha256:pending$",
+      "description": "SHA-256 checksum of artifact"
+    }
+  }
+}

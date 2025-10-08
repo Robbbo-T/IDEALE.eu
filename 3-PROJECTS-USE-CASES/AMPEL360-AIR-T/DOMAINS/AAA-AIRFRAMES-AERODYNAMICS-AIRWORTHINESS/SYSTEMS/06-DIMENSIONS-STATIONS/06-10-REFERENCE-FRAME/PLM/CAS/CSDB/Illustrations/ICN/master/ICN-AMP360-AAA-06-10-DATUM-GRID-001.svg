@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" 
+     xmlns:xlink="http://www.w3.org/1999/xlink"
+     width="800" height="600" viewBox="0 0 800 600">
+  <title>Reference Frame Datum Grid</title>
+  <desc>Aircraft reference frame showing stations, waterlines, and buttock lines</desc>
+  
+  <!-- Background -->
+  <rect x="0" y="0" width="800" height="600" fill="#ffffff"/>
+  
+  <!-- Grid lines - Stations (vertical) -->
+  <g id="stations" stroke="#0066cc" stroke-width="1" stroke-dasharray="5,5">
+    <line x1="100" y1="50" x2="100" y2="550"/>
+    <text x="100" y="570" text-anchor="middle" font-size="12" fill="#0066cc">STA 0</text>
+    
+    <line x1="250" y1="50" x2="250" y2="550"/>
+    <text x="250" y="570" text-anchor="middle" font-size="12" fill="#0066cc">STA 100</text>
+    
+    <line x1="400" y1="50" x2="400" y2="550"/>
+    <text x="400" y="570" text-anchor="middle" font-size="12" fill="#0066cc">STA 200</text>
+    
+    <line x1="550" y1="50" x2="550" y2="550"/>
+    <text x="550" y="570" text-anchor="middle" font-size="12" fill="#0066cc">STA 300</text>
+    
+    <line x1="700" y1="50" x2="700" y2="550"/>
+    <text x="700" y="570" text-anchor="middle" font-size="12" fill="#0066cc">STA 400</text>
+  </g>
+  
+  <!-- Grid lines - Waterlines (horizontal) -->
+  <g id="waterlines" stroke="#00cc66" stroke-width="1" stroke-dasharray="5,5">
+    <line x1="50" y1="450" x2="750" y2="450"/>
+    <text x="30" y="455" text-anchor="end" font-size="12" fill="#00cc66">WL 0</text>
+    
+    <line x1="50" y1="350" x2="750" y2="350"/>
+    <text x="30" y="355" text-anchor="end" font-size="12" fill="#00cc66">WL 50</text>
+    
+    <line x1="50" y1="250" x2="750" y2="250"/>
+    <text x="30" y="255" text-anchor="end" font-size="12" fill="#00cc66">WL 100</text>
+    
+    <line x1="50" y1="150" x2="750" y2="150"/>
+    <text x="30" y="155" text-anchor="end" font-size="12" fill="#00cc66">WL 150</text>
+  </g>
+  
+  <!-- Fuselage outline -->
+  <g id="fuselage" stroke="#000000" stroke-width="2" fill="none">
+    <ellipse cx="100" cy="300" rx="30" ry="50"/>
+    <line x1="100" y1="250" x2="650" y2="200"/>
+    <line x1="100" y1="350" x2="650" y2="400"/>
+    <path d="M 650 200 Q 700 200 700 300 Q 700 400 650 400" />
+  </g>
+  
+  <!-- Datum point markers -->
+  <g id="datum-markers">
+    <circle cx="100" cy="300" r="8" fill="#ff0000"/>
+    <text x="100" y="320" text-anchor="middle" font-size="10" font-weight="bold">D1</text>
+    
+    <circle cx="400" cy="275" r="8" fill="#ff0000"/>
+    <text x="400" y="295" text-anchor="middle" font-size="10" font-weight="bold">D2</text>
+    
+    <circle cx="650" cy="300" r="8" fill="#ff0000"/>
+    <text x="650" y="320" text-anchor="middle" font-size="10" font-weight="bold">D3</text>
+  </g>
+  
+  <!-- Legend -->
+  <g id="legend" transform="translate(600, 50)">
+    <rect x="0" y="0" width="180" height="120" fill="#f0f0f0" stroke="#000000"/>
+    <text x="10" y="20" font-size="14" font-weight="bold">Legend</text>
+    
+    <line x1="10" y1="35" x2="40" y2="35" stroke="#0066cc" stroke-width="2" stroke-dasharray="5,5"/>
+    <text x="50" y="40" font-size="12">Stations (STA)</text>
+    
+    <line x1="10" y1="55" x2="40" y2="55" stroke="#00cc66" stroke-width="2" stroke-dasharray="5,5"/>
+    <text x="50" y="60" font-size="12">Waterlines (WL)</text>
+    
+    <circle cx="25" cy="80" r="6" fill="#ff0000"/>
+    <text x="50" y="85" font-size="12">Datum Points</text>
+    
+    <line x1="10" y1="95" x2="40" y2="95" stroke="#000000" stroke-width="2"/>
+    <text x="50" y="100" font-size="12">Fuselage</text>
+  </g>
+  
+  <!-- Title -->
+  <text x="400" y="30" text-anchor="middle" font-size="16" font-weight="bold">
+    Reference Frame Datum Grid - ATA 06-10
+  </text>
+</svg>

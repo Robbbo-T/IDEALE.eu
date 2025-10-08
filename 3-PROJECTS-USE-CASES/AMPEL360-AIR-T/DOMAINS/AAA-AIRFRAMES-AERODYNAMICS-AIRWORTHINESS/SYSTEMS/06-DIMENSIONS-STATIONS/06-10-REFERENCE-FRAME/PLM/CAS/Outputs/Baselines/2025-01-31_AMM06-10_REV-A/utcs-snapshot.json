@@ -1,0 +1,37 @@
+{
+  "baseline_id": "2025-01-31_AMM06-10_REV-A",
+  "utcs_id": "UTCS-MI:AAA:CAS:06-10:AMM:PUBLISH:2025-01-31:rev[1]",
+  "baseline_type": "publication",
+  "publication": {
+    "type": "AMM",
+    "title": "Aircraft Maintenance Manual",
+    "system": "06-10",
+    "system_name": "Reference Frame",
+    "revision": "A",
+    "issue_date": "2025-01-31"
+  },
+  "provenance": {
+    "created_by": "AAA Integration Team",
+    "created_date": "2025-01-31T12:00:00Z",
+    "approved_by": "Technical Publications Manager",
+    "approval_date": "2025-01-31T14:00:00Z",
+    "source_csdb": "../../CSDB/",
+    "ci_pipeline_id": "build-123",
+    "validation_status": "passed"
+  },
+  "validation": {
+    "xsd_validation": "passed",
+    "schematron_validation": "passed",
+    "brex_validation": "passed",
+    "dmrl_check": "passed",
+    "act_validation": "passed",
+    "icn_check": "passed"
+  },
+  "integrity": {
+    "checksum_file": "checksum/checksums.txt",
+    "checksum_algorithm": "SHA-256",
+    "baseline_hash": "sha256:pending",
+    "immutable": true,
+    "tamper_proof": true
+  }
+}
