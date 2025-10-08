@@ -39,6 +39,7 @@ Examples:
 ### Quick Start
 - [Quick Start Guide](./DOMAINS/QUICKSTART-SCI-IMPLEMENTATION.md) — Step-by-step SCI implementation
 - [Structure Example](./DOMAINS/SPACE-STRUCTURE-EXAMPLE.md) — Detailed structural patterns
+- [Cluster-Based Organization](./DOMAINS/CLUSTER-BASED-ORGANIZATION.md) — Cluster, XX, and YY deck definitions
 - [Implementation Summary](./DOMAINS/IMPLEMENTATION-SUMMARY.md) — Complete overview
 - [Validation Checklist](./DOMAINS/VALIDATION-CHECKLIST.md) — Compliance verification
 
@@ -49,7 +50,7 @@ Examples:
 
 ## Domain Organization
 
-All 15 domains follow the same structure:
+All 15 domains follow the same cluster-based structure:
 
 ```
 DOMAIN/
@@ -68,10 +69,10 @@ DOMAIN/
       ├─ README.md
       ├─ system.meta.yml
       └─ interfaces.yml
-      └─ NN-NN-SUBSYSTEM/   ← Subsystem level (CLEAN)
+      └─ NN-XX-SUBSYSTEM/   ← Subsystem level (CLEAN)
          ├─ README.md
          └─ subsystem.meta.yml
-         └─ NN-NN-NN-SUB/   ← Sub-subsystem (BEZ HERE)
+         └─ NN-XX-YY-SUB/   ← Sub-subsystem (BEZ HERE)
             ├─ DELs/
             ├─ PAx/
             ├─ PLM/
@@ -83,6 +84,13 @@ DOMAIN/
             ├─ inherit.json
             └─ domain-config.yaml
 ```
+
+Where:
+- **NN** = SCI chapter (01-100)
+- **XX** = Subsystem code from cluster (10, 20, ... 90)
+- **YY** = Sub-subsystem code from assigned deck (01-20)
+
+See [CLUSTER-BASED-ORGANIZATION.md](./DOMAINS/CLUSTER-BASED-ORGANIZATION.md) for complete definitions.
 
 ## SCI Chapter Distribution
 

@@ -19,6 +19,14 @@ This hierarchical repetition is **intentional** — it reflects the TFA governan
 
 Unlike AMPEL360-AIR-T where AAA used ZONES/, **all AMPEL360-SPACE-T domains use SYSTEMS/** exclusively.
 
+### Cluster-Based Organization
+
+AMPEL360-SPACE-T uses a **cluster-based organization** with standardized XX subsystem codes (10-90) and fixed YY sub-subsystem codes (01-20) from assigned decks.
+
+**Path pattern:** `NN-LABEL/NN-XX-SUBSYSTEM/NN-XX-YY-SUBSUBSYSTEM/`
+
+See [CLUSTER-BASED-ORGANIZATION.md](./CLUSTER-BASED-ORGANIZATION.md) for complete cluster and deck definitions.
+
 ```
 AAA-STRUCTURES-MECHANISMS-SPACEWORTHINESS/
 ├─ DELs/                                    ← Domain-level templates
@@ -39,64 +47,76 @@ AAA-STRUCTURES-MECHANISMS-SPACEWORTHINESS/
    │  ├─ system.meta.yml                    ← System metadata
    │  └─ interfaces.yml                     ← Interface definitions
    │
-   │  └─ 53-10-MAIN-BODY/                   ← Subsystem level (CLEAN)
-   │     ├─ README.md                       ← Subsystem overview only
-   │     └─ subsystem.meta.yml              ← Subsystem metadata
-   │
-   │     ├─ 53-10-01-FORWARD-SECT/          ← Sub-subsystem (BEZ HERE)
-   │     │  ├─ DELs/
-   │     │  │  ├─ ECSS-submissions/
-   │     │  │  ├─ CCSDS-compliance/
-   │     │  │  ├─ NASA-standards/
-   │     │  │  ├─ data-packages/
-   │     │  │  └─ final-design-reports/
-   │     │  ├─ PAx/
-   │     │  │  ├─ ONB/
-   │     │  │  └─ OUT/
-   │     │  ├─ PLM/
-   │     │  │  ├─ CAD/
-   │     │  │  ├─ CAE/
-   │     │  │  ├─ CAI/
-   │     │  │  ├─ CAM/
-   │     │  │  ├─ CAO/
-   │     │  │  ├─ CAP/
-   │     │  │  ├─ CAS/
-   │     │  │  ├─ CAV/
-   │     │  │  └─ CMP/
-   │     │  ├─ QUANTUM_OA/
-   │     │  │  ├─ GA/
-   │     │  │  ├─ LP/
-   │     │  │  ├─ MILP/
-   │     │  │  ├─ QAOA/
-   │     │  │  ├─ QOX/
-   │     │  │  ├─ QP/
-   │     │  │  ├─ QUBO/
-   │     │  │  └─ SA/
-   │     │  ├─ SUPPLIERS/
-   │     │  │  ├─ BIDS/
-   │     │  │  └─ SERVICES/
-   │     │  ├─ policy/
-   │     │  ├─ tests/
-   │     │  ├─ META.json          ← scope: "instance"
-   │     │  ├─ inherit.json       ← References domain templates
-   │     │  ├─ README.md
-   │     │  └─ domain-config.yaml
-   │     │
-   │     ├─ 53-10-02-CENTER-SECT/            ← Sub-subsystem (BEZ HERE)
-   │     │  └─ {Full BEZ structure}
-   │     │
-   │     └─ 53-10-03-AFT-SECT/               ← Sub-subsystem (BEZ HERE)
+   │  ├─ 53-10-PRIMARY-STRUCTURE/           ← Subsystem level (CLEAN)
+   │  │  ├─ README.md                       ← Subsystem overview only
+   │  │  └─ subsystem.meta.yml              ← Subsystem metadata
+   │  │
+   │  │  ├─ 53-10-01-PRIMARY-ELEMENTS/      ← Sub-subsystem (BEZ HERE, YY deck A)
+   │  │  │  ├─ DELs/
+   │  │  │  │  ├─ ECSS-submissions/
+   │  │  │  │  ├─ CCSDS-compliance/
+   │  │  │  │  ├─ NASA-standards/
+   │  │  │  │  ├─ data-packages/
+   │  │  │  │  └─ final-design-reports/
+   │  │  │  ├─ PAx/
+   │  │  │  │  ├─ ONB/
+   │  │  │  │  └─ OUT/
+   │  │  │  ├─ PLM/
+   │  │  │  │  ├─ CAD/
+   │  │  │  │  ├─ CAE/
+   │  │  │  │  ├─ CAI/
+   │  │  │  │  ├─ CAM/
+   │  │  │  │  ├─ CAO/
+   │  │  │  │  ├─ CAP/
+   │  │  │  │  ├─ CAS/
+   │  │  │  │  ├─ CAV/
+   │  │  │  │  └─ CMP/
+   │  │  │  ├─ QUANTUM_OA/
+   │  │  │  │  ├─ GA/
+   │  │  │  │  ├─ LP/
+   │  │  │  │  ├─ MILP/
+   │  │  │  │  ├─ QAOA/
+   │  │  │  │  ├─ QOX/
+   │  │  │  │  ├─ QP/
+   │  │  │  │  ├─ QUBO/
+   │  │  │  │  └─ SA/
+   │  │  │  ├─ SUPPLIERS/
+   │  │  │  │  ├─ BIDS/
+   │  │  │  │  └─ SERVICES/
+   │  │  │  ├─ policy/
+   │  │  │  ├─ tests/
+   │  │  │  ├─ META.json          ← scope: "instance"
+   │  │  │  ├─ inherit.json       ← References domain templates
+   │  │  │  ├─ README.md
+   │  │  │  └─ domain-config.yaml
+   │  │  │
+   │  │  ├─ 53-10-02-SECONDARY-ELEMENTS/    ← Sub-subsystem (BEZ HERE, YY=02)
+   │  │  │  └─ {Full BEZ structure}
+   │  │  │
+   │  │  └─ 53-10-03-JOINTS-FASTENERS/      ← Sub-subsystem (BEZ HERE, YY=03)
+   │  │     └─ {Full BEZ structure}
+   │  │
+   │  ├─ 53-20-SECONDARY-STRUCTURE/         ← Subsystem level (CLEAN, XX=20)
+   │  │  ├─ README.md
+   │  │  └─ subsystem.meta.yml
+   │  │  └─ 53-20-01-PRIMARY-ELEMENTS/      ← Sub-subsystem (BEZ HERE)
+   │  │     └─ {Full BEZ structure}
+   │  │
+   │  └─ 53-30-DOORS-HATCHES-ACCESS/        ← Subsystem level (CLEAN, XX=30)
+   │     ├─ README.md
+   │     └─ subsystem.meta.yml
+   │     └─ 53-30-01-PRIMARY-ELEMENTS/      ← Sub-subsystem (BEZ HERE)
    │        └─ {Full BEZ structure}
    │
-   ├─ 54-PROPULSION-MODULE-STRUCTURE/        ← System level (CLEAN)
+   ├─ 54-PROPULSION-MODULE-STRUCTURE/       ← System level (CLEAN)
    │  ├─ README.md
    │  ├─ system.meta.yml
    │  └─ interfaces.yml
    │
-   ├─ 57-SOLAR-ARRAY-STRUCTURES/             ← System level (CLEAN)
-   │  └─ {Similar pattern}
+   ├─ 57-SOLAR-ARRAY-STRUCTURES/            ← System level (CLEAN)
+   │  └─ {Similar pattern with XX from Cluster S, YY from deck A}
    │
-   └─ README.md                               ← SYSTEMS index
+   └─ README.md                              ← SYSTEMS index
 ```
 
 ### Example: PPP Domain (Propulsion)
@@ -308,19 +328,29 @@ material: "Aluminum 2219-T87"
 
 ## UTCS Anchor Format
 
-All UTCS anchors follow the spacecraft format:
+All UTCS anchors follow the spacecraft format with cluster-based hierarchy:
 ```
-SPACE.SCI.<NN-LABEL>.<SUBSYSTEM>[.<SUB-SUBSYSTEM>]:REV
+SPACE.SCI.<NN-LABEL>.<NN-XX-SUBSYSTEM>.<NN-XX-YY-SUBSUBSYSTEM>:REV
 ```
 
 Examples:
 ```
 SPACE.SCI.53-PRIMARY-STRUCTURE:rev[A]
-SPACE.SCI.53-PRIMARY-STRUCTURE.53-10-MAIN-BODY:rev[A]
-SPACE.SCI.53-PRIMARY-STRUCTURE.53-10-MAIN-BODY.53-10-01-FORWARD-SECT:rev[B]
-SPACE.SCI.24-EPS-POWER.PCDU.PDU-01:rev[A]
-SPACE.SCI.22-GNC-AOCS.STAR-TRACKER.SENSOR-HEAD:rev[C]
+SPACE.SCI.53-PRIMARY-STRUCTURE.53-10-PRIMARY-STRUCTURE:rev[A]
+SPACE.SCI.53-PRIMARY-STRUCTURE.53-10-PRIMARY-STRUCTURE.53-10-01-PRIMARY-ELEMENTS:rev[B]
+SPACE.SCI.24-EPS-POWER.24-30-CONVERSION-REGULATION:rev[A]
+SPACE.SCI.24-EPS-POWER.24-30-CONVERSION-REGULATION.24-30-03-CONVERSION-REGULATION:rev[A]
+SPACE.SCI.71-MAIN-PROPULSION.71-40-THRUST-DEVICES:rev[A]
+SPACE.SCI.71-MAIN-PROPULSION.71-40-THRUST-DEVICES.71-40-04-THRUSTERS-NOZZLES:rev[C]
 ```
+
+### Hierarchy Levels
+
+- **System**: `SPACE.SCI.NN-LABEL:rev[X]`
+- **Subsystem**: `SPACE.SCI.NN-LABEL.NN-XX-SUBSYSTEM:rev[X]`
+- **Sub-subsystem**: `SPACE.SCI.NN-LABEL.NN-XX-SUBSYSTEM.NN-XX-YY-SUBSUBSYSTEM:rev[X]`
+
+The XX and YY codes provide stable, numeric identifiers for automation and traceability.
 
 ## SCI Chapter to Domain Assignments
 
@@ -343,15 +373,42 @@ See [/1-DIMENSIONS/CANONICAL-TAXONOMY/sci-chapters.csv](../../../1-DIMENSIONS/CA
 
 ### Naming Convention for Sub-Subsystems
 
-Format: `[SCI]-[SUBSYSTEM]-[SUB-SUBSYSTEM]-[DESCRIPTIVE-NAME]/`
+### Cluster-Based Approach
 
-Examples:
-- `53-10-01-FORWARD-SECT/`
-- `53-10-02-CENTER-SECT/`
-- `53-10-03-AFT-SECT/`
-- `71-10-01-THRUST-CHAMBER/`
-- `71-10-02-TURBOPUMP/`
-- `22-10-01-SENSOR-HEAD/`
+Format: `[SCI]-[XX]-[YY]-[DESCRIPTIVE-NAME]/`
+
+Where:
+- **SCI** = Chapter number (01-100)
+- **XX** = Subsystem code from cluster (10, 20, 30, ... 90)
+- **YY** = Sub-subsystem code from assigned deck (01-20)
+- **DESCRIPTIVE-NAME** = Human-readable name matching YY deck content
+
+Examples using **Cluster S** (Structures) with **YY Deck A**:
+- `53-10-01-PRIMARY-ELEMENTS/` (XX=10: Primary Structure, YY=01: Primary elements)
+- `53-10-02-SECONDARY-ELEMENTS/` (XX=10: Primary Structure, YY=02: Secondary elements)
+- `53-10-03-JOINTS-FASTENERS/` (XX=10: Primary Structure, YY=03: Joints & fasteners)
+- `53-20-01-PRIMARY-ELEMENTS/` (XX=20: Secondary Structure, YY=01: Primary elements)
+- `53-30-01-PRIMARY-ELEMENTS/` (XX=30: Doors/Hatches, YY=01: Primary elements)
+
+Examples using **Cluster H** (Power) with **YY Deck H**:
+- `24-10-01-GENERATION/` (XX=10: Generation, YY=01: Generation arrays/RTG/fuel cell)
+- `24-20-02-STORAGE/` (XX=20: Storage, YY=02: Storage battery modules)
+- `24-30-03-CONVERSION-REGULATION/` (XX=30: Conversion, YY=03: Conversion/regulation PCDU)
+
+Examples using **Cluster B** (Propulsion) with **YY Deck B**:
+- `71-10-01-TANKS-PMD/` (XX=10: Propellant Storage, YY=01: Tanks & PMD)
+- `71-40-04-THRUSTERS-NOZZLES/` (XX=40: Thrust Devices, YY=04: Thrusters/nozzles)
+- `71-60-08-THERMAL-MGMT-INSULATION/` (XX=60: Thermal Management, YY=08: Thermal management & insulation)
+
+### XX Codes are Cluster-Specific
+
+Each cluster defines its own set of 9 XX codes (10-90) representing common subsystems for that functional area. See [CLUSTER-BASED-ORGANIZATION.md](./CLUSTER-BASED-ORGANIZATION.md) for the complete list of XX codes per cluster.
+
+### YY Codes are Deck-Specific (01-20 Fixed)
+
+Each YY deck provides 20 fixed sub-subsystem codes (01-20) appropriate for that cluster's domain. The same YY deck is used across all chapters in a cluster, ensuring consistency.
+
+**Key principle:** YY codes are **not placeholders** - they represent specific, reusable content defined in the deck.
 
 ## Understanding Hierarchical BEZ
 
