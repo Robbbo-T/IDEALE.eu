@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- UTCS: UTCS-MI:RLG:INFRA:00-10:INFRANET-RETAIL-LOGISTICS:rev[A] -->
+<!-- TFA: QS→FWD→UE→FE→CB→QB -->
+<!-- License: Apache-2.0 -->
+<!-- Notes: PCS-A compliant BPMN 2.0 - Order to Cash workflow -->
+
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+                  xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI"
+                  xmlns:dc="http://www.omg.org/spec/DD/20100524/DC"
+                  xmlns:di="http://www.omg.org/spec/DD/20100524/DI"
+                  xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+                  id="Definitions_OrderToCash"
+                  targetNamespace="http://infranet.example/bpmn/order-to-cash"
+                  exporter="IDEALE INFRANET-RLG"
+                  exporterVersion="0.1.0">
+
+  <bpmn:process id="order-to-cash" name="Order to Cash Flow" isExecutable="true">
+    
+    <bpmn:startEvent id="StartEvent_OrderReceived" name="Order Received">
+      <bpmn:outgoing>Flow_OrderToValidation</bpmn:outgoing>
+    </bpmn:startEvent>
+
+    <!-- Validate Order Task -->
+    <bpmn:serviceTask id="Task_ValidateOrder" name="Validate Order">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="validate-order" />
+        <zeebe:taskHeaders>
+          <zeebe:header key="utcsPrefix" value="UTCS-MI:RLG:ORD" />
+          <zeebe:header key="opaPolicy" value="pcs_a.authz.order.validate" />
+        </zeebe:taskHeaders>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_OrderToValidation</bpmn:incoming>
+      <bpmn:outgoing>Flow_ValidationToGateway</bpmn:outgoing>
+    </bpmn:serviceTask>
+
+    <!-- Exclusive Gateway: Order Valid? -->
+    <bpmn:exclusiveGateway id="Gateway_OrderValid" name="Order Valid?">
+      <bpmn:incoming>Flow_ValidationToGateway</bpmn:incoming>
+      <bpmn:outgoing>Flow_ValidToInventory</bpmn:outgoing>
+      <bpmn:outgoing>Flow_InvalidToReject</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+
+    <!-- Check Inventory Task -->
+    <bpmn:serviceTask id="Task_CheckInventory" name="Check Inventory">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="check-inventory" />
+        <zeebe:taskHeaders>
+          <zeebe:header key="connector" value="wms-adapter" />
+          <zeebe:header key="opaPolicy" value="pcs_a.authz.inventory.read" />
+        </zeebe:taskHeaders>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ValidToInventory</bpmn:incoming>
+      <bpmn:outgoing>Flow_InventoryToGateway</bpmn:outgoing>
+    </bpmn:serviceTask>
+
+    <!-- Exclusive Gateway: Stock Available? -->
+    <bpmn:exclusiveGateway id="Gateway_StockAvailable" name="Stock Available?">
+      <bpmn:incoming>Flow_InventoryToGateway</bpmn:incoming>
+      <bpmn:outgoing>Flow_StockAvailableToPicking</bpmn:outgoing>
+      <bpmn:outgoing>Flow_NoStockToBackorder</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+
+    <!-- Pick Items Task -->
+    <bpmn:serviceTask id="Task_PickItems" name="Pick Items">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="pick-items" />
+        <zeebe:taskHeaders>
+          <zeebe:header key="connector" value="wms-adapter" />
+          <zeebe:header key="bizStep" value="picking" />
+          <zeebe:header key="emitEpcis" value="true" />
+        </zeebe:taskHeaders>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_StockAvailableToPicking</bpmn:incoming>
+      <bpmn:outgoing>Flow_PickingToPacking</bpmn:outgoing>
+    </bpmn:serviceTask>
+
+    <!-- Pack Items Task -->
+    <bpmn:serviceTask id="Task_PackItems" name="Pack Items">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="pack-items" />
+        <zeebe:taskHeaders>
+          <zeebe:header key="bizStep" value="packing" />
+          <zeebe:header key="emitEpcis" value="true" />
+        </zeebe:taskHeaders>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_PickingToPacking</bpmn:incoming>
+      <bpmn:outgoing>Flow_PackingToShipping</bpmn:outgoing>
+    </bpmn:serviceTask>
+
+    <!-- Create Shipment Task -->
+    <bpmn:serviceTask id="Task_CreateShipment" name="Create Shipment">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="create-shipment" />
+        <zeebe:taskHeaders>
+          <zeebe:header key="utcsPrefix" value="UTCS-MI:RLG:SHIP" />
+          <zeebe:header key="connector" value="tms-adapter" />
+          <zeebe:header key="bizStep" value="shipping" />
+          <zeebe:header key="emitEpcis" value="true" />
+        </zeebe:taskHeaders>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_PackingToShipping</bpmn:incoming>
+      <bpmn:outgoing>Flow_ShipmentToAnchor</bpmn:outgoing>
+    </bpmn:serviceTask>
+
+    <!-- Anchor Evidence to DLT Task (Optional) -->
+    <bpmn:serviceTask id="Task_AnchorEvidence" name="Anchor Evidence">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="anchor-evidence" />
+        <zeebe:taskHeaders>
+          <zeebe:header key="dltNetwork" value="fabric" />
+          <zeebe:header key="opaPolicy" value="pcs_a.authz.dlt.anchor" />
+        </zeebe:taskHeaders>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ShipmentToAnchor</bpmn:incoming>
+      <bpmn:outgoing>Flow_AnchorToComplete</bpmn:outgoing>
+    </bpmn:serviceTask>
+
+    <!-- Complete Order Task -->
+    <bpmn:serviceTask id="Task_CompleteOrder" name="Complete Order">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="complete-order" />
+        <zeebe:taskHeaders>
+          <zeebe:header key="emitCloudEvent" value="true" />
+          <zeebe:header key="eventType" value="com.pcs-a.order.completed" />
+        </zeebe:taskHeaders>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_AnchorToComplete</bpmn:incoming>
+      <bpmn:outgoing>Flow_CompleteToEnd</bpmn:outgoing>
+    </bpmn:serviceTask>
+
+    <!-- Handle Backorder Task -->
+    <bpmn:userTask id="Task_HandleBackorder" name="Handle Backorder">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="handle-backorder" />
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_NoStockToBackorder</bpmn:incoming>
+      <bpmn:outgoing>Flow_BackorderToEnd</bpmn:outgoing>
+    </bpmn:userTask>
+
+    <!-- Reject Order Task -->
+    <bpmn:serviceTask id="Task_RejectOrder" name="Reject Order">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="reject-order" />
+        <zeebe:taskHeaders>
+          <zeebe:header key="emitCloudEvent" value="true" />
+          <zeebe:header key="eventType" value="com.pcs-a.order.rejected" />
+        </zeebe:taskHeaders>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_InvalidToReject</bpmn:incoming>
+      <bpmn:outgoing>Flow_RejectToEnd</bpmn:outgoing>
+    </bpmn:serviceTask>
+
+    <!-- End Events -->
+    <bpmn:endEvent id="EndEvent_OrderCompleted" name="Order Completed">
+      <bpmn:incoming>Flow_CompleteToEnd</bpmn:incoming>
+    </bpmn:endEvent>
+
+    <bpmn:endEvent id="EndEvent_OrderBackordered" name="Order Backordered">
+      <bpmn:incoming>Flow_BackorderToEnd</bpmn:incoming>
+    </bpmn:endEvent>
+
+    <bpmn:endEvent id="EndEvent_OrderRejected" name="Order Rejected">
+      <bpmn:incoming>Flow_RejectToEnd</bpmn:incoming>
+    </bpmn:endEvent>
+
+    <!-- Sequence Flows -->
+    <bpmn:sequenceFlow id="Flow_OrderToValidation" sourceRef="StartEvent_OrderReceived" targetRef="Task_ValidateOrder" />
+    <bpmn:sequenceFlow id="Flow_ValidationToGateway" sourceRef="Task_ValidateOrder" targetRef="Gateway_OrderValid" />
+    <bpmn:sequenceFlow id="Flow_ValidToInventory" name="Valid" sourceRef="Gateway_OrderValid" targetRef="Task_CheckInventory">
+      <bpmn:conditionExpression>${orderValid == true}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_InvalidToReject" name="Invalid" sourceRef="Gateway_OrderValid" targetRef="Task_RejectOrder">
+      <bpmn:conditionExpression>${orderValid == false}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_InventoryToGateway" sourceRef="Task_CheckInventory" targetRef="Gateway_StockAvailable" />
+    <bpmn:sequenceFlow id="Flow_StockAvailableToPicking" name="Available" sourceRef="Gateway_StockAvailable" targetRef="Task_PickItems">
+      <bpmn:conditionExpression>${stockAvailable == true}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_NoStockToBackorder" name="Not Available" sourceRef="Gateway_StockAvailable" targetRef="Task_HandleBackorder">
+      <bpmn:conditionExpression>${stockAvailable == false}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_PickingToPacking" sourceRef="Task_PickItems" targetRef="Task_PackItems" />
+    <bpmn:sequenceFlow id="Flow_PackingToShipping" sourceRef="Task_PackItems" targetRef="Task_CreateShipment" />
+    <bpmn:sequenceFlow id="Flow_ShipmentToAnchor" sourceRef="Task_CreateShipment" targetRef="Task_AnchorEvidence" />
+    <bpmn:sequenceFlow id="Flow_AnchorToComplete" sourceRef="Task_AnchorEvidence" targetRef="Task_CompleteOrder" />
+    <bpmn:sequenceFlow id="Flow_CompleteToEnd" sourceRef="Task_CompleteOrder" targetRef="EndEvent_OrderCompleted" />
+    <bpmn:sequenceFlow id="Flow_BackorderToEnd" sourceRef="Task_HandleBackorder" targetRef="EndEvent_OrderBackordered" />
+    <bpmn:sequenceFlow id="Flow_RejectToEnd" sourceRef="Task_RejectOrder" targetRef="EndEvent_OrderRejected" />
+
+  </bpmn:process>
+
+</bpmn:definitions>

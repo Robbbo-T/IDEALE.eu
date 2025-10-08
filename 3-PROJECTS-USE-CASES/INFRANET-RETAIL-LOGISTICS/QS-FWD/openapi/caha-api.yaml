@@ -1,0 +1,380 @@
+# UTCS: UTCS-MI:RLG:INFRA:00-10:INFRANET-RETAIL-LOGISTICS:rev[A]
+# TFA: QS→FWD→UE→FE→CB→QB
+# License: Apache-2.0
+# Notes: PCS-A compliant CAHA API - EPCIS/OSLC facades for retail logistics
+
+openapi: 3.1.0
+info:
+  title: PCS-A CAHA API — INFRANET-RETAIL-LOGISTICS
+  version: 0.1.0
+  description: |
+    Sovereign, multi-organization retail-logistics API following PCS-A v0.1 standard.
+    Provides federated read-only access to EPCIS 2.0 events and OSLC metadata.
+  license:
+    name: Apache-2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+  contact:
+    name: INFRANET-RETAIL-LOGISTICS Team
+    url: https://github.com/Robbbo-T/IDEALE.eu
+
+servers:
+  - url: https://api.infranet.example/v1
+    description: Production API
+  - url: https://api-dev.infranet.example/v1
+    description: Development API
+
+security:
+  - oidc: []
+  - spiffe: []
+
+paths:
+  /epcis/events:
+    get:
+      summary: Query EPCIS 2.0 events (read-only, federated)
+      description: Retrieve EPCIS events across federated organizations with access control via OPA
+      operationId: listEpcisEvents
+      tags:
+        - EPCIS
+      parameters:
+        - name: epc
+          in: query
+          description: GS1 Digital Link URI for product identification
+          schema:
+            type: string
+            format: uri
+            example: "https://id.gs1.org/01/09506000134352/21/12345"
+        - name: bizStep
+          in: query
+          description: EPCIS Business Step (CBV vocabulary)
+          schema:
+            type: string
+            enum:
+              - shipping
+              - receiving
+              - accepting
+              - inspecting
+              - packing
+              - picking
+              - storing
+            example: "shipping"
+        - name: bizLocation
+          in: query
+          description: Business location URI
+          schema:
+            type: string
+            format: uri
+        - name: eventTime
+          in: query
+          description: Event time filter (ISO 8601)
+          schema:
+            type: string
+            format: date-time
+        - name: limit
+          in: query
+          description: Maximum number of results
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+            default: 20
+      responses:
+        "200":
+          description: Successful query response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  events:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/EpcisEvent"
+                  pagination:
+                    $ref: "#/components/schemas/Pagination"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+        "500":
+          $ref: "#/components/responses/InternalError"
+
+  /oslc/shipments/{utcsId}:
+    get:
+      summary: Get shipment metadata (OSLC summary)
+      description: Retrieve OSLC-compliant shipment metadata by UTCS ID
+      operationId: getShipment
+      tags:
+        - OSLC
+      parameters:
+        - name: utcsId
+          in: path
+          required: true
+          description: UTCS identifier for the shipment
+          schema:
+            type: string
+            pattern: "^UTCS-MI:RLG:.+$"
+            example: "UTCS-MI:RLG:SHIP:23-40:SHIPMENT-XYZ:rev[A]"
+      responses:
+        "200":
+          description: Shipment metadata
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Shipment"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+
+  /oslc/orders/{utcsId}:
+    get:
+      summary: Get order metadata (OSLC summary)
+      description: Retrieve OSLC-compliant order metadata by UTCS ID
+      operationId: getOrder
+      tags:
+        - OSLC
+      parameters:
+        - name: utcsId
+          in: path
+          required: true
+          description: UTCS identifier for the order
+          schema:
+            type: string
+            pattern: "^UTCS-MI:RLG:.+$"
+            example: "UTCS-MI:RLG:ORD:10-20:ORDER-ABC:rev[A]"
+      responses:
+        "200":
+          description: Order metadata
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Order"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+
+  /health:
+    get:
+      summary: Health check endpoint
+      description: Check API health status
+      operationId: healthCheck
+      tags:
+        - System
+      security: []
+      responses:
+        "200":
+          description: Service is healthy
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: "healthy"
+                  version:
+                    type: string
+                    example: "0.1.0"
+                  timestamp:
+                    type: string
+                    format: date-time
+
+components:
+  securitySchemes:
+    oidc:
+      type: openIdConnect
+      openIdConnectUrl: https://oidc.infranet.example/.well-known/openid-configuration
+    spiffe:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: SPIFFE/SPIRE workload identity
+
+  schemas:
+    EpcisEvent:
+      type: object
+      properties:
+        eventID:
+          type: string
+          format: uri
+          description: Unique event identifier
+        eventType:
+          type: string
+          enum: [ObjectEvent, AggregationEvent, TransactionEvent, TransformationEvent]
+        eventTime:
+          type: string
+          format: date-time
+        bizStep:
+          type: string
+          description: Business step from CBV
+        bizLocation:
+          type: string
+          format: uri
+        epcList:
+          type: array
+          items:
+            type: string
+            format: uri
+        utcsId:
+          type: string
+          pattern: "^UTCS-MI:RLG:.+$"
+          description: UTCS anchor for traceability
+        hash:
+          type: string
+          description: SHA-256 hash of event data
+      required:
+        - eventID
+        - eventType
+        - eventTime
+        - utcsId
+
+    Shipment:
+      type: object
+      properties:
+        utcsId:
+          type: string
+          pattern: "^UTCS-MI:RLG:.+$"
+          example: "UTCS-MI:RLG:SHIP:23-40:SHIPMENT-XYZ:rev[A]"
+        status:
+          type: string
+          enum: [PENDING, IN_TRANSIT, DELIVERED, CANCELLED]
+        carrier:
+          type: string
+        trackingNumber:
+          type: string
+        origin:
+          type: string
+          format: uri
+        destination:
+          type: string
+          format: uri
+        oslcLinks:
+          type: object
+          properties:
+            containsOrders:
+              type: array
+              items:
+                type: string
+                format: uri
+            hasEpcisEvents:
+              type: array
+              items:
+                type: string
+                format: uri
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+      required:
+        - utcsId
+        - status
+        - oslcLinks
+
+    Order:
+      type: object
+      properties:
+        utcsId:
+          type: string
+          pattern: "^UTCS-MI:RLG:.+$"
+        orderNumber:
+          type: string
+        status:
+          type: string
+          enum: [PENDING, CONFIRMED, SHIPPED, DELIVERED, CANCELLED]
+        customer:
+          type: string
+          format: uri
+        items:
+          type: array
+          items:
+            type: object
+            properties:
+              sku:
+                type: string
+              quantity:
+                type: integer
+              epc:
+                type: string
+                format: uri
+        oslcLinks:
+          type: object
+          properties:
+            relatedShipments:
+              type: array
+              items:
+                type: string
+                format: uri
+            hasRequirements:
+              type: array
+              items:
+                type: string
+                format: uri
+      required:
+        - utcsId
+        - orderNumber
+        - status
+
+    Pagination:
+      type: object
+      properties:
+        total:
+          type: integer
+        limit:
+          type: integer
+        offset:
+          type: integer
+        hasMore:
+          type: boolean
+
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+        message:
+          type: string
+        timestamp:
+          type: string
+          format: date-time
+      required:
+        - error
+        - message
+
+  responses:
+    Unauthorized:
+      description: Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+    Forbidden:
+      description: Insufficient permissions (OPA denied)
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+    InternalError:
+      description: Internal server error
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+
+tags:
+  - name: EPCIS
+    description: GS1 EPCIS 2.0 event queries
+  - name: OSLC
+    description: OSLC-compliant resource metadata
+  - name: System
+    description: System health and monitoring

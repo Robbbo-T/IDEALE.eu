@@ -1,0 +1,45 @@
+# UTCS: UTCS-MI:RLG:INFRA:00-10:INFRANET-RETAIL-LOGISTICS:rev[A]
+# TFA: QS→FWD→UE→FE→CB→QB
+# License: Apache-2.0
+# Notes: Argo CD Application for dev environment
+
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: pcs-a-infranet-rlg-dev
+  namespace: argocd
+  labels:
+    system: pcs-a
+    use-case: infranet-rlg
+    environment: dev
+spec:
+  project: default
+  
+  source:
+    repoURL: https://github.com/Robbbo-T/IDEALE.eu.git
+    targetRevision: main
+    path: 3-PROJECTS-USE-CASES/INFRANET-RETAIL-LOGISTICS/INFRA/kubernetes/overlays/dev
+  
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: pcs-a
+  
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+    retry:
+      limit: 5
+      backoff:
+        duration: 5s
+        factor: 2
+        maxDuration: 3m
+  
+  # Health checks
+  ignoreDifferences:
+  - group: apps
+    kind: Deployment
+    jsonPointers:
+    - /spec/replicas

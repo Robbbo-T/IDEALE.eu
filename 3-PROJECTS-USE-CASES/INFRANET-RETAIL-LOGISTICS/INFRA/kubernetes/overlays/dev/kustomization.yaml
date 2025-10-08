@@ -1,0 +1,41 @@
+# UTCS: UTCS-MI:RLG:INFRA:00-10:INFRANET-RETAIL-LOGISTICS:rev[A]
+# TFA: QS→FWD→UE→FE→CB→QB
+# License: Apache-2.0
+# Notes: Kustomization overlay for dev environment
+
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: pcs-a
+
+resources:
+  - ../../base/ndfa
+  - ../../base/ztrust
+
+# Patches for dev environment
+patches:
+  - target:
+      kind: Deployment
+      name: fuseki
+    patch: |-
+      - op: replace
+        path: /spec/replicas
+        value: 1
+  - target:
+      kind: Deployment
+      name: opa
+    patch: |-
+      - op: replace
+        path: /spec/replicas
+        value: 1
+
+# Dev-specific labels
+commonLabels:
+  environment: dev
+
+# ConfigMap generator for dev
+configMapGenerator:
+  - name: env-config
+    literals:
+      - ENVIRONMENT=dev
+      - LOG_LEVEL=debug
