@@ -1,0 +1,10 @@
+{
+  "name": "52-41",
+  "title": "Left Overwing Emergency Exit",
+  "ata_chapter": "52",
+  "domain": "AAA",
+  "project": "AMPEL360-AIR-T",
+  "version": "0.1.0",
+  "status": "in_development",
+  "scope": "instance"
+}
