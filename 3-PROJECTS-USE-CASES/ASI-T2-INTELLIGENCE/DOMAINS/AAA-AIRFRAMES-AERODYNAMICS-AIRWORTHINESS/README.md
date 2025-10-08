@@ -21,33 +21,35 @@ This domain folder contains all technical documentation, models, and compliance 
 ## Directory Structure
 
 ```
+
 AAA-AIRFRAMES-AERODYNAMICS-AIRWORTHINESS/
-  ├─ DELs/              # Certification and compliance deliverables
-  ├─ PLM/               # Product Lifecycle Management data
-  │  ├─ CAD/            # Geometric design (Computer-Aided Design)
-  │  ├─ CAE/            # Engineering analysis (Computer-Aided Engineering)
-  │  ├─ CAO/            # Requirements optimization (Computer-Aided Optimization)
-  │  ├─ CAM/            # Manufacturing planning (Computer-Aided Manufacturing)
-  │  ├─ CAI/            # Interface coordination (Computer-Aided Integration)
-  │  ├─ CAV/            # Verification & validation (Computer-Aided Verification)
-  │  ├─ CAS/            # Operational support (Computer-Aided Service)
-  │  └─ CMP/            # Program management (Computer-Aided Management Planning)
-  ├─ QUANTUM_OA/        # Quantum-inspired optimization algorithms
-  │  ├─ GA/             # Genetic Algorithms
-  │  ├─ LP/             # Linear Programming
-  │  ├─ MILP/           # Mixed-Integer Linear Programming
-  │  ├─ QAOA/           # Quantum Approximate Optimization Algorithm
-  │  ├─ QOX/            # Quantum Optimization Experimental
-  │  ├─ QP/             # Quadratic Programming
-  │  ├─ QUBO/           # Quadratic Unconstrained Binary Optimization
-  │  └─ SA/             # Simulated Annealing
-  ├─ PROCUREMENT/       # Vendor and component procurement information
-  │  └─ VENDORSCOMPONENTS/
-  ├─ SUPPLIERS/         # Supplier contracts and services
-  │  ├─ BIDS/
-  │  └─ SERVICES/
-  ├─ policy/            # Domain-specific policies and guidelines
-  └─ tests/             # Domain test data and validation
+├─ DELs/              # Certification and compliance deliverables
+├─ PLM/               # Product Lifecycle Management data
+│  ├─ CAD/            # Geometric design (Computer-Aided Design)
+│  ├─ CAE/            # Engineering analysis (Computer-Aided Engineering)
+│  ├─ CAO/            # Requirements optimization (Computer-Aided Optimization)
+│  ├─ CAM/            # Manufacturing planning (Computer-Aided Manufacturing)
+│  ├─ CAI/            # Interface coordination (Computer-Aided Integration)
+│  ├─ CAV/            # Verification & validation (Computer-Aided Verification)
+│  ├─ CAS/            # Operational support (Computer-Aided Service)
+│  └─ CMP/            # Program management (Computer-Aided Management Planning)
+├─ QUANTUM_OA/        # Quantum-inspired optimization algorithms
+│  ├─ GA/             # Genetic Algorithms
+│  ├─ LP/             # Linear Programming
+│  ├─ MILP/           # Mixed-Integer Linear Programming
+│  ├─ QAOA/           # Quantum Approximate Optimization Algorithm
+│  ├─ QOX/            # Quantum Optimization Experimental
+│  ├─ QP/             # Quadratic Programming
+│  ├─ QUBO/           # Quadratic Unconstrained Binary Optimization
+│  └─ SA/             # Simulated Annealing
+├─ PROCUREMENT/       # Vendor and component procurement information
+│  └─ VENDORSCOMPONENTS/
+├─ SUPPLIERS/         # Supplier contracts and services
+│  ├─ BIDS/
+│  └─ SERVICES/
+├─ policy/            # Domain-specific policies and guidelines
+└─ tests/             # Domain test data and validation
+
 ```
 
 ---
@@ -89,21 +91,25 @@ This domain integrates with the full TFA canonical flow:
 All domain artifacts include UTCS threading:
 
 ```
-UTCS-MI:AAA:{plm_type}:{artifact}:rev[X]
+
+UTCS-MI:AAA:{plm_type}:{artifact}:rev
+
 ```
 
 **Example**:
 ```
-UTCS-MI:AAA:CAE:WING-STRESS-ANALYSIS:rev[B]
+
+UTCS-MI:AAA:CAE:WING-STRESS-ANALYSIS:rev
+
 ```
 
 ---
 
 ## Related Services
 
-- **[MAP-AAA](../../MAP-SERVICES/MAP-AAA/)** — Domain orchestration service
-- **[MAL-SERVICES](../../MAL-SERVICES/)** — TFA computational services
-- **[MAP-PPP](../../MAP-SERVICES/MAP-PPP/)** — Propulsion domain (pylon integration)
+- **[MAP-AAA](../../MAP-SERVICES/MAP-AAA/)** — Domain orchestration service  
+- **[MAL-SERVICES](../../MAL-SERVICES/)** — TFA computational services  
+- **[MAP-PPP](../../MAP-SERVICES/MAP-PPP/)** — Propulsion domain (pylon integration)  
 - **[MAP-CCC](../../MAP-SERVICES/MAP-CCC/)** — Cabin domain (interior structure)
 
 ---
@@ -146,3 +152,5 @@ AAA domain is primary owner of:
 **Maintained by**: ASI-T2 Intelligence Team  
 **Last Updated**: 2025-01-27  
 **Version**: v0.2 (TFA-V2 Canon Aligned)
+```
+
