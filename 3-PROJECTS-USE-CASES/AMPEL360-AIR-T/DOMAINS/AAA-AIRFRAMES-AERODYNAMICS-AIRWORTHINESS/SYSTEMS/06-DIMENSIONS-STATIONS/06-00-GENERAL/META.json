@@ -1,0 +1,12 @@
+{
+  "utcs_anchor": "utcs://AMPEL360-AIR-T/AAA/06-DIMENSIONS-STATIONS/06-00-GENERAL",
+  "utcs_scope": "instance",
+  "ata_chapter": "06",
+  "ata_section": "06-00",
+  "domain": "AAA",
+  "system_name": "Dimensions and Stations General Documentation",
+  "project": "AMPEL360-AIR-T",
+  "status": "in_development",
+  "inherits_from": "../../../DELs",
+  "last_updated": "2025-01-27"
+}
