@@ -1,0 +1,28 @@
+# Security and Export Control Policy
+
+classification_levels:
+  - UNCLASSIFIED
+  - INTERNAL
+  - CONFIDENTIAL
+  - PROPRIETARY
+
+export_control:
+  marking_required: true
+  review_required: true
+  allowed_markings:
+    - EAR99
+    - EU-AL
+    - ITAR-Exempt
+    - PROPRIETARY
+
+handling:
+  UNCLASSIFIED:
+    distribution: PUBLIC
+  INTERNAL:
+    distribution: EMPLOYEES_ONLY
+  CONFIDENTIAL:
+    distribution: NEED_TO_KNOW
+    encryption: REQUIRED
+  PROPRIETARY:
+    distribution: AUTHORIZED_ONLY
+    watermarking: REQUIRED

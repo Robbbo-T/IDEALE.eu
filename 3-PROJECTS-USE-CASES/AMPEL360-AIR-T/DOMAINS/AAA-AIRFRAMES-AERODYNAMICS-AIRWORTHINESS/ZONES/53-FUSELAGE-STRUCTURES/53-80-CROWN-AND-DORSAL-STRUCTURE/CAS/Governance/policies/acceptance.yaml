@@ -1,0 +1,21 @@
+# Acceptance Criteria for Data Modules
+
+validation:
+  xsd: MUST_PASS
+  schematron: MUST_PASS
+  brex: MUST_PASS
+
+review:
+  technical_review: REQUIRED
+  quality_assurance: REQUIRED
+  design_authority_approval: REQUIRED
+
+content:
+  simplified_technical_english: REQUIRED
+  illustrations_complete: REQUIRED
+  all_references_valid: REQUIRED
+
+traceability:
+  utcs_anchor: REQUIRED
+  requirement_links: REQUIRED
+  test_evidence: REQUIRED_FOR_PROCEDURES

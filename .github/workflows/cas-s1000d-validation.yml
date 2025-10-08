@@ -1,0 +1,264 @@
+name: CAS S1000D Validation
+
+on:
+  push:
+    paths:
+      - '3-PROJECTS-USE-CASES/AMPEL360-AIR-T/DOMAINS/AAA-AIRFRAMES-AERODYNAMICS-AIRWORTHINESS/ZONES/**/CAS/**'
+      - 'scripts/validate-cas-s1000d.py'
+      - 'scripts/scaffold-cas-s1000d.sh'
+      - '.github/workflows/cas-s1000d-validation.yml'
+  pull_request:
+    paths:
+      - '3-PROJECTS-USE-CASES/AMPEL360-AIR-T/DOMAINS/AAA-AIRFRAMES-AERODYNAMICS-AIRWORTHINESS/ZONES/**/CAS/**'
+      - 'scripts/validate-cas-s1000d.py'
+      - 'scripts/scaffold-cas-s1000d.sh'
+      - '.github/workflows/cas-s1000d-validation.yml'
+  workflow_dispatch:
+
+jobs:
+  validate-cas-structure:
+    name: Validate CAS S1000D Structure
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+      
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pyyaml
+      
+      - name: Run CAS validation
+        id: validate
+        run: |
+          python3 scripts/validate-cas-s1000d.py
+        continue-on-error: true
+      
+      - name: Check validation result
+        if: steps.validate.outcome == 'failure'
+        run: |
+          echo "::error::CAS validation failed. Please check the output above for details."
+          exit 1
+      
+      - name: Generate validation report
+        if: always()
+        run: |
+          echo "# CAS S1000D Validation Report" > cas-validation-report.md
+          echo "" >> cas-validation-report.md
+          echo "**Workflow Run:** ${{ github.run_number }}" >> cas-validation-report.md
+          echo "**Commit:** ${{ github.sha }}" >> cas-validation-report.md
+          echo "**Branch:** ${{ github.ref_name }}" >> cas-validation-report.md
+          echo "" >> cas-validation-report.md
+          
+          if [ "${{ steps.validate.outcome }}" == "success" ]; then
+            echo "✅ **Status:** All CAS directories validated successfully" >> cas-validation-report.md
+          else
+            echo "❌ **Status:** Validation failed - see workflow logs for details" >> cas-validation-report.md
+          fi
+          
+          echo "" >> cas-validation-report.md
+          echo "## Validation Checks" >> cas-validation-report.md
+          echo "" >> cas-validation-report.md
+          echo "- [x] Directory structure compliance" >> cas-validation-report.md
+          echo "- [x] Required files present" >> cas-validation-report.md
+          echo "- [x] META.json validation" >> cas-validation-report.md
+          echo "- [x] WorkPackages mapping.json validation" >> cas-validation-report.md
+          echo "- [x] Governance metadata policy validation" >> cas-validation-report.md
+          echo "- [x] UTCS index validation" >> cas-validation-report.md
+          echo "" >> cas-validation-report.md
+          echo "## Standards Compliance" >> cas-validation-report.md
+          echo "" >> cas-validation-report.md
+          echo "- S1000D Issue 5.0+ directory structure" >> cas-validation-report.md
+          echo "- CSDB organization (DataModules, Illustrations, PMs, DMRL, BREX)" >> cas-validation-report.md
+          echo "- WorkPackages with DMC mapping" >> cas-validation-report.md
+          echo "- Exchange packages structure" >> cas-validation-report.md
+          echo "- Governance policies (metadata, acceptance, publishing, security)" >> cas-validation-report.md
+          echo "- UTCS traceability integration" >> cas-validation-report.md
+      
+      - name: Upload validation report
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: cas-validation-report
+          path: cas-validation-report.md
+      
+      - name: Comment on PR
+        if: github.event_name == 'pull_request' && always()
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const fs = require('fs');
+            const report = fs.readFileSync('cas-validation-report.md', 'utf8');
+            
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: report
+            });
+
+  check-naming-conventions:
+    name: Check S1000D Naming Conventions
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      
+      - name: Check DMC naming
+        run: |
+          echo "Checking Data Module Code (DMC) naming conventions..."
+          
+          # Find all XML files in DataModules directories
+          dms=$(find 3-PROJECTS-USE-CASES/AMPEL360-AIR-T/DOMAINS/AAA-AIRFRAMES-AERODYNAMICS-AIRWORTHINESS/ZONES -path "*/CAS/CSDB/DataModules/*.xml" 2>/dev/null || true)
+          
+          if [ -n "$dms" ]; then
+            invalid_count=0
+            while IFS= read -r dm; do
+              filename=$(basename "$dm")
+              if [[ ! "$filename" =~ ^DMC-.+\.xml$ ]]; then
+                echo "::warning::Invalid DMC filename: $filename (must start with 'DMC-' and end with '.xml')"
+                ((invalid_count++))
+              fi
+            done <<< "$dms"
+            
+            if [ $invalid_count -gt 0 ]; then
+              echo "::error::Found $invalid_count Data Modules with invalid filenames"
+              exit 1
+            else
+              echo "✓ All Data Module filenames follow DMC naming convention"
+            fi
+          else
+            echo "ℹ No Data Modules found (expected for new structure)"
+          fi
+      
+      - name: Check PM naming
+        run: |
+          echo "Checking Publication Module (PM) naming conventions..."
+          
+          # Find all XML files in PublicationModules directories
+          pms=$(find 3-PROJECTS-USE-CASES/AMPEL360-AIR-T/DOMAINS/AAA-AIRFRAMES-AERODYNAMICS-AIRWORTHINESS/ZONES -path "*/CAS/CSDB/PublicationModules/*.xml" 2>/dev/null || true)
+          
+          if [ -n "$pms" ]; then
+            invalid_count=0
+            while IFS= read -r pm; do
+              filename=$(basename "$pm")
+              if [[ ! "$filename" =~ ^PM-.+\.xml$ ]]; then
+                echo "::warning::Invalid PM filename: $filename (must start with 'PM-' and end with '.xml')"
+                ((invalid_count++))
+              fi
+            done <<< "$pms"
+            
+            if [ $invalid_count -gt 0 ]; then
+              echo "::error::Found $invalid_count Publication Modules with invalid filenames"
+              exit 1
+            else
+              echo "✓ All Publication Module filenames follow PM naming convention"
+            fi
+          else
+            echo "ℹ No Publication Modules found (expected for new structure)"
+          fi
+      
+      - name: Check ICN naming
+        run: |
+          echo "Checking Information Control Number (ICN) naming conventions..."
+          
+          # Find all files in ICN directories
+          icns=$(find 3-PROJECTS-USE-CASES/AMPEL360-AIR-T/DOMAINS/AAA-AIRFRAMES-AERODYNAMICS-AIRWORTHINESS/ZONES -path "*/CAS/CSDB/Illustrations/ICN/*/*.svg" -o -path "*/CAS/CSDB/Illustrations/ICN/*/*.cgm" 2>/dev/null || true)
+          
+          if [ -n "$icns" ]; then
+            invalid_count=0
+            while IFS= read -r icn; do
+              filename=$(basename "$icn")
+              if [[ ! "$filename" =~ ^ICN-.+ ]]; then
+                echo "::warning::Invalid ICN filename: $filename (must start with 'ICN-')"
+                ((invalid_count++))
+              fi
+            done <<< "$icns"
+            
+            if [ $invalid_count -gt 0 ]; then
+              echo "::error::Found $invalid_count Illustrations with invalid filenames"
+              exit 1
+            else
+              echo "✓ All Illustration filenames follow ICN naming convention"
+            fi
+          else
+            echo "ℹ No Illustrations found (expected for new structure)"
+          fi
+
+  check-governance-policies:
+    name: Check Governance Policies
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+      
+      - name: Install dependencies
+        run: |
+          pip install pyyaml
+      
+      - name: Validate policy files
+        run: |
+          echo "Validating governance policy files..."
+          
+          policy_dirs=$(find 3-PROJECTS-USE-CASES/AMPEL360-AIR-T/DOMAINS/AAA-AIRFRAMES-AERODYNAMICS-AIRWORTHINESS/ZONES -type d -path "*/CAS/Governance/policies" 2>/dev/null)
+          
+          for policy_dir in $policy_dirs; do
+            echo "Checking policies in: $policy_dir"
+            
+            # Check each required policy file
+            for policy in metadata.yaml acceptance.yaml publishing.yaml security.yaml controlled-language.yaml; do
+              policy_file="$policy_dir/$policy"
+              if [ -f "$policy_file" ]; then
+                python3 -c "import yaml; yaml.safe_load(open('$policy_file'))" 2>&1
+                if [ $? -eq 0 ]; then
+                  echo "  ✓ $policy is valid YAML"
+                else
+                  echo "::error::$policy is not valid YAML: $policy_file"
+                  exit 1
+                fi
+              else
+                echo "::error::Missing policy file: $policy_file"
+                exit 1
+              fi
+            done
+          done
+          
+          echo "✓ All governance policies are valid"
+
+  summary:
+    name: Validation Summary
+    runs-on: ubuntu-latest
+    needs: [validate-cas-structure, check-naming-conventions, check-governance-policies]
+    if: always()
+    
+    steps:
+      - name: Check overall status
+        run: |
+          echo "# CAS S1000D Validation Summary"
+          echo ""
+          echo "Structure Validation: ${{ needs.validate-cas-structure.result }}"
+          echo "Naming Conventions: ${{ needs.check-naming-conventions.result }}"
+          echo "Governance Policies: ${{ needs.check-governance-policies.result }}"
+          echo ""
+          
+          if [ "${{ needs.validate-cas-structure.result }}" != "success" ] || \
+             [ "${{ needs.check-naming-conventions.result }}" != "success" ] || \
+             [ "${{ needs.check-governance-policies.result }}" != "success" ]; then
+            echo "::error::One or more validation checks failed"
+            exit 1
+          else
+            echo "✅ All validation checks passed!"
+          fi

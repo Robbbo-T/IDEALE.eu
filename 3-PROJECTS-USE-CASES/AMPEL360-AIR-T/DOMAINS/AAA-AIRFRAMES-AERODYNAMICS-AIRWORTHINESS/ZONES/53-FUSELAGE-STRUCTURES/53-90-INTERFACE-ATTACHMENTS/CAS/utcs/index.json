@@ -1,0 +1,15 @@
+{
+  "description": "DMC/PM Code to UTCS mirror for 53-90",
+  "mappings": [
+    {
+      "dmc": "DMC-AMP360-53-90-00-00A-040A-A_en-US_010-00",
+      "utcs": "UTCS-MI:AAA:CAS:53-90:maintenance-proc:rev[1]",
+      "type": "procedural"
+    },
+    {
+      "pmCode": "PM-AMP360-AMM-53-90-001",
+      "utcs": "UTCS-MI:AAA:CAS:53-90:publication:rev[1]",
+      "type": "publication"
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "scope": "cas",
+  "ata_chapter": "06",
+  "ata_section": "40",
+  "zone_name": "GROUND-CLEARANCES",
+  "standard": "S1000D Issue 5.0+",
+  "utcs_anchor": "UTCS-MI:AAA:CAS:06-40:system:rev[1]",
+  "last_updated": "2025-01-27",
+  "maintained_by": "AAA Integration Team"
+}

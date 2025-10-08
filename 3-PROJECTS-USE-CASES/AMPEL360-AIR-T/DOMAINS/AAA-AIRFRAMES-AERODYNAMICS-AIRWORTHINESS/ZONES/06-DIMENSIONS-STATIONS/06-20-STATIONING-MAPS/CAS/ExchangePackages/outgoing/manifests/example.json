@@ -1,0 +1,42 @@
+{
+  "packageId": "XCHG-AMM-06-20-2025-10-08",
+  "createdBy": "CAS-System",
+  "createdDate": "2025-01-27T12:00:00Z",
+  "packageType": "INCREMENTAL",
+  "dms": [
+    {
+      "dmc": "DMC-AMP360-06-20-00-00A-040A-A_en-US_010-00",
+      "issue": "010",
+      "inWork": "00",
+      "title": "Example Maintenance Procedure"
+    }
+  ],
+  "pms": [
+    {
+      "pmCode": "PM-AMP360-AMM-06-20-001",
+      "issue": "01",
+      "title": "AMM Publication Module"
+    }
+  ],
+  "icns": [
+    {
+      "icn": "ICN-AMP360-06-20-0001",
+      "format": "SVG"
+    }
+  ],
+  "hashes": [
+    {
+      "path": "pm/PM-AMP360-AMM-06-20-001.xml",
+      "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "path": "dms/DMC-AMP360-06-20-00-00A-040A-A_en-US_010-00.xml",
+      "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+    }
+  ],
+  "dmrl": {
+    "included": true,
+    "path": "dmrl.xml",
+    "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+  }
+}
