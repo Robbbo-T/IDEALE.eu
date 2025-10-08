@@ -1,0 +1,101 @@
+Category,SCI_Chapter,SCI_Title,Primary_Domain,Secondary_Domains,Notes
+SCI Chapter,01,Program Introduction,LIB,OOO,Program overview and standards
+SCI Chapter,02,Configuration Management,LIB,OOO,Version and configuration control
+SCI Chapter,03,Systems Engineering V&V,LIB,IIS,Verification and validation
+SCI Chapter,04,Spaceworthiness Limits,LIB,AAA,Mission and structural limits
+SCI Chapter,05,Design Life Time Limits,LIB,AAA,Lifecycle and maintenance scheduling
+SCI Chapter,06,Coordinates Mass Properties,AAA,,Reference frame and mass properties
+SCI Chapter,07,MGSE Shoring Lifting,IIF,AAA,Ground support equipment
+SCI Chapter,08,Mass Properties Leveling,AAA,LCC,Mass measurement and control
+SCI Chapter,09,Surface Finishes Outgassing,AAA,EER,Material finishes and contamination
+SCI Chapter,10,Launch Pad Handling Restraints,AAP,AAA,Ground handling and restraints
+SCI Chapter,11,Markings Placards,CCC,,Identification and placards
+SCI Chapter,12,Ground Servicing,LIB,,Pre-launch servicing procedures
+SCI Chapter,13,General Hardware,OOO,,Standard parts and practices
+SCI Chapter,14,Fasteners Structural Hardware,AAA,,Structural hardware and fasteners
+SCI Chapter,15,Acoustics Vibration Environment,EER,AAA,Environmental vibration and acoustics
+SCI Chapter,16,EGSE GSE Integration,IIF,AAP,Electrical ground support equipment
+SCI Chapter,17,Interface Control Docs,AAP,OOO,Interface management
+SCI Chapter,18,Hazard Analysis Safety,AAP,EER,Safety analysis and hazard control
+SCI Chapter,19,Reliability Availability,LIB,IIS,Reliability engineering
+SCI Chapter,20,Standard Practices,OOO,,General standard practices
+SCI Chapter,21,Thermal Control System,DDD,EER,Active and passive thermal control
+SCI Chapter,22,GNC AOCS,LCC,EDI,Guidance navigation control and AOCS
+SCI Chapter,23,TT&C,LCC,EDI,Telemetry tracking and command
+SCI Chapter,24,EPS Power,EEE,,Electrical power system
+SCI Chapter,25,Crew Systems Payload Accommod.,CCC,AAA,Crew support and payload integration
+SCI Chapter,26,Ordnance Fire Explosion Safety,EER,AAA,Pyrotechnics and ordnance safety
+SCI Chapter,27,Mechanisms Deployables,MEC,AAA,Deployment mechanisms
+SCI Chapter,28,Propellant Systems,PPP,,Propellant storage and distribution
+SCI Chapter,29,Pressure Systems Pneumatics,CQH,PPP,Pressure vessels and pneumatics
+SCI Chapter,30,TPS Thermal Protection,DDD,AAA,Thermal protection systems
+SCI Chapter,31,Telemetry Data Recording,EDI,,Data acquisition and recording
+SCI Chapter,32,EDL Landing Systems,MEC,AAA,Entry descent and landing
+SCI Chapter,33,Illumination Beacons,EEE,LCC,Lighting and beacons
+SCI Chapter,34,Navigation Sensors,EDI,LCC,Navigation instruments
+SCI Chapter,35,ECLSS Oxygen,CCC,EER,Life support oxygen systems
+SCI Chapter,36,Pressurization Atmosphere,CCC,EER,Cabin atmosphere control
+SCI Chapter,37,Venting Vacuum Compatibility,EER,CCC,Venting and vacuum exposure
+SCI Chapter,38,ECLSS Water Waste,CCC,EER,Water and waste management
+SCI Chapter,39,PCDU Panels Power Distribution,EEE,,Power control and distribution units
+SCI Chapter,40,Flight Software,EDI,,Flight control software
+SCI Chapter,41,Time Sync Fault Tolerance,LCC,EDI,Timing and redundancy
+SCI Chapter,42,Databus IMA,EDI,LCC,Integrated modular avionics
+SCI Chapter,43,Human Systems Interface,CCC,LCC,Crew interfaces and controls
+SCI Chapter,44,Mode Control FDIR,LCC,EDI,Fault detection isolation recovery
+SCI Chapter,45,Health Monitoring Maint CBRS,LCC,IIS,Condition based maintenance
+SCI Chapter,46,Mission Ops Ground Segment,IIS,LCC,Mission operations
+SCI Chapter,47,Pressurants Purge N2,CQH,PPP,Pressurant gases and purging
+SCI Chapter,48,Optical Communications,LCC,EDI,Laser communications
+SCI Chapter,49,Alternate Power Sources,EEE,PPP,Alternative power (solar panels radioisotope)
+SCI Chapter,50,Payload Bay Structures,AAA,,Payload accommodation structures
+SCI Chapter,51,Standard Practices Structures,AAA,,Structural standard practices
+SCI Chapter,52,Access Doors Hatches,AAA,MEC,Access panels and hatches
+SCI Chapter,53,Primary Structure,AAA,,Main structural elements
+SCI Chapter,54,Propulsion Module Structure,AAA,PPP,Propulsion structure integration
+SCI Chapter,55,Masts Booms Rad Structures,AAA,MEC,Deployable structural elements
+SCI Chapter,56,Viewports Windows,AAA,CCC,Windows and optical ports
+SCI Chapter,57,Solar Array Structures,AAA,EEE,Solar panel structures
+SCI Chapter,58,Docking Systems,AAA,MEC,Docking and berthing systems
+SCI Chapter,59,Sampling Mechanisms,MEC,AAA,Sample collection mechanisms
+SCI Chapter,60,RCS Practices,PPP,,Reaction control system practices
+SCI Chapter,61,RCS Thrusters,PPP,,RCS thruster assemblies
+SCI Chapter,62,Rotorcraft Reserved,OOO,,Reserved for rotorcraft
+SCI Chapter,63,Reserved,OOO,,Reserved for future use
+SCI Chapter,64,Reserved,OOO,,Reserved for future use
+SCI Chapter,65,Reserved,OOO,,Reserved for future use
+SCI Chapter,66,Deployable Practices,MEC,AAA,Deployment standard practices
+SCI Chapter,67,Reserved,OOO,,Reserved for future use
+SCI Chapter,68,Reserved,OOO,,Reserved for future use
+SCI Chapter,69,Reserved,OOO,,Reserved for future use
+SCI Chapter,70,Main Propulsion Practices,PPP,,Main propulsion standard practices
+SCI Chapter,71,Main Propulsion,PPP,,Main propulsion system
+SCI Chapter,72,Engine Modules,PPP,,Engine and thruster modules
+SCI Chapter,73,Propellant Control,PPP,,Propellant flow control
+SCI Chapter,74,Ignition Actuation,PPP,EEE,Ignition and actuation systems
+SCI Chapter,75,Thermal Management Propulsion,PPP,DDD,Propulsion thermal control
+SCI Chapter,76,Thrust Vector Control,PPP,LCC,TVC systems
+SCI Chapter,77,Propulsion Indicating,PPP,EDI,Propulsion instrumentation
+SCI Chapter,78,Plume Contamination,PPP,EER,Exhaust plume effects
+SCI Chapter,79,Lubrication,PPP,MEC,Lubrication systems
+SCI Chapter,80,Starting Sequencing,PPP,LCC,Engine start sequences
+SCI Chapter,81,Turbomachinery,PPP,,Turbopumps and machinery
+SCI Chapter,82,Cryogenic Reactant Injection,CQH,PPP,Cryogenic propellant injection
+SCI Chapter,83,Pumps Gearboxes,PPP,MEC,Pumps and mechanical drives
+SCI Chapter,84,Electric Propulsion,PPP,EEE,Ion and plasma propulsion
+SCI Chapter,85,Emissions RF EMC Contamination,EER,,RF and EMC environmental effects
+SCI Chapter,86,Planetary Protection,EER,LIB,Contamination control protocols
+SCI Chapter,87,Radiation Shielding,EER,AAA,Radiation protection
+SCI Chapter,88,Cybersecurity,OOO,EDI,Information security
+SCI Chapter,89,AI ML Assurance,OOO,EDI,AI and ML validation
+SCI Chapter,90,Space Traffic Conjunction,IIS,LCC,Space situational awareness
+SCI Chapter,91,Mission Analysis Performance,IIS,LCC,Mission design and analysis
+SCI Chapter,92,Calibration Geometry,OOO,EDI,Sensor calibration
+SCI Chapter,93,Central Control Systems,LCC,,Central command and control
+SCI Chapter,94,Avionics Bays EE Compartments,AAA,EDI,Electronics enclosures
+SCI Chapter,95,Model Based Systems Engineering,IIS,OOO,MBSE methods and tools
+SCI Chapter,96,Simulation HIL SIL,IIS,IIF,Hardware and software in the loop
+SCI Chapter,97,Harness Wiring,EEE,,Electrical harnesses
+SCI Chapter,98,Records Data Packages,LIB,OOO,Documentation and data management
+SCI Chapter,99,Compliance Licensing,LIB,OOO,Regulatory compliance
+SCI Chapter,100,Reserved,OOO,,Reserved for future use
