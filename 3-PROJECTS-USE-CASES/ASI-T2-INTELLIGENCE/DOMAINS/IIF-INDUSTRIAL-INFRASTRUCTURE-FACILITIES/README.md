@@ -1,6 +1,6 @@
-# AAA-AIRFRAMES-AERODYNAMICS-AIRWORTHINESS
+# IIF-INDUSTRIAL-INFRASTRUCTURE-FACILITIES
 
-> **Part of**: ASI-T2-INTELLIGENCE | **Domain**: AAA  
+> **Part of**: ASI-T2-INTELLIGENCE | **Domain**: IIF  
 > **Category**: Knowledge Domain  
 > **Status**: Template · **UTCS-anchored**
 
@@ -8,7 +8,7 @@
 
 ## Overview
 
-This domain folder contains all technical documentation, models, and compliance evidence related to **structural design, aerodynamic performance, and airworthiness certification** for the ASI-T2-INTELLIGENCE platform.
+This domain folder contains all technical documentation, models, and compliance evidence related to **Manufacturing facilities, ground infrastructure, tooling, and industrial support systems** for the ASI-T2-INTELLIGENCE platform.
 
 ---
 
@@ -21,7 +21,7 @@ This domain folder contains all technical documentation, models, and compliance 
 ## Directory Structure
 
 ```
-AAA-AIRFRAMES-AERODYNAMICS-AIRWORTHINESS/
+IIF-INDUSTRIAL-INFRASTRUCTURE-FACILITIES/
   ├─ DELs/              # Certification and compliance deliverables
   ├─ PLM/               # Product Lifecycle Management data
   │  ├─ CAD/            # Geometric design (Computer-Aided Design)
@@ -56,16 +56,16 @@ AAA-AIRFRAMES-AERODYNAMICS-AIRWORTHINESS/
 
 Each CAx subfolder supports specific agentic skills:
 
-| PLM/CAx | Agentic Skill | Purpose in AAA Domain |
+| PLM/CAx | Agentic Skill | Purpose in IIF Domain |
 | :--- | :--- | :--- |
-| **CAD** | Geometric Interpretation Skill | Airframe geometry, parametric design, assemblies |
-| **CAE** | Predictive Modeling Skill | Structural FEM, CFD aerodynamics, flutter analysis |
-| **CAO** | Requirements Synthesis Skill | Airworthiness requirements, performance targets |
-| **CAM** | Manufacturing Synthesis Skill | Composite layup, machining, assembly planning |
-| **CAI** | Interface Coordination Skill | Structure-propulsion, structure-systems interfaces |
-| **CAV** | Verification & Auditing Skill | CS-25 compliance, structural testing, certification |
-| **CAS** | Operational Forecasting Skill | Structural maintenance, repair procedures, SRM |
-| **CMP** | Strategic Governance Skill | Airframe program management, certification strategy |
+| **CAD** | Geometric Interpretation Skill | Parametric geometry, topologies, constraints |
+| **CAE** | Predictive Modeling Skill | Multiphysics simulation, uncertainty, ROMs |
+| **CAO** | Requirements Synthesis Skill | Goal/Req trees, trade studies, design intents |
+| **CAM** | Manufacturing Synthesis Skill | Process planning, DFM/DFA, NC/AM flows |
+| **CAI** | Interface Coordination Skill | ICDs, APIs, ontic links, interface budgets |
+| **CAV** | Verification & Auditing Skill | V&V, compliance, audit trails, sign-offs |
+| **CAS** | Operational Forecasting Skill | Ops simulation, maintenance, MRO, dispatch |
+| **CMP** | Strategic Governance Skill | Portfolio policy, ESG metrics, risk, capital |
 
 ---
 
@@ -73,14 +73,14 @@ Each CAx subfolder supports specific agentic skills:
 
 This domain integrates with the full TFA canonical flow:
 
-| TFA Stage | AAA Domain Activities |
+| TFA Stage | IIF Domain Activities |
 | :--- | :--- |
-| **QS** (Quantum Superposition) | Explore airframe configurations, structural concepts, materials |
-| **FWD** (Forward Wave Dynamics) | Predict fatigue life, aerodynamic performance, certification timeline |
-| **UE** (Unit/Unique Element) | Capture design baselines, as-built configurations, test articles |
-| **FE** (Federation Entanglement) | Coordinate with PPP (propulsion), CCC (cabin), LCC (controls) |
-| **CB** (Classical Bit/Solver) | Validate against CS-25 requirements, structural limits, aero constraints |
-| **QB** (Qubit-Inspired Solver) | Optimize structural weight, aerodynamic efficiency, topology |
+| **QS** (Quantum Superposition) | Explore design alternatives and configurations |
+| **FWD** (Forward Wave Dynamics) | Predict performance, reliability, and lifecycle |
+| **UE** (Unit/Unique Element) | Capture design snapshots and as-built configurations |
+| **FE** (Federation Entanglement) | Coordinate with interfacing domains |
+| **CB** (Classical Bit/Solver) | Validate against requirements and constraints |
+| **QB** (Qubit-Inspired Solver) | Optimize performance and efficiency |
 
 ---
 
@@ -89,51 +89,40 @@ This domain integrates with the full TFA canonical flow:
 All domain artifacts include UTCS threading:
 
 ```
-UTCS-MI:AAA:{plm_type}:{artifact}:rev[X]
+UTCS-MI:IIF:{plm_type}:{artifact}:rev[X]
 ```
 
 **Example**:
 ```
-UTCS-MI:AAA:CAE:WING-STRESS-ANALYSIS:rev[B]
+UTCS-MI:IIF:CAD:BASELINE-GEOMETRY:rev[A]
 ```
 
 ---
 
 ## Related Services
 
-- **[MAP-AAA](../../MAP-SERVICES/MAP-AAA/)** — Domain orchestration service
+- **[MAP-IIF](../../MAP-SERVICES/MAP-IIF/)** — Domain orchestration service
 - **[MAL-SERVICES](../../MAL-SERVICES/)** — TFA computational services
-- **[MAP-PPP](../../MAP-SERVICES/MAP-PPP/)** — Propulsion domain (pylon integration)
-- **[MAP-CCC](../../MAP-SERVICES/MAP-CCC/)** — Cabin domain (interior structure)
+- **Other Domains** — Cross-domain coordination and interfaces
 
 ---
 
 ## Quantum Optimization (QUANTUM_OA)
 
 This domain uses quantum-inspired optimization for:
-- Structural topology optimization
-- Aerodynamic shape optimization
-- Weight-stiffness trade-offs
-- Multi-objective design optimization
+- Design space exploration
+- Multi-objective optimization
+- Constraint satisfaction
+- Performance optimization
 
 Available algorithms: GA, LP, MILP, QAOA, QOX, QP, QUBO, SA
 
 ---
 
-## Airworthiness Focus
-
-AAA domain is primary owner of:
-- **CS-25 / FAR-25**: Large aircraft airworthiness
-- **Structural Integrity**: Strength, fatigue, damage tolerance
-- **Aerodynamic Performance**: Stability, control, performance guarantees
-- **Certification Basis**: Type Certificate Data Sheet (TCDS)
-
----
-
 ## Procurement & Suppliers
 
-- **PROCUREMENT/**: Structural materials, fasteners, composite materials
-- **SUPPLIERS/**: OEM suppliers, material vendors, testing services
+- **PROCUREMENT/**: Vendor evaluation, component sourcing
+- **SUPPLIERS/**: Supplier contracts, bids, and service agreements
 
 ---
 
