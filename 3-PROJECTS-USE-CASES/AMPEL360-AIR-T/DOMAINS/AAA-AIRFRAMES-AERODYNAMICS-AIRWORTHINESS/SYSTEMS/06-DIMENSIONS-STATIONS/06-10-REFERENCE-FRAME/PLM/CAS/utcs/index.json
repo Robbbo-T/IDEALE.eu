@@ -1,7 +1,107 @@
 {
+  "schema_version": "1.0.0",
+  "index_type": "S1000D-CSDB",
   "domain": "AAA",
-  "system": "06-DIMENSIONS-STATIONS",
-  "subSystem": "06-10",
-  "utcsPattern": "UTCS-MI:AAA:CAS:06-06-10:{artifact}:rev[X]",
-  "artifacts": []
+  "system": "06-10",
+  "utcs_anchors": [
+    {
+      "utcs_id": "UTCS-MI:AAA:CAS:06-10:DMRL:rev[A]",
+      "artifact_type": "DMRL",
+      "file_path": "CSDB/DMRL/dmrl.xml",
+      "dmc": "DMC-AMP360-AAA-00-00-00-00A-014A-A_en-001-00",
+      "status": "active",
+      "issue_date": "2025-01-31",
+      "checksum": "sha256:pending"
+    },
+    {
+      "utcs_id": "UTCS-MI:AAA:CAS:BREX:RULESET:rev[A]",
+      "artifact_type": "BREX",
+      "file_path": "CSDB/BREX/DMC-AMP360-AAA-00-00-00-00A-000A-A_en-US_001-00.xml",
+      "dmc": "DMC-AMP360-AAA-00-00-00-00A-000A-A_en-US_001-00",
+      "status": "active",
+      "issue_date": "2025-01-27",
+      "checksum": "sha256:pending"
+    },
+    {
+      "utcs_id": "UTCS-MI:AAA:CAS:06-10:DM:DESCRIPTIVE:rev[1]",
+      "artifact_type": "DataModule",
+      "file_path": "CSDB/DataModules/MAINTENANCE/06-10/DMC-AMP360-AAA-06-10-00-00A-00GA-A_en-001-00.xml",
+      "dmc": "DMC-AMP360-AAA-06-10-00-00A-00GA-A_en-001-00",
+      "info_code": "00GA",
+      "title": "Reference Frame System - Description",
+      "status": "new",
+      "issue_date": "2025-01-31",
+      "checksum": "sha256:pending"
+    },
+    {
+      "utcs_id": "UTCS-MI:AAA:CAS:06-10:DM:PROCEDURAL:rev[1]",
+      "artifact_type": "DataModule",
+      "file_path": "CSDB/DataModules/MAINTENANCE/06-10/DMC-AMP360-AAA-06-10-00-00A-000A-A_en-001-00.xml",
+      "dmc": "DMC-AMP360-AAA-06-10-00-00A-000A-A_en-001-00",
+      "info_code": "000A",
+      "title": "Reference Frame Datum Points - Inspection",
+      "status": "new",
+      "issue_date": "2025-01-31",
+      "checksum": "sha256:pending"
+    },
+    {
+      "utcs_id": "UTCS-MI:AAA:CAS:06-10:DM:FAULT-ISO:rev[1]",
+      "artifact_type": "DataModule",
+      "file_path": "CSDB/DataModules/MAINTENANCE/06-10/DMC-AMP360-AAA-06-10-00-00A-04DA-A_en-001-00.xml",
+      "dmc": "DMC-AMP360-AAA-06-10-00-00A-04DA-A_en-001-00",
+      "info_code": "04DA",
+      "title": "Reference Frame System - Fault Isolation",
+      "status": "new",
+      "issue_date": "2025-01-31",
+      "checksum": "sha256:pending"
+    },
+    {
+      "utcs_id": "UTCS-MI:AAA:CAS:COMMON:WARNINGS:rev[1]",
+      "artifact_type": "DataModule",
+      "file_path": "CSDB/DataModules/COMMON-INFO/DMC-AMP360-AAA-00-00-00-00A-00UA-A_en-001-00.xml",
+      "dmc": "DMC-AMP360-AAA-00-00-00-00A-00UA-A_en-001-00",
+      "info_code": "00UA",
+      "title": "Common Information - Warnings and Cautions",
+      "status": "new",
+      "issue_date": "2025-01-31",
+      "checksum": "sha256:pending"
+    },
+    {
+      "utcs_id": "UTCS-MI:AAA:CAS:ACT:APPLICABILITY:rev[1]",
+      "artifact_type": "DataModule",
+      "file_path": "CSDB/DataModules/APPLICABILITY/ACT/DMC-AMP360-AAA-00-00-00-00A-022A-A_en-001-00.xml",
+      "dmc": "DMC-AMP360-AAA-00-00-00-00A-022A-A_en-001-00",
+      "info_code": "022A",
+      "title": "Applicability - Applicability Cross-reference Table",
+      "status": "new",
+      "issue_date": "2025-01-31",
+      "checksum": "sha256:pending"
+    },
+    {
+      "utcs_id": "UTCS-MI:AAA:CAS:06-10:ICN:DATUM-GRID:rev[1]",
+      "artifact_type": "Illustration",
+      "file_path": "CSDB/Illustrations/ICN/master/ICN-AMP360-AAA-06-10-DATUM-GRID-001.svg",
+      "icn": "ICN-AMP360-AAA-06-10-DATUM-GRID-001",
+      "title": "Reference Frame Datum Grid",
+      "status": "new",
+      "issue_date": "2025-01-31",
+      "checksum": "sha256:pending"
+    },
+    {
+      "utcs_id": "UTCS-MI:AAA:CAS:06-10:PM:AMM-STRUCT:rev[1]",
+      "artifact_type": "PublicationModule",
+      "file_path": "CSDB/PublicationModules/PM-AMP360-AMM-06-10-STRUCT.xml",
+      "pm_code": "AMP360-AAA-AMM0610-00",
+      "title": "Aircraft Maintenance Manual - ATA 06-10 Reference Frame",
+      "status": "new",
+      "issue_date": "2025-01-31",
+      "checksum": "sha256:pending"
+    }
+  ],
+  "metadata": {
+    "created": "2025-01-31",
+    "last_updated": "2025-01-31",
+    "maintainer": "AAA Integration Team",
+    "notes": "Initial CSDB structure for 06-10 Reference Frame system"
+  }
 }

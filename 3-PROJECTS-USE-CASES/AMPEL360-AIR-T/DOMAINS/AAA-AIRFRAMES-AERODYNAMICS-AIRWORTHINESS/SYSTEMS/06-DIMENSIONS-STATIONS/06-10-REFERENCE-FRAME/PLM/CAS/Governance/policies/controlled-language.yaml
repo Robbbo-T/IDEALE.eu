@@ -1,5 +1,42 @@
 # S1000D Controlled Language Policy
+# ASD-STE100 Simplified Technical English (STE)
+
 language_standard: ASD-STE100
 compliance_level: mandatory
+profile: aerospace_maintenance
+
+# Writing Rules
+writing_rules:
+  sentence_length_max: 20_words_procedural
+  sentence_length_max_descriptive: 25_words
+  approved_vocabulary: ASD-STE100_dictionary
+  verb_forms: simple_present_imperative
+  noun_clusters_max: 3_words
+  active_voice: preferred
+
+# Verification
 verification_tool: required
+verification_frequency: before_publication
+checker_software: STE_checker_certified
+
+# Exceptions
 exceptions_process: documented_approval
+exception_approval_authority: Technical_Publications_Manager
+exception_documentation: required_in_DM
+
+# Training
+author_training: ASD-STE100_course_required
+certification_validity: 2_years
+
+# Quality Gates
+quality_gates:
+  - pre_authoring_check
+  - peer_review
+  - technical_review
+  - STE_automated_check
+  - final_QA_approval
+
+# Resources
+dictionary_location: schemas/s1000d/codelists/ste-dictionary.xml
+style_guide: Governance/policies/ste-style-guide.pdf
+

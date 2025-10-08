@@ -1,7 +1,112 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Data Module Requirements List (DMRL) placeholder -->
-<!-- This file defines which Data Modules are required for publication -->
-<!-- To be populated during S1000D authoring -->
-<dmodule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <!-- DMRL structure to be defined per S1000D Issue 6.0 standards -->
+<dmodule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+         xsi:noNamespaceSchemaLocation="http://www.s1000d.org/S1000D_6-0/xml_schema_flat/dmodule.xsd">
+  <identAndStatusSection>
+    <dmAddress>
+      <dmIdent>
+        <dmCode modelIdentCode="AMP360" systemDiffCode="AAA" systemCode="00" 
+                subSystemCode="0" subSubSystemCode="0" assyCode="00" 
+                disassyCode="00" disassyCodeVariant="A" infoCode="014" 
+                infoCodeVariant="A" itemLocationCode="A"/>
+        <language languageIsoCode="en" countryIsoCode="US"/>
+        <issueInfo issueNumber="001" inWork="00"/>
+      </dmIdent>
+      <dmAddressItems>
+        <issueDate year="2025" month="01" day="31"/>
+        <dmTitle>
+          <techName>ATA 06-10 Reference Frame</techName>
+          <infoName>Data Module Requirements List</infoName>
+        </dmTitle>
+      </dmAddressItems>
+    </dmAddress>
+    <dmStatus issueType="new">
+      <security securityClassification="01"/>
+      <responsiblePartnerCompany enterpriseCode="AMP360">
+        <enterpriseName>AMPEL360 Engineering</enterpriseName>
+      </responsiblePartnerCompany>
+      <originator enterpriseCode="AMP360"/>
+      <applic>
+        <displayText>
+          <simplePara>All aircraft</simplePara>
+        </displayText>
+      </applic>
+      <brexDmRef>
+        <dmRef>
+          <dmRefIdent>
+            <dmCode modelIdentCode="AMP360" systemDiffCode="AAA" systemCode="00" 
+                    subSystemCode="0" subSubSystemCode="0" assyCode="00" 
+                    disassyCode="00" disassyCodeVariant="A" infoCode="00A" 
+                    infoCodeVariant="A" itemLocationCode="A"/>
+          </dmRefIdent>
+        </dmRef>
+      </brexDmRef>
+      <qualityAssurance>
+        <firstVerification verificationType="tabtop"/>
+      </qualityAssurance>
+    </dmStatus>
+  </identAndStatusSection>
+  <content>
+    <dmRequirementsList>
+      <dmRequirementsListEntry>
+        <dmRef>
+          <dmRefIdent>
+            <dmCode modelIdentCode="AMP360" systemDiffCode="AAA" systemCode="06" 
+                    subSystemCode="1" subSubSystemCode="0" assyCode="00" 
+                    disassyCode="00" disassyCodeVariant="A" infoCode="00G" 
+                    infoCodeVariant="A" itemLocationCode="A"/>
+          </dmRefIdent>
+        </dmRef>
+        <issueInfo issueNumber="001" inWork="00"/>
+        <dmStatus dmStatusValue="new"/>
+      </dmRequirementsListEntry>
+      <dmRequirementsListEntry>
+        <dmRef>
+          <dmRefIdent>
+            <dmCode modelIdentCode="AMP360" systemDiffCode="AAA" systemCode="06" 
+                    subSystemCode="1" subSubSystemCode="0" assyCode="00" 
+                    disassyCode="00" disassyCodeVariant="A" infoCode="000" 
+                    infoCodeVariant="A" itemLocationCode="A"/>
+          </dmRefIdent>
+        </dmRef>
+        <issueInfo issueNumber="001" inWork="00"/>
+        <dmStatus dmStatusValue="new"/>
+      </dmRequirementsListEntry>
+      <dmRequirementsListEntry>
+        <dmRef>
+          <dmRefIdent>
+            <dmCode modelIdentCode="AMP360" systemDiffCode="AAA" systemCode="06" 
+                    subSystemCode="1" subSubSystemCode="0" assyCode="00" 
+                    disassyCode="00" disassyCodeVariant="A" infoCode="04D" 
+                    infoCodeVariant="A" itemLocationCode="A"/>
+          </dmRefIdent>
+        </dmRef>
+        <issueInfo issueNumber="001" inWork="00"/>
+        <dmStatus dmStatusValue="new"/>
+      </dmRequirementsListEntry>
+      <dmRequirementsListEntry>
+        <dmRef>
+          <dmRefIdent>
+            <dmCode modelIdentCode="AMP360" systemDiffCode="AAA" systemCode="00" 
+                    subSystemCode="0" subSubSystemCode="0" assyCode="00" 
+                    disassyCode="00" disassyCodeVariant="A" infoCode="00U" 
+                    infoCodeVariant="A" itemLocationCode="A"/>
+          </dmRefIdent>
+        </dmRef>
+        <issueInfo issueNumber="001" inWork="00"/>
+        <dmStatus dmStatusValue="new"/>
+      </dmRequirementsListEntry>
+      <dmRequirementsListEntry>
+        <dmRef>
+          <dmRefIdent>
+            <dmCode modelIdentCode="AMP360" systemDiffCode="AAA" systemCode="00" 
+                    subSystemCode="0" subSubSystemCode="0" assyCode="00" 
+                    disassyCode="00" disassyCodeVariant="A" infoCode="022" 
+                    infoCodeVariant="A" itemLocationCode="A"/>
+          </dmRefIdent>
+        </dmRef>
+        <issueInfo issueNumber="001" inWork="00"/>
+        <dmStatus dmStatusValue="new"/>
+      </dmRequirementsListEntry>
+    </dmRequirementsList>
+  </content>
 </dmodule>

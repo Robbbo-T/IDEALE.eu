@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pm xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="http://www.s1000d.org/S1000D_6-0/xml_schema_flat/pm.xsd">
+  <identAndStatusSection>
+    <pmAddress>
+      <pmIdent>
+        <pmCode modelIdentCode="AMP360" pmIssuer="AAA" pmNumber="AMM0610" pmVolume="00"/>
+        <language languageIsoCode="en" countryIsoCode="US"/>
+        <issueInfo issueNumber="001" inWork="00"/>
+      </pmIdent>
+      <pmAddressItems>
+        <issueDate year="2025" month="01" day="31"/>
+        <pmTitle>Aircraft Maintenance Manual - ATA 06-10 Reference Frame</pmTitle>
+      </pmAddressItems>
+    </pmAddress>
+    <pmStatus issueType="new">
+      <security securityClassification="01"/>
+      <responsiblePartnerCompany enterpriseCode="AMP360">
+        <enterpriseName>AMPEL360 Engineering</enterpriseName>
+      </responsiblePartnerCompany>
+      <originator enterpriseCode="AMP360"/>
+      <applic>
+        <displayText>
+          <simplePara>All aircraft</simplePara>
+        </displayText>
+      </applic>
+      <qualityAssurance>
+        <firstVerification verificationType="tabtop"/>
+      </qualityAssurance>
+    </pmStatus>
+  </identAndStatusSection>
+  <content>
+    <pmEntry>
+      <pmEntryTitle>ATA 06-10 - Reference Frame</pmEntryTitle>
+      <pmEntry>
+        <pmEntryTitle>Description</pmEntryTitle>
+        <dmRef>
+          <dmRefIdent>
+            <dmCode modelIdentCode="AMP360" systemDiffCode="AAA" systemCode="06" 
+                    subSystemCode="1" subSubSystemCode="0" assyCode="00" 
+                    disassyCode="00" disassyCodeVariant="A" infoCode="00G" 
+                    infoCodeVariant="A" itemLocationCode="A"/>
+          </dmRefIdent>
+        </dmRef>
+      </pmEntry>
+      <pmEntry>
+        <pmEntryTitle>Maintenance Procedures</pmEntryTitle>
+        <dmRef>
+          <dmRefIdent>
+            <dmCode modelIdentCode="AMP360" systemDiffCode="AAA" systemCode="06" 
+                    subSystemCode="1" subSubSystemCode="0" assyCode="00" 
+                    disassyCode="00" disassyCodeVariant="A" infoCode="000" 
+                    infoCodeVariant="A" itemLocationCode="A"/>
+          </dmRefIdent>
+        </dmRef>
+      </pmEntry>
+      <pmEntry>
+        <pmEntryTitle>Fault Isolation</pmEntryTitle>
+        <dmRef>
+          <dmRefIdent>
+            <dmCode modelIdentCode="AMP360" systemDiffCode="AAA" systemCode="06" 
+                    subSystemCode="1" subSubSystemCode="0" assyCode="00" 
+                    disassyCode="00" disassyCodeVariant="A" infoCode="04D" 
+                    infoCodeVariant="A" itemLocationCode="A"/>
+          </dmRefIdent>
+        </dmRef>
+      </pmEntry>
+    </pmEntry>
+  </content>
+</pm>

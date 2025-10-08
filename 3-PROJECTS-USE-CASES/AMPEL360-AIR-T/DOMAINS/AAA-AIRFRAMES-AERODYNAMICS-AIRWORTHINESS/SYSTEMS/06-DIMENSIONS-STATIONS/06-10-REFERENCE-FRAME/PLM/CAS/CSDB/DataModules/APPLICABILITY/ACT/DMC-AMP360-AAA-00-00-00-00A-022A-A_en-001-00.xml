@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dmodule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+         xsi:noNamespaceSchemaLocation="http://www.s1000d.org/S1000D_6-0/xml_schema_flat/dmodule.xsd">
+  <identAndStatusSection>
+    <dmAddress>
+      <dmIdent>
+        <dmCode modelIdentCode="AMP360" systemDiffCode="AAA" systemCode="00" 
+                subSystemCode="0" subSubSystemCode="0" assyCode="00" 
+                disassyCode="00" disassyCodeVariant="A" infoCode="022" 
+                infoCodeVariant="A" itemLocationCode="A"/>
+        <language languageIsoCode="en" countryIsoCode="US"/>
+        <issueInfo issueNumber="001" inWork="00"/>
+      </dmIdent>
+      <dmAddressItems>
+        <issueDate year="2025" month="01" day="31"/>
+        <dmTitle>
+          <techName>Applicability</techName>
+          <infoName>Applicability Cross-reference Table</infoName>
+        </dmTitle>
+      </dmAddressItems>
+    </dmAddress>
+    <dmStatus issueType="new">
+      <security securityClassification="01"/>
+      <responsiblePartnerCompany enterpriseCode="AMP360">
+        <enterpriseName>AMPEL360 Engineering</enterpriseName>
+      </responsiblePartnerCompany>
+      <originator enterpriseCode="AMP360"/>
+      <applic>
+        <displayText>
+          <simplePara>All aircraft</simplePara>
+        </displayText>
+      </applic>
+      <brexDmRef>
+        <dmRef>
+          <dmRefIdent>
+            <dmCode modelIdentCode="AMP360" systemDiffCode="AAA" systemCode="00" 
+                    subSystemCode="0" subSubSystemCode="0" assyCode="00" 
+                    disassyCode="00" disassyCodeVariant="A" infoCode="00A" 
+                    infoCodeVariant="A" itemLocationCode="A"/>
+          </dmRefIdent>
+        </dmRef>
+      </brexDmRef>
+      <qualityAssurance>
+        <firstVerification verificationType="tabtop"/>
+      </qualityAssurance>
+    </dmStatus>
+  </identAndStatusSection>
+  <content>
+    <applicCrossRefTable>
+      <productAttributeList>
+        <productAttribute id="MSN">
+          <name>Manufacturing Serial Number</name>
+          <descr>
+            <para>Aircraft manufacturing serial number</para>
+          </descr>
+          <prodAttrValues>
+            <prodAttrValue value="001"/>
+            <prodAttrValue value="002"/>
+            <prodAttrValue value="003"/>
+            <prodAttrValue value="004"/>
+            <prodAttrValue value="005"/>
+          </prodAttrValues>
+        </productAttribute>
+        <productAttribute id="CONFIG">
+          <name>Configuration Level</name>
+          <descr>
+            <para>Aircraft configuration level</para>
+          </descr>
+          <prodAttrValues>
+            <prodAttrValue value="BASELINE"/>
+            <prodAttrValue value="MOD-01"/>
+            <prodAttrValue value="MOD-02"/>
+          </prodAttrValues>
+        </productAttribute>
+      </productAttributeList>
+      <condCrossRefTable>
+        <condCrossRefTableEntry id="COND-ALL">
+          <applic>
+            <displayText>
+              <simplePara>All aircraft</simplePara>
+            </displayText>
+            <evaluate andOr="and">
+              <assert applicPropertyIdent="MSN" applicPropertyType="prodattr" 
+                      applicPropertyValues="001 002 003 004 005"/>
+            </evaluate>
+          </applic>
+        </condCrossRefTableEntry>
+        <condCrossRefTableEntry id="COND-BASELINE">
+          <applic>
+            <displayText>
+              <simplePara>Baseline configuration only</simplePara>
+            </displayText>
+            <evaluate andOr="and">
+              <assert applicPropertyIdent="CONFIG" applicPropertyType="prodattr" 
+                      applicPropertyValues="BASELINE"/>
+            </evaluate>
+          </applic>
+        </condCrossRefTableEntry>
+      </condCrossRefTable>
+    </applicCrossRefTable>
+  </content>
+</dmodule>

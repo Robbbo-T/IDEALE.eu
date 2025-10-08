@@ -1,8 +1,70 @@
 # S1000D Metadata Requirements Policy
+# Ensures completeness of identAndStatusSection metadata
+
+# Required IDS Fields (CI-enforced)
 required_ids_fields:
-  - responsiblePartnerCompany
-  - security
-  - issueInfo
-  - language
-  - qualityAssurance
+  dmAddress:
+    - dmIdent.dmCode
+    - dmIdent.language
+    - dmIdent.issueInfo
+    - dmAddressItems.issueDate
+    - dmAddressItems.dmTitle
+  dmStatus:
+    - security.securityClassification
+    - responsiblePartnerCompany.enterpriseCode
+    - responsiblePartnerCompany.enterpriseName
+    - originator.enterpriseCode
+    - applic
+    - brexDmRef
+    - qualityAssurance.firstVerification
+
+# Optional but Recommended
+recommended_fields:
+  - skillLevel
+  - authorization
+  - dataRestrictions
+  - remarks
+
+# Quality Assurance
+quality_assurance:
+  verification_types:
+    - tabtop
+    - onobject
+    - ttandoo
+  required_for_new: firstVerification
+  required_for_change: unverified_or_verification
+
+# Issue Management
+issue_info:
+  pattern: issue_number_inwork
+  issue_number_format: nnn
+  inwork_format: nn
+  mandatory_fields:
+    - issueNumber
+    - inWork
+
+# Language
+language:
+  mandatory: true
+  iso_codes: required
+  country_code: optional_but_recommended
+
+# BREX Reference
+brex_reference:
+  mandatory: true
+  must_exist: true
+  validation: filename_matches_dmc
+
+# Applicability
+applicability:
+  mandatory: true
+  types:
+    - displayText
+    - evaluate
+    - assert
+
+# CI/CD Enforcement
 fail_on_missing: true
+validation_stage: pre_commit
+automated_check: enabled
+

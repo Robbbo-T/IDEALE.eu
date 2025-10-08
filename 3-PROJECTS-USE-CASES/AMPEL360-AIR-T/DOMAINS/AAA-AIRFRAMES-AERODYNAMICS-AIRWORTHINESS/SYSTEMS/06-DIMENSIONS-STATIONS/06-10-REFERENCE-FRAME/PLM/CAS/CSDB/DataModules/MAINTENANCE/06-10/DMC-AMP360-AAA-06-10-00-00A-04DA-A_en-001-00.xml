@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dmodule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+         xsi:noNamespaceSchemaLocation="http://www.s1000d.org/S1000D_6-0/xml_schema_flat/dmodule.xsd">
+  <identAndStatusSection>
+    <dmAddress>
+      <dmIdent>
+        <dmCode modelIdentCode="AMP360" systemDiffCode="AAA" systemCode="06" 
+                subSystemCode="1" subSubSystemCode="0" assyCode="00" 
+                disassyCode="00" disassyCodeVariant="A" infoCode="04D" 
+                infoCodeVariant="A" itemLocationCode="A"/>
+        <language languageIsoCode="en" countryIsoCode="US"/>
+        <issueInfo issueNumber="001" inWork="00"/>
+      </dmIdent>
+      <dmAddressItems>
+        <issueDate year="2025" month="01" day="31"/>
+        <dmTitle>
+          <techName>Reference Frame System</techName>
+          <infoName>Fault Isolation</infoName>
+        </dmTitle>
+      </dmAddressItems>
+    </dmAddress>
+    <dmStatus issueType="new">
+      <security securityClassification="01"/>
+      <responsiblePartnerCompany enterpriseCode="AMP360">
+        <enterpriseName>AMPEL360 Engineering</enterpriseName>
+      </responsiblePartnerCompany>
+      <originator enterpriseCode="AMP360"/>
+      <applic>
+        <displayText>
+          <simplePara>All aircraft</simplePara>
+        </displayText>
+      </applic>
+      <brexDmRef>
+        <dmRef>
+          <dmRefIdent>
+            <dmCode modelIdentCode="AMP360" systemDiffCode="AAA" systemCode="00" 
+                    subSystemCode="0" subSubSystemCode="0" assyCode="00" 
+                    disassyCode="00" disassyCodeVariant="A" infoCode="00A" 
+                    infoCodeVariant="A" itemLocationCode="A"/>
+          </dmRefIdent>
+        </dmRef>
+      </brexDmRef>
+      <qualityAssurance>
+        <firstVerification verificationType="tabtop"/>
+      </qualityAssurance>
+    </dmStatus>
+  </identAndStatusSection>
+  <content>
+    <faultIsolation>
+      <isolationProcedure>
+        <isolationMainProcedure>
+          <title>Datum Misalignment</title>
+          <faultDescr>
+            <para>The measured distance between datum points does not agree with the reference value.</para>
+          </faultDescr>
+          <isolationStep>
+            <title>Check Measuring Tools</title>
+            <para>Make sure that the measuring tools are calibrated.</para>
+            <action>
+              <para>Check the calibration certificate of the measuring tools.</para>
+            </action>
+            <action>
+              <para>If the measuring tools are not calibrated, do a calibration.</para>
+            </action>
+          </isolationStep>
+          <isolationStep>
+            <title>Check Datum Markers</title>
+            <para>Do a visual inspection of the datum markers.</para>
+            <action>
+              <para>Look for damage to the datum markers.</para>
+            </action>
+            <action>
+              <para>Look for missing datum markers.</para>
+            </action>
+            <action>
+              <para>If the datum markers have damage or are missing, refer to the repair procedure.</para>
+            </action>
+          </isolationStep>
+          <isolationStep>
+            <title>Verify Measurement Method</title>
+            <para>Make sure that the measurement procedure is correct.</para>
+            <action>
+              <para>Refer to the measurement procedure in the maintenance manual.</para>
+            </action>
+            <action>
+              <para>Do the measurement again.</para>
+            </action>
+            <action>
+              <para>If the measurement is still not correct, contact engineering support.</para>
+            </action>
+          </isolationStep>
+        </isolationMainProcedure>
+      </isolationProcedure>
+    </faultIsolation>
+  </content>
+</dmodule>

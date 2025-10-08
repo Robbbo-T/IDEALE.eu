@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dmodule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+         xsi:noNamespaceSchemaLocation="http://www.s1000d.org/S1000D_6-0/xml_schema_flat/dmodule.xsd">
+  <identAndStatusSection>
+    <dmAddress>
+      <dmIdent>
+        <dmCode modelIdentCode="AMP360" systemDiffCode="AAA" systemCode="06" 
+                subSystemCode="1" subSubSystemCode="0" assyCode="00" 
+                disassyCode="00" disassyCodeVariant="A" infoCode="00G" 
+                infoCodeVariant="A" itemLocationCode="A"/>
+        <language languageIsoCode="en" countryIsoCode="US"/>
+        <issueInfo issueNumber="001" inWork="00"/>
+      </dmIdent>
+      <dmAddressItems>
+        <issueDate year="2025" month="01" day="31"/>
+        <dmTitle>
+          <techName>Reference Frame System</techName>
+          <infoName>Description</infoName>
+        </dmTitle>
+      </dmAddressItems>
+    </dmAddress>
+    <dmStatus issueType="new">
+      <security securityClassification="01"/>
+      <responsiblePartnerCompany enterpriseCode="AMP360">
+        <enterpriseName>AMPEL360 Engineering</enterpriseName>
+      </responsiblePartnerCompany>
+      <originator enterpriseCode="AMP360"/>
+      <applic>
+        <displayText>
+          <simplePara>All aircraft</simplePara>
+        </displayText>
+      </applic>
+      <brexDmRef>
+        <dmRef>
+          <dmRefIdent>
+            <dmCode modelIdentCode="AMP360" systemDiffCode="AAA" systemCode="00" 
+                    subSystemCode="0" subSubSystemCode="0" assyCode="00" 
+                    disassyCode="00" disassyCodeVariant="A" infoCode="00A" 
+                    infoCodeVariant="A" itemLocationCode="A"/>
+          </dmRefIdent>
+        </dmRef>
+      </brexDmRef>
+      <qualityAssurance>
+        <firstVerification verificationType="tabtop"/>
+      </qualityAssurance>
+    </dmStatus>
+  </identAndStatusSection>
+  <content>
+    <description>
+      <levelledPara>
+        <title>General</title>
+        <para>The reference frame system gives the standard coordinate system for the aircraft. Use the reference frame system to identify the position of components and structures.</para>
+      </levelledPara>
+      <levelledPara>
+        <title>Datum Points</title>
+        <para>The datum points are the fixed reference positions on the aircraft. The primary datum is at the nose of the fuselage.</para>
+        <levelledPara>
+          <title>Station (STA)</title>
+          <para>Stations are the distances along the fuselage from the nose datum. Stations increase from the nose to the tail. Station 0 is at the nose datum.</para>
+        </levelledPara>
+        <levelledPara>
+          <title>Waterline (WL)</title>
+          <para>Waterlines are the vertical distances from a horizontal reference plane. Waterline 0 is at the bottom of the fuselage.</para>
+        </levelledPara>
+        <levelledPara>
+          <title>Buttock Line (BL)</title>
+          <para>Buttock lines are the lateral distances from the fuselage centerline. Buttock line 0 is at the centerline. Positive values are on the right side, negative values are on the left side.</para>
+        </levelledPara>
+      </levelledPara>
+      <levelledPara>
+        <title>Reference Grid</title>
+        <para>The reference grid shows the intersection of stations, waterlines, and buttock lines. Use the reference grid to find the position of aircraft components.</para>
+        <para>
+          <emphasis emphasisType="em01">Note:</emphasis> Refer to the reference frame drawings for the exact position of datum points and grid lines.
+        </para>
+      </levelledPara>
+    </description>
+  </content>
+</dmodule>

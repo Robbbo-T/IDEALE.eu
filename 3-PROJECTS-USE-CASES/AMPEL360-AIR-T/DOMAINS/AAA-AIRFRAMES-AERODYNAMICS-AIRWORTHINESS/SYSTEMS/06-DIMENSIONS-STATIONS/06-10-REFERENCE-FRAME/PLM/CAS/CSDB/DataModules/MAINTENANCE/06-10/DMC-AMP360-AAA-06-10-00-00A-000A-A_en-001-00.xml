@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dmodule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+         xsi:noNamespaceSchemaLocation="http://www.s1000d.org/S1000D_6-0/xml_schema_flat/dmodule.xsd">
+  <identAndStatusSection>
+    <dmAddress>
+      <dmIdent>
+        <dmCode modelIdentCode="AMP360" systemDiffCode="AAA" systemCode="06" 
+                subSystemCode="1" subSubSystemCode="0" assyCode="00" 
+                disassyCode="00" disassyCodeVariant="A" infoCode="000" 
+                infoCodeVariant="A" itemLocationCode="A"/>
+        <language languageIsoCode="en" countryIsoCode="US"/>
+        <issueInfo issueNumber="001" inWork="00"/>
+      </dmIdent>
+      <dmAddressItems>
+        <issueDate year="2025" month="01" day="31"/>
+        <dmTitle>
+          <techName>Reference Frame Datum Points</techName>
+          <infoName>Inspection</infoName>
+        </dmTitle>
+      </dmAddressItems>
+    </dmAddress>
+    <dmStatus issueType="new">
+      <security securityClassification="01"/>
+      <responsiblePartnerCompany enterpriseCode="AMP360">
+        <enterpriseName>AMPEL360 Engineering</enterpriseName>
+      </responsiblePartnerCompany>
+      <originator enterpriseCode="AMP360"/>
+      <applic>
+        <displayText>
+          <simplePara>All aircraft</simplePara>
+        </displayText>
+      </applic>
+      <brexDmRef>
+        <dmRef>
+          <dmRefIdent>
+            <dmCode modelIdentCode="AMP360" systemDiffCode="AAA" systemCode="00" 
+                    subSystemCode="0" subSubSystemCode="0" assyCode="00" 
+                    disassyCode="00" disassyCodeVariant="A" infoCode="00A" 
+                    infoCodeVariant="A" itemLocationCode="A"/>
+          </dmRefIdent>
+        </dmRef>
+      </brexDmRef>
+      <qualityAssurance>
+        <firstVerification verificationType="tabtop"/>
+      </qualityAssurance>
+    </dmStatus>
+  </identAndStatusSection>
+  <content>
+    <procedure>
+      <preliminaryRqmts>
+        <reqCondGroup>
+          <noConds/>
+        </reqCondGroup>
+      </preliminaryRqmts>
+      <mainProcedure>
+        <proceduralStep>
+          <title>Inspect Datum Markers</title>
+          <para>Do a visual inspection of the datum markers on the fuselage.</para>
+          <proceduralStep>
+            <para>Make sure that the datum markers are clearly visible.</para>
+          </proceduralStep>
+          <proceduralStep>
+            <para>Make sure that the datum markers do not have damage.</para>
+          </proceduralStep>
+          <proceduralStep>
+            <para>Make sure that the datum marker labels are readable.</para>
+          </proceduralStep>
+        </proceduralStep>
+        <proceduralStep>
+          <title>Verify Reference Grid Alignment</title>
+          <para>Use a measuring tool to verify the reference grid alignment.</para>
+          <proceduralStep>
+            <para>Measure the distance from Station 0 to the first reference marker.</para>
+          </proceduralStep>
+          <proceduralStep>
+            <para>Compare the measured distance with the reference value in the technical drawing.</para>
+          </proceduralStep>
+          <proceduralStep>
+            <para>If the difference is more than 2 mm, refer to the fault isolation procedure.</para>
+          </proceduralStep>
+        </proceduralStep>
+        <proceduralStep>
+          <title>Record Results</title>
+          <para>Record the inspection results in the maintenance log.</para>
+          <proceduralStep>
+            <para>Write the date and time of the inspection.</para>
+          </proceduralStep>
+          <proceduralStep>
+            <para>Write the condition of the datum markers.</para>
+          </proceduralStep>
+          <proceduralStep>
+            <para>Write the measured distances.</para>
+          </proceduralStep>
+          <proceduralStep>
+            <para>Sign the maintenance log.</para>
+          </proceduralStep>
+        </proceduralStep>
+      </mainProcedure>
+      <closeRqmts>
+        <reqCondGroup>
+          <noConds/>
+        </reqCondGroup>
+      </closeRqmts>
+    </procedure>
+  </content>
+</dmodule>
