@@ -1,0 +1,11 @@
+{
+  "name": "10-10-PARKING",
+  "description": "Aircraft Stand Configuration - Stand geometry, guide lines, parking aids, clearance envelopes",
+  "version": "0.1.0",
+  "ata_chapter": "10",
+  "sub_system": "10-10",
+  "domain": "AAP",
+  "project": "AMPEL360-AIR-T",
+  "utcs_scope": "instance",
+  "status": "in-development"
+}

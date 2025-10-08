@@ -1,0 +1,11 @@
+{
+  "name": "10-40-RETURN-TO-SERVICE",
+  "description": "Reactivation Protocol - Inspections and tests to reactivate aircraft after storage/mooring",
+  "version": "0.1.0",
+  "ata_chapter": "10",
+  "sub_system": "10-40",
+  "domain": "AAP",
+  "project": "AMPEL360-AIR-T",
+  "utcs_scope": "instance",
+  "status": "in-development"
+}

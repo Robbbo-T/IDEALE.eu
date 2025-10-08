@@ -1,0 +1,11 @@
+{
+  "name": "10-00-GENERAL",
+  "description": "Parking & Mooring Governance - Cross-cutting governance for parking and mooring operations",
+  "version": "0.1.0",
+  "ata_chapter": "10",
+  "sub_system": "10-00",
+  "domain": "AAP",
+  "project": "AMPEL360-AIR-T",
+  "utcs_scope": "instance",
+  "status": "production-ready"
+}

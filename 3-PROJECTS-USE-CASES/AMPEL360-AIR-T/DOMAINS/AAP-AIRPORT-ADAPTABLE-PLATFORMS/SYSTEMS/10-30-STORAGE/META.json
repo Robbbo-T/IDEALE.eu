@@ -1,0 +1,11 @@
+{
+  "name": "10-30-STORAGE",
+  "description": "Aircraft Preservation & Layup - Short/long-term storage protocols, preservation kits, humidity control",
+  "version": "0.1.0",
+  "ata_chapter": "10",
+  "sub_system": "10-30",
+  "domain": "AAP",
+  "project": "AMPEL360-AIR-T",
+  "utcs_scope": "instance",
+  "status": "in-development"
+}
