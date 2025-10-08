@@ -1,0 +1,130 @@
+# UTCS: UTCS-MI:RLG:INFRA:00-10:INFRANET-RETAIL-LOGISTICS:rev[A]
+# TFA: QS→FWD→UE→FE→CB→QB
+# License: Apache-2.0
+# Notes: Kubernetes base deployment for NDFA (Apache Fuseki triplestore)
+
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: pcs-a
+  labels:
+    name: pcs-a
+    system: infranet-rlg
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: fuseki-config
+  namespace: pcs-a
+data:
+  config.ttl: |
+    @prefix fuseki:  <http://jena.apache.org/fuseki#> .
+    @prefix rdf:     <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+    @prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .
+    @prefix tdb:     <http://jena.hpl.hp.com/2008/tdb#> .
+    @prefix ja:      <http://jena.hpl.hp.com/2005/11/Assembler#> .
+    
+    <#service> rdf:type fuseki:Service ;
+        fuseki:name "infranet" ;
+        fuseki:serviceQuery "sparql" ;
+        fuseki:serviceUpdate "update" ;
+        fuseki:serviceUpload "upload" ;
+        fuseki:serviceReadWriteGraphStore "data" ;
+        fuseki:dataset <#dataset> .
+    
+    <#dataset> rdf:type tdb:DatasetTDB ;
+        tdb:location "/fuseki/databases/infranet" .
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fuseki
+  namespace: pcs-a
+  labels:
+    app: fuseki
+    component: ndfa
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: fuseki
+  template:
+    metadata:
+      labels:
+        app: fuseki
+        component: ndfa
+    spec:
+      containers:
+      - name: fuseki
+        image: secoresearch/fuseki:latest
+        ports:
+        - containerPort: 3030
+          name: http
+        volumeMounts:
+        - name: config
+          mountPath: /fuseki/config.ttl
+          subPath: config.ttl
+        - name: data
+          mountPath: /fuseki/databases
+        env:
+        - name: ADMIN_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: fuseki-secrets
+              key: admin-password
+        resources:
+          requests:
+            memory: "2Gi"
+            cpu: "1000m"
+          limits:
+            memory: "4Gi"
+            cpu: "2000m"
+        livenessProbe:
+          httpGet:
+            path: /$/ping
+            port: 3030
+          initialDelaySeconds: 30
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /$/ping
+            port: 3030
+          initialDelaySeconds: 10
+          periodSeconds: 5
+      volumes:
+      - name: config
+        configMap:
+          name: fuseki-config
+      - name: data
+        persistentVolumeClaim:
+          claimName: fuseki-data
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: fuseki
+  namespace: pcs-a
+  labels:
+    app: fuseki
+    component: ndfa
+spec:
+  type: ClusterIP
+  ports:
+  - port: 3030
+    targetPort: 3030
+    protocol: TCP
+    name: http
+  selector:
+    app: fuseki
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: fuseki-data
+  namespace: pcs-a
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 50Gi

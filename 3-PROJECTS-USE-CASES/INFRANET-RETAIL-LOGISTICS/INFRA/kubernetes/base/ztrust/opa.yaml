@@ -1,0 +1,94 @@
+# UTCS: UTCS-MI:RLG:INFRA:00-10:INFRANET-RETAIL-LOGISTICS:rev[A]
+# TFA: QS→FWD→UE→FE→CB→QB
+# License: Apache-2.0
+# Notes: Kubernetes base deployment for OPA (policy engine)
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: opa-policies
+  namespace: pcs-a
+data:
+  authz.rego: |
+    # OPA/Rego policies will be loaded from ConfigMap
+    # See QS-FWD/opa-policies/authz.rego for policy definitions
+    package pcs_a.authz
+    import future.keywords.if
+    default allow := false
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: opa
+  namespace: pcs-a
+  labels:
+    app: opa
+    component: ztrust
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: opa
+  template:
+    metadata:
+      labels:
+        app: opa
+        component: ztrust
+    spec:
+      containers:
+      - name: opa
+        image: openpolicyagent/opa:latest
+        args:
+        - "run"
+        - "--server"
+        - "--addr=0.0.0.0:8181"
+        - "--log-level=info"
+        - "/policies"
+        ports:
+        - containerPort: 8181
+          name: http
+        volumeMounts:
+        - name: policies
+          mountPath: /policies
+          readOnly: true
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "100m"
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 8181
+          initialDelaySeconds: 10
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /health?bundle=true
+            port: 8181
+          initialDelaySeconds: 5
+          periodSeconds: 5
+      volumes:
+      - name: policies
+        configMap:
+          name: opa-policies
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: opa
+  namespace: pcs-a
+  labels:
+    app: opa
+    component: ztrust
+spec:
+  type: ClusterIP
+  ports:
+  - port: 8181
+    targetPort: 8181
+    protocol: TCP
+    name: http
+  selector:
+    app: opa

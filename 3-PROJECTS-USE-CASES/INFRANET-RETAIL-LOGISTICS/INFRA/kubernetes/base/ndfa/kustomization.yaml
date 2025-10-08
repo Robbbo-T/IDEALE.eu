@@ -1,0 +1,24 @@
+# UTCS: UTCS-MI:RLG:INFRA:00-10:INFRANET-RETAIL-LOGISTICS:rev[A]
+# TFA: QS→FWD→UE→FE→CB→QB
+# License: Apache-2.0
+# Notes: Kustomization for NDFA base manifests
+
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: pcs-a
+
+resources:
+  - fuseki.yaml
+
+# Common labels
+commonLabels:
+  system: pcs-a
+  use-case: infranet-rlg
+  component: ndfa
+
+# Generate secrets (use External Secrets in production)
+secretGenerator:
+  - name: fuseki-secrets
+    literals:
+      - admin-password=PLACEHOLDER_USE_EXTERNAL_SECRETS

@@ -1,0 +1,322 @@
+# UTCS: UTCS-MI:RLG:INFRA:00-10:INFRANET-RETAIL-LOGISTICS:rev[A]
+# TFA: QS→FWD→UE→FE→CB→QB
+# License: Apache-2.0
+# Notes: PCS-A compliant SHACL shapes for NDFA (retail logistics)
+
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix oslc: <http://open-services.net/ns/core#> .
+@prefix oslc_rm: <http://open-services.net/ns/rm#> .
+@prefix oslc_cm: <http://open-services.net/ns/cm#> .
+@prefix oslc_qm: <http://open-services.net/ns/qm#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix utcs: <https://utcs.example/ns#> .
+@prefix rlg: <https://infranet.example/retail-logistics#> .
+@prefix epcis: <https://ns.gs1.org/epcis#> .
+
+# ==============================================================================
+# SHIPMENT SHAPE
+# ==============================================================================
+
+rlg:ShipmentShape a sh:NodeShape ;
+  sh:targetClass rlg:Shipment ;
+  rdfs:label "Shipment Shape" ;
+  rdfs:comment "SHACL shape for retail logistics shipments" ;
+  sh:property [
+    sh:path utcs:id ;
+    sh:datatype xsd:string ;
+    sh:pattern "^UTCS-MI:RLG:.+$" ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+    rdfs:label "UTCS ID" ;
+    rdfs:comment "Canonical UTCS identifier for shipment"
+  ] ,
+  [
+    sh:path rlg:status ;
+    sh:datatype xsd:string ;
+    sh:in ( "PENDING" "IN_TRANSIT" "DELIVERED" "CANCELLED" ) ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+    rdfs:label "Shipment Status"
+  ] ,
+  [
+    sh:path rlg:hasOrder ;
+    sh:nodeKind sh:IRI ;
+    sh:minCount 1 ;
+    rdfs:label "Related Orders" ;
+    rdfs:comment "Links to orders contained in this shipment"
+  ] ,
+  [
+    sh:path rlg:hasEpcisEvent ;
+    sh:nodeKind sh:IRI ;
+    rdfs:label "EPCIS Events" ;
+    rdfs:comment "Links to GS1 EPCIS events for this shipment"
+  ] ,
+  [
+    sh:path rlg:carrier ;
+    sh:datatype xsd:string ;
+    sh:maxCount 1 ;
+    rdfs:label "Carrier Name"
+  ] ,
+  [
+    sh:path rlg:trackingNumber ;
+    sh:datatype xsd:string ;
+    sh:maxCount 1 ;
+    rdfs:label "Tracking Number"
+  ] ,
+  [
+    sh:path rlg:origin ;
+    sh:nodeKind sh:IRI ;
+    sh:maxCount 1 ;
+    rdfs:label "Origin Location"
+  ] ,
+  [
+    sh:path rlg:destination ;
+    sh:nodeKind sh:IRI ;
+    sh:maxCount 1 ;
+    rdfs:label "Destination Location"
+  ] ,
+  [
+    sh:path oslc:serviceProvider ;
+    sh:nodeKind sh:IRI ;
+    sh:minCount 1 ;
+    rdfs:label "Service Provider" ;
+    rdfs:comment "OSLC service provider URI"
+  ] .
+
+# ==============================================================================
+# ORDER SHAPE
+# ==============================================================================
+
+rlg:OrderShape a sh:NodeShape ;
+  sh:targetClass rlg:Order ;
+  rdfs:label "Order Shape" ;
+  rdfs:comment "SHACL shape for retail orders" ;
+  sh:property [
+    sh:path utcs:id ;
+    sh:datatype xsd:string ;
+    sh:pattern "^UTCS-MI:RLG:.+$" ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+    rdfs:label "UTCS ID"
+  ] ,
+  [
+    sh:path rlg:orderNumber ;
+    sh:datatype xsd:string ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+    rdfs:label "Order Number"
+  ] ,
+  [
+    sh:path rlg:status ;
+    sh:datatype xsd:string ;
+    sh:in ( "PENDING" "CONFIRMED" "SHIPPED" "DELIVERED" "CANCELLED" ) ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+    rdfs:label "Order Status"
+  ] ,
+  [
+    sh:path rlg:customer ;
+    sh:nodeKind sh:IRI ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+    rdfs:label "Customer" ;
+    rdfs:comment "Link to customer resource"
+  ] ,
+  [
+    sh:path rlg:hasItem ;
+    sh:node rlg:OrderItemShape ;
+    sh:minCount 1 ;
+    rdfs:label "Order Items"
+  ] ,
+  [
+    sh:path rlg:relatedShipment ;
+    sh:nodeKind sh:IRI ;
+    rdfs:label "Related Shipments" ;
+    rdfs:comment "Links to shipments for this order"
+  ] ,
+  [
+    sh:path oslc:serviceProvider ;
+    sh:nodeKind sh:IRI ;
+    sh:minCount 1 ;
+    rdfs:label "Service Provider"
+  ] .
+
+# ==============================================================================
+# ORDER ITEM SHAPE
+# ==============================================================================
+
+rlg:OrderItemShape a sh:NodeShape ;
+  rdfs:label "Order Item Shape" ;
+  sh:property [
+    sh:path rlg:sku ;
+    sh:datatype xsd:string ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+    rdfs:label "SKU"
+  ] ,
+  [
+    sh:path rlg:quantity ;
+    sh:datatype xsd:integer ;
+    sh:minInclusive 1 ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+    rdfs:label "Quantity"
+  ] ,
+  [
+    sh:path rlg:epc ;
+    sh:nodeKind sh:IRI ;
+    rdfs:label "GS1 Digital Link EPC" ;
+    rdfs:comment "GS1 Digital Link URI for product"
+  ] .
+
+# ==============================================================================
+# EPCIS EVENT SHAPE
+# ==============================================================================
+
+rlg:EpcisEventShape a sh:NodeShape ;
+  sh:targetClass epcis:EPCISEvent ;
+  rdfs:label "EPCIS Event Shape" ;
+  rdfs:comment "SHACL shape for GS1 EPCIS 2.0 events" ;
+  sh:property [
+    sh:path epcis:eventID ;
+    sh:nodeKind sh:IRI ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+    rdfs:label "Event ID"
+  ] ,
+  [
+    sh:path epcis:eventType ;
+    sh:datatype xsd:string ;
+    sh:in ( "ObjectEvent" "AggregationEvent" "TransactionEvent" "TransformationEvent" ) ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+    rdfs:label "Event Type"
+  ] ,
+  [
+    sh:path epcis:eventTime ;
+    sh:datatype xsd:dateTime ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+    rdfs:label "Event Time"
+  ] ,
+  [
+    sh:path epcis:bizStep ;
+    sh:nodeKind sh:IRI ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+    rdfs:label "Business Step" ;
+    rdfs:comment "CBV business step vocabulary"
+  ] ,
+  [
+    sh:path epcis:bizLocation ;
+    sh:nodeKind sh:IRI ;
+    sh:maxCount 1 ;
+    rdfs:label "Business Location"
+  ] ,
+  [
+    sh:path epcis:epcList ;
+    sh:nodeKind sh:IRI ;
+    rdfs:label "EPC List" ;
+    rdfs:comment "List of GS1 Digital Link URIs"
+  ] ,
+  [
+    sh:path utcs:id ;
+    sh:datatype xsd:string ;
+    sh:pattern "^UTCS-MI:RLG:.+$" ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+    rdfs:label "UTCS Anchor" ;
+    rdfs:comment "UTCS traceability anchor"
+  ] ,
+  [
+    sh:path rlg:contentHash ;
+    sh:datatype xsd:string ;
+    sh:pattern "^sha256:[a-f0-9]{64}$" ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+    rdfs:label "Content Hash" ;
+    rdfs:comment "SHA-256 hash of event data"
+  ] .
+
+# ==============================================================================
+# REQUIREMENT SHAPE (OSLC RM)
+# ==============================================================================
+
+rlg:RequirementShape a sh:NodeShape ;
+  sh:targetClass oslc_rm:Requirement ;
+  rdfs:label "Requirement Shape" ;
+  rdfs:comment "SHACL shape for OSLC requirements in retail logistics" ;
+  sh:property [
+    sh:path utcs:id ;
+    sh:datatype xsd:string ;
+    sh:pattern "^UTCS-MI:RLG:.+$" ;
+    sh:minCount 1 ;
+    rdfs:label "UTCS ID"
+  ] ,
+  [
+    sh:path oslc:shortTitle ;
+    sh:datatype xsd:string ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+    rdfs:label "Short Title"
+  ] ,
+  [
+    sh:path oslc:description ;
+    sh:datatype xsd:string ;
+    rdfs:label "Description"
+  ] ,
+  [
+    sh:path oslc_rm:elaboratedBy ;
+    sh:nodeKind sh:IRI ;
+    rdfs:label "Elaborated By" ;
+    rdfs:comment "Links to artifacts that elaborate this requirement"
+  ] ,
+  [
+    sh:path oslc:serviceProvider ;
+    sh:nodeKind sh:IRI ;
+    sh:minCount 1 ;
+    rdfs:label "Service Provider"
+  ] .
+
+# ==============================================================================
+# TEST RESULT SHAPE (OSLC QM)
+# ==============================================================================
+
+rlg:TestResultShape a sh:NodeShape ;
+  sh:targetClass oslc_qm:TestResult ;
+  rdfs:label "Test Result Shape" ;
+  rdfs:comment "SHACL shape for OSLC test results" ;
+  sh:property [
+    sh:path utcs:id ;
+    sh:datatype xsd:string ;
+    sh:pattern "^UTCS-MI:RLG:.+$" ;
+    sh:minCount 1 ;
+    rdfs:label "UTCS ID"
+  ] ,
+  [
+    sh:path oslc_qm:status ;
+    sh:datatype xsd:string ;
+    sh:in ( "passed" "failed" "inprogress" "blocked" ) ;
+    sh:minCount 1 ;
+    rdfs:label "Test Status"
+  ] ,
+  [
+    sh:path oslc_qm:reportsOnTestCase ;
+    sh:nodeKind sh:IRI ;
+    sh:minCount 1 ;
+    rdfs:label "Reports On Test Case"
+  ] ,
+  [
+    sh:path oslc:validates ;
+    sh:nodeKind sh:IRI ;
+    rdfs:label "Validates" ;
+    rdfs:comment "Links to requirements being validated"
+  ] ,
+  [
+    sh:path oslc:serviceProvider ;
+    sh:nodeKind sh:IRI ;
+    sh:minCount 1 ;
+    rdfs:label "Service Provider"
+  ] .

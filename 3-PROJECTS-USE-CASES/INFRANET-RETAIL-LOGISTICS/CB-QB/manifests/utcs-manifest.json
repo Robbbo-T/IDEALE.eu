@@ -1,0 +1,43 @@
+{
+  "utcs_id": "UTCS-MI:RLG:INFRA:00-10:INFRANET-RETAIL-LOGISTICS:rev[A]",
+  "generated_utc": "2025-10-08T11:28:44.368099Z",
+  "tfa_flow": "QS\u2192FWD\u2192UE\u2192FE\u2192CB\u2192QB",
+  "units": "n/a",
+  "license": "Apache-2.0",
+  "artifacts": {
+    "openapi": "QS-FWD/openapi/caha-api.yaml",
+    "shacl": "QS-FWD/oslc-shapes/core-shapes.ttl",
+    "bpmn": "QS-FWD/bpmn/order-to-cash.bpmn",
+    "opa": "QS-FWD/opa-policies/authz.rego",
+    "sdk": "UE-FE/caha-sdk/interfaces.py",
+    "connector": "UE-FE/connectors/epcis2_connector.py"
+  },
+  "artifacts_sha256_hex": {
+    "openapi": "eaade3c9ba8b9cae9d1f4f12786fae0024fbc8d0246833351d79f8c23da1aaf5",
+    "shacl": "f74a8400c9be6f3a9bea0b14c6628d2f987b62a924c38b8b8f6b9bab701fc508",
+    "bpmn": "d9dd1fb0049a78a41017d018c5af4e35a5077a95ae284a7e73efe348b93b5979",
+    "opa": "2a5d9927ce7d432cdd4b5418dc51356f9680c667f3db6696fa34d300a1ab8360",
+    "sdk": "2a431b03942a4139efcb6a85ad1d4af539a275c7c7343ed2978f01331bc82d4c",
+    "connector": "00e854e65f98660925f7b1064f786f99ccc8df622f253e1cf1fbb5fe756ce8af"
+  },
+  "artifacts_sha256_b64": {
+    "openapi": "6q3jybqLnK6dH08SeG+uACT7yNAkaDM1HXn4wj2hqvU=",
+    "shacl": "90qEAMm+bzqb6gsUxmKNL5h7Yqkkw4uLj2ubq3AfxQg=",
+    "bpmn": "2d0fsASaeKQQF9AYxa9ONaUHepWuKEp+c+/jSLk7WXk=",
+    "opa": "Kl2ZJ859QyzdS1QY3FE1b5aAxmfz22aW+jTTAKGrg2A=",
+    "sdk": "KkMbA5QqQTnvy2qFrR1K9TmidcfHND7Sl48BMxvILUw=",
+    "connector": "AOhU5l+YZgkl97EGT3hvmczI32IvJT4c8fu1/nVs6K8="
+  },
+  "assumptions": [
+    "Open standards only (OSLC/EPCIS/BPMN/OpenAPI/CloudEvents/OPA)",
+    "No secrets in repo (use External Secrets / Vault)",
+    "Zero data migration - metadata/links only",
+    "IaC reproducible (Terraform + Helm + Kustomize)",
+    "Zero-Trust by default (OIDC + SPIFFE/SPIRE + mTLS + OPA)"
+  ],
+  "conformance_levels": {
+    "bronze": "Read-only OSLC/EPCIS access",
+    "silver": "BPMN+OPA execution",
+    "gold": "DLT+VC/TEE bidirectional"
+  }
+}
