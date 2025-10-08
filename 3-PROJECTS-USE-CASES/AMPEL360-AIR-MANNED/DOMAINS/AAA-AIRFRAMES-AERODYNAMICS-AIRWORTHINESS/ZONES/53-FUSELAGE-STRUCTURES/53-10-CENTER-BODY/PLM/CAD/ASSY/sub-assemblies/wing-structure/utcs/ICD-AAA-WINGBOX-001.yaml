@@ -1,24 +1,26 @@
 schema_version: "1.0.0"
-utcs_id: "UTCS-MI:SAS:AAA:WNG:0001:v1"
+utcs_id: "UTCS-MI:ICD:AAA:WNG:0001:v1"
 
 product: "AMPEL360-AIR-T"
 domain: "AAA"
-zone: "AAA"
-subzone: "57-10-BOX-SECTION"
+zone: "53-FUSELAGE-STRUCTURES"
+subzone: "53-10-CENTER-BODY"
 maintainer: "AAA Integration Team"
 
 bridge: "QS->FWD->UE->FE->CB->QB"
 primary_path: "FE->CB->UE"
 
-description: "Wingbox sub-assembly (domain-level record)"
+description: "Interface Control Definition for Wingbox SA-AAA-WINGBOX-001"
 
 sheet:
   files:
-    - { path: "../models/SA-AAA-WINGBOX-001.stp", role: "cad-model" }
+    - { path: "../icd/SA-AAA-WINGBOX-001-ICD.pdf", role: "icd" }
+    - { path: "../models/SA-AAA-WINGBOX-001.stp", role: "reference-geometry" }
 
 evidence:
-  requirements: [ "CS25.305", "CS25.307" ]
+  requirements: [ "CS25.603", "CS25.609" ]
   links:
+    - "../icd/SA-AAA-WINGBOX-001-ICD.pdf"
     - "../models/SA-AAA-WINGBOX-001.stp"
 
 integrity:

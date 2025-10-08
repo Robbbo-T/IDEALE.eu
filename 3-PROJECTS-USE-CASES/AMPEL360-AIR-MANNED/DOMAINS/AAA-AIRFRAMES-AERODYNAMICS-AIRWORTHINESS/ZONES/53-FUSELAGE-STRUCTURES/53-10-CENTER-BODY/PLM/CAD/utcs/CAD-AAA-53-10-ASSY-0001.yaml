@@ -1,0 +1,28 @@
+schema_version: "1.0.0"
+utcs_id: "UTCS-MI:CAD:AAA:ASS:0001:v1"
+product: "AMPEL360-AIR-T"
+domain: "AAA"
+zone: "53-10-CENTER-BODY"
+bridge: "QS→FWD→UE→FE→CB→QB"
+primary_path: "CB→UE"
+
+provenance:
+  owner: "AAA Structures"
+  maintainer: "center-body-cad"
+
+sheet:
+  files:
+    - { path: "../ASSY/main-assembly.step", role: "master-assy" }
+    - { path: "../ASSY/sub-assemblies/SA-AAA-53-10-FRAME-SECTION-001.step", role: "sub-assy" }
+    - { path: "../PRT/PRT-AAA-53-10-RIB-001.step", role: "part" }
+    - { path: "../PRT/PRT-AAA-53-10-KEEL-BEAM-001.step", role: "part" }
+
+evidence:
+  links:
+    - "../../CAV/"
+    - "../../DELs/"
+    - "../../PAx/"
+
+integrity:
+  hash_algorithm: "SHA256"
+  content_hash: "71557a38eac5c1486896b188b3ee1afb84490d746ba8d403dd7f6659bde213d8"

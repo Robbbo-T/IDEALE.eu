@@ -1,0 +1,32 @@
+schema_version: "1.0.0"
+utcs_id: "UTCS-MI:ASM:JOIN:ONB:0012:v1"
+
+product: "AMPEL360-AIR-T"
+domain: "AAA"
+zone: "53-FUSELAGE-STRUCTURES"
+subzone: "53-10-CENTER-BODY"
+
+bridge: "QS->FWD->UE->FE->CB->QB"
+primary_path: "FE->CB->UE"
+
+sheet:
+  files:
+    - { path: "../ASM-AAA-ONB-JOIN-0012.md", role: "sequence-spec" }
+    - { path: "../FAST-ONB-JOIN-0012.csv", role: "fastener-schedule" }
+    - { path: "../TOOL-ACCESS-ONB-JOIN-0012.md", role: "tool-access" }
+    - { path: "../QIP-ONB-JOIN-0012.md", role: "qip-holds" }
+    - { path: "../RESLOG-ONB-JOIN-0012.md", role: "resolution-log" }
+
+evidence:
+  requirements: ["CS25.601","CS25.607","ATA57"]
+  links:
+    - "../../digital-mockup-sims/utcs/ASM-AAA-ONB-DMU-0012.yaml"
+
+integrity:
+  hash_algorithm: "SHA256"
+  content_hash: "<replace-with-real-64-hex>"
+
+provenance:
+  owner: "AAA Integration Team"
+  created: "2025-10-07T00:00:00Z"
+status: "in_review"

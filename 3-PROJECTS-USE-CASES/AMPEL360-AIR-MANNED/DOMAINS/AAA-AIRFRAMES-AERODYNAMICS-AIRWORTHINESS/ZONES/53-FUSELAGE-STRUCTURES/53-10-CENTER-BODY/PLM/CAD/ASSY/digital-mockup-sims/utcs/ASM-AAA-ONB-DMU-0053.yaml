@@ -1,0 +1,25 @@
+schema_version: "1.0.0"
+utcs_id: "UTCS-MI:ASM:AAA:DMU:0053:v1"
+product: "AMPEL360-AIR-T"
+domain: "AAA"
+bridge: "QS→FWD→UE→FE→CB→QB"
+primary_path: "CB→UE"
+
+provenance:
+  owner: "AAA Structures"
+  maintainer: "center-body-cad"
+
+sheet:
+  files:
+    - { path: "../../main-assembly.step", role: "assembly" }
+    - { path: "../../sub-assemblies/SA-AAA-53-10-FRAME-SECTION-001.step", role: "sub-assembly" }
+
+evidence:
+  links:
+    - "../../../../CAV/"
+    - "../../../../DELs/"
+    - "../../assembly-sequences/53-10-CB-ASSY-SEQ-0001.md"
+
+integrity:
+  hash_algorithm: "SHA256"
+  content_hash: "71557a38eac5c1486896b188b3ee1afb84490d746ba8d403dd7f6659bde213d8"

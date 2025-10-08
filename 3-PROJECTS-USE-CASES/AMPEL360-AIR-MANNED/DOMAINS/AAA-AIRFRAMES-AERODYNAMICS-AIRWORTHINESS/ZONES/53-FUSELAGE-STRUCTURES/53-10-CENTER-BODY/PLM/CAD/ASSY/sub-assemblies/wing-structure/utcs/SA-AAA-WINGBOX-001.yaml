@@ -3,23 +3,26 @@ utcs_id: "UTCS-MI:SAS:AAA:WNG:0001:v1"
 
 product: "AMPEL360-AIR-T"
 domain: "AAA"
-zone: "AAA"
-subzone: "57-10-BOX-SECTION"
+zone: "53-FUSELAGE-STRUCTURES"
+subzone: "53-10-CENTER-BODY"
 maintainer: "AAA Integration Team"
 
 bridge: "QS->FWD->UE->FE->CB->QB"
 primary_path: "FE->CB->UE"
 
-description: "Wingbox sub-assembly (domain-level record)"
+description: "Wingbox sub-assembly master record"
 
 sheet:
   files:
     - { path: "../models/SA-AAA-WINGBOX-001.stp", role: "cad-model" }
+    - { path: "../thumbnails/SA-AAA-WINGBOX-001.png", role: "thumbnail" }
+    - { path: "../boms/SA-AAA-WINGBOX-001.csv", role: "bom" }
 
 evidence:
   requirements: [ "CS25.305", "CS25.307" ]
   links:
     - "../models/SA-AAA-WINGBOX-001.stp"
+    - "../boms/SA-AAA-WINGBOX-001.csv"
 
 integrity:
   hash_algorithm: "SHA256"

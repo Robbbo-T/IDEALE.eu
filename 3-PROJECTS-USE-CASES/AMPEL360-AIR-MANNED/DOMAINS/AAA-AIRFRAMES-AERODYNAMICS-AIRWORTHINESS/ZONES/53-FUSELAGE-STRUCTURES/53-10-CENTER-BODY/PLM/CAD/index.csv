@@ -1,0 +1,6 @@
+utcs_id,kind,code,rev,file,notes
+UTCS-MI:CAD:AAA:ASSY:MAIN:revA,ASSY,MAIN,revA,ASSY/main-assembly.step,Center body integrated assembly
+UTCS-MI:CAD:AAA:ASSY:FRAME-SEC-001:revA,SUBASSY,FRAME-SEC-001,revA,ASSY/sub-assemblies/SA-AAA-53-10-FRAME-SECTION-001.step,Frame section module
+UTCS-MI:CAD:AAA:PRT:RIB-001:revA,PRT,RIB-001,revA,PRT/PRT-AAA-53-10-RIB-001.step,Typical internal rib
+UTCS-MI:CAD:AAA:PRT:KEEL-BEAM-001:revA,PRT,KEEL-BEAM-001,revA,PRT/PRT-AAA-53-10-KEEL-BEAM-001.step,Keel beam segment
+UTCS-MI:ASM:DMU:CB:0053:v1,DMU,DMU-0053,v1,ASSY/digital-mockup-sims/ASM-AAA-ONB-DMU-0053.md,Clearance/handling DMU
