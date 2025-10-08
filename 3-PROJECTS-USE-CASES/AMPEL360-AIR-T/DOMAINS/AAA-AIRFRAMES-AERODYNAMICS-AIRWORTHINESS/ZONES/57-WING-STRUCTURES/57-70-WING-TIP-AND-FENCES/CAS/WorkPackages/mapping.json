@@ -1,0 +1,9 @@
+{
+  "wpId": "WP-AMM-57-70-001",
+  "dmcRefs": [
+    "DMC-AMP360-57-70-00-00A-040A-A_en-US_010-00"
+  ],
+  "actRef": "DMC-AMP360-AAA-00-00-00-00A-00AA-A_en-US_001-00",
+  "effectivity": "MSN[0001..0048]; Engine=CFM56-7B",
+  "description": "Example work package mapping to Data Module Codes"
+}

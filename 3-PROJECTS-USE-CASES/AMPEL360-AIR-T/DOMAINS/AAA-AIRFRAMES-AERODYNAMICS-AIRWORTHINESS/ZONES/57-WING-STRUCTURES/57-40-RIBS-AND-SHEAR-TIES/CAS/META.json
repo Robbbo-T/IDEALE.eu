@@ -1,0 +1,10 @@
+{
+  "scope": "cas",
+  "ata_chapter": "57",
+  "ata_section": "40",
+  "zone_name": "RIBS-AND-SHEAR-TIES",
+  "standard": "S1000D Issue 5.0+",
+  "utcs_anchor": "UTCS-MI:AAA:CAS:57-40:system:rev[1]",
+  "last_updated": "2025-01-27",
+  "maintained_by": "AAA Integration Team"
+}
