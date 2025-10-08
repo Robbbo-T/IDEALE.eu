@@ -1,5 +1,0 @@
-step_id,pattern,location,fastener_code,qty,torque_Nm,sequence_order,note
-PRETACK,A,corner tack,NAS6204-xx,4,9,1-4,stabilize module
-ROW1,A,row 1,NAS6204-xx,16,12,5-20,alternate sides
-ROW2,A,row 2,NAS6204-xx,16,12,21-36,continue pattern A
-VERIFY,--,gauge check,GAUGE-CLAMP,NA,NA,99,min gap >= 8.0 mm

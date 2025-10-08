@@ -1,8 +1,0 @@
-step_id,fastener_code,location,torque_Nm,sequence_order,status
-PRETACK,NAS6204-xx,CORNER-A,9,1,pending
-PRETACK,NAS6204-xx,CORNER-B,9,2,pending
-A1,NAS6204-xx,ROW-1-POS-01,12,3,pending
-A1,NAS6204-xx,ROW-1-POS-02,12,4,pending
-A2,NAS6204-xx,ROW-2-POS-01,12,5,pending
-A2,NAS6204-xx,ROW-2-POS-02,12,6,pending
-VERIFY,GAUGE-CLAMP,RIB5-STA160,NA,99,pending

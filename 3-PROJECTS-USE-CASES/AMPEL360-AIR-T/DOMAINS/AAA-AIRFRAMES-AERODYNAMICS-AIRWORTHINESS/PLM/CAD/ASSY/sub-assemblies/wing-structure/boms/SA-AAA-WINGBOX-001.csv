@@ -1,5 +1,0 @@
-line,part_number,description,qty,unit,material,finish,notes,utcs_anchor
-10,WING-SPAR-A,Primary front spar,1,ea,Al-Li 2195,Alodine,---,UTCS-MI:CAD:AAA:PRT:WING-SPAR-A:revA
-20,WING-RIB-R5,Rib at STA160,2,ea,Carbon Composite,Paint,mirror pair,UTCS-MI:CAD:AAA:PRT:WING-RIB-R5:revB
-30,SHEAR-TIE-57,Shear tie row 57,14,ea,Ti-6Al-4V,None,pre-formed,UTCS-MI:CAD:AAA:PRT:SHEAR-TIE-57:revA
-40,FAST-NAS6204-xx,Fastener NAS6204 series,96,ea,Steel,Cadmium,see fastener schedule,UTCS-MI:STD:FAST:NAS6204:v1
