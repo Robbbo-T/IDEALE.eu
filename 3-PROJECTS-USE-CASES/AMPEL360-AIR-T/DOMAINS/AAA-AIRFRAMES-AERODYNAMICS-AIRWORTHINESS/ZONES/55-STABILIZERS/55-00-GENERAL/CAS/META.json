@@ -1,0 +1,12 @@
+{
+  "utcs": "UTCS-MI:AAA:CAS:55:INDEX:rev[A]",
+  "process": "CAS",
+  "products": ["AMM", "SRM", "IPD", "EIS"],
+  "description": "Proceso CAS (Computer-Aided Service) y sus productos para ATA 55.",
+  "links": {
+    "amm": "./outputs/AMM/README.md",
+    "srm": "./outputs/SRM/README.md",
+    "ipd": "./outputs/IPD/README.md",
+    "eis": "./outputs/EIS/README.md"
+  }
+}
