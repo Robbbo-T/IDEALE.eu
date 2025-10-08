@@ -1,4 +1,4 @@
-# AMPEL360-SPACE-MANNED
+# AMPEL360-SPACE-T
 
 Manned space operations with advanced PLUS model capabilities.
 
