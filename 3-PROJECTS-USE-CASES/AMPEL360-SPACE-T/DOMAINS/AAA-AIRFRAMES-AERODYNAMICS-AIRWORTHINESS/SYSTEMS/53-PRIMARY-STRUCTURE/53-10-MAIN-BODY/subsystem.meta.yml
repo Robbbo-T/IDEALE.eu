@@ -1,0 +1,89 @@
+utcs_anchor: "SPACE.SCI.53-PRIMARY-STRUCTURE.53-10-MAIN-BODY:rev[A]"
+subsystem_name: "Main Body Structure"
+parent_system: "53-PRIMARY-STRUCTURE"
+description: "Central body structure providing primary load paths and system housing"
+
+sub_subsystems:
+  - "53-10-01-FORWARD-SECT"
+  - "53-10-02-CENTER-SECT"
+  - "53-10-03-AFT-SECT"
+
+geometry:
+  length_mm: 3500
+  diameter_mm: 2000
+  wall_thickness_mm: 3.5
+  configuration: "monocoque-with-stringers"
+
+mass_budget:
+  allocated_kg: 450
+  current_best_estimate_kg: 485
+  margin_percent: -7.8
+  note: "Mass reduction required or budget increase needed"
+
+materials:
+  primary:
+    name: "Aluminum 2219-T87"
+    form: "Plate and extrusions"
+    thickness_mm: [2.0, 4.0]
+    treatment: "T87 temper"
+  
+  secondary:
+    name: "CFRP Composite"
+    application: "Non-primary panels"
+    layup: "[0/+45/-45/90]s"
+    thickness_mm: 1.5
+  
+  fasteners:
+    type: "Titanium Ti-6Al-4V"
+    sizes: ["M6", "M8", "M10"]
+  
+  coatings:
+    primer: "Alodine 1200S"
+    finish: "Z306 thermal paint"
+    purpose: "Corrosion protection and thermal control"
+
+structural_properties:
+  load_paths:
+    - "Thrust loads from propulsion to forward section"
+    - "Payload loads to launch vehicle interface"
+    - "Distributed loads from solar arrays"
+  
+  stiffness:
+    axial_stiffness_N_per_mm: "TBD"
+    bending_stiffness_Nm2: "TBD"
+    torsional_stiffness_Nm2_per_rad: "TBD"
+  
+  strength:
+    yield_margin_of_safety: "> 0.25"
+    ultimate_margin_of_safety: "> 0.40"
+    buckling_margin: "> 1.25"
+
+environmental:
+  temperature_range_c: [-150, 120]
+  thermal_cycles: 50000
+  radiation_tolerance_krad: 50
+  micrometeoroid_protection: "Whipple shield on critical areas"
+
+manufacturing:
+  method: "Machined from plate and welded assembly"
+  tolerance_mm: 0.1
+  surface_finish_Ra_um: 3.2
+  welding_process: "TIG welding with filler ER2319"
+  heat_treatment: "Post-weld solution heat treatment"
+
+verification:
+  analysis:
+    - "FEA structural analysis"
+    - "Modal analysis"
+    - "Thermal analysis"
+  
+  testing:
+    - "Structural qualification test"
+    - "Vibration test"
+    - "Thermal vacuum test"
+    - "Modal survey"
+
+compliance:
+  - "ECSS-E-ST-32C"
+  - "ECSS-E-ST-32-01C"
+  - "NASA-STD-5001B"

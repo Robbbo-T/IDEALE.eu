@@ -1,0 +1,101 @@
+system: "53-PRIMARY-STRUCTURE"
+utcs_anchor: "SPACE.SCI.53-PRIMARY-STRUCTURE:rev[A]"
+revision: "A"
+date: "2025-01-27"
+
+external_interfaces:
+  - interface_id: "53-ICD-001"
+    name: "Propulsion Module Mount"
+    type: "structural"
+    mating_system: "54-PROPULSION-MODULE-STRUCTURE"
+    domain: "PPP"
+    description: "Four-point mount interface for main propulsion"
+    load_capability_kN: "TBD"
+    attachment_type: "bolted-flange"
+    fasteners: "M10 titanium bolts"
+  
+  - interface_id: "53-ICD-002"
+    name: "Solar Array Deployment"
+    type: "structural-mechanical"
+    mating_system: "57-SOLAR-ARRAY-STRUCTURES"
+    domain: "AAA"
+    description: "Hinge and deployment mechanism interface"
+    deployment_angle_deg: 90
+    retention_mechanism: "hold-down-release"
+  
+  - interface_id: "53-ICD-003"
+    name: "Payload Bay Interface"
+    type: "structural"
+    mating_system: "50-PAYLOAD-BAY-STRUCTURES"
+    domain: "AAA"
+    description: "Standard payload mounting points"
+    mounting_pattern: "ISO 12862"
+    max_payload_mass_kg: 500
+  
+  - interface_id: "53-ICD-004"
+    name: "Electrical Grounding"
+    type: "electrical"
+    mating_system: "24-EPS-POWER"
+    domain: "EEE"
+    description: "Primary and secondary grounding points"
+    resistance_max_ohm: 0.01
+    bonding_points: 8
+  
+  - interface_id: "53-ICD-005"
+    name: "Thermal Interface"
+    type: "thermal"
+    mating_system: "21-THERMAL-CONTROL-SYSTEM"
+    domain: "DDD"
+    description: "Heat pipe and radiator mounting"
+    thermal_conductance_W_per_K: "TBD"
+    mounting_method: "bonded-interface"
+
+internal_interfaces:
+  - interface_id: "53-INT-001"
+    name: "Main Body to Longeron"
+    type: "structural"
+    subsystem_a: "53-10-MAIN-BODY"
+    subsystem_b: "53-30-LONGERONS"
+    description: "Primary load path connection"
+    joint_type: "welded"
+  
+  - interface_id: "53-INT-002"
+    name: "Frame to Panel"
+    type: "structural"
+    subsystem_a: "53-40-FRAMES"
+    subsystem_b: "53-50-PANELS"
+    description: "Bolted panel attachment"
+    fastener_spacing_mm: 100
+    edge_distance_mm: 20
+
+coordinate_system:
+  origin: "Spacecraft geometric center"
+  x_axis: "Velocity vector (forward)"
+  y_axis: "Right wing direction"
+  z_axis: "Nadir (Earth-pointing)"
+  units: "millimeters"
+
+materials:
+  primary_structure:
+    material: "Aluminum 2219-T87"
+    yield_strength_MPa: 393
+    ultimate_strength_MPa: 476
+    density_kg_per_m3: 2840
+  
+  secondary_structure:
+    material: "CFRP Composite"
+    fiber: "T800H carbon fiber"
+    resin: "Epoxy resin system"
+    layup: "[0/+45/-45/90]s"
+
+environmental_conditions:
+  launch:
+    max_acceleration_g: 8
+    vibration_rms_g: 6
+    acoustic_db: 140
+  
+  on_orbit:
+    temperature_range_c: [-150, 120]
+    thermal_cycles: 50000
+    radiation_dose_krad: "TBD"
+    micrometeoroid_flux: "per IADC model"

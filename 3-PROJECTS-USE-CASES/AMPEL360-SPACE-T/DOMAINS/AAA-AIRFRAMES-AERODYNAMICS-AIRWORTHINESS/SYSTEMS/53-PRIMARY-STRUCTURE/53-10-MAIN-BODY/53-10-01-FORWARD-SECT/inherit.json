@@ -1,0 +1,138 @@
+{
+  "inherits_from": "../../../../../../../DELs",
+  "utcs_scope": "instance",
+  
+  "applies_templates": [
+    "ECSS-FDR-template.docx",
+    "ECSS-structural-analysis-template.docx",
+    "CCSDS-compliance-checklist.xlsx",
+    "NASA-review-package-template.pptx",
+    "fracture-control-plan-template.docx"
+  ],
+  
+  "compliance_frameworks": [
+    {
+      "framework": "ECSS-E-ST-32C",
+      "title": "Structural general requirements",
+      "status": "in-progress",
+      "artifacts": [
+        "DELs/ECSS-submissions/structural-requirements-compliance.xlsx",
+        "PLM/CAE/structural-analysis-report.pdf"
+      ]
+    },
+    {
+      "framework": "ECSS-E-ST-32-01C",
+      "title": "Fracture control",
+      "status": "in-progress",
+      "artifacts": [
+        "DELs/ECSS-submissions/fracture-control-plan.docx",
+        "PLM/CAE/fracture-mechanics-analysis.pdf"
+      ]
+    },
+    {
+      "framework": "NASA-STD-5001B",
+      "title": "Structural design and test factors",
+      "status": "planned",
+      "artifacts": [
+        "DELs/NASA-standards/design-factors-compliance.xlsx"
+      ]
+    },
+    {
+      "framework": "ISO 12862",
+      "title": "Interface for launch vehicle and spacecraft",
+      "status": "in-progress",
+      "artifacts": [
+        "DELs/data-packages/launch-vehicle-ICD.pdf",
+        "PLM/CAD/interface-drawing-1194mm.pdf"
+      ]
+    }
+  ],
+  
+  "inherited_policies": [
+    "structural-design-policy.md",
+    "materials-selection-policy.md",
+    "fracture-control-policy.md",
+    "safety-factors-policy.md",
+    "manufacturing-quality-policy.md"
+  ],
+  
+  "cross_domain_dependencies": [
+    {
+      "domain": "EDI",
+      "system": "34-NAVIGATION-SENSORS",
+      "interface": "Star tracker mounting",
+      "utcs_anchor": "SPACE.SCI.34-NAVIGATION-SENSORS.STAR-TRACKER"
+    },
+    {
+      "domain": "LCC",
+      "system": "23-TT-C",
+      "interface": "Forward antenna mounting",
+      "utcs_anchor": "SPACE.SCI.23-TT-C.FORWARD-ANTENNA"
+    },
+    {
+      "domain": "EEE",
+      "system": "24-EPS-POWER",
+      "interface": "Harness routing and grounding",
+      "utcs_anchor": "SPACE.SCI.24-EPS-POWER.HARNESS"
+    }
+  ],
+  
+  "plm_workflows": {
+    "CAD": {
+      "tool": "CATIA V6",
+      "naming_convention": "53-10-01-FORWARD-SECT-XXXX-RX.CATPart",
+      "coordinate_system": "Spacecraft body frame",
+      "units": "millimeters"
+    },
+    "CAE": {
+      "tools": ["ANSYS Mechanical", "Nastran"],
+      "analysis_types": [
+        "static-structural",
+        "modal",
+        "thermal",
+        "fracture-mechanics"
+      ]
+    },
+    "CAS": {
+      "standard": "S1000D Issue 5.0",
+      "dmc_prefix": "DMC-IDEALE-53-10-01"
+    }
+  },
+  
+  "quality_requirements": {
+    "manufacturing": {
+      "process_controls": [
+        "Material certification",
+        "Welding procedure qualification",
+        "NDT inspection (100% critical welds)",
+        "Dimensional inspection"
+      ],
+      "acceptance_criteria": [
+        "Dimensional tolerance: ±0.1mm",
+        "Surface finish: Ra 3.2μm",
+        "Weld quality: Level A per ECSS-Q-ST-70-08C"
+      ]
+    },
+    "verification": {
+      "structural_test": {
+        "type": "Qualification",
+        "load_factors": {
+          "limit_load": 1.0,
+          "ultimate_load": 1.4
+        },
+        "acceptance": "No permanent deformation at limit load"
+      },
+      "vibration_test": {
+        "levels": "Per launch vehicle specification",
+        "acceptance": "Natural frequency > 50 Hz"
+      }
+    }
+  },
+  
+  "notes": [
+    "Forward section is critical path for launch vehicle integration",
+    "Interface to ISO 12862 must be verified by launch provider",
+    "Fracture control plan requires review by materials engineering",
+    "Star tracker mounting interface requires co-design with EDI domain"
+  ]
+}
