@@ -1,7 +1,113 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Business Rules Exchange (BREX) Data Module -->
-<!-- dmType=businessRulesExchange; filename = DMC -->
-<!-- To be populated during S1000D authoring -->
-<dmodule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <!-- BREX rules for AAA domain to be defined per S1000D Issue 6.0 standards -->
+<!--
+  S1000D Issue 6.0 — BREX Data Module (businessRulesExchange)
+  NOTE: This is a minimal, fill-in-ready skeleton. Replace placeholders and add rules
+  under <content><brex> using your program’s BREX rule sets / code lists.
+-->
+<dmodule xmlns="http://www.s1000d.org/S1000D_6-0/xml_schema_flat"
+         xmlns:xlink="http://www.w3.org/1999/xlink">
+  <identAndStatusSection>
+    <dmAddress>
+      <dmIdent>
+        <dmCode
+          modelIdentCode="AMP360"
+          systemDiffCode="AAA"
+          systemCode="00"
+          subSystemCode="00"
+          subSubSystemCode="00"
+          assyCode="00A"
+          disassyCode="00"
+          disassyCodeVariant="0"
+          infoCode="000A"            
+          infoCodeVariant="A"
+          itemLocationCode="A"/>
+        <language languageIsoCode="en" countryIsoCode="US"/>
+        <issueInfo issueNumber="001" inWork="00"/>
+      </dmIdent>
+      <dmAddressItems>
+        <issueDate year="2025" month="01" day="31"/>
+        <responsiblePartnerCompany enterpriseCode="AAA"/>
+        <originator enterpriseCode="AAA"/>
+      </dmAddressItems>
+    </dmAddress>
+    <dmStatus>
+      <security securityClassification="01" commercialExportControl="false"/>
+      <qualityAssurance qaResponsiblePartnerCompany="AAA" qaReviewed="true"/>
+      <!-- Optional: reference a parent/org/default BREX this project layers on top of -->
+      <!--
+      <brexDmRef>
+        <dmRef>
+          <dmRefIdent>
+            <dmCode modelIdentCode="S1000D" systemDiffCode="F" systemCode="00" subSystemCode="00"
+                    subSubSystemCode="00" assyCode="00A" disassyCode="00" disassyCodeVariant="0"
+                    infoCode="022A" infoCodeVariant="D" itemLocationCode="D"/>
+            <language languageIsoCode="en" countryIsoCode="GB"/>
+            <issueInfo issueNumber="001" inWork="00"/>
+          </dmRefIdent>
+        </dmRef>
+      </brexDmRef>
+      -->
+    </dmStatus>
+  </identAndStatusSection>
+
+  <content>
+    <!-- Top-level BREX container; keep section order stable for your toolchain -->
+    <brex>
+      <!-- 1) Context rules: computer-verifiable XPath rules constraining structure/usage -->
+      <contextRules>
+        <!-- Example rule (placeholder): require IDS/security element -->
+        <!--
+        <structureObjectRuleGroup id="BREX-IDS-SEC-001">
+          <title>IDS must include security classification</title>
+          <structureObjectRule applicability="ALL">
+            <context>//s1000d:dmodule/s1000d:identAndStatusSection/s1000d:dmStatus</context>
+            <assert test="exists(s1000d:security/@securityClassification)">
+              Security classification is required in dmStatus/security.
+            </assert>
+          </structureObjectRule>
+        </structureObjectRuleGroup>
+        -->
+      </contextRules>
+
+      <!-- 2) Enumeration constraints: project-approved code lists (languages, IC/ILC, QA types, security, units) -->
+      <enumerationConstraints>
+        <!-- Examples (placeholders) -->
+        <!--
+        <enumeration id="LANG-001" name="Allowed languages">
+          <value>en</value>
+        </enumeration>
+        <enumeration id="CTRY-001" name="Allowed countries">
+          <value>US</value>
+        </enumeration>
+        <enumeration id="SEC-001" name="Security classes">
+          <value>01</value>
+          <value>02</value>
+          <value>03</value>
+          <value>04</value>
+          <value>05</value>
+        </enumeration>
+        -->
+      </enumerationConstraints>
+
+      <!-- 3) Project rules (narrative): not machine-checkable in XML; document policy text here -->
+      <projectRules>
+        <!-- Examples (narrative placeholders)
+          - Filename must equal DMC exactly (CI enforces)
+          - UTCS anchor required in IDS/extension per project namespace
+          - PMs reference DMCs only; all referenced DMCs must be listed in DMRL
+        -->
+      </projectRules>
+
+      <!-- 4) References to external codelists or schematron assets (optional) -->
+      <externalResources>
+        <!--
+        <externalPubRef xlink:href="../../schemas/s1000d/codelists/languages.xml">
+          <externalPubRefIdent>
+            <externalPubTitle>Project Language Codelist</externalPubTitle>
+          </externalPubRefIdent>
+        </externalPubRef>
+        -->
+      </externalResources>
+    </brex>
+  </content>
 </dmodule>
