@@ -1,0 +1,202 @@
+name: PMO CAV Evidence Validation
+
+on:
+  pull_request:
+    paths:
+      - '3-PROJECTS-USE-CASES/AMPEL360-AIR-T/DOMAINS/AAP-AIRPORT-ADAPTABLE-PLATFORMS/SYSTEMS/10-PARKING-MOORING/10-40-RETURN-TO-SERVICE/**'
+  push:
+    branches:
+      - main
+    paths:
+      - '3-PROJECTS-USE-CASES/AMPEL360-AIR-T/DOMAINS/AAP-AIRPORT-ADAPTABLE-PLATFORMS/SYSTEMS/10-PARKING-MOORING/10-40-RETURN-TO-SERVICE/**'
+
+jobs:
+  validate-cav-evidence:
+    runs-on: ubuntu-latest
+    name: Validate CAV Evidence for RTS
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          pip install pyyaml jsonschema
+
+      - name: Check for CAV evidence in RTS changes
+        id: check_cav
+        run: |
+          echo "Checking for CAV evidence in 10-40-RETURN-TO-SERVICE changes..."
+          
+          RTS_PATH="3-PROJECTS-USE-CASES/AMPEL360-AIR-T/DOMAINS/AAP-AIRPORT-ADAPTABLE-PLATFORMS/SYSTEMS/10-PARKING-MOORING/10-40-RETURN-TO-SERVICE"
+          CAV_PATH="${RTS_PATH}/PLM/CAV"
+          
+          # Check if CAV directory exists
+          if [ ! -d "${CAV_PATH}" ]; then
+            echo "❌ CAV directory not found at ${CAV_PATH}"
+            echo "status=missing_directory" >> $GITHUB_OUTPUT
+            exit 1
+          fi
+          
+          # Count CAV artifacts
+          CAV_COUNT=$(find "${CAV_PATH}" -type f \( -name "*.yaml" -o -name "*.yml" -o -name "*.json" -o -name "*.pdf" \) 2>/dev/null | wc -l)
+          echo "Found ${CAV_COUNT} CAV artifacts"
+          
+          # Check for minimum evidence requirement
+          if [ "${CAV_COUNT}" -eq 0 ]; then
+            echo "⚠️  WARNING: No CAV evidence artifacts found in ${CAV_PATH}"
+            echo "For RTS (Return-to-Service), CAV evidence is required for airworthiness release."
+            echo "Expected artifacts:"
+            echo "  - Test results"
+            echo "  - Inspection reports"
+            echo "  - Airworthiness release packages"
+            echo "status=no_evidence" >> $GITHUB_OUTPUT
+          else
+            echo "✅ Found ${CAV_COUNT} CAV artifacts"
+            echo "status=ok" >> $GITHUB_OUTPUT
+          fi
+          
+          # List existing CAV files for reference
+          echo ""
+          echo "Existing CAV artifacts:"
+          find "${CAV_PATH}" -type f \( -name "*.yaml" -o -name "*.yml" -o -name "*.json" -o -name "*.pdf" \) 2>/dev/null || echo "  (none)"
+
+      - name: Validate UTCS files in CAV
+        run: |
+          echo "Validating UTCS files in CAV directory..."
+          
+          RTS_PATH="3-PROJECTS-USE-CASES/AMPEL360-AIR-T/DOMAINS/AAP-AIRPORT-ADAPTABLE-PLATFORMS/SYSTEMS/10-PARKING-MOORING/10-40-RETURN-TO-SERVICE"
+          CAV_PATH="${RTS_PATH}/PLM/CAV"
+          
+          # Find all YAML files in CAV
+          YAML_FILES=$(find "${CAV_PATH}" -type f \( -name "*.yaml" -o -name "*.yml" \) 2>/dev/null || true)
+          
+          if [ -z "${YAML_FILES}" ]; then
+            echo "No YAML files to validate in CAV directory"
+            exit 0
+          fi
+          
+          # Validate each YAML file
+          for file in ${YAML_FILES}; do
+            echo "Checking ${file}..."
+            
+            # Basic YAML syntax check
+            python3 -c "import yaml; yaml.safe_load(open('${file}'))" 2>&1
+            
+            if [ $? -ne 0 ]; then
+              echo "❌ Invalid YAML syntax in ${file}"
+              exit 1
+            fi
+            
+            # Check for UTCS ID if present
+            if grep -q "utcs_id" "${file}"; then
+              UTCS_ID=$(python3 -c "import yaml; data=yaml.safe_load(open('${file}')); print(data.get('utcs_id', ''))" 2>/dev/null || echo "")
+              if [ -n "${UTCS_ID}" ]; then
+                echo "  Found UTCS ID: ${UTCS_ID}"
+                
+                # Validate UTCS ID format for PMO domain
+                if echo "${UTCS_ID}" | grep -qE "^UTCS-MI:PMO:CAV:[A-Z0-9\-]+:rev\[[A-Z]\]$"; then
+                  echo "  ✅ Valid PMO CAV UTCS ID format"
+                else
+                  echo "  ⚠️  UTCS ID does not match expected PMO CAV format"
+                  echo "  Expected: UTCS-MI:PMO:CAV:{ARTIFACT}:rev[X]"
+                fi
+              fi
+            fi
+          done
+          
+          echo "✅ YAML validation complete"
+
+      - name: Check for RTS checklist completion
+        run: |
+          echo "Checking for RTS checklist artifacts..."
+          
+          RTS_PATH="3-PROJECTS-USE-CASES/AMPEL360-AIR-T/DOMAINS/AAP-AIRPORT-ADAPTABLE-PLATFORMS/SYSTEMS/10-PARKING-MOORING/10-40-RETURN-TO-SERVICE"
+          CAP_PATH="${RTS_PATH}/PLM/CAP"
+          
+          # Look for checklist files
+          CHECKLIST_FILES=$(find "${CAP_PATH}" -type f -name "*checklist*" 2>/dev/null | wc -l)
+          
+          if [ "${CHECKLIST_FILES}" -gt 0 ]; then
+            echo "✅ Found ${CHECKLIST_FILES} checklist file(s) in CAP"
+            find "${CAP_PATH}" -type f -name "*checklist*" 2>/dev/null
+          else
+            echo "ℹ️  No checklist files found in CAP directory"
+            echo "Consider adding RTS checklists for process documentation"
+          fi
+
+      - name: Generate validation report
+        if: always()
+        run: |
+          echo "==================================="
+          echo "PMO CAV Evidence Validation Report"
+          echo "==================================="
+          echo ""
+          echo "System: 10-PARKING-MOORING"
+          echo "Subsystem: 10-40-RETURN-TO-SERVICE"
+          echo "Validation Date: $(date -u +"%Y-%m-%d %H:%M:%S UTC")"
+          echo ""
+          echo "Status: ${{ steps.check_cav.outputs.status }}"
+          echo ""
+          echo "Requirements:"
+          echo "  - CAV evidence is REQUIRED for airworthiness release"
+          echo "  - Minimum artifacts: Test results, inspection reports"
+          echo "  - UTCS anchoring recommended for traceability"
+          echo ""
+          
+          if [ "${{ steps.check_cav.outputs.status }}" = "no_evidence" ]; then
+            echo "⚠️  ACTION REQUIRED:"
+            echo "   Please add CAV evidence artifacts before merging RTS changes."
+            echo "   This includes:"
+            echo "     - Test results (functional tests, BIT results)"
+            echo "     - Inspection reports (structural, systems)"
+            echo "     - Airworthiness release package"
+            echo ""
+            echo "This is a WARNING, not a blocking error."
+            echo "However, production RTS requires proper CAV evidence."
+          fi
+
+      - name: Comment on PR (if no evidence)
+        if: github.event_name == 'pull_request' && steps.check_cav.outputs.status == 'no_evidence'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: `## ⚠️ CAV Evidence Check - RTS Subsystem
+
+**Status:** No CAV evidence artifacts found
+
+### Requirements
+For Return-to-Service (10-40) operations, CAV (Computer-Aided Verification) evidence is **required** for airworthiness release:
+
+- ✅ Test results (functional tests, BIT results, ground run data)
+- ✅ Inspection reports (structural, systems, safety items)
+- ✅ Airworthiness release package with approvals
+- ✅ UTCS-anchored evidence for traceability
+
+### Recommended Structure
+\`\`\`
+10-40-RETURN-TO-SERVICE/PLM/CAV/
+├── test-results/
+├── inspection-reports/
+├── airworthiness-packs/
+└── utcs/
+\`\`\`
+
+### Next Steps
+1. Add required CAV evidence artifacts
+2. Ensure UTCS anchoring (format: \`UTCS-MI:PMO:CAV:{ARTIFACT}:rev[X]\`)
+3. Reference evidence in RTS procedures
+
+This is currently a **warning**. However, production RTS requires proper CAV evidence for regulatory compliance.`
+            })

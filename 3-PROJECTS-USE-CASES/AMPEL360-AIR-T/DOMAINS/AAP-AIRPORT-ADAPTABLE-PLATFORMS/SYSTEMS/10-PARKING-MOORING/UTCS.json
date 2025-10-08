@@ -1,0 +1,73 @@
+{
+  "schema_version": "1.0.0",
+  "utcs_id": "UTCS-MI:PMO:SUBSYSTEM:10-XX-TEMPLATE:2025:v1",
+  "product": "AMPEL360-AIR-T",
+  "domain": "AAP",
+  "system": "10-PARKING-MOORING",
+  "subsystem": "10-XX-TEMPLATE",
+  "bridge": "QS→FWD→UE→FE→CB→QB",
+  "primary_path": "FE→CB→UE",
+  "provenance": {
+    "owner": "AMPEL360-AIR-T Team",
+    "maintainer": "PMO System Lead",
+    "created": "2025-01-27",
+    "updated": "2025-01-27"
+  },
+  "sheet": {
+    "title": "PMO Subsystem Template",
+    "description": "Template UTCS structure for Parking & Mooring Operations subsystems",
+    "files": [
+      {
+        "path": "README.md",
+        "role": "documentation",
+        "format": "markdown"
+      },
+      {
+        "path": "UTCS.json",
+        "role": "metadata",
+        "format": "json"
+      }
+    ],
+    "dependencies": [],
+    "outputs": []
+  },
+  "style": {
+    "naming_convention": "PMO-{SUBSYSTEM}-{DESCRIPTOR}-{VERSION}",
+    "units": {
+      "length": "m",
+      "mass": "kg",
+      "force": "N",
+      "temperature": "°C",
+      "wind_speed": "kt"
+    },
+    "coordinate_system": "Airport Reference Frame"
+  },
+  "evidence": {
+    "links": [],
+    "verification_status": "pending",
+    "compliance": [
+      "EASA SIB 2020-12",
+      "FAA AC 25.143-1",
+      "ISO 3864",
+      "ICAO Annex 14"
+    ]
+  },
+  "integrity": {
+    "content_hash": "",
+    "timestamp": "2025-01-27T00:00:00Z",
+    "version_control": {
+      "repository": "IDEALE.eu",
+      "branch": "main",
+      "commit": ""
+    }
+  },
+  "security": {
+    "classification": "Internal",
+    "access_control": "AMPEL360-AIR-T Team"
+  },
+  "traceability": {
+    "requirements": [],
+    "related_systems": ["AAP", "MEC", "EEE", "OOO"],
+    "interfaces": []
+  }
+}

@@ -1,0 +1,284 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://ideale.eu/schemas/pmo/wind-load-case.schema.json",
+  "title": "PMO Wind Load Case Schema",
+  "description": "Schema for documenting wind loading analysis cases for aircraft mooring",
+  "type": "object",
+  "required": [
+    "case_id",
+    "aircraft_type",
+    "wind_conditions",
+    "load_analysis",
+    "mooring_configuration",
+    "analysis_metadata"
+  ],
+  "properties": {
+    "case_id": {
+      "type": "string",
+      "pattern": "^UTCS-MI:PMO:CAE:WIND-LOAD-[A-Z0-9\\-]+:rev\\[[A-Z]\\]$",
+      "description": "UTCS identifier for this wind load case"
+    },
+    "aircraft_type": {
+      "type": "object",
+      "required": ["model", "variant", "mtow"],
+      "properties": {
+        "model": {
+          "type": "string",
+          "description": "Aircraft model (e.g., A320, B737)",
+          "examples": ["A320", "B737-800", "A350-900"]
+        },
+        "variant": {
+          "type": "string",
+          "description": "Specific variant if applicable"
+        },
+        "mtow": {
+          "type": "number",
+          "description": "Maximum takeoff weight in kg",
+          "minimum": 0
+        },
+        "wingspan": {
+          "type": "number",
+          "description": "Wingspan in meters",
+          "minimum": 0
+        },
+        "length": {
+          "type": "number",
+          "description": "Overall length in meters",
+          "minimum": 0
+        }
+      }
+    },
+    "wind_conditions": {
+      "type": "object",
+      "required": ["speed_kt", "direction_deg"],
+      "properties": {
+        "speed_kt": {
+          "type": "number",
+          "description": "Wind speed in knots",
+          "minimum": 0,
+          "maximum": 200
+        },
+        "direction_deg": {
+          "type": "number",
+          "description": "Wind direction relative to aircraft nose (0-360 deg)",
+          "minimum": 0,
+          "maximum": 360
+        },
+        "gust_factor": {
+          "type": "number",
+          "description": "Gust factor multiplier (typically 1.2-1.5)",
+          "minimum": 1.0,
+          "maximum": 2.0,
+          "default": 1.3
+        },
+        "duration": {
+          "type": "string",
+          "description": "Expected exposure duration",
+          "enum": ["sustained", "gust", "extreme"]
+        },
+        "atmospheric_conditions": {
+          "type": "object",
+          "properties": {
+            "temperature_c": {
+              "type": "number",
+              "description": "Temperature in Celsius"
+            },
+            "pressure_hpa": {
+              "type": "number",
+              "description": "Atmospheric pressure in hPa"
+            },
+            "density_altitude_m": {
+              "type": "number",
+              "description": "Density altitude in meters"
+            }
+          }
+        }
+      }
+    },
+    "load_analysis": {
+      "type": "object",
+      "required": ["method", "results"],
+      "properties": {
+        "method": {
+          "type": "string",
+          "description": "Analysis method used",
+          "enum": ["CFD", "empirical", "wind_tunnel", "combined"]
+        },
+        "software": {
+          "type": "string",
+          "description": "Analysis software used",
+          "examples": ["ANSYS Fluent", "OpenFOAM", "Hand calculation"]
+        },
+        "assumptions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Key assumptions in the analysis"
+        },
+        "results": {
+          "type": "object",
+          "required": ["total_force_N"],
+          "properties": {
+            "total_force_N": {
+              "type": "number",
+              "description": "Total wind force in Newtons",
+              "minimum": 0
+            },
+            "force_components": {
+              "type": "object",
+              "properties": {
+                "longitudinal_N": {
+                  "type": "number",
+                  "description": "Longitudinal force component"
+                },
+                "lateral_N": {
+                  "type": "number",
+                  "description": "Lateral force component"
+                },
+                "vertical_N": {
+                  "type": "number",
+                  "description": "Vertical force component"
+                }
+              }
+            },
+            "moments": {
+              "type": "object",
+              "properties": {
+                "pitch_Nm": { "type": "number" },
+                "roll_Nm": { "type": "number" },
+                "yaw_Nm": { "type": "number" }
+              }
+            },
+            "safety_factor": {
+              "type": "number",
+              "description": "Applied safety factor",
+              "minimum": 1.0,
+              "default": 1.5
+            }
+          }
+        }
+      }
+    },
+    "mooring_configuration": {
+      "type": "object",
+      "required": ["points_required", "restraint_loads"],
+      "properties": {
+        "points_required": {
+          "type": "integer",
+          "description": "Number of mooring points required",
+          "minimum": 2,
+          "maximum": 12
+        },
+        "restraint_loads": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["point_id", "location", "load_N"],
+            "properties": {
+              "point_id": {
+                "type": "string",
+                "description": "Mooring point identifier"
+              },
+              "location": {
+                "type": "string",
+                "description": "Location on aircraft",
+                "examples": ["wing_left", "wing_right", "nose", "tail"]
+              },
+              "load_N": {
+                "type": "number",
+                "description": "Design load at this point in Newtons",
+                "minimum": 0
+              },
+              "angle_deg": {
+                "type": "number",
+                "description": "Restraint angle from horizontal",
+                "minimum": 0,
+                "maximum": 90
+              }
+            }
+          }
+        },
+        "equipment": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "part_number": { "type": "string" },
+              "description": { "type": "string" },
+              "rating_N": { "type": "number" },
+              "quantity": { "type": "integer" }
+            }
+          }
+        }
+      }
+    },
+    "analysis_metadata": {
+      "type": "object",
+      "required": ["analyst", "date", "revision"],
+      "properties": {
+        "analyst": {
+          "type": "string",
+          "description": "Name of engineer performing analysis"
+        },
+        "reviewer": {
+          "type": "string",
+          "description": "Name of reviewer"
+        },
+        "date": {
+          "type": "string",
+          "format": "date",
+          "description": "Analysis date (ISO 8601)"
+        },
+        "revision": {
+          "type": "string",
+          "pattern": "^rev\\[[A-Z]\\]$",
+          "description": "Revision level"
+        },
+        "approval_status": {
+          "type": "string",
+          "enum": ["draft", "review", "approved", "superseded"],
+          "default": "draft"
+        },
+        "references": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "title": { "type": "string" },
+              "document_id": { "type": "string" },
+              "type": { 
+                "type": "string",
+                "enum": ["standard", "specification", "test_report", "analysis"]
+              }
+            }
+          }
+        }
+      }
+    },
+    "compliance": {
+      "type": "object",
+      "properties": {
+        "standards": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Applicable standards",
+          "examples": ["EASA AMC 25.143", "SAE AS5642", "MIL-STD-810H"]
+        },
+        "verification_evidence": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "type": { "type": "string" },
+              "reference": { "type": "string" },
+              "utcs_link": { "type": "string" }
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,390 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://ideale.eu/schemas/pmo/rts-checklist.schema.json",
+  "title": "PMO Return-to-Service Checklist Schema",
+  "description": "Schema for documenting Return-to-Service inspection checklists after aircraft storage",
+  "type": "object",
+  "required": [
+    "checklist_id",
+    "aircraft_info",
+    "storage_info",
+    "inspection_sections",
+    "metadata"
+  ],
+  "properties": {
+    "checklist_id": {
+      "type": "string",
+      "pattern": "^UTCS-MI:PMO:CAM:RTS-CHECKLIST-[A-Z0-9\\-]+:rev\\[[A-Z]\\]$",
+      "description": "UTCS identifier for this RTS checklist"
+    },
+    "aircraft_info": {
+      "type": "object",
+      "required": ["msn", "registration", "type"],
+      "properties": {
+        "msn": {
+          "type": "string",
+          "description": "Manufacturer Serial Number"
+        },
+        "registration": {
+          "type": "string",
+          "description": "Aircraft registration number",
+          "pattern": "^[A-Z]{1,2}-[A-Z0-9]{3,5}$"
+        },
+        "type": {
+          "type": "string",
+          "description": "Aircraft type",
+          "examples": ["A320-200", "B737-800", "A350-900"]
+        },
+        "operator": {
+          "type": "string",
+          "description": "Aircraft operator/airline"
+        },
+        "total_hours": {
+          "type": "number",
+          "description": "Total flight hours at RTS",
+          "minimum": 0
+        },
+        "total_cycles": {
+          "type": "integer",
+          "description": "Total flight cycles at RTS",
+          "minimum": 0
+        }
+      }
+    },
+    "storage_info": {
+      "type": "object",
+      "required": ["entry_date", "exit_date", "duration_days"],
+      "properties": {
+        "entry_date": {
+          "type": "string",
+          "format": "date",
+          "description": "Date entered storage (ISO 8601)"
+        },
+        "exit_date": {
+          "type": "string",
+          "format": "date",
+          "description": "Date exited storage (ISO 8601)"
+        },
+        "duration_days": {
+          "type": "integer",
+          "description": "Total days in storage",
+          "minimum": 0
+        },
+        "storage_type": {
+          "type": "string",
+          "enum": ["short_term", "long_term"],
+          "description": "Type of storage (short <6mo, long >6mo)"
+        },
+        "location": {
+          "type": "string",
+          "description": "Storage location/facility"
+        },
+        "conditions": {
+          "type": "object",
+          "properties": {
+            "indoor": {
+              "type": "boolean",
+              "description": "Indoor vs outdoor storage"
+            },
+            "avg_humidity_pct": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 100
+            },
+            "avg_temperature_c": {
+              "type": "number"
+            },
+            "max_wind_kt": {
+              "type": "number",
+              "minimum": 0
+            }
+          }
+        },
+        "preservation_utcs": {
+          "type": "string",
+          "description": "Link to storage/preservation UTCS record"
+        }
+      }
+    },
+    "inspection_sections": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["section_id", "title", "items"],
+        "properties": {
+          "section_id": {
+            "type": "string",
+            "description": "Section identifier (e.g., STR-01, PWR-01)"
+          },
+          "title": {
+            "type": "string",
+            "description": "Section title",
+            "examples": ["Structural Inspection", "Propulsion", "Hydraulics"]
+          },
+          "ata_chapter": {
+            "type": "string",
+            "pattern": "^[0-9]{2}$",
+            "description": "ATA chapter reference"
+          },
+          "msg3_reference": {
+            "type": "string",
+            "description": "MSG-3 task reference if applicable"
+          },
+          "items": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "object",
+              "required": ["item_id", "description", "status"],
+              "properties": {
+                "item_id": {
+                  "type": "string",
+                  "description": "Unique item identifier within section"
+                },
+                "description": {
+                  "type": "string",
+                  "description": "Task description"
+                },
+                "procedure_reference": {
+                  "type": "string",
+                  "description": "Reference to detailed procedure"
+                },
+                "status": {
+                  "type": "string",
+                  "enum": ["not_started", "in_progress", "completed", "deferred", "not_applicable"],
+                  "description": "Item status"
+                },
+                "result": {
+                  "type": "string",
+                  "enum": ["satisfactory", "discrepancy", "requires_action", "n/a"],
+                  "description": "Inspection result"
+                },
+                "findings": {
+                  "type": "string",
+                  "description": "Detailed findings or notes"
+                },
+                "corrective_action": {
+                  "type": "string",
+                  "description": "Required corrective action if discrepancy found"
+                },
+                "photos": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "filename": { "type": "string" },
+                      "timestamp": { "type": "string", "format": "date-time" },
+                      "description": { "type": "string" }
+                    }
+                  }
+                },
+                "inspector": {
+                  "type": "string",
+                  "description": "Name of inspector"
+                },
+                "inspection_date": {
+                  "type": "string",
+                  "format": "date-time",
+                  "description": "Date/time of inspection"
+                },
+                "signature": {
+                  "type": "object",
+                  "properties": {
+                    "name": { "type": "string" },
+                    "stamp_number": { "type": "string" },
+                    "timestamp": { "type": "string", "format": "date-time" },
+                    "digital_signature": { "type": "string" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "test_results": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["test_id", "system", "result"],
+        "properties": {
+          "test_id": {
+            "type": "string"
+          },
+          "system": {
+            "type": "string",
+            "description": "System tested",
+            "examples": ["Hydraulic", "Avionics BIT", "Engine Ground Run"]
+          },
+          "test_procedure": {
+            "type": "string",
+            "description": "Reference to test procedure"
+          },
+          "result": {
+            "type": "string",
+            "enum": ["pass", "fail", "conditional", "not_tested"],
+            "description": "Overall test result"
+          },
+          "parameters": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "parameter": { "type": "string" },
+                "measured": { "type": "number" },
+                "limit_min": { "type": "number" },
+                "limit_max": { "type": "number" },
+                "unit": { "type": "string" },
+                "pass": { "type": "boolean" }
+              }
+            }
+          },
+          "notes": {
+            "type": "string"
+          },
+          "test_date": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "technician": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "metadata": {
+      "type": "object",
+      "required": ["checklist_version", "created_date", "status"],
+      "properties": {
+        "checklist_version": {
+          "type": "string",
+          "description": "Checklist template version"
+        },
+        "created_date": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Checklist creation date/time"
+        },
+        "updated_date": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Last update date/time"
+        },
+        "status": {
+          "type": "string",
+          "enum": ["in_progress", "completed", "approved", "released"],
+          "description": "Overall checklist status"
+        },
+        "completion_percentage": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100,
+          "description": "Percentage of items completed"
+        },
+        "estimated_completion": {
+          "type": "string",
+          "format": "date",
+          "description": "Estimated completion date"
+        },
+        "lead_inspector": {
+          "type": "string",
+          "description": "Lead inspector responsible"
+        },
+        "quality_representative": {
+          "type": "string",
+          "description": "QA representative"
+        }
+      }
+    },
+    "approvals": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["role", "name", "status"],
+        "properties": {
+          "role": {
+            "type": "string",
+            "enum": ["inspector", "quality", "chief_engineer", "airworthiness"],
+            "description": "Approval role"
+          },
+          "name": {
+            "type": "string",
+            "description": "Name of approver"
+          },
+          "stamp_number": {
+            "type": "string",
+            "description": "Authorization stamp/license number"
+          },
+          "status": {
+            "type": "string",
+            "enum": ["pending", "approved", "rejected"],
+            "description": "Approval status"
+          },
+          "timestamp": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Approval timestamp"
+          },
+          "digital_signature": {
+            "type": "string",
+            "description": "Digital signature hash"
+          },
+          "comments": {
+            "type": "string",
+            "description": "Approval comments"
+          }
+        }
+      }
+    },
+    "airworthiness_release": {
+      "type": "object",
+      "properties": {
+        "certificate_number": {
+          "type": "string",
+          "description": "Airworthiness release certificate number"
+        },
+        "issued_by": {
+          "type": "string",
+          "description": "Authority issuing release"
+        },
+        "issue_date": {
+          "type": "string",
+          "format": "date",
+          "description": "Date of release"
+        },
+        "limitations": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Any operational limitations"
+        },
+        "utcs_cav_pack": {
+          "type": "string",
+          "description": "Link to CAV evidence package UTCS"
+        }
+      }
+    },
+    "compliance": {
+      "type": "object",
+      "properties": {
+        "regulations": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Applicable regulations",
+          "examples": ["14 CFR §43.13", "EASA Part-M", "AMC 20-17"]
+        },
+        "standards": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Applicable standards",
+          "examples": ["AS9100", "MSG-3"]
+        }
+      }
+    }
+  }
+}
