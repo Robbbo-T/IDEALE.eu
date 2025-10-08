@@ -168,35 +168,37 @@ jobs:
         uses: actions/github-script@v7
         with:
           script: |
+            const body = `## ⚠️ CAV Evidence Check - RTS Subsystem
+
+            **Status:** No CAV evidence artifacts found
+
+            ### Requirements
+            For Return-to-Service (10-40) operations, CAV (Computer-Aided Verification) evidence is **required** for airworthiness release:
+
+            - ✅ Test results (functional tests, BIT results, ground run data)
+            - ✅ Inspection reports (structural, systems, safety items)
+            - ✅ Airworthiness release package with approvals
+            - ✅ UTCS-anchored evidence for traceability
+
+            ### Recommended Structure
+            \`\`\`
+            10-40-RETURN-TO-SERVICE/PLM/CAV/
+            ├── test-results/
+            ├── inspection-reports/
+            ├── airworthiness-packs/
+            └── utcs/
+            \`\`\`
+
+            ### Next Steps
+            1. Add required CAV evidence artifacts
+            2. Ensure UTCS anchoring (format: \`UTCS-MI:PMO:CAV:{ARTIFACT}:rev[X]\`)
+            3. Reference evidence in RTS procedures
+
+            This is currently a **warning**. However, production RTS requires proper CAV evidence for regulatory compliance.`;
+            
             github.rest.issues.createComment({
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: `## ⚠️ CAV Evidence Check - RTS Subsystem
-
-**Status:** No CAV evidence artifacts found
-
-### Requirements
-For Return-to-Service (10-40) operations, CAV (Computer-Aided Verification) evidence is **required** for airworthiness release:
-
-- ✅ Test results (functional tests, BIT results, ground run data)
-- ✅ Inspection reports (structural, systems, safety items)
-- ✅ Airworthiness release package with approvals
-- ✅ UTCS-anchored evidence for traceability
-
-### Recommended Structure
-\`\`\`
-10-40-RETURN-TO-SERVICE/PLM/CAV/
-├── test-results/
-├── inspection-reports/
-├── airworthiness-packs/
-└── utcs/
-\`\`\`
-
-### Next Steps
-1. Add required CAV evidence artifacts
-2. Ensure UTCS anchoring (format: \`UTCS-MI:PMO:CAV:{ARTIFACT}:rev[X]\`)
-3. Reference evidence in RTS procedures
-
-This is currently a **warning**. However, production RTS requires proper CAV evidence for regulatory compliance.`
-            })
+              body: body
+            });
