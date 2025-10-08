@@ -17,7 +17,7 @@ This project has implemented a complete ATA chapter-based organizational structu
 **Location**: `3-PROJECTS-USE-CASES/AMPEL360-AIR-T/DOMAINS/`
 
 #### Implemented with Complete BEZ:
-1. **AAA-AIRFRAMES-AERODYNAMICS-AIRWORTHINESS/ZONES/**
+1. **AAA-AIRFRAMES-AERODYNAMICS-AIRWORTHINESS/SYSTEMS/**
    - `53-FUSELAGE-STRUCTURES/53-10-CENTER-BODY/` (full BEZ implementation)
    - `57-WING-STRUCTURES/57-10-BOX-SECTION/` (structure ready)
 
@@ -222,7 +222,7 @@ These are managed through:
 - `COMPLETE-DOMAIN-STRUCTURE.md` (new)
 - `QUICKSTART-ATA-IMPLEMENTATION.md` (new)
 - `IMPLEMENTATION-SUMMARY.md` (new)
-- AAA domain: ZONES/ structure with examples
+- AAA domain: SYSTEMS/ structure with examples
 - PPP domain: SYSTEMS/ structure with example
 - 6 additional domains: SYSTEMS/ placeholder structures
 - Multiple README.md files throughout hierarchy

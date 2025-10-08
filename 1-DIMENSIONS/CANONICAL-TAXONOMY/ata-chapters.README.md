@@ -132,11 +132,9 @@ Examples:
 
 ### ZONES vs SYSTEMS Organization
 
-- **ZONES/** — Used for structural domains (AAA) with physical zones
-  - Example: `AAA/ZONES/53-FUSELAGE-STRUCTURES/53-10-CENTER-BODY/`
-  
-- **SYSTEMS/** — Used for functional system domains (all others)
-  - Example: `PPP/SYSTEMS/71-POWER-PLANT/`
+All domains now use **SYSTEMS/** organization:
+  - AAA domain (structural): `AAA/SYSTEMS/53-FUSELAGE-STRUCTURES/53-10-CENTER-BODY/`
+  - Other domains (functional): `PPP/SYSTEMS/71-POWER-PLANT/`
 
 ### BEZ (Bloque de Estructura Base) Application
 
@@ -148,15 +146,15 @@ The BEZ structure appears at **two hierarchical levels**:
 - **Contents**: Document templates, validation schemas, governance rules
 - **Metadata**: `"scope": "domain"`
 
-#### Subzone Level (Instances & Artifacts)
-- **Location**: `DOMAINS/AAA/.../ZONES/53-FUSELAGE-STRUCTURES/53-10-CENTER-BODY/`
+#### Subsystem Level (Instances & Artifacts)
+- **Location**: `DOMAINS/AAA/.../SYSTEMS/53-FUSELAGE-STRUCTURES/53-10-CENTER-BODY/`
 - **Purpose**: Actual work products and deliverables
 - **Contents**: Completed documents, CAD files, test results, contracts
 - **Metadata**: `"scope": "instance"`, references domain templates
 
-This hierarchical repetition is **intentional** — domain level defines the contract, subzone level implements it.
+This hierarchical repetition is **intentional** — domain level defines the contract, subsystem level implements it.
 
-**Complete BEZ structure should be fully populated at the subzone level**:
+**Complete BEZ structure should be fully populated at the subsystem level**:
 
 ```
 DOMAINS/
@@ -164,12 +162,13 @@ DOMAINS/
 │  ├─ DELs/         ← Templates and policies (domain scope)
 │  ├─ PAx/          ← Standards (domain scope)
 │  ├─ PLM/          ← Policies (domain scope)
-│  └─ ZONES/
+│  └─ SYSTEMS/
 │     ├─ 53-FUSELAGE-STRUCTURES/
 │     │  └─ 53-10-CENTER-BODY/  ← BEZ with artifacts (instance scope)
 │     │     ├─ DELs/
 │     │     ├─ PAx/
 │     │     ├─ PLM/
+│     │     ├─ PROCUREMENT-VENDORSCOMPONENTS/
 │     │     ├─ QUANTUM_OA/
 │     │     ├─ SUPPLIERS/
 │     │     ├─ policy/

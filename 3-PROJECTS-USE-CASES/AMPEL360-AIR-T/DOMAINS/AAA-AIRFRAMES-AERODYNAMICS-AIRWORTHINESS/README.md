@@ -48,14 +48,14 @@ The following directories represent the legacy domain-level BEZ structure. New w
 
 | Folder | Content Description | Status |
 | :--- | :--- | :--- |
-| [`PLM/`](./PLM/) | Legacy PLM data (CAD, CAE, CAM, CAV, etc.). | 🔄 Migrate to ZONES/ sub-zones |
-| [`QUANTUM_OA/`](./QUANTUM_OA/) | Legacy quantum optimization models. | 🔄 Migrate to ZONES/ sub-zones |
-| [`DELs/`](./DELs/) | Legacy certification documents. | 🔄 Migrate to ZONES/ sub-zones |
-| [`PAx/`](./PAx/) | Legacy packaging documentation. | 🔄 Migrate to ZONES/ sub-zones |
-| [`PROCUREMENT/`](./PROCUREMENT/) | Legacy vendor information. | 🔄 Migrate to ZONES/ sub-zones |
-| [`SUPPLIERS/`](./SUPPLIERS/) | Legacy supplier contracts. | 🔄 Migrate to ZONES/ sub-zones |
-| [`policy/`](./policy/) | Legacy policies. | 🔄 Migrate to ZONES/ sub-zones |
-| [`tests/`](./tests/) | Legacy test data. | 🔄 Migrate to ZONES/ sub-zones |
+| [`PLM/`](./PLM/) | Legacy PLM data (CAD, CAE, CAM, CAV, etc.). | 🔄 Migrate to SYSTEMS/ sub-systems |
+| [`QUANTUM_OA/`](./QUANTUM_OA/) | Legacy quantum optimization models. | 🔄 Migrate to SYSTEMS/ sub-systems |
+| [`DELs/`](./DELs/) | Legacy certification documents. | 🔄 Migrate to SYSTEMS/ sub-systems |
+| [`PAx/`](./PAx/) | Legacy packaging documentation. | 🔄 Migrate to SYSTEMS/ sub-systems |
+| [`PROCUREMENT/`](./PROCUREMENT/) | Legacy vendor information. | 🔄 Migrate to SYSTEMS/ sub-systems |
+| [`SUPPLIERS/`](./SUPPLIERS/) | Legacy supplier contracts. | 🔄 Migrate to SYSTEMS/ sub-systems |
+| [`policy/`](./policy/) | Legacy policies. | 🔄 Migrate to SYSTEMS/ sub-systems |
+| [`tests/`](./tests/) | Legacy test data. | 🔄 Migrate to SYSTEMS/ sub-systems |
 
 ### ATA Chapter Assignments for AAA Domain
 
