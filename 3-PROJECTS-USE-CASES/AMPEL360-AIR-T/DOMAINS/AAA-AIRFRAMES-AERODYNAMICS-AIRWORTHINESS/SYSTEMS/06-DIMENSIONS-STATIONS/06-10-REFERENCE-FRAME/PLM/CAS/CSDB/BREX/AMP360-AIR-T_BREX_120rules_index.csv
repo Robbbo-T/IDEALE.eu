@@ -1,0 +1,121 @@
+RuleID,Category,Description,ObjectPath,AllowedFlag,AllowedValues,Severity
+AMP360-BREX-001,IDS & Metadata,DM must contain <dmCode>,//identAndStatusSection[not(dmAddress/dmIdent/dmCode)],0,,ERROR
+AMP360-BREX-002,IDS & Metadata,DM must contain <language>,//identAndStatusSection[not(dmAddress/dmIdent/language)],0,,ERROR
+AMP360-BREX-003,IDS & Metadata,DM must contain <issueInfo>,//identAndStatusSection[not(dmAddress/dmIdent/issueInfo)],0,,ERROR
+AMP360-BREX-004,IDS & Metadata,DM must contain <issueDate>,//identAndStatusSection[not(dmAddress/dmAddressItems/issueDate)],0,,ERROR
+AMP360-BREX-005,IDS & Metadata,DM must contain <responsiblePartnerCompany>,//identAndStatusSection[not(dmAddress/dmAddressItems/responsiblePartnerCompany)],0,,ERROR
+AMP360-BREX-006,IDS & Metadata,DM must contain <security>,//identAndStatusSection[not(dmStatus/security)],0,,ERROR
+AMP360-BREX-007,IDS & Metadata,DM must contain <qualityAssurance>,//identAndStatusSection[not(dmStatus/qualityAssurance)],0,,ERROR
+AMP360-BREX-008,IDS & Metadata,DM should contain <originator>,//identAndStatusSection[not(dmAddress/dmAddressItems/originator)],0,,WARN
+AMP360-BREX-009,IDS & Metadata,<content> must not be empty,//dmodule[not(content) or content[not(*)]],0,,ERROR
+AMP360-BREX-010,IDS & Metadata,<preliminary> not allowed in released content,//preliminary,0,,ERROR
+AMP360-BREX-011,IDS & Metadata,Prohibit placeholder text (TBD/???/INSERT),//*[contains(. 'TBD') or contains(. '???') or contains(. 'INSERT')],0,,ERROR
+AMP360-BREX-012,IDS & Metadata,<emphasis> discouraged (ASD-STE style),//emphasis,0,,WARN
+AMP360-BREX-013,IDS & Metadata,<externalRef> must include @xlink:href,//externalRef[not(@xlink:href)],0,,ERROR
+AMP360-BREX-014,IDS & Metadata,xml:id values must be unique,//@xml:id[. = preceding::*/@xml:id],0,,ERROR
+AMP360-BREX-015,IDS & Metadata,<security> mandatory within <dmStatus>,//dmStatus[not(security)],0,,ERROR
+AMP360-BREX-016,IDS & Metadata,<qualityAssurance> mandatory within <dmStatus>,//dmStatus[not(qualityAssurance)],0,,ERROR
+AMP360-BREX-017,IDS & Metadata,@modelIdentCode required,//dmCode[not(@modelIdentCode)],0,,ERROR
+AMP360-BREX-018,IDS & Metadata,@systemDiffCode required,//dmCode[not(@systemDiffCode)],0,,ERROR
+AMP360-BREX-019,IDS & Metadata,@infoCode required,//dmCode[not(@infoCode)],0,,ERROR
+AMP360-BREX-020,IDS & Metadata,@itemLocationCode required,//dmCode[not(@itemLocationCode)],0,,ERROR
+AMP360-BREX-021,DMC & Ownership,modelIdentCode must be AMP360,//dmAddress/dmIdent/dmCode/@modelIdentCode,2,AMP360,ERROR
+AMP360-BREX-022,DMC & Ownership,systemDiffCode must be AAA,//dmAddress/dmIdent/dmCode/@systemDiffCode,2,AAA,ERROR
+AMP360-BREX-023,DMC & Ownership,disassyCodeVariant must be 0-9,//dmAddress/dmIdent/dmCode/@disassyCodeVariant,2,"0,1,2,3,4,5,6,7,8,9",ERROR
+AMP360-BREX-024,DMC & Ownership,assyCode must be 00A,//dmAddress/dmIdent/dmCode/@assyCode,2,00A,ERROR
+AMP360-BREX-025,DMC & Ownership,itemLocationCode must be A,//dmAddress/dmIdent/dmCode/@itemLocationCode,2,A,ERROR
+AMP360-BREX-026,DMC & Ownership,responsiblePartnerCompany enterpriseCode must be AAA,//responsiblePartnerCompany/@enterpriseCode,2,AAA,ERROR
+AMP360-BREX-027,DMC & Ownership,qualityAssurance qaResponsiblePartnerCompany must be AAA,//qualityAssurance/@qaResponsiblePartnerCompany,2,AAA,ERROR
+AMP360-BREX-028,DMC & Ownership,issueInfo inWork must be 00-99 (2 digits),//issueInfo[not(@inWork) or string-length(@inWork) != 2],0,,ERROR
+AMP360-BREX-029,DMC & Ownership,issueInfo issueNumber must be 000-999 (3 digits),//issueInfo[not(@issueNumber) or string-length(@issueNumber) != 3],0,,ERROR
+AMP360-BREX-030,DMC & Ownership,language countryIsoCode must be US,//language/@countryIsoCode,2,US,ERROR
+AMP360-BREX-031,Language & Localization,language languageIsoCode must be en,//language/@languageIsoCode,2,en,ERROR
+AMP360-BREX-032,Language & Localization,Prefer U.S. spelling (color not colour),//*[contains(. 'colour')],0,,WARN
+AMP360-BREX-033,Language & Localization,Prefer U.S. spelling (center not centre),//*[contains(. 'centre')],0,,WARN
+AMP360-BREX-034,Language & Localization,Avoid approx.; specify tolerances,//*[contains(. 'approx.')],0,,WARN
+AMP360-BREX-035,Language & Localization,Avoid should in steps (imperative voice),//proceduralStep//*[contains(. 'should')],0,,WARN
+AMP360-BREX-036,Language & Localization,Avoid may in steps (be explicit),//proceduralStep//*[contains(. ' may ')],0,,WARN
+AMP360-BREX-037,Language & Localization,Avoid passive voice (shall be),//*[contains(. 'shall be')],0,,WARN
+AMP360-BREX-038,Language & Localization,Prefer sentences ≤ 25 words,//para[string-length(.) > 250],0,,WARN
+AMP360-BREX-039,Language & Localization,Do not put safety messages inside <note>,//note//warning | //note//caution,0,,ERROR
+AMP360-BREX-040,Language & Localization,Avoid trademarks/brands in tech prose,//*[contains(. 'trademark') or contains(. 'brand')],0,,WARN
+AMP360-BREX-041,Security & QA,securityClassification must be 01-05,//security/@securityClassification,2,"01,02,03,04,05",ERROR
+AMP360-BREX-042,Security & QA,commercialExportControl must be declared,//security[not(@commercialExportControl)],0,,ERROR
+AMP360-BREX-043,Security & QA,qaReviewed attribute must be present,//qualityAssurance[not(@qaReviewed)],0,,ERROR
+AMP360-BREX-044,Security & QA,qaReviewed must be true or false,//qualityAssurance/@qaReviewed,2,"true,false",ERROR
+AMP360-BREX-045,Security & QA,Default security is 01 Unclassified,//security[@securityClassification != '01'],0,,INFO
+AMP360-BREX-046,Security & QA,If ITAR present ensure export metadata,//*[contains(. 'ITAR') and not(ancestor::security)],0,,WARN
+AMP360-BREX-047,Security & QA,If EAR present ensure export metadata,//*[contains(. 'EAR') and not(ancestor::security)],0,,WARN
+AMP360-BREX-048,Security & QA,Changed issues should include reasonForUpdate,//issueInfo[@issueNumber != '001' and not(ancestor::dmStatus/reasonForUpdate)],0,,WARN
+AMP360-BREX-049,Security & QA,issueType=deleted must have no residual content,//issueInfo[@issueType='deleted' and ancestor::dmodule/content/*],0,,ERROR
+AMP360-BREX-050,Security & QA,Released DMs must have inWork=00,//issueInfo[@inWork != '00' and ancestor::dmStatus[not(preliminary)]],0,,ERROR
+AMP360-BREX-051,Applicability & ACT,@applicRefId must not be empty,//*[@applicRefId=''],0,,ERROR
+AMP360-BREX-052,Applicability & ACT,<applic> blocks must not be empty,//applic[not(*)],0,,ERROR
+AMP360-BREX-053,Applicability & ACT,Applicability should use cond/prodattr/lifecycle,//applic[not(cond or prodattr or lifecycle)],0,,WARN
+AMP360-BREX-054,Applicability & ACT,ACT references must not be empty,//actRef[@actRefId=''],0,,ERROR
+AMP360-BREX-055,Applicability & ACT,<effectivity> must contain condition or S/N range,//effectivity[not(cond or serialNumber)],0,,ERROR
+AMP360-BREX-056,Applicability & ACT,<serialNumber> ranges require from/to,//serialNumber[not(@from) or not(@to)],0,,ERROR
+AMP360-BREX-057,Applicability & ACT,Negated applicability should reference ACT key,//applic[contains(. 'not') and not(@actRefId)],0,,WARN
+AMP360-BREX-058,Applicability & ACT,Prefer ACT keys for applicability,//applic[not(@actRefId)],0,,INFO
+AMP360-BREX-059,Applicability & ACT,applicRefKey entries require @id,//applicRefKey[not(@id)],0,,ERROR
+AMP360-BREX-060,Applicability & ACT,<applic> must be scoped within <content>,//applic[not(ancestor::content)],0,,ERROR
+AMP360-BREX-061,Procedural Structure,<procedure> must contain <proceduralStep>,//procedure[not(proceduralStep)],0,,ERROR
+AMP360-BREX-062,Procedural Structure,Each <proceduralStep> must contain <stepPara>,//proceduralStep[not(stepPara)],0,,ERROR
+AMP360-BREX-063,Procedural Structure,No nested <sequentialList>,//sequentialList//sequentialList,0,,ERROR
+AMP360-BREX-064,Procedural Structure,No nested <randomList>,//randomList//randomList,0,,ERROR
+AMP360-BREX-065,Procedural Structure,List nesting depth > 2 not allowed,//*[local-name()='sequentialList' or local-name()='randomList'][ancestor::*[local-name()='sequentialList' or local-name()='randomList']/ancestor::*[local-name()='sequentialList' or local-name()='randomList']],0,,ERROR
+AMP360-BREX-066,Procedural Structure,Do not nest <warning>/<caution> inside each other,//warning//caution | //caution//warning,0,,ERROR
+AMP360-BREX-067,Procedural Structure,Prefer figures at step level not inside stepPara,//stepPara//figure,0,,WARN
+AMP360-BREX-068,Procedural Structure,<prereq> must not be empty,//prereq[not(*)],0,,ERROR
+AMP360-BREX-069,Procedural Structure,<closeRqmts> must not be empty,//closeRqmts[not(*)],0,,ERROR
+AMP360-BREX-070,Procedural Structure,Declare manpower explicitly in <requiredPersons>,//procedure[not(reqCondGroup/reqPersons)],0,,WARN
+AMP360-BREX-071,Procedural Structure,<tools> cannot be empty when present,//tools[not(*)],0,,ERROR
+AMP360-BREX-072,Procedural Structure,<consumables> cannot be empty when present,//consumables[not(*)],0,,ERROR
+AMP360-BREX-073,Procedural Structure,<spares> cannot be empty when present,//spares[not(*)],0,,ERROR
+AMP360-BREX-074,Procedural Structure,Avoid permissive/passive in stepPara,//stepPara[contains(. 'may be') or contains(. 'can be')],0,,WARN
+AMP360-BREX-075,Procedural Structure,Avoid vague adverbs in stepPara,//stepPara[contains(. 'carefully') or contains(. 'properly')],0,,WARN
+AMP360-BREX-076,Fault Isolation,<faultIsolation> must contain decisions,//faultIsolation[not(fiDecision)],0,,ERROR
+AMP360-BREX-077,Fault Isolation,Every <fiDecision> has both fiYes and fiNo,//fiDecision[not(fiYes) or not(fiNo)],0,,ERROR
+AMP360-BREX-078,Fault Isolation,Decision nesting depth ≤ 2,//fiDecision[ancestor::fiDecision/ancestor::fiDecision],0,,WARN
+AMP360-BREX-079,Fault Isolation,<fiAction> should reference procedures/tests,//fiAction[not(dmRef or internalRef)],0,,WARN
+AMP360-BREX-080,Fault Isolation,<test> must state acceptance criteria,//test[not(contains(. 'accept') or contains(. 'criteria') or contains(. 'pass') or contains(. 'fail'))],0,,WARN
+AMP360-BREX-081,Fault Isolation,<test> should list required tools,//test[not(reqCondGroup)],0,,WARN
+AMP360-BREX-082,Fault Isolation,<symptom> must not be empty,//symptom[not(*) and not(normalize-space())],0,,ERROR
+AMP360-BREX-083,Fault Isolation,No safety inside FI notes,//faultIsolation//note//warning | //faultIsolation//note//caution,0,,ERROR
+AMP360-BREX-084,Fault Isolation,No empty list items in FI,//faultIsolation//listItem[not(*) and not(normalize-space())],0,,ERROR
+AMP360-BREX-085,Fault Isolation,internalRefId required in FI references,//faultIsolation//internalRef[not(@internalRefId)],0,,ERROR
+AMP360-BREX-086,Illustrations & Graphics,<graphic> requires @xlink:href,//graphic[not(@xlink:href)],0,,ERROR
+AMP360-BREX-087,Illustrations & Graphics,Allowed image formats: svg png cgm,//graphic[@xlink:href and not(ends-with(@xlink:href '.svg') or ends-with(@xlink:href '.png') or ends-with(@xlink:href '.cgm'))],0,,ERROR
+AMP360-BREX-088,Illustrations & Graphics,<hotspotRef> requires @xlink:href,//hotspotRef[not(@xlink:href)],0,,ERROR
+AMP360-BREX-089,Illustrations & Graphics,<graphicRef> must declare infoName (ICN),//graphicRef[not(@infoName)],0,,ERROR
+AMP360-BREX-090,Illustrations & Graphics,<figure> should have a <title>,//figure[not(title)],0,,WARN
+AMP360-BREX-091,Illustrations & Graphics,<callout> requires @id,//callout[not(@id)],0,,ERROR
+AMP360-BREX-092,Illustrations & Graphics,<callout> requires a calloutTarget,//callout[not(calloutTarget)],0,,ERROR
+AMP360-BREX-093,Illustrations & Graphics,No spaces in ICN filenames,//@infoName[contains(. ' ')],0,,ERROR
+AMP360-BREX-094,Illustrations & Graphics,Prefer https over http in figure links,//graphic[@xlink:href and starts-with(@xlink:href 'http://')],0,,WARN
+AMP360-BREX-095,Illustrations & Graphics,No DRAFT watermarks in released figures,//*[contains(. 'DRAFT') and ancestor::figure],0,,ERROR
+AMP360-BREX-096,IPD & Logistics,IPD spare item must have <partNumber>,//spareItem[not(partNumber)],0,,ERROR
+AMP360-BREX-097,IPD & Logistics,IPD spare item must have <quantity>,//spareItem[not(quantity)],0,,ERROR
+AMP360-BREX-098,IPD & Logistics,<quantity> must declare @unitOfMeasure,//quantity[not(@unitOfMeasure)],0,,ERROR
+AMP360-BREX-099,IPD & Logistics,Allowed UOM: EA M MM IN KG NM LBF-FT DEG-C,//quantity/@unitOfMeasure,2,"EA,M,MM,IN,KG,NM,LBF-FT,DEG-C",ERROR
+AMP360-BREX-100,IPD & Logistics,manufacturerCode must be from approved list,//manufacturerCode[not(. = 'AAA' or . = 'AMPEL' or . = 'GEVEN')],0,,ERROR
+AMP360-BREX-101,IPD & Logistics,nsn should follow NATO format,//nsn[not(matches(. '^\d{4}-\d{2}-\d{3}-\d{4}$'))],0,,WARN
+AMP360-BREX-102,IPD & Logistics,lifecycle must be active/obsolete/provisional,//lifecycle,2,"active,obsolete,provisional",ERROR
+AMP360-BREX-103,IPD & Logistics,No TBD in parts descriptions,//partDescription[contains(. 'TBD')],0,,ERROR
+AMP360-BREX-104,IPD & Logistics,IPD figure must reference an ICN,//ipdFigure[not(graphicRef)],0,,ERROR
+AMP360-BREX-105,IPD & Logistics,IPD callout must have a number,//ipdFigure//callout[not(@number)],0,,ERROR
+AMP360-BREX-106,References & Linking,internalRefId must not be empty,//*[@internalRefId=''],0,,ERROR
+AMP360-BREX-107,References & Linking,Allowed link schemes: http/https/mailto/file,//@xlink:href[not(starts-with(. 'http://') or starts-with(. 'https://') or starts-with(. 'mailto:') or starts-with(. 'file:'))],0,,WARN
+AMP360-BREX-108,References & Linking,External pubs should include doc number/type,//externalPubRef[not(externalPubRefIdent)],0,,WARN
+AMP360-BREX-109,References & Linking,internalRef must have internalRefId,//internalRef[not(@internalRefId)],0,,ERROR
+AMP360-BREX-110,References & Linking,externalRef must have xlink:href,//externalRef[not(@xlink:href)],0,,ERROR
+AMP360-BREX-111,Controlled Language & Domain Safety,Avoid intensifiers (very/really/quite),//*[contains(. ' very ') or contains(. ' really ') or contains(. ' quite ')],0,,WARN
+AMP360-BREX-112,Controlled Language & Domain Safety,Avoid vague adverbs (carefully/properly/sufficiently),//*[contains(. 'carefully') or contains(. 'properly') or contains(. 'sufficiently')],0,,WARN
+AMP360-BREX-113,Controlled Language & Domain Safety,Do not nest safety inside notes,//note//warning | //note//caution,0,,ERROR
+AMP360-BREX-114,Controlled Language & Domain Safety,Prefer direct imperatives over ensure that,//*[contains(. 'ensure that')],0,,WARN
+AMP360-BREX-115,Controlled Language & Domain Safety,Avoid absolute never unless safety-critical,//*[contains(. 'never') and not(ancestor::warning or ancestor::caution)],0,,WARN
+AMP360-BREX-116,Controlled Language & Domain Safety,If hydrogen/H2 mentioned verify safety warnings,//*[(contains(. 'hydrogen') or contains(. 'H2')) and not(ancestor::warning)],0,,WARN
+AMP360-BREX-117,Controlled Language & Domain Safety,If cryogenic mentioned verify PPE/handling steps,//*[contains(. 'cryogenic') and not(ancestor::warning or ancestor::caution)],0,,WARN
+AMP360-BREX-118,Controlled Language & Domain Safety,If high voltage/HV mentioned verify LOTO references,//*[(contains(. 'high voltage') or contains(. 'HV')) and not(contains(. 'LOTO') or contains(. 'lockout'))],0,,WARN
+AMP360-BREX-119,Controlled Language & Domain Safety,UTCS anchor required in IDS/extension,//identAndStatusSection[not(.//extension//utcsAnchor)],0,,ERROR
+AMP360-BREX-120,Controlled Language & Domain Safety,UTCS anchor present; CI cross-checks format,//extension//utcsAnchor[not(matches(. '^UTCS-MI:'))],0,,INFO
